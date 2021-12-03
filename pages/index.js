@@ -188,7 +188,7 @@ export default function Home({democlass}) {
   )
 }
 export async function getServerSideProps(context) {
-    const res = await fetch(`http://localhost:3000/api/hello`)
+    const res = await fetch(`https://gyanias.herokuapp.com/api/hello`)
     const democlass = await res.json()
     
   

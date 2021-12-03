@@ -25,7 +25,7 @@ function courses({allcategory}) {
 export default courses
 
 export async function getServerSideProps(context){
-    const alldatas =  await fetch('http://localhost:3000/api/category')
+    const alldatas =  await fetch('https://gyanias.herokuapp.com/api/category')
     const allcategory =  await alldatas.json()
     {
         return {
