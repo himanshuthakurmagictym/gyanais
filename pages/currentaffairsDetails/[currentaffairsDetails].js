@@ -18,7 +18,7 @@ function currentaffairsDetails({currentaffairsDetails}) {
                 
      
         <div className="card col-12 col-md-10">
-        <Image src={`/assets/images/currentAffairs/${currentaffairsDetails.currentaffair_image}`}  width='600' height='300' alt="currentaffair"/>
+        <Image src={`/assets/images/currentaffairs/${currentaffairsDetails.currentaffair_image}`}  width='600' height='300' alt="currentaffair"/>
         
             <div className="card-box">
                 <p className="mbr-text card-text mbr-fonts-style align-left m-0 display-7">
