@@ -29,7 +29,7 @@ export default Category
 export const getServerSideProps = async (context) =>{
     const { params } = context;
     const {categoryid } = params;
-    const res = await fetch(`http://localhost:3000/api/${categoryid}`);
+    const res = await fetch(`https://gyanias.herokuapp.com/api/${categoryid}`);
     const datas = await res.json()
     //console.log(datas) 
     return {
