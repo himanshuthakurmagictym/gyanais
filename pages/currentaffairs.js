@@ -23,7 +23,7 @@ function currentaffairs({allcurrentaffairs}) {
             <div className="card-box">
                 <div className="card-header">
                     <div className="card-img">                       
-                        <Image src={`/assets/images/currentAffairs/${currentAffairs.currentaffair_image}`} layout='fill' alt="currentaffairs" />
+                        <Image src={`/assets/images/currentaffairs/${currentAffairs.currentaffair_image}`} layout='fill' alt="currentaffairs" />
                     </div>
                     <h4 className="card-title mbr-fonts-style align-center mb-0 mbr-white display-5">
                    {currentAffairs.currentaffair_title}
