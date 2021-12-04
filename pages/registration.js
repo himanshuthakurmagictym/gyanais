@@ -11,7 +11,8 @@ function registration() {
     const [password, setpassword] = useState("");
     const [confirmpassword, setconfirmpassword] = useState("");
     const [submitted, setSubmitted] = useState("");
-
+    const [passwordSubmitted, setpasswordSubmitted] = useState("");
+    
     const handleRules = (e) =>{
         setRules(e.target.value)
         console.log(e.target.value)
@@ -48,7 +49,11 @@ function registration() {
 
     const handleRegistration = (e)=>{
         e.preventDefault();
-        const logindata = JSON.stringify({ rules: rules, email: email, username: username, firstname: firstname, lastname: lastname, phone: phone,  password: password })
+
+        if(confirmpassword === password ){
+            setpasswordSubmitted(true)
+        
+        const logindata = JSON.stringify({ rules: rules, email: email, username: username, firstname: firstname, lastname: lastname, phone: phone,  password: password, confirmpassword: confirmpassword })
         console.log(logindata)
         const URLs = ''; 
         fetch(URLs, {
@@ -58,6 +63,10 @@ function registration() {
                 "Content-Type": "application/json",
               },
         }).then((res) => {res.status == '200' ? setSubmitted(true): console.log("registration Failed") });
+
+    } else{
+        setpasswordSubmitted(false)
+    }
 
     }
     return (
