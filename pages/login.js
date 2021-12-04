@@ -1,24 +1,58 @@
 import { useState } from 'react'
 import Brudcrums from "../components/Fontend/Brudcrums"
+import Image from 'next/image'
+import Link from 'next/link'
+
 
 const Login = () => {
     const [email, setemail] = useState("");
-    const [password, setpassword] = useState("");
-  const loginstudent = () =>{
-    console.log('sdfsdf');
+    const [password, setPassword] = useState("");
+    const [rules, setRules] = useState("teacher");
+    const [submitted, setSubmitted] = useState("");
+    const [isOpened, setOpened] = useState(false);
+
+    const setCollapseOpen = (data) =>{
+       if(data === 1){
+        setOpened(1)
+       }
+
+       if(data === 2){
+        setOpened(2)
+       }
+      };
+
+      const handleemail = (e) =>{
+       const email = e.target.value;
+       setemail(email)
+      };
+    
+      const handlepassword = (e) =>{
+        const password = e.target.value;
+        setPassword(password)
+      };
+
+      const handlerules = (e) =>{
+        const rules = e.target.value;
+        setRules(rules)
+      };
+
+  const handleLogin = (e) =>{
+    e.preventDefault();
+    const sendData = JSON.stringify({ email: email, password: password, rules: rules})
+    const URLS = "https://gyaniasapi.herokuapp.com/api/auth/login";
+    console.log(sendData);
+    fetch(URLS, {
+        method:"POST",
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body:sendData,
+    }).then(res  => res.status == '200' ? setSubmitted(true): console.log("login Failed"));
   };
 
-  const loginteacher = () =>{
-    console.log('sdfsdf');
-  };
 
-  const handleemail = () =>{
-    console.log('sdfsdf');
-  };
 
-  const handlepassword = () =>{
-    console.log('sdfsdf');
-  };
+
 
     return (
       <>
@@ -29,59 +63,63 @@ const Login = () => {
        <div className="container ">
            <div className="row main-row">
                <div className=" col-sm-12 col-lg-6 col-md-6  form-container" >
-                   <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">Student Login</h2>
-                   {/* <div data-form-alert="" hidden="">Thanks for filling out the form!
-                   </div> */}
-                   <form className="mbr-form"  data-form-title="My Mobirise Form" onSubmit={loginstudent} method="POST">
-                      
-                       <div className="row input-main">
-                           
-                           <div className="col-md-12 col-lg-12 input-wrap" data-for="email">
-                               <input type="email" className="field display-7" name="email" data-form-field="Email" placeholder="Email*" required value={email} onChange={handleemail} id="email-form2-7" />
-                           </div>
-                           <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
-                               <input type="password" className="field display-7" name="firstname" placeholder="Password" data-form-field="Password"  required value={password} onChange={handlepassword} id="firstname-form2-7"/>
-                           </div>
-                           
-                       </div>
-       
-                       
-                       <div className="row input-main">
-                           <div className="col-md-12 col-lg-12 btn-row">
-                               <span className="input-group-btn">
-                                   <button href="#" type="submit" className="btn btn-form btn-success display-4">Submit</button>
-                               </span>
-                           </div>
-                       </div>
-                   </form>
+                   
+                  
+                   <div class="img-box">
+                 <Image src={`/assets/images/login.png`} width="400" height="400" />
+                 </div>
                </div>
 
-               <div className=" col-sm-12 col-lg-6 col-md-6  form-container" >
-                   <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">Teacher Login</h2>
-                   {/* <div data-form-alert="" hidden="">Thanks for filling out the form!
-                   </div> */}
-                   <form className="mbr-form"  data-form-title="My Mobirise Form" onSubmit={loginstudent} method="POST">
+               
+               
+            
+  
+           
+                {/* login panel */}
+               <div className="col-sm-12 col-lg-6 col-md-6  form-container " >
+                            
+                           
+                   
+                   <h2 className="mbr-section-title text-center mt-5 mbr-fonts-style pb-3 display-2">Sign in with your Email</h2>
+                  
+                   <form className="mbr-form"  data-form-title="My Mobirise Form" onSubmit={handleLogin} method="POST" >
                       
                        <div className="row input-main">
+                            <div className="col-md-12 col-lg-12 input-wrap mb-3" >
+                               <select className="field display-7 custom-select" id="email-form2-7" name="rule" value={rules} onChange={handlerules}>
+                                        <option value="teacher">Teacher</option>  
+                                        <option value="student">Student</option>  
+                               </select>
+                            </div>
                            
                            <div className="col-md-12 col-lg-12 input-wrap" data-for="email">
-                               <input type="email" className="field display-7" name="email" data-form-field="Email" placeholder="Email*" required="" id="email-form2-7" />
+                               <input type="email" className="field display-7" value={email} onChange={handleemail} name="email" data-form-field="Email" placeholder="Email*" required="" id="email-form2-7" />
                            </div>
                            <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
-                               <input type="password" className="field display-7" name="firstname" placeholder="Password" data-form-field="Password"  required="" id="firstname-form2-7"/>
+                               <input type="password" className="field display-7" value={password} onChange={handlepassword} name="firstname" placeholder="Password" data-form-field="Password"  required="" id="firstname-form2-7"/>
                            </div>
-                           
+                             
                        </div>
-       
+                       
+                   
                        
                        <div className="row input-main">
                            <div className="col-md-12 col-lg-12 btn-row">
+                    
+                           <Link href="/forgotPassword"><label>Forgot your password? </label></Link>  
                                <span className="input-group-btn">
-                                   <button href="#" type="submit" className="btn btn-form btn-success display-4">Submit</button>
+                                   <button href="#" type="submit" className="btn btn-form btn-success display-4 w-100">Submit</button>
                                </span>
-                           </div>
+                               <Link href="/registration"><label>Don't have an account? Sign up for free. </label></Link> 
+                                
+                                 
+                           </div>                           
                        </div>
                    </form>
+                  
+
+
+                  
                </div>
                
            </div>

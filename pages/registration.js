@@ -1,13 +1,64 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Brudcrums from "../components/Fontend/Brudcrums"
+import Image from 'next/image'
 function registration() {
+    const [rules, setRules] = useState("teacher");
+    const [username, setusername] = useState("");
+    const [firstname, setfirstname] = useState("");
+    const [email, setEmail] = useState("");
+    const [lastname, setlastname] = useState("");
+    const [phone, setphone] = useState("");
+    const [password, setpassword] = useState("");
+    const [confirmpassword, setconfirmpassword] = useState("");
+    const [submitted, setSubmitted] = useState("");
 
-    const registrationteacher = ()=>{
+    const handleRules = (e) =>{
+        setRules(e.target.value)
+        console.log(e.target.value)
 
     }
 
-    const registrationstudent = ()=>{
-        
+    const handleUsername = (e) =>{
+        setusername(e.target.value)
+    }
+
+    const handleFirstname = (e) =>{
+        setfirstname(e.target.value)
+    }
+
+    const handleLastname = (e) =>{
+        setlastname(e.target.value)
+    }
+
+    const handleEmail = (e) =>{
+        setEmail(e.target.value)
+    }
+
+    const handlePhone = (e) =>{
+        setphone(e.target.value)
+    }
+
+    const handlePassword = (e) =>{
+        setpassword(e.target.value)
+    }
+
+    const handleConfirmpassword = (e) =>{
+        setconfirmpassword(e.target.value)
+    }
+
+    const handleRegistration = (e)=>{
+        e.preventDefault();
+        const logindata = JSON.stringify({ rules: rules, email: email, username: username, firstname: firstname, lastname: lastname, phone: phone,  password: password })
+        console.log(logindata)
+        const URLs = ''; 
+        fetch(URLs, {
+            method: "POST",
+            body: logindata,
+            headers: {
+                "Content-Type": "application/json",
+              },
+        }).then((res) => {res.status == '200' ? setSubmitted(true): console.log("registration Failed") });
+
     }
     return (
         <>
@@ -17,35 +68,48 @@ function registration() {
          
          <div className="container ">
              <div className="row main-row">
-                 <div className=" col-sm-12 col-lg-12 col-md-12  form-container" >
-                     <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">Student/Teacher Registration</h2>
+             <div className=" col-sm-12 col-lg-6 col-md-6  form-container" >
+                   
+                   {/* <div data-form-alert="" hidden="">Thanks for filling out the form!
+                   </div> */}
+                   <div class="img-box">
+                 <Image src={`/assets/images/login.png`} width="400" height="400" />
+                 </div>
+               </div>
+                 <div className=" col-sm-12 col-lg-6 col-md-6  form-container" >
+                     <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2 text-center"> Registration</h2>
                      {/* <div data-form-alert="" hidden="">Thanks for filling out the form!
                      </div> */}
-                     <form className="mbr-form"  data-form-title="My Mobirise Form" onSubmit={registrationstudent} method="POST">
+                     <form className="mbr-form"  data-form-title="My Mobirise Form" onSubmit={handleRegistration} method="POST">
                         
                          <div className="row input-main">
+                         <div className="col-md-12 col-lg-12 input-wrap mb-3" >
+                               <select className="field display-7 custom-select" id="email-form2-7" value={rules} onChange={handleRules} name="rule">
+                                        <option value="teacher" selected>Teacher</option>  
+                                        <option value="student">Student</option>  
+                               </select>
+                            </div>
                              
-                             
-                             <div className="col-md-12 col-lg-12 input-wrap" data-for="email">
-                                 <input type="text" className="field display-7" name="firstname" data-form-field="firstname" placeholder="First Name*" required="" id="email-form2-7" />
+                             <div className="col-md-12 col-lg-6 input-wrap" data-for="email">
+                                 <input type="text" className="field display-7" name="firstname" data-form-field="firstname" placeholder="First Name*" value={firstname} onChange={handleFirstname} required="" id="email-form2-7" />
+                             </div>
+                             <div className="col-md-12 col-lg-6 input-wrap" data-for="email">
+                                 <input type="text" className="field display-7" name="lastname" value={lastname} onChange={handleLastname} data-form-field="Last_name" placeholder="Last Name*" required="" id="email-form2-7" />
                              </div>
                              <div className="col-md-12 col-lg-12 input-wrap" data-for="email">
-                                 <input type="text" className="field display-7" name="Last_name" data-form-field="Last_name" placeholder="Last Name*" required="" id="email-form2-7" />
+                                 <input type="text" className="field display-7" name="username" value={username} onChange={handleUsername} data-form-field="Email" placeholder="username*" required="" id="email-form2-7" />
                              </div>
                              <div className="col-md-12 col-lg-12 input-wrap" data-for="email">
-                                 <input type="text" className="field display-7" name="username" data-form-field="Email" placeholder="username*" required="" id="email-form2-7" />
+                                 <input type="email" className="field display-7" name="email" value={email} onChange={handleEmail} data-form-field="Email" placeholder="Email*" required="" id="email-form2-7" />
                              </div>
                              <div className="col-md-12 col-lg-12 input-wrap" data-for="email">
-                                 <input type="email" className="field display-7" name="email" data-form-field="Email" placeholder="Email*" required="" id="email-form2-7" />
-                             </div>
-                             <div className="col-md-12 col-lg-12 input-wrap" data-for="email">
-                                 <input type="text" className="field display-7" name="phone" data-form-field="phone" placeholder="phone*" required="" id="email-form2-7" />
+                                 <input type="text" className="field display-7" name="phone" value={phone} onChange={handlePhone} data-form-field="phone" placeholder="phone*" required="" id="email-form2-7" />
                              </div>
                              <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
-                                 <input type="password" className="field display-7" name="password" placeholder="Password" data-form-field="Password"  required="" id="firstname-form2-7"/>
+                                 <input type="password" className="field display-7" name="password" value={password} onChange={handlePassword} placeholder="Password" data-form-field="Password"  required="" id="firstname-form2-7"/>
                              </div>
                              <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
-                                 <input type="password" className="field display-7" name="confirm_password" placeholder="confirm Password" data-form-field="Password"  required="" id="firstname-form2-7"/>
+                                 <input type="password" className="field display-7" value={confirmpassword} onChange={handleConfirmpassword} name="confirm_password" placeholder="confirm Password" data-form-field="Password"  required="" id="firstname-form2-7"/>
                              </div>
                              
                          </div>
