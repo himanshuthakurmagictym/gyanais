@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import Brudcrums from "../components/Fontend/Brudcrums"
 import Image from 'next/image'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function registration() {
     const [rules, setRules] = useState("teacher");
     const [username, setusername] = useState("");
@@ -12,6 +14,8 @@ function registration() {
     const [confirmpassword, setconfirmpassword] = useState("");
     const [submitted, setSubmitted] = useState("");
     const [passwordSubmitted, setpasswordSubmitted] = useState("");
+    const [handlelabel, sethandlelabel] = useState("");
+    const notify = () => toast("Registration has been successfully !", { autoClose: 15000 });
     
     const handleRules = (e) =>{
         setRules(e.target.value)
@@ -45,33 +49,44 @@ function registration() {
 
     const handleConfirmpassword = (e) =>{
         setconfirmpassword(e.target.value)
+        if(e.target.value === password ){
+            sethandlelabel(1)
+            
+            setpasswordSubmitted("Password has matched")
+        }else{
+            setpasswordSubmitted("Passwords don't match")
+            sethandlelabel(2)
+        }
+
     }
 
     const handleRegistration = (e)=>{
         e.preventDefault();
 
         if(confirmpassword === password ){
-            setpasswordSubmitted(true)
+            setpasswordSubmitted("Password has matched")
         
         const logindata = JSON.stringify({ rules: rules, email: email, username: username, firstname: firstname, lastname: lastname, phone: phone,  password: password, confirmpassword: confirmpassword })
-        console.log(logindata)
-        const URLs = ''; 
+        
+        const URLs = process.env.API_URL; 
+        console.log(URLs)
         fetch(URLs, {
             method: "POST",
             body: logindata,
             headers: {
                 "Content-Type": "application/json",
               },
-        }).then((res) => {res.status == '200' ? setSubmitted(true): console.log("registration Failed") });
+        }).then((res) => {res.status == '200' ? notify(1): console.log("registration Failed") });
 
     } else{
-        setpasswordSubmitted(false)
+        setpasswordSubmitted("Passwords don't match")
     }
 
     }
     return (
         <>
         <Brudcrums />
+       {process.env.API_URL}
         <section className=" cid-qKSii1CMsD" > 
         
          
@@ -116,14 +131,17 @@ function registration() {
                              </div>
                              <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
                                  <input type="password" className="field display-7" name="password" value={password} onChange={handlePassword} placeholder="Password" data-form-field="Password"  required="" id="firstname-form2-7"/>
+                                 <label ClassName={handlelabel == 2 ? "labelred":"labelgreen"}>{passwordSubmitted}</label>
                              </div>
                              <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
                                  <input type="password" className="field display-7" value={confirmpassword} onChange={handleConfirmpassword} name="confirm_password" placeholder="confirm Password" data-form-field="Password"  required="" id="firstname-form2-7"/>
+                                 
                              </div>
                              
                          </div>
          
                          
+
                          <div className="row input-main">
                              <div className="col-md-12 col-lg-12 btn-row">
                                  <span className="input-group-btn">
@@ -133,8 +151,8 @@ function registration() {
                          </div>
                      </form>
                  </div>
-  
-                 
+                 <ToastContainer />
+                
                  
              </div>
          </div>
