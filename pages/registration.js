@@ -2,7 +2,9 @@ import React, {useState} from 'react'
 import Brudcrums from "../components/Fontend/Brudcrums"
 import Image from 'next/image'
 import { ToastContainer, toast } from 'react-toastify';
+import APIs from '../config.js';
 import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/router'
 function registration() {
     const [rules, setRules] = useState("teacher");
     const [username, setusername] = useState("");
@@ -16,6 +18,7 @@ function registration() {
     const [passwordSubmitted, setpasswordSubmitted] = useState("");
     const [handlelabel, sethandlelabel] = useState("");
     const notify = () => toast("Registration has been successfully !", { autoClose: 15000 });
+    const router = useRouter();
     
     const handleRules = (e) =>{
         setRules(e.target.value)
@@ -44,7 +47,7 @@ function registration() {
     }
 
     const handlePassword = (e) =>{
-        setpassword(e.target.value)
+        setpassword(e.target.value) 
     }
 
     const handleConfirmpassword = (e) =>{
@@ -59,7 +62,7 @@ function registration() {
         }
 
     }
-
+   
     const handleRegistration = (e)=>{
         e.preventDefault();
 
@@ -68,15 +71,14 @@ function registration() {
         
         const logindata = JSON.stringify({ rules: rules, email: email, username: username, firstname: firstname, lastname: lastname, phone: phone,  password: password, confirmpassword: confirmpassword })
         
-        const URLs = process.env.API_URL; 
-        console.log(URLs)
+        const URLs = APIs.base_url+'signup/'; 
         fetch(URLs, {
             method: "POST",
             body: logindata,
             headers: {
                 "Content-Type": "application/json",
               },
-        }).then((res) => {res.status == '200' ? notify(1): console.log("registration Failed") });
+        }).then((res) => {(res.status == '200') ? { notify() {router.push('/login')} }  : console.log("registration Failed") });
 
     } else{
         setpasswordSubmitted("Passwords don't match")
@@ -86,14 +88,13 @@ function registration() {
     return (
         <>
         <Brudcrums />
-       {process.env.API_URL}
         <section className=" cid-qKSii1CMsD" > 
         
-         
+        
          <div className="container ">
              <div className="row main-row">
              <div className=" col-sm-12 col-lg-6 col-md-6  form-container" >
-                   
+                  
                    {/* <div data-form-alert="" hidden="">Thanks for filling out the form!
                    </div> */}
                    <div class="img-box">
@@ -117,6 +118,7 @@ function registration() {
                              <div className="col-md-12 col-lg-6 input-wrap" data-for="email">
                                  <input type="text" className="field display-7" name="firstname" data-form-field="firstname" placeholder="First Name*" value={firstname} onChange={handleFirstname} required="" id="email-form2-7" />
                              </div>
+                            
                              <div className="col-md-12 col-lg-6 input-wrap" data-for="email">
                                  <input type="text" className="field display-7" name="lastname" value={lastname} onChange={handleLastname} data-form-field="Last_name" placeholder="Last Name*" required="" id="email-form2-7" />
                              </div>
@@ -130,11 +132,12 @@ function registration() {
                                  <input type="text" className="field display-7" name="phone" value={phone} onChange={handlePhone} data-form-field="phone" placeholder="phone*" required="" id="email-form2-7" />
                              </div>
                              <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
-                                 <input type="password" className="field display-7" name="password" value={password} onChange={handlePassword} placeholder="Password" data-form-field="Password"  required="" id="firstname-form2-7"/>
-                                 <label ClassName={handlelabel == 2 ? "labelred":"labelgreen"}>{passwordSubmitted}</label>
+                                 <input type="password" className="field display-7" name="password" value={password} onChange={handlePassword} placeholder="Password" data-form-field="Password"  required="" minlength="8" id="firstname-form2-7"/>
+                                 <label className={handlelabel == 2 ? "labelred":"labelgreen"}>{passwordSubmitted}</label>
+                                 
                              </div>
                              <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
-                                 <input type="password" className="field display-7" value={confirmpassword} onChange={handleConfirmpassword} name="confirm_password" placeholder="confirm Password" data-form-field="Password"  required="" id="firstname-form2-7"/>
+                                 <input type="password" minlength="8" className="field display-7" value={confirmpassword} onChange={handleConfirmpassword} name="confirm_password" placeholder="confirm Password" data-form-field="Password"  required="" id="firstname-form2-7"/>
                                  
                              </div>
                              

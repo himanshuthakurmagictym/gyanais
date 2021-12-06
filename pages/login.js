@@ -2,6 +2,10 @@ import { useState } from 'react'
 import Brudcrums from "../components/Fontend/Brudcrums"
 import Image from 'next/image'
 import Link from 'next/link'
+import { ToastContainer, toast } from 'react-toastify';
+import APIs from '../config.js';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 const Login = () => {
@@ -10,6 +14,7 @@ const Login = () => {
     const [rules, setRules] = useState("teacher");
     const [submitted, setSubmitted] = useState("");
     const [isOpened, setOpened] = useState(false);
+    const notify = () => toast("Registration has been successfully !", { autoClose: 15000 });
 
     const setCollapseOpen = (data) =>{
        if(data === 1){
@@ -39,7 +44,7 @@ const Login = () => {
   const handleLogin = (e) =>{
     e.preventDefault();
     const sendData = JSON.stringify({ email: email, password: password, rules: rules})
-    const URLS = "https://gyaniasapi.herokuapp.com/api/auth/login";
+    const URLS = APIs+"auth/login";
     console.log(sendData);
     fetch(URLS, {
         method:"POST",
@@ -47,7 +52,7 @@ const Login = () => {
             "Content-Type": "application/json",
           },
         body:sendData,
-    }).then(res  => res.status == '200' ? setSubmitted(true): console.log("login Failed"));
+    }).then(res  => res.status == '200' ? { notify() {setSubmitted(true)}}: console.log("login Failed"));
   };
 
 
@@ -58,7 +63,7 @@ const Login = () => {
       <>
       <Brudcrums />
       <section className=" cid-qKSii1CMsD" > 
-      
+     <ToastContainer />
        
        <div className="container ">
            <div className="row main-row">
