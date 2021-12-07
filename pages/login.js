@@ -47,7 +47,7 @@ const Login = () => {
   const handleLogin = (e) =>{
     e.preventDefault();
     const sendData = JSON.stringify({ email: email, password: password, rules: rules})
-    const URLS = "http://localhost:2000/auth/login";
+    const URLS = APIs.base_url+"/auth/login";
     console.log(sendData);
     const ress = fetch(URLS, {
         method:"POST",

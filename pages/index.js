@@ -6,6 +6,7 @@ import DemoClasses from '../components/Fontend/Democlasses'
 import Team from '../components/Fontend/Team'
 import Soonclasses from '../components/Fontend/Soonclasses'
 import Startedclasses from '../components/Fontend/Startedclasses'
+import APIs from '../config.js';
 // import styles from '../styles/Home.module.css'
 
 export default function Home({democlass}) {
@@ -188,13 +189,13 @@ export default function Home({democlass}) {
   )
 }
 export async function getServerSideProps(context) {
-    const res = await fetch(`https://gyanias.herokuapp.com/api/hello`)
+    const res = await fetch(`${APIs.base_url}demo`)
     const democlass = await res.json()
     
   
     return {
      props: {
-        democlass,
+        democlass : democlass.data,
       },
     }
   }

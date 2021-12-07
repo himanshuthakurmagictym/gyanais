@@ -1,6 +1,7 @@
 
 import Brudcrums from "../components/Fontend/Brudcrums"
 import Singlecategory from "../components/Fontend/Classes/Singlecategory";
+import APIs from '../config.js';
  
 function courses({allcategory}) {
     return (
@@ -12,7 +13,7 @@ function courses({allcategory}) {
             <h3 className="mbr-fonts-style mbr-section-subtitle align-center mbr-light pt-3 display-7">We also offer services in the live class, doubts, chat, paid and utilization of signage.</h3>
             <div className="row justify-content-center pt-4">
         {allcategory.map((all_classes) => (   
-            <Singlecategory singleclass={all_classes} key={all_classes.id} />
+            <Singlecategory singleclass={all_classes} key={all_classes._id} />
         )
         )}
             </div>
@@ -25,12 +26,14 @@ function courses({allcategory}) {
 export default courses
 
 export async function getServerSideProps(context){
-    const alldatas =  await fetch('https://gyanias.herokuapp.com/api/category')
-    const allcategory =  await alldatas.json()
+    const alldatass =  await fetch(APIs.base_url+'courseCategory')
+    console.log(alldatass)
+    const allcategory =  await alldatass.json()
+  
     {
         return {
             props: {
-                allcategory,
+                allcategory: allcategory.data,
             },
 
         }

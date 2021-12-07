@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import APIs from '../../config';
 export default function Contactus() {
           const [email, setEmail] = useState("");
           const [firstname, setFirstname] = useState("");
@@ -23,7 +24,7 @@ export default function Contactus() {
 
           const sendEmail = (e) => {
             e.preventDefault();
-             const URLS = "https://gyaniasapi.herokuapp.com/api/email_send";
+             const URLS = APIs.base_url+"email_send";
             //const URLS = "http://localhost:5000/api/email_send";
             const sendmaildata = JSON.stringify({firstname: firstname, email:email, message: message });
             //console.log(sendmaildata);

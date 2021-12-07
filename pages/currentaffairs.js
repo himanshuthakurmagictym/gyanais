@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Brudcrums from "../components/Fontend/Brudcrums"
-
+import APIs from '../config.js';
 function currentaffairs({allcurrentaffairs}) {
     return (
         <div>
@@ -18,7 +18,7 @@ function currentaffairs({allcurrentaffairs}) {
      
         {allcurrentaffairs.map((currentAffairs) =>(
                
-        <div className="card col-12 col-md-10" key="{currentAffairs.currentaffair_id}">
+        <div className="card col-12 col-md-10" key="{currentAffairs._id}">
             <Link href={`/currentaffairsDetails/${currentAffairs.currentaffair_slug}`} passHref >
             <div className="card-box">
                 <div className="card-header">
@@ -56,12 +56,12 @@ function currentaffairs({allcurrentaffairs}) {
 export default currentaffairs
 
 export async function getServerSideProps(context) {
-    const res = await fetch('https://gyaniasapi.herokuapp.com/api/currentaffair/all');
+    const res = await fetch(`${APIs.base_url}currentaffair/all`);
     const datas = await res.json();
-    //console.log(datas)
+    console.log(datas.data)
     return {
         props: {
-            allcurrentaffairs: datas,
+            allcurrentaffairs: datas.data,
         }
     }
 
