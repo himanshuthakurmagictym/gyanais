@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { ToastContainer, toast } from 'react-toastify';
 import APIs from '../config.js';
 import 'react-toastify/dist/ReactToastify.css';
+import cookie from 'js-cookie'
+import {useRouter} from 'next/router'
 
 
 
@@ -14,7 +16,8 @@ const Login = () => {
     const [rules, setRules] = useState("teacher");
     const [submitted, setSubmitted] = useState("");
     const [isOpened, setOpened] = useState(false);
-    const notify = () => toast("Registration has been successfully !", { autoClose: 15000 });
+    const notify = () => toast("login has been successfully !", { autoClose: 15000 });
+    const router  = useRouter();
 
     const setCollapseOpen = (data) =>{
        if(data === 1){
@@ -44,15 +47,26 @@ const Login = () => {
   const handleLogin = (e) =>{
     e.preventDefault();
     const sendData = JSON.stringify({ email: email, password: password, rules: rules})
-    const URLS = APIs+"auth/login";
+    const URLS = "http://localhost:2000/auth/login";
     console.log(sendData);
-    fetch(URLS, {
+    const ress = fetch(URLS, {
         method:"POST",
         headers: {
             "Content-Type": "application/json",
           },
         body:sendData,
     }).then(res  => res.status == '200' ? { notify() {setSubmitted(true)}}: console.log("login Failed"));
+
+    const res2 = ress.json();
+    if(res2.error){
+         console.log(res2.error)
+    }else{
+        console.log(res2)
+        cookie.set('token',res2.token)
+        cookie.set('user',res2.user)
+        router.push('/profile')
+     }
+
   };
 
 
@@ -73,13 +87,7 @@ const Login = () => {
                    <div class="img-box">
                  <Image src={`/assets/images/login.png`} width="400" height="400" />
                  </div>
-               </div>
-
-               
-               
-            
-  
-           
+               </div>            
                 {/* login panel */}
                <div className="col-sm-12 col-lg-6 col-md-6  form-container " >
                             
