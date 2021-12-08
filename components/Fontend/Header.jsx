@@ -35,32 +35,25 @@ function Header() {
                </li>
                 <li className="nav-item ">
                 <Link href="/courses" ><a className="nav-link link text-danger  display-4"  >
-                           Cources</a></Link>
+                           Courses</a></Link>
                 </li>
                 <li className="nav-item ">
                 <Link href="/currentaffairs" ><a className="nav-link link text-danger  display-4"  >
-                           Current Affairs</a></Link>
+                     Current Affairs</a></Link>
                 </li>
 
                 <li className="nav-item ">
-                <Link href="/login" ><a className="nav-link link text-danger  display-4"  >
-                          Login</a></Link>
+                    <Link href="/login" ><a className="nav-link link text-danger  display-4"  >Login</a></Link>
                 </li>
                 <li className="nav-item ">
-                <Link href="/registration" ><a className="nav-link link text-danger  display-4"  >
-                          Registration</a></Link>
+                    <Link href="/registration" ><a className="nav-link link text-danger  display-4"  >Registration</a></Link>
                 </li>
 
                 <li className="nav-item ">
                 <Link href="/contactus" ><a className="nav-link link text-danger  display-4"  >
                            Contact Us</a></Link>
                 </li>
-              
-                 
-                    
-                  
-                    
-                    
+
                     </ul>
                 <div className="icons-menu">
                   <div className="soc-item">

@@ -54,10 +54,10 @@ export const getServerSideProps = async (context) => {
     const {courseid } = params;
      const res = await fetch(`${APIs.base_url}course/${courseid}`);
     const datas = await res.json()
-    console.log(datas);
+    //console.log(datas);
     return {
         props:{
-           coursedetail: datas.data
+           coursedetail: datas.data,
         }
     }
 }
