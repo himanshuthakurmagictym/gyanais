@@ -3,7 +3,7 @@ import Brudcrums from "../components/Fontend/Brudcrums"
 import Image from 'next/image'
 import Link from 'next/link'
 
-function forgotPassword() {
+function ForgotPassword() {
 
     //const [email, setemail] = useState("");
     //const [password, setpassword] = useState("");
@@ -91,4 +91,4 @@ function forgotPassword() {
     )
 }
 
-export default forgotPassword
+export default ForgotPassword
