@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import APIs from '../config.js';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router'
-function registration() {
+function Registration() {
     const [rules, setRules] = useState("teacher");
     const [username, setusername] = useState("");
     const [firstname, setfirstname] = useState("");
@@ -164,4 +164,4 @@ function registration() {
     )
 }
 
-export default registration
+export default Registration
