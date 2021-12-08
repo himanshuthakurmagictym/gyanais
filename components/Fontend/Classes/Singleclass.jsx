@@ -4,7 +4,7 @@ var moment = require('moment');
 const Singleclass = ({singleclass})=>{
     return(
       <>
-      <Link href={`/course/${singleclass._id}`}>
+      <Link href={`/course/${singleclass.course_slug}`}>
 <div className="col-md-6 col-lg-3 row-item">
     <div className="wrapper">
       <div className="card-img pb-3 align-center">

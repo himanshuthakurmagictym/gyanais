@@ -14,3 +14,11 @@ a {
 * {
   box-sizing: border-box;
 }
+
+nav ol{
+  list-style: none;
+  display: flex;
+  text-transform: capitalize;
+}
+nav ol li { padding: 2px;}
+.topbrumb{padding-top: 50px;}

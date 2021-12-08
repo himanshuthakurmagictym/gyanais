@@ -7,7 +7,7 @@ const Singleclass = ({singleclass})=>{
     <div className="wrapper">
     <Link href={`/category/${singleclass._id}`} passHref>
       <div className="card-img pb-3 align-center">
-  
+        
         <Image src={`/assets/images/category/${singleclass.course_category_image}`} width="100" height="100" className="categoryimage" alt="category" />
       </div>
       </Link>
