@@ -132,12 +132,12 @@ function Registration() {
                                  <input type="text" className="field display-7" name="phone" value={phone} onChange={handlePhone} data-form-field="phone" placeholder="phone*" required="" id="email-form2-7" />
                              </div>
                              <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
-                                 <input type="password" className="field display-7" name="password" value={password} onChange={handlePassword} placeholder="Password" data-form-field="Password"  required="" minlength="8" id="firstname-form2-7"/>
+                                 <input type="password" className="field display-7" name="password" value={password} onChange={handlePassword} placeholder="Password" data-form-field="Password"  required="" minLength="8" id="firstname-form2-7"/>
                                  <label className={handlelabel == 2 ? "labelred":"labelgreen"}>{passwordSubmitted}</label>
                                  
                              </div>
                              <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
-                                 <input type="password" minlength="8" className="field display-7" value={confirmpassword} onChange={handleConfirmpassword} name="confirm_password" placeholder="confirm Password" data-form-field="Password"  required="" id="firstname-form2-7"/>
+                                 <input type="password" minLength="8" className="field display-7" value={confirmpassword} onChange={handleConfirmpassword} name="confirm_password" placeholder="confirm Password" data-form-field="Password"  required="" id="firstname-form2-7"/>
                                  
                              </div>
                              
