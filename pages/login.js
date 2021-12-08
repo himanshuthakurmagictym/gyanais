@@ -84,7 +84,7 @@ const Login = () => {
                <div className=" col-sm-12 col-lg-6 col-md-6  form-container" >
                    
                   
-                   <div class="img-box">
+                   <div className="img-box">
                  <Image src={`/assets/images/login.png`} width="400" height="400" />
                  </div>
                </div>            

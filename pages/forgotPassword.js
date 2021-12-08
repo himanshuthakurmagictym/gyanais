@@ -5,9 +5,9 @@ import Link from 'next/link'
 
 function forgotPassword() {
 
-    const [email, setemail] = useState("");
-    const [password, setpassword] = useState("");
-    const [isOpened, setOpened] = useState(false);
+    //const [email, setemail] = useState("");
+    //const [password, setpassword] = useState("");
+    //const [isOpened, setOpened] = useState(false);
 
     const setCollapseOpen = (data) =>{
        if(data === 1){
@@ -45,7 +45,7 @@ function forgotPassword() {
                <div className=" col-sm-12 col-lg-6 col-md-6  form-container" >
                    
                   
-                   <div class="img-box">
+                   <div className="img-box">
                  <Image src={`/assets/images/login.png`} width="400" height="400" />
                  </div>
                </div>
