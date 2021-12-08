@@ -48,18 +48,9 @@ function forgotPassword() {
                    <div className="img-box">
                  <Image src={`/assets/images/login.png`} width="400" height="400" />
                  </div>
-               </div>
-
-               
-               
-            
-  
-           
+               </div>           
                 {/* login panel */}
-               <div className="col-sm-12 col-lg-6 col-md-6  form-container " >
-                            
-                           
-                   
+               <div className="col-sm-12 col-lg-6 col-md-6  form-container " >               
                    <h2 className="mbr-section-title text-center mt-5 mbr-fonts-style pb-3 display-2">Need help with your password?</h2>
                   
                    <form className="mbr-form"  data-form-title="My Mobirise Form" onSubmit={loginstudent} method="POST">
