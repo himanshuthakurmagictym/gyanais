@@ -98,7 +98,7 @@ function Registration() {
                    {/* <div data-form-alert="" hidden="">Thanks for filling out the form!
                    </div> */}
                    <div className="img-box">
-                 <Image src={`/assets/images/login.png`} width="400" height="400" />
+                 <Image src={`/assets/images/login.png`} width="400" height="400" alt="login" />
                  </div>
                </div>
                  <div className=" col-sm-12 col-lg-6 col-md-6  form-container" >

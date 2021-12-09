@@ -46,7 +46,7 @@ function ForgotPassword() {
                    
                   
                    <div className="img-box">
-                 <Image src={`/assets/images/login.png`} width="400" height="400" />
+                 <Image src={`/assets/images/login.png`} width="400" height="400" alt="sd" />
                  </div>
                </div>           
                 {/* login panel */}

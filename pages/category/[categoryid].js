@@ -13,7 +13,7 @@ function Category({allclasses, categoryid}) {
             <div className="container">
             <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">All Classes</h2>
             <h3 className="mbr-fonts-style mbr-section-subtitle align-center mbr-light pt-3 display-7">We also offer services in the live class, doubts, chat, paid and utilization of signage.</h3>
-           <Link href="login">
+           <Link href="login" passHref>
             <div className="row justify-content-center pt-4">
             {allclasses.map((all_class) => (
                 <Singleclass singleclass={all_class} key="{allclasses[0]._id}" />

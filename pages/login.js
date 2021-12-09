@@ -85,7 +85,7 @@ const Login = () => {
                    
                   
                    <div className="img-box">
-                 <Image src={`/assets/images/login.png`} width="400" height="400" />
+                 <Image src={`/assets/images/login.png`} width="400" height="400" alt="login" />
                  </div>
                </div>            
                 {/* login panel */}
@@ -119,11 +119,11 @@ const Login = () => {
                        <div className="row input-main">
                            <div className="col-md-12 col-lg-12 btn-row">
                     
-                           <Link href="/forgotPassword"><label>Forgot your password? </label></Link>  
+                           <Link href="/forgotPassword" passHref><label>Forgot your password? </label></Link>  
                                <span className="input-group-btn">
                                    <button href="#" type="submit" className="btn btn-form btn-success display-4 w-100">Submit</button>
                                </span>
-                               <Link href="/registration"><label>Don't have an account? Sign up for free. </label></Link> 
+                               <Link href="/registration" passHref><label>Don't have an account? Sign up for free. </label></Link> 
                                 
                                  
                            </div>                           
