@@ -116,7 +116,7 @@ export default course;
 export const getServerSideProps = async (context) => {
     const { params } = context;
     const {courseid } = params;
-     const res = await fetch(`${APIs.base_url}coursedetails/${courseid}`);
+     const res = await fetch(`${APIs.base_url}course/coursedetails/${courseid}`);
     const datas = await res.json()
     
     return {

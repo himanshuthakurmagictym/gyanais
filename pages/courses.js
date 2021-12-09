@@ -26,9 +26,10 @@ function courses({allcategory}) {
 export default courses
 
 export async function getServerSideProps(context){
-    const alldatass =  await fetch(APIs.base_url+'courseCategory')
-    console.log(alldatass)
+    const alldatass =  await fetch(APIs.base_url+'courseCategory/detailsCategory')
+   
     const allcategory =  await alldatass.json()
+    console.log(allcategory.data)
   
     {
         return {

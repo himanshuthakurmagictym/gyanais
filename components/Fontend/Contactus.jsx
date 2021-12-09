@@ -24,7 +24,7 @@ export default function Contactus() {
 
           const sendEmail = (e) => {
             e.preventDefault();
-             const URLS = APIs.base_url+"email_send";
+             const URLS = APIs.base_url+"email/email_send";
             //const URLS = "http://localhost:5000/api/email_send";
             const sendmaildata = JSON.stringify({firstname: firstname, email:email, message: message });
             //console.log(sendmaildata);

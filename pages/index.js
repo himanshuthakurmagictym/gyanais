@@ -189,7 +189,7 @@ export default function Home({democlass}) {
   )
 }
 export async function getServerSideProps(context) {
-    const res = await fetch(`${APIs.base_url}demo`)
+    const res = await fetch(`${APIs.base_url}demodetails/all`)
     const democlass = await res.json()
     
   
