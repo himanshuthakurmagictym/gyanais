@@ -192,7 +192,7 @@ export async function getServerSideProps(context) {
     const res = await fetch(`${APIs.base_url}demodetails/all`)
     const democlass = await res.json()
 
-    const result = await fetch(`${APIs.base_url}course/all`)
+    const result = await fetch(`${APIs.base_url}course/comingsoonclasses`)
     const coursessoon = await result.json()
 
     const recent = await fetch(`${APIs.base_url}course/all`)

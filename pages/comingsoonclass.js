@@ -31,7 +31,7 @@ function comingsoonclass({coursessoon}) {
 export default comingsoonclass
 export async function getServerSideProps(context) {
 
-    const result = await fetch(`${APIs.base_url}course/all`)
+    const result = await fetch(`${APIs.base_url}course/comingsoonclasses`)
     const coursessoon = await result.json() 
     return {
      props: {
