@@ -9,7 +9,7 @@ import Startedclasses from '../components/Fontend/Startedclasses'
 import APIs from '../config.js';
 // import styles from '../styles/Home.module.css'
 
-export default function Home({democlass, coursessoon}) {
+export default function Home({democlass, coursessoon, recentclasses}) {
   return (
     <div >
       {/* <Head>
@@ -178,7 +178,7 @@ export default function Home({democlass, coursessoon}) {
 </section>
 
 <Soonclasses coursessoon={coursessoon}/>
-<Startedclasses />
+<Startedclasses recentclasses={recentclasses}/>
 <Ourclients/>
 <Clientssay/>
 <Contactus/>
@@ -194,12 +194,16 @@ export async function getServerSideProps(context) {
 
     const result = await fetch(`${APIs.base_url}course/all`)
     const coursessoon = await result.json()
+
+    const recent = await fetch(`${APIs.base_url}course/all`)
+    const recentclasses = await recent.json()
     
   
     return {
      props: {
         democlass : democlass.data,
         coursessoon : coursessoon.data,
+        recentclasses : recentclasses.data,
       },
     }
   }

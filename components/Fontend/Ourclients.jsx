@@ -26,10 +26,10 @@ function Ourclients() {
               
               
               
-          <div className="carousel-item ">
+          <div className="carousel-item">
                   <div className="media-container-row">
                       <div className="col-md-12">
-                          <div className="wrap-img ">
+                          <div className="wrap-img">
                               <Image src={`/assets/images/1.png`} width='100' height='100' className="img-responsive clients-img"  alt="class"/>
                           </div>
                       </div>

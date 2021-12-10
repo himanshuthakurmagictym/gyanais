@@ -1,63 +1,36 @@
 import Image from 'next/image'
+import Singleclass from '../../components/Fontend/Classes/Singleclass';
+import React from "react";
+import Link from 'next/link'
 
-function Startedclasses() {
-    return (
-        <>
-        <section className="features11 cid-qKSpeMafIm" id="features11-d">
-
-
-
-
+function Startedclasses({recentclasses}) {
+  return (
+    <>
+    <section className="features11 cid-qKSpeMafIm" id="features11-d">
+   
 <div className="container">
-<h2 className="mbr-fonts-style mbr-section-title align-center  display-2">Recently Started Courses</h2>
+<h2 className="mbr-fonts-style mbr-section-title align-center  display-2">All Courses</h2>
 <h3 className="mbr-fonts-style mbr-section-subtitle align-center mbr-light pt-3 display-7">We also offer services in the live class, doubts, chat, paid and utilization of signage.</h3>
 <div className="row justify-content-center pt-4">
-  <div className="col-md-6 col-lg-3 row-item">
-    <div className="wrapper">
-      <div className="card-img pb-3 align-center">
-      
-        <Image src={`/assets/images/democlasses/1.jpg`} width='200' height='100' alt="class" />
-      </div>
-      <h4 className="mbr-fonts-style mbr-card-title align-center display-7">Masterstroke Human Geography Curriculum</h4>
-      <h5>Lesson 5 • Started at 3:00 PM</h5>
-    </div>
-  </div>
+{recentclasses.slice(0, 4).map((Soonclasses) => { 
+    return (
+       
+ <Singleclass singleclass={Soonclasses} key={Soonclasses.id} />
+     )
+     })}
 
-  <div className="col-md-6 col-lg-3 row-item">
-    <div className="wrapper">
-      <div className="card-img pb-3 align-center">
-      <Image src={`/assets/images/democlasses/2.jpg`} width='200' height='100'  alt="class" />
-      </div>
-      <h4 className="mbr-fonts-style mbr-card-title align-center display-7">Comprehensive Course on Sociology - Optional Paper I</h4>
-      <h5>Lesson 5 • Started at 3:00 PM</h5>
-    </div>
-  </div>
-
-  <div className="col-md-6 col-lg-3 row-item">
-    <div className="wrapper">
-      <div className="card-img pb-3 align-center">
-      <Image src={`/assets/images/democlasses/3.jpg`} width='200' height='100'  alt="class"/>
-      </div>
-      <h4 className="mbr-fonts-style mbr-card-title align-center display-7">Masterstroke Human Geography Curriculum</h4>
-      <h5>Lesson 5 • Started at 3:00 PM</h5>
-    </div>
-  </div>
-
-  <div className="col-md-6 col-lg-3 row-item">
-    <div className="wrapper">
-      <div className="card-img pb-3 align-center">
-      <Image src={`/assets/images/democlasses/1.jpg`} width='200' height='100' alt="class" />
-      </div>
-      <h4 className="mbr-fonts-style mbr-card-title align-center display-7">Course on Political Science and International Relations</h4>
-      <h5>Lesson 5 • Started at 3:00 PM</h5>
-    </div>
-  </div>
- 
 </div>
+<div className="row input-main text-center">
+                            <div className="col-md-12 col-lg-12 btn-row">
+                                <span className="input-group-btn">
+                                <Link href="/allcourses"><button href="#" className="btn btn-form btn-success display-4">View More</button></Link>
+                                </span>
+                            </div>
+            </div>
 </div>
 </section>    
-        </>
-    )
+    </>
+)
 }
 
 export default Startedclasses
