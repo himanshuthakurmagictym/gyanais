@@ -69,7 +69,7 @@ import {
                         </div>
 
                     {coursevideo.map((coursevideo) =>(   
-                        <div className="row justify-content-center pt-2">     
+                        <div className="row justify-content-center pt-2" key={coursevideo._id}>     
                                 <div className="card col-12 col-md-10">
                                 <div className="card-box">
                                 <div className="row">
