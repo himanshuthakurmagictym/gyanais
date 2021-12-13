@@ -12,7 +12,7 @@ import {
   } from 'next-share';
 
  
- const course = ({coursedetail})=>{
+ const Course = ({coursedetail})=>{
         const [sociallinks, setsociallinks] = useState('')
     return(
         <>
@@ -138,7 +138,7 @@ import {
     )
 }
 
-export default course;
+export default Course;
 
 export const getServerSideProps = async (context) => {
     const { params } = context;
