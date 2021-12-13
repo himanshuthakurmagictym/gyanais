@@ -13,7 +13,7 @@ function Clientssay({ testimonialed }){
                         <div className="card col-12 col-md-6" key={testimonialss._id}>
                         <div className="card-box">
                             <div className="card-header">
-                                <div className="card-img" >
+                                <div className="card-img" key={testimonialss._id}>
                                 
                                     <Image src={`/assets/images/${testimonialss.review_image_link}`}  layout='fill' alt="Picture of the author" />
                                 </div>
