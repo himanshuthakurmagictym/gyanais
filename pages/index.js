@@ -9,7 +9,7 @@ import Startedclasses from '../components/Fontend/Startedclasses'
 import APIs from '../config.js';
 // import styles from '../styles/Home.module.css'
 
-export default function Home({democlass, coursessoon, recentclasses}) {
+export default function Home({democlass, testimonialss, coursessoon, recentclasses}) {
   return (
     <div >
       {/* <Head>
@@ -99,7 +99,7 @@ export default function Home({democlass, coursessoon, recentclasses}) {
 </div>
 </section>
 
-<DemoClasses  democlassed={democlass} />
+<DemoClasses democlassed={democlass} />
 
 
 
@@ -179,8 +179,8 @@ export default function Home({democlass, coursessoon, recentclasses}) {
 
 <Soonclasses coursessoon={coursessoon}/>
 <Startedclasses recentclasses={recentclasses}/>
-<Ourclients/>
-<Clientssay/>
+<Ourclients  />
+<Clientssay testimonialed={testimonialss}/>
 <Contactus/>
 
       </>
@@ -192,11 +192,16 @@ export async function getServerSideProps(context) {
     const res = await fetch(`${APIs.base_url}demodetails/all`)
     const democlass = await res.json()
 
+    const reviews = await fetch(`${APIs.base_url}reviewtype/review`)
+    const reviewss = await reviews.json()
+    
+
     const result = await fetch(`${APIs.base_url}course/comingsoonclasses`)
     const coursessoon = await result.json()
 
     const recent = await fetch(`${APIs.base_url}course/all`)
     const recentclasses = await recent.json()
+
     
   
     return {
@@ -204,6 +209,7 @@ export async function getServerSideProps(context) {
         democlass : democlass.data,
         coursessoon : coursessoon.data,
         recentclasses : recentclasses.data,
+        testimonialss : reviewss.data
       },
     }
   }

@@ -3,6 +3,7 @@ import Brudcrums from "../../components/Fontend/Brudcrums"
 import Link from 'next/link'
 import APIs from '../../config.js';
 import Image from 'next/image'
+var moment = require('moment');
 import Breadcrumbs from 'nextjs-breadcrumbs';
 import {
     FacebookShareButton,
@@ -12,7 +13,7 @@ import {
   } from 'next-share';
 
  
- const Course = ({coursedetail})=>{
+ const Course = ({coursedetail, coursevideo})=>{
         const [sociallinks, setsociallinks] = useState('')
     return(
         <>
@@ -67,7 +68,7 @@ import {
                             </div>
                         </div>
 
-
+                    {coursevideo.map((coursevideo) =>(   
                         <div className="row justify-content-center pt-2">     
                                 <div className="card col-12 col-md-10">
                                 <div className="card-box">
@@ -77,57 +78,21 @@ import {
                                             
                                         </div>
                                         <div className="col-md-7">
-                                        <h1>Revolutionary Activities (1906 - 1916) - I</h1>
-                                            <p>Lession 22 <tab>Dec 8 </tab> 1h 4m</p>
+                                        <h1> {coursevideo.video_title}</h1>
+                                            <p>{coursevideo.videoLesson} <tab> {moment(coursevideo.videoDate).format('MM Do')} </tab> {coursevideo.videoDuration}</p>
                                         </div>
                                         <div className="col-md-2">
-                                        <Image src={`/assets/images/pdfd.png`} width='50' height='50' alt='videoicon'/>
+                                            <Link href={coursevideo.videoPdf}>
+                                         <Image src={`/assets/images/pdfd.png`} width='50' height='50' alt='videoicon'/>
+                                        </Link>
                                         </div>
                                     </div>
                                     </div>
                                 </div>
                         </div>
 
-
-                        <div className="row justify-content-center pt-2">     
-                                <div className="card col-12 col-md-10">
-                                <div className="card-box">
-                                <div className="row">
-                                        <div className="col-md-3">
-                                        <Image src={`/assets/images/videoicon.png`} width='50' height='50' alt='videoicon'/>
-                                            
-                                        </div>
-                                        <div className="col-md-7">
-                                        <h1>Revolutionary Activities (1906 - 1916) - I</h1>
-                                            <p>Lession 22 <tab>Dec 8 </tab> 1h 4m</p>
-                                        </div>
-                                        <div className="col-md-2">
-                                        <Image src={`/assets/images/pdfd.png`} width='50' height='50' alt='videoicon'/>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
-                        </div>
-
-                        <div className="row justify-content-center pt-2">     
-                                <div className="card col-12 col-md-10">
-                                <div className="card-box">
-                                <div className="row">
-                                        <div className="col-md-3">
-                                        <Image src={`/assets/images/videoicon.png`} width='50' height='50' alt='videoicon'/>
-                                            
-                                        </div>
-                                        <div className="col-md-7">
-                                        <h1>Revolutionary Activities (1906 - 1916) - I</h1>
-                                            <p>Lession 22 <tab>Dec 8 </tab> 1h 4m</p>
-                                        </div>
-                                        <div className="col-md-2">
-                                        <Image src={`/assets/images/pdfd.png`} width='50' height='50' alt='videoicon'/>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
-                        </div>
+                    ))}
+                        
                 </div>
             </section>
              
@@ -145,10 +110,14 @@ export const getServerSideProps = async (context) => {
     const {courseid } = params;
      const res = await fetch(`${APIs.base_url}course/coursedetails/${courseid}`);
     const datas = await res.json()
+
+    const ress = await fetch(`${APIs.base_url}coursevideo/video`);
+    const datass = await ress.json()
     
     return {
         props:{
            coursedetail: datas.data,
+           coursevideo: datass.data,
         }
     }
 }
