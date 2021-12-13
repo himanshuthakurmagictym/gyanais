@@ -24,13 +24,16 @@ function Soonclasses({coursessoon}) {
                     })}
             
             </div>
-            <div className="row input-main text-center">
-                            <div className="col-md-12 col-lg-12 btn-row">
-                                <span className="input-group-btn">
-                                    <Link href="/comingsoonclass"><button href="#" className="btn btn-form btn-success display-4">View More</button></Link>
-                                </span>
-                            </div>
-            </div>
+          {Object.keys(coursessoon).length > 3 ?  
+          <div className="row input-main text-center">
+          <div className="col-md-12 col-lg-12 btn-row">
+              <span className="input-group-btn">
+                  <Link href="/comingsoonclass"><button href="#" className="btn btn-form btn-success display-4">View More</button></Link>
+              </span>
+          </div>
+</div>:''} 
+        
+
             </div>
 </section>    
         </>

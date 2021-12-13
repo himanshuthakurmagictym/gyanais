@@ -22,3 +22,5 @@ nav ol{
 }
 nav ol li { padding: 2px;}
 .topbrumb{padding-top: 50px;}
+.socialsharebutton{ position: absolute;
+  bottom: 24px;}

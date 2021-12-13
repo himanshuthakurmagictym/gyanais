@@ -28,7 +28,7 @@ export default function Home({democlass, coursessoon, recentclasses}) {
 <div className="container">
     <div className="media-container-row">
         <div className="mb-4 content-container align-center col-md-10">
-            <h1 className="mbr-section-title pb-3 mbr-fonts-style align-center display-1">India Best learning Platform</h1>
+            <h1 className="mbr-section-title pb-3 mbr-fonts-style align-center display-1">India's Best learning Platform</h1>
             <p className="mbr-text pb-3 bt-white mbr-fonts-style p-descr align-center display-5">
             Get Plus subscription and access unlimited live and recorded courses from India best educators</p>
             <span className="input-group-btn ">

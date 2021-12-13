@@ -20,6 +20,7 @@ function Startedclasses({recentclasses}) {
      })}
 
 </div>
+{Object.keys(recentclasses).length > 3 ?  
 <div className="row input-main text-center">
                             <div className="col-md-12 col-lg-12 btn-row">
                                 <span className="input-group-btn">
@@ -27,7 +28,9 @@ function Startedclasses({recentclasses}) {
                                 </span>
                             </div>
             </div>
+            :''} 
 </div>
+
 </section>    
     </>
 )
