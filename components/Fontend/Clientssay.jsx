@@ -10,7 +10,7 @@ function Clientssay({ testimonialed }){
     <div className="row justify-content-center pt-2">
            
     {testimonialed.map((testimonialss) => (
-                        <div className="card col-12 col-md-6">
+                        <div className="card col-12 col-md-6" key={testimonialss._id}>
                         <div className="card-box">
                             <div className="card-header">
                                 <div className="card-img">
