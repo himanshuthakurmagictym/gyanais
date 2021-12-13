@@ -205,6 +205,7 @@ export async function getServerSideProps(context) {
     
   
     return {
+        fallback: false,
      props: {
         democlass : democlass.data,
         coursessoon : coursessoon.data,
