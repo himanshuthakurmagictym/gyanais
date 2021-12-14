@@ -72,6 +72,7 @@ import {
                         <div className="row justify-content-center pt-2" key={coursevideo._id}>     
                                 <div className="card col-12 col-md-10">
                                 <div className="card-box">
+                                <Link href={`/coursevideo/${coursevideo._id}`}>
                                 <div className="row">
                                         <div className="col-md-3">
                                         <Image src={`/assets/images/videoicon.png`} width='50' height='50' alt='videoicon'/>
@@ -87,6 +88,7 @@ import {
                                         </Link>
                                         </div>
                                     </div>
+                                    </Link>
                                     </div>
                                 </div>
                         </div>

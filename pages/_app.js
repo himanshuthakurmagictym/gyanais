@@ -1,4 +1,5 @@
 import '../styles/globals.css'
+import '../styles/coursevideo.css'
 import Layout from '../components/Fontend/Layout';
 
 function MyApp({ Component, pageProps }) {

@@ -6,7 +6,7 @@ import APIs from '../config.js';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router'
 function Registration() {
-    const [rules, setRules] = useState("teacher");
+    const [roles, setRoles] = useState("teacher");
     const [username, setusername] = useState("");
     const [firstname, setfirstname] = useState("");
     const [email, setEmail] = useState("");
@@ -20,8 +20,8 @@ function Registration() {
     const notify = () => toast("Registration has been successfully !", { autoClose: 15000 });
     const router = useRouter();
     
-    const handleRules = (e) =>{
-        setRules(e.target.value)
+    const handleRoles = (e) =>{
+        setRoles(e.target.value)
         console.log(e.target.value)
 
     }
@@ -69,9 +69,9 @@ function Registration() {
         if(confirmpassword === password ){
             setpasswordSubmitted("Password has matched")
         
-        const logindata = JSON.stringify({ rules: rules, email: email, username: username, firstname: firstname, lastname: lastname, phone: phone,  password: password, confirmpassword: confirmpassword })
+        const logindata = JSON.stringify({ roles: roles, email: email, username: username, firstname: firstname, lastname: lastname, phone: phone,  password: password, confirmpassword: confirmpassword })
         
-        const URLs = APIs.base_url+'signup/'; 
+        const URLs = APIs.base_url+'auth/signup/'; 
         fetch(URLs, {
             method: "POST",
             body: logindata,
@@ -109,9 +109,9 @@ function Registration() {
                         
                          <div className="row input-main">
                          <div className="col-md-12 col-lg-12 input-wrap mb-3" >
-                               <select className="field display-7 custom-select" id="email-form2-7" value={rules} onChange={handleRules} name="rule">
-                                        <option value="teacher" selected>Teacher</option>  
-                                        <option value="student">Student</option>  
+                               <select className="field display-7 custom-select" id="email-form2-7" value={roles} onChange={handleRoles}>
+                                        <option value={APIs.roles[0]} selected>{APIs.roles[0]}</option>  
+                                        <option value={APIs.roles[1]}>{APIs.roles[1]}</option>  
                                </select>
                             </div>
                              
