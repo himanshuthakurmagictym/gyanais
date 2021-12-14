@@ -78,7 +78,7 @@ function Registration() {
             headers: {
                 "Content-Type": "application/json",
               },
-        }).then((res) => {(res.status == '200') ? { notify() {router.push('/login')} }  : console.log("registration Failed") });
+        }).then((res) => {(res.status == '200') ? { notify() {router.push('/login')} }  : console.log(res.statusText) });
 
     } else{
         setpasswordSubmitted("Passwords don't match")
