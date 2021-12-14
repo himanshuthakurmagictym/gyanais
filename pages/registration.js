@@ -71,7 +71,7 @@ function Registration() {
         
         const logindata = JSON.stringify({ roles: roles, email: email, username: username, firstname: firstname, lastname: lastname, phone: phone,  password: password, confirmpassword: confirmpassword })
         
-        const URLs = APIs.base_url+'auth/signup/'; 
+        const URLs = APIs.base_url+'auth/signup/';     
         fetch(URLs, {
             method: "POST",
             body: logindata,
