@@ -17,7 +17,11 @@ function Registration() {
     const [submitted, setSubmitted] = useState("");
     const [passwordSubmitted, setpasswordSubmitted] = useState("");
     const [handlelabel, sethandlelabel] = useState("");
-    const notify = () => toast("Registration has been successfully !", { autoClose: 15000 });
+    const notify = () => 
+    {
+        toast("Registration has been successfully !", { autoClose: 15000 });
+        //router.push('/login');
+    }
     const router = useRouter();
     
     const handleRoles = (e) =>{
@@ -63,7 +67,7 @@ function Registration() {
 
     }
    
-    const handleRegistration = (e)=>{
+    const handleRegistration = async(e)=>{
         e.preventDefault();
 
         if(confirmpassword === password ){
@@ -71,15 +75,18 @@ function Registration() {
         
         const logindata = JSON.stringify({ roles: roles, email: email, username: username, firstname: firstname, lastname: lastname, phone: phone,  password: password, confirmpassword: confirmpassword })
         
-        const URLs = APIs.base_url+'auth/signup/';     
-        fetch(URLs, {
-            method: "POST",
-            body: logindata,
-            headers: {
-                "Content-Type": "application/json",
+        const URLs = APIs.base_url+'auth/signup/';    
+       // const URLs = 'https://gyaniasapi.herokuapp.com/api/auth/signup/';
+        const resss = await fetch(URLs, {
+            method:"POST",
+            body:logindata,
+            headers:{
+                "Content-Type":"application/json",
               },
-        }).then((res) => {(res.status == '200') ? { notify() {router.push('/login')} }  : console.log(res.statusText) });
+        }).then((res) => {(res.status == '200') ? notify(): console.log(res.statusText) });
 
+        // const resst = resss;
+        // console.log(resst.status)
     } else{
         setpasswordSubmitted("Passwords don't match")
     }
@@ -148,7 +155,7 @@ function Registration() {
                          <div className="row input-main">
                              <div className="col-md-12 col-lg-12 btn-row">
                                  <span className="input-group-btn">
-                                     <button href="#" type="submit" className="btn btn-form btn-success display-4">Submit</button>
+                                     <button type="submit" className="btn btn-form btn-success display-4">Submit</button>
                                  </span>
                              </div>
                          </div>
