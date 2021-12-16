@@ -17,12 +17,18 @@ function Registration() {
     const [submitted, setSubmitted] = useState("");
     const [passwordSubmitted, setpasswordSubmitted] = useState("");
     const [handlelabel, sethandlelabel] = useState("");
-    const notify = async (res) => 
+    const notify = (res) => 
     {
-       
-        await toast(res.message, { autoClose: 5000 });
-        await setTimeout( ()=>{ router.push('/login') } , 6000);
-        // router.push('/login');
+        //
+        
+        console.log(res.status_code)
+        if(res.status_code === 200){
+             toast.success(res.message, { autoClose: 5000 });
+            setTimeout( ()=>{ router.push('/login') } , 6000);
+        }else{
+             toast.error(res.message, { autoClose: 5000 });
+        }
+        
     }
     const router = useRouter();
     
@@ -77,8 +83,8 @@ function Registration() {
         
         const logindata = JSON.stringify({ roles: roles, email: email, username: username, firstname: firstname, lastname: lastname, phone: phone,  password: password, confirmpassword: confirmpassword })
         
-        const URLs = APIs.base_url+'auth/signup/';    
-       // const URLs = 'https://gyaniasapi.herokuapp.com/api/auth/signup/';
+       // const URLs = APIs.base_url+'auth/signup/';    
+        const URLs = 'http://localhost:5000/api/auth/signup/';
         const resss = await fetch(URLs, {
             method:"POST",
             body:logindata,
@@ -88,7 +94,7 @@ function Registration() {
         })
         // .then((res) => {(res.status == '200') ? notify(res): console.log(res.statusText) })
         .then(res => res.json())
-        .then(data => {(data.status_code == '200') ? notify(data): '' })
+        .then(data => {(data.status_code == '200') ? notify(data): notify(data) })
         .catch((error) => console.log(error));
 
       
