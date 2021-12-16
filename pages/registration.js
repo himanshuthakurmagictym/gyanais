@@ -17,10 +17,12 @@ function Registration() {
     const [submitted, setSubmitted] = useState("");
     const [passwordSubmitted, setpasswordSubmitted] = useState("");
     const [handlelabel, sethandlelabel] = useState("");
-    const notify = () => 
+    const notify = async (res) => 
     {
-        toast("Registration has been successfully !", { autoClose: 15000 });
-        //router.push('/login');
+       
+        await toast(res.message, { autoClose: 5000 });
+        await setTimeout( ()=>{ router.push('/login') } , 6000);
+        // router.push('/login');
     }
     const router = useRouter();
     
@@ -83,10 +85,13 @@ function Registration() {
             headers:{
                 "Content-Type":"application/json",
               },
-        }).then((res) => {(res.status == '200') ? notify(): console.log(res.statusText) });
+        })
+        // .then((res) => {(res.status == '200') ? notify(res): console.log(res.statusText) })
+        .then(res => res.json())
+        .then(data => {(data.status_code == '200') ? notify(data): '' })
+        .catch((error) => console.log(error));
 
-        // const resst = resss;
-        // console.log(resst.status)
+      
     } else{
         setpasswordSubmitted("Passwords don't match")
     }
