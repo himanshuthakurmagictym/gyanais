@@ -3,10 +3,12 @@ import Brudcrums from "../components/Fontend/Brudcrums"
 import Singleclass from '../components/Fontend/Classes/Singleclass';
 import APIs from '../config.js';
 
+
 function allcourses({allcourses}) {
     return (
         <>
              <Brudcrums />
+           
              <section className="features11 cid-qKSpeMafIm" id="features11-d">
        
        <div className="container">

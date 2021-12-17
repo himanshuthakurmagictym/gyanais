@@ -9,6 +9,7 @@ function Category({allclasses, categoryid}) {
     return (
         <>
         <Brudcrums />
+        
         <section className="features11 cid-qKSpeMafIm pt-5" id="features11-d">
             <div className="container">
             <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">All Classes</h2>
