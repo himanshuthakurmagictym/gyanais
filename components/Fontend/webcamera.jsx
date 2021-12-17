@@ -1,7 +1,7 @@
 import { useRecordWebcam } from 'react-record-webcam'
 import React from 'react'
 
-function webcamera() {
+function Webcamera() {
     const recordWebcam = useRecordWebcam();
     return (
         <>
@@ -12,4 +12,4 @@ function webcamera() {
     )
 }
 
-export default webcamera
+export default Webcamera

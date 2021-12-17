@@ -1,5 +1,5 @@
 import Brudcrums from "../../components/Fontend/Brudcrums"
-import Webcamera from "../../components/Fontend/webcamera";
+import Webcamera from "../../components/Fontend/Webcamera";
 import React, { useRef, useEffect } from 'react';
 
 // import io from 'socket.io-client';
