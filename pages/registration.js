@@ -21,11 +21,12 @@ function Registration() {
     {
         //
         
-        console.log(res.status_code)
+        //console.log(res.status_code)
         if(res.status_code === 200){
              toast.success(res.message, { autoClose: 5000 });
             setTimeout( ()=>{ router.push('/login') } , 6000);
         }else{
+            //console.log(res.status_code)
              toast.error(res.message, { autoClose: 5000 });
         }
         
@@ -83,8 +84,8 @@ function Registration() {
         
         const logindata = JSON.stringify({ roles: roles, email: email, username: username, firstname: firstname, lastname: lastname, phone: phone,  password: password, confirmpassword: confirmpassword })
         
-       // const URLs = APIs.base_url+'auth/signup/';    
-        const URLs = 'http://localhost:5000/api/auth/signup/';
+       const URLs = APIs.base_url+'auth/signup/';    
+        //const URLs = 'http://localhost:5000/api/auth/signup/';
         const resss = await fetch(URLs, {
             method:"POST",
             body:logindata,
