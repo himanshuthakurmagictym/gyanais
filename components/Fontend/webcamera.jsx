@@ -1,8 +1,10 @@
 import { useRecordWebcam } from 'react-record-webcam'
-import React from 'react'
+import React, {useEffect} from 'react'
 
 function Webcamera() {
+    
     const recordWebcam = useRecordWebcam();
+
     return (
         <>
           <p>Camera status: {recordWebcam.status}</p>
