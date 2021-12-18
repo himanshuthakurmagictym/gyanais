@@ -3,7 +3,7 @@
 import React, {useEffect, useRef} from 'react'
 import useScreenRecorder from "use-screen-recorder";
 
-function Webcamera() {
+function Webcameras() {
 
    
     
@@ -48,4 +48,4 @@ function Webcamera() {
     )
 }
 
-export default Webcamera
+export default Webcameras
