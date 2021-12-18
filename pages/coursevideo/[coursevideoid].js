@@ -1,9 +1,14 @@
 import Brudcrums from "../../components/Fontend/Brudcrums";
-import Webcameras from "../../components/Fontend/Webcameras";
+// import Webcameras from "../../components/Fontend/Webcameras";
 import React, { useRef, useEffect } from 'react';
 
 // import io from 'socket.io-client';
+import dynamic from 'next/dynamic'
 
+const DynamicComponentWithNoSSR = dynamic(
+  () => import('../../components/Fontend/Webcameras'),
+  { ssr: false }
+)
 
 function Coursevideo() {
     const canvasRef = useRef(null);
@@ -165,7 +170,8 @@ function Coursevideo() {
                             <div className="card col-12 col-md-3">
                                     <div className='rightside '>
                                     <div className='webcam'> 
-                                    <Webcameras/>
+                                    <DynamicComponentWithNoSSR />
+                                  
                                     </div>
                                             <div className='roomchat'>
                                             <div className='heading'>Messages</div>
