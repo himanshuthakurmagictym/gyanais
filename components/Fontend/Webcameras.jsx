@@ -19,16 +19,16 @@ function Webcameras() {
       .getUserMedia({ video: { width: 300 }, audio: true })
       .then(stream => {
 
-        var options = {
-            audioBitsPerSecond: 128000,
-            videoBitsPerSecond: 2500000,
-            mimeType: 'video/mp4'
-          }
+        // var options = {
+        //     audioBitsPerSecond: 128000,
+        //     videoBitsPerSecond: 2500000,
+        //     mimeType: 'video/mp4'
+        //   }
 
-          var mediaRecorder = new MediaRecorder(stream,options);
-            m = mediaRecorder;
+        //   var mediaRecorder = new MediaRecorder(stream,options);
+        //     m = mediaRecorder;
 
-            m.mimeType; // would return 'video/mp4'
+        //     m.mimeType; // would return 'video/mp4'
 
         let video = videoRef.current;
         video.srcObject = stream;
