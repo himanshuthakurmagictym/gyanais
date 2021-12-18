@@ -1,7 +1,7 @@
-import Brudcrums from "../../components/Fontend/Brudcrums"
-import Webcamera from "../../components/Fontend/Webcamera";
+import Brudcrums from "../../components/Fontend/Brudcrums";
+import Webcameras from "../../components/Fontend/Webcamera";
 import React, { useRef, useEffect } from 'react';
-import dynamic from 'next/dynamic'
+
 // import io from 'socket.io-client';
 
 
@@ -165,7 +165,7 @@ function Coursevideo() {
                             <div className="card col-12 col-md-3">
                                     <div className='rightside '>
                                     <div className='webcam'> 
-                                    <Webcamera />
+                                    <Webcameras/>
                                     </div>
                                             <div className='roomchat'>
                                             <div className='heading'>Messages</div>
