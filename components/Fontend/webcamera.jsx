@@ -1,16 +1,49 @@
 
-import { useRecordWebcam } from 'react-record-webcam'
-import React, {useEffect} from 'react'
+
+import React, {useEffect, useRef} from 'react'
+import useScreenRecorder from "use-screen-recorder";
 
 function Webcamera() {
+
+   
     
-    const recordWebcam = useRecordWebcam();
+   
+    const videoRef = useRef(null);
+
+  useEffect(() => {
+    getVideo();
+  }, [videoRef]);
+
+  const getVideo = () => {
+    navigator.mediaDevices
+      .getUserMedia({ video: { width: 300 }, audio: true })
+      .then(stream => {
+
+        var options = {
+            audioBitsPerSecond: 128000,
+            videoBitsPerSecond: 2500000,
+            mimeType: 'video/mp4'
+          }
+
+          var mediaRecorder = new MediaRecorder(stream,options);
+            m = mediaRecorder;
+
+            m.mimeType; // would return 'video/mp4'
+
+        let video = videoRef.current;
+        video.srcObject = stream;
+        video.play();
+      })
+      .catch(err => {
+        console.error("error:", err);
+      });
+  };
 
     return (
         <>
-          <p>Camera status: {recordWebcam.status}</p>
-      <button onClick={recordWebcam.open}>Open camera</button>
-      <button onClick={recordWebcam.start}>Start recording</button>   
+        <video ref={videoRef} />
+     
+       
         </>
     )
 }

@@ -1,17 +1,15 @@
 import Brudcrums from "../../components/Fontend/Brudcrums"
+import Webcamera from "../../components/Fontend/Webcamera";
 import React, { useRef, useEffect } from 'react';
 import dynamic from 'next/dynamic'
 // import io from 'socket.io-client';
 
-const DynamicComponent = dynamic(() =>
-  import('../../components/Fontend/Webcamera').then((mod) => mod.Hello)
-)
 
 function Coursevideo() {
     const canvasRef = useRef(null);
   const colorsRef = useRef(null);
   const socketRef = useRef();
-  const webcamera = useRef(null)
+  
 
 
   // const recordWebcam = useRecordWebcam();
@@ -167,7 +165,7 @@ function Coursevideo() {
                             <div className="card col-12 col-md-3">
                                     <div className='rightside '>
                                     <div className='webcam'> 
-                                    <DynamicComponent />
+                                    <Webcamera />
                                     </div>
                                             <div className='roomchat'>
                                             <div className='heading'>Messages</div>
