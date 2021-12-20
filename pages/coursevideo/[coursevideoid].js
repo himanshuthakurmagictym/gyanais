@@ -4,6 +4,7 @@ import React, { useRef, useEffect } from 'react';
 
 // import io from 'socket.io-client';
 import dynamic from 'next/dynamic'
+import Chatbox from "../../components/Fontend/Chatbox";
 
 const DynamicComponentWithNoSSR = dynamic(
   () => import('../../components/Fontend/Webcameras'),
@@ -174,7 +175,7 @@ function Coursevideo() {
                                   
                                     </div>
                                             <div className='roomchat'>
-                                            <div className='heading'>Messages</div>
+                                            <Chatbox />
                                             </div>
                                     </div>      
                             </div>
