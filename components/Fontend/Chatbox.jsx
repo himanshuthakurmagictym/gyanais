@@ -39,17 +39,28 @@ const Chatbox = ()=>{
 
 
                     <div className="chat-footer">
-                        <div className="">
-                            <div className="row">
-                                <div className="col-md-12">
-                                    <div classname="">
-                                   send
+                       
+                           
+                                    <div className="chatfooter">
+                                    <form> 
+                                    <div className="container">
+                                    <div className="row">
+                                        <div className="col-md-9 col-sx-12 chatleft">
+                                           
+                                            <input type="text" className="commenttype" placeholder="Type your comment here..." />
+                                           
+                                        </div>
+                                        <div className="col-md-3 col-sx-12 chatleft" >
+                                                <input type="submit" className="commentsend" value="send" />
+                                        </div>
+                                    </div>
+                                    </div>
+                                   
+                                   </form>
                                     </div>
                                      
-                                </div>
-                               
-                            </div>
-                        </div> 
+                              
+                       
                     </div>
 
 
