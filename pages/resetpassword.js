@@ -3,9 +3,9 @@ import Brudcrums from "../components/Fontend/Brudcrums"
 import Image from 'next/image'
 import Link from 'next/link'
 import APIs from '../config.js';
-function ForgotPassword() {
+function Resetpassword() {
 
-    const [email, setemail] = useState("");
+    const [password, setepassword] = useState("");
 
     const notify = (res) => 
     {
@@ -22,10 +22,15 @@ function ForgotPassword() {
         
     }
   
-  const handleemail = (e) =>{
-    const email = e.target.value;
-    setemail(email)
+  const handlepassword = (e) =>{
+    const password = e.target.value;
+    setepassword(password)
   };
+
+  const handleconfirmpassword = (e) =>{
+    const confirmpassword = e.target.value;
+    seteconfirmpassword(confirmpassword)
+  }
 
   
   const handleresetpassword = (e) =>{
@@ -60,15 +65,19 @@ function ForgotPassword() {
                </div>           
                 {/* login panel */}
                <div className="col-sm-12 col-lg-6 col-md-6  form-container " >               
-                   <h2 className="mbr-section-title text-center mt-5 mbr-fonts-style pb-3 display-2">Need help with your password?</h2>
+                   <h2 className="mbr-section-title text-center mt-5 mbr-fonts-style pb-3 display-2">Please change your password</h2>
                   
-                   <form className="mbr-form"  data-form-title="My Mobirise Form" onSubmit={handleresetpassword} method="POST">
+                   <form className="mbr-form"  data-form-title="gyan" onSubmit={handleresetpassword} method="POST">
                       
                        <div className="row input-main text-center">
                            
                            
                            <div className="col-md-12 col-lg-12 input-wrap" data-for="email">
-                               <input type="email" className="field display-7" name="email" data-form-field="Email" placeholder="Email*" onChange={handleemail} required="" id="email-form2-7" />
+                               <input type="password" className="field display-7" data-form-field="Email" placeholder="Password*" onChange={handlepassword} required="" id="email-form2-7" />
+                           </div>
+
+                           <div className="col-md-12 col-lg-12 input-wrap" data-for="email">
+                               <input type="password" className="field display-7" data-form-field="Email" placeholder="Confirm Password*" onChange={handleconfirmpassword} required="" id="email-form2-7" />
                            </div>
                            
                              
@@ -100,4 +109,4 @@ function ForgotPassword() {
     )
 }
 
-export default ForgotPassword
+export default Resetpassword
