@@ -11,7 +11,7 @@ const Chatbox = ()=>{
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12">
-                                    <div classname="heading">
+                                    <div className="heading">
                                     Message
                                     </div>
                                      
