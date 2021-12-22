@@ -35,12 +35,16 @@
 
 
 .chat-body{
-    background-color: rgb(213, 209, 246);
+    background-color: rgb(252, 252, 252);
     width: 100%;
     color:black;
     height: 180px;
+    overflow-y: auto;
 }
 
+.incoming_message{background-color: rgb(239, 237, 250); padding:5px; margin:10px;}
+.outgoing_message{background-color: rgb(240, 245, 239); padding:5px; margin:10px;}
+.incoming_message h4, .outgoing_message h4{ font-weight: 700;}
 .chat-footer{
    background-color: white;
     width: 100%;

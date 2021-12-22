@@ -27,10 +27,17 @@ const Chatbox = ()=>{
                         <div className="container">
                             <div className=" row">
                                 <div className="col-md-12">
-                                    <div classname="">
-                                   typing
+                                <div className="chatbody">
+                                    <div className="incoming_message">
+                                        <h4>Rahul</h4>
+                                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas placeat earum provident</p>
                                     </div>
-                                     
+
+                                    <div className="outgoing_message">
+                                        <h4>Shaam</h4>
+                                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas placeat earum provident</p>
+                                    </div>
+                                   </div>  
                                 </div>
                                
                             </div>

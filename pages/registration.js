@@ -21,8 +21,8 @@ function Registration() {
     {
         //
         
-        //console.log(res.status_code)
-        if(res.status_code === 200){
+        console.log(res)
+        if(res.status_code === 201){
              toast.success(res.message, { autoClose: 5000 });
             setTimeout( ()=>{ router.push('/login') } , 6000);
         }else{

@@ -13,10 +13,24 @@ import {useRouter} from 'next/router'
 const Login = () => {
     const [email, setemail] = useState("");
     const [password, setPassword] = useState("");
-    const [rules, setRules] = useState("teacher");
+    const [roles, setRoles] = useState("teacher");
     const [submitted, setSubmitted] = useState("");
     const [isOpened, setOpened] = useState(false);
-    const notify = () => toast("login has been successfully !", { autoClose: 15000 });
+    const notify = (res) => 
+    {
+        //console.log(res)
+        if(res.status_code === 200){
+            // console.log(res.data)
+             toast.success(res.message, { autoClose: 5000 });
+             cookie.set('token',res.data.tokens)
+             cookie.set('user',res.data.user)
+            setTimeout( ()=>{ router.push('/student/profile') } , 6000);
+        }else{
+            //console.log(res.status_code)
+             toast.error(res.message, { autoClose: 5000 });
+        }
+        
+    }
     const router  = useRouter();
 
     const setCollapseOpen = (data) =>{
@@ -39,15 +53,15 @@ const Login = () => {
         setPassword(password)
       };
 
-      const handlerules = (e) =>{
-        const rules = e.target.value;
-        setRules(rules)
+      const handleroles = (e) =>{
+        const roles = e.target.value;
+        setRoles(roles)
       };
 
   const handleLogin = (e) =>{
     e.preventDefault();
-    const sendData = JSON.stringify({ email: email, password: password, rules: rules})
-    const URLS = APIs.base_url+"/auth/login";
+    const sendData = JSON.stringify({ email: email, password: password, roles: roles})
+    const URLS = APIs.base_url+"/authlogin/login";
     console.log(sendData);
     const ress = fetch(URLS, {
         method:"POST",
@@ -55,17 +69,11 @@ const Login = () => {
             "Content-Type": "application/json",
           },
         body:sendData,
-    }).then(res  => res.status == '200' ? { notify() {setSubmitted(true)}}: console.log("login Failed"));
+    }).then(res => res.json())
+    .then(data => {(data.status_code == '200') ? notify(data): notify(data) })
+    .catch((error) => console.log(error));
 
-    const res2 = ress.json();
-    if(res2.error){
-         console.log(res2.error)
-    }else{
-        console.log(res2)
-        cookie.set('token',res2.token)
-        cookie.set('user',res2.user)
-        router.push('/profile')
-     }
+    
 
   };
 
@@ -99,7 +107,7 @@ const Login = () => {
                       
                        <div className="row input-main">
                             <div className="col-md-12 col-lg-12 input-wrap mb-3" >
-                               <select className="field display-7 custom-select" id="email-form2-7" name="rule" value={rules} onChange={handlerules}>
+                               <select className="field display-7 custom-select" id="email-form2-7" name="role" value={roles} onChange={handleroles}>
                                         <option value="teacher">Teacher</option>  
                                         <option value="student">Student</option>  
                                </select>
