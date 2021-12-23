@@ -6,7 +6,7 @@ import APIs from '../config.js';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router'
 function Registration() {
-    const [roles, setRoles] = useState("teacher");
+    const [roles, setRoles] = useState(APIs.roles[0]);
     const [username, setusername] = useState("");
     const [firstname, setfirstname] = useState("");
     const [email, setEmail] = useState("");

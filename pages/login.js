@@ -13,18 +13,22 @@ import {useRouter} from 'next/router'
 const Login = () => {
     const [email, setemail] = useState("");
     const [password, setPassword] = useState("");
-    const [roles, setRoles] = useState("teacher");
+    const [roles, setRoles] = useState(APIs.roles[0]);
     const [submitted, setSubmitted] = useState("");
     const [isOpened, setOpened] = useState(false);
     const notify = (res) => 
     {
         //console.log(res)
         if(res.status_code === 200){
-            // console.log(res.data)
+            //console.log(res)
              toast.success(res.message, { autoClose: 5000 });
              cookie.set('token',res.data.tokens)
              cookie.set('user',res.data.user)
+             if(res.data.user.roles == APIs.roles[1]){
             setTimeout( ()=>{ router.push('/student/profile') } , 6000);
+             }else{
+                setTimeout( ()=>{ router.push('/teacher/profile') } , 6000);
+             }
         }else{
             //console.log(res.status_code)
              toast.error(res.message, { autoClose: 5000 });
@@ -61,7 +65,7 @@ const Login = () => {
   const handleLogin = (e) =>{
     e.preventDefault();
     const sendData = JSON.stringify({ email: email, password: password, roles: roles})
-    const URLS = APIs.base_url+"/authlogin/login";
+    const URLS = APIs.base_url+"authlogin/login";
     console.log(sendData);
     const ress = fetch(URLS, {
         method:"POST",
@@ -108,8 +112,8 @@ const Login = () => {
                        <div className="row input-main">
                             <div className="col-md-12 col-lg-12 input-wrap mb-3" >
                                <select className="field display-7 custom-select" id="email-form2-7" name="role" value={roles} onChange={handleroles}>
-                                        <option value="teacher">Teacher</option>  
-                                        <option value="student">Student</option>  
+                                        <option value={APIs.roles[0]}>{APIs.roles[0]}</option>  
+                                        <option value={APIs.roles[1]}>{APIs.roles[1]}</option>  
                                </select>
                             </div>
                            
