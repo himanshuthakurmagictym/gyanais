@@ -1,7 +1,12 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { parseCookies } from 'nookies'
 function Header() {
+
+  const {user} = parseCookies()
+  console.log(user)
+  //console.log(JSON.parse(user))
     return (
         <section className="menu cid-qKSs6VLKjY" once="menu" id="menu1-h">
 

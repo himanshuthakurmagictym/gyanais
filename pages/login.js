@@ -20,21 +20,23 @@ const Login = () => {
     {
         //console.log(res)
         if(res.status_code === 200){
-            //console.log(res)
+            console.log(res.data.user)
              toast.success(res.message, { autoClose: 5000 });
-             cookie.set('token',res.data.tokens)
-             cookie.set('user',res.data.user)
-             if(res.data.user.roles == APIs.roles[1]){
-            setTimeout( ()=>{ router.push('/student/profile') } , 6000);
-             }else{
-                setTimeout( ()=>{ router.push('/teacher/profile') } , 6000);
-             }
+             cookie.set('token',JSON.stringify(res.data.tokens))
+             cookie.set('user',JSON.stringify(res.data.user._id))
+            //  if(res.data.user.roles == APIs.roles[1]){
+            // setTimeout( ()=>{ router.push('/student/profile') } , 6000);
+            //  }else{
+            //     setTimeout( ()=>{ router.push('/teacher/profile') } , 6000);
+            //  }
         }else{
             //console.log(res.status_code)
              toast.error(res.message, { autoClose: 5000 });
         }
         
     }
+
+    
     const router  = useRouter();
 
     const setCollapseOpen = (data) =>{
@@ -62,21 +64,28 @@ const Login = () => {
         setRoles(roles)
       };
 
-  const handleLogin = (e) =>{
+  const handleLogin = async (e) =>{
     e.preventDefault();
     const sendData = JSON.stringify({ email: email, password: password, roles: roles})
     const URLS = APIs.base_url+"authlogin/login";
-    console.log(sendData);
-    const ress = fetch(URLS, {
+    //console.log(sendData);
+    const ress = await fetch(URLS, {
         method:"POST",
         headers: {
             "Content-Type": "application/json",
           },
         body:sendData,
-    }).then(res => res.json())
+    })
+    .then(res => res.json())
     .then(data => {(data.status_code == '200') ? notify(data): notify(data) })
     .catch((error) => console.log(error));
-
+    // const res2 = await ress.json()
+    // if(res2.error){
+    //     console.log(error)
+    // }else{
+    //    console.log(res2)
+      
+    // }
     
 
   };
