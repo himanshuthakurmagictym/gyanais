@@ -1,13 +1,29 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { parseCookies } from 'nookies'
+import cookie from 'js-cookie'
+import router from 'next/router'
+var CryptoJS = require("crypto-js");
 function Header() {
 
-  const {user} = parseCookies()
-  console.log(user)
-  //console.log(JSON.parse(user))
+   var isuser = cookie.get('user')
+   if(isuser){
+    var bytesss  = CryptoJS.AES.decrypt(isuser, '619619');
+    const user = JSON.parse(bytesss.toString(CryptoJS.enc.Utf8));
+   }
+
+   let userdetails = false
+   
+    if(isuser){
+      userdetails = true
+    }else{
+       userdetails = false
+    }
+
+
     return (
+
         <section className="menu cid-qKSs6VLKjY" once="menu" id="menu1-h">
 
     
@@ -46,18 +62,27 @@ function Header() {
                 <Link href="/currentaffairs" ><a className="nav-link link text-danger  display-4"  >
                      Current Affairs</a></Link>
                 </li>
-
+                {
+                  
+                  !userdetails ?
+                <>
                 <li className="nav-item ">
                     <Link href="/login" ><a className="nav-link link text-danger  display-4"  >Login</a></Link>
                 </li>
                 <li className="nav-item ">
                     <Link href="/registration" ><a className="nav-link link text-danger  display-4"  >Registration</a></Link>
                 </li>
-
+                </>
+                : 
+                <li className="nav-item ">
+                <a className="nav-link link text-danger  display-4" onClick={()=>{cookie.remove('token');cookie.remove('user'); router.push('/login');}} >Logout</a>
+                </li>
+                }
                 <li className="nav-item ">
                 <Link href="/contactus" ><a className="nav-link link text-danger  display-4"  >
                            Contact Us</a></Link>
                 </li>
+                
 
                     </ul>
                 <div className="icons-menu">

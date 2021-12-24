@@ -7,8 +7,7 @@ import APIs from '../config.js';
 import 'react-toastify/dist/ReactToastify.css';
 import cookie from 'js-cookie'
 import {useRouter} from 'next/router'
-
-
+var CryptoJS = require("crypto-js");
 
 const Login = () => {
     const [email, setemail] = useState("");
@@ -20,15 +19,17 @@ const Login = () => {
     {
         //console.log(res)
         if(res.status_code === 200){
-            console.log(res.data.user)
+          
              toast.success(res.message, { autoClose: 5000 });
-             cookie.set('token',JSON.stringify(res.data.tokens))
-             cookie.set('user',JSON.stringify(res.data.user._id))
-            //  if(res.data.user.roles == APIs.roles[1]){
-            // setTimeout( ()=>{ router.push('/student/profile') } , 6000);
-            //  }else{
-            //     setTimeout( ()=>{ router.push('/teacher/profile') } , 6000);
-            //  }
+             cookie.set('token',CryptoJS.AES.encrypt(JSON.stringify(res.data.tokens.access.token), '619619').toString(), { expires: new Date(res.data.tokens.access.expires) })
+             cookie.set('user',CryptoJS.AES.encrypt(JSON.stringify(res.data.user), '619619').toString(), { expires: new Date(res.data.tokens.access.expires) })          
+
+            
+             if(res.data.user.roles == APIs.roles[1]){
+            setTimeout( ()=>{ router.push('/student/profile') } , 6000);
+             }else{
+                setTimeout( ()=>{ router.push('/teacher/profile') } , 6000);
+             }
         }else{
             //console.log(res.status_code)
              toast.error(res.message, { autoClose: 5000 });

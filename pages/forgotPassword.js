@@ -3,6 +3,8 @@ import Brudcrums from "../components/Fontend/Brudcrums"
 import Image from 'next/image'
 import Link from 'next/link'
 import APIs from '../config.js';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function ForgotPassword() {
 
     const [email, setemail] = useState("");
@@ -11,7 +13,7 @@ function ForgotPassword() {
     {
         //console.log(res)
         if(res.status_code === 200){
-            // console.log(res.data)
+             console.log(res.message)
              toast.success(res.message, { autoClose: 5000 });
             
             //setTimeout( ()=>{ router.push('/student/profile') } , 6000);
@@ -30,7 +32,7 @@ function ForgotPassword() {
   
   const handleresetpassword = (e) =>{
     e.preventDefault();
-    const URLs = APIs+"/auth/forgetpassword";
+    const URLs = APIs.base_url+"auth/forgotpassword";
     const sendData = JSON.stringify({email:email});
       fetch(URLs,{
          method:'POST',
@@ -39,16 +41,16 @@ function ForgotPassword() {
           },
           body:sendData,
       }).then(res => res.json())
-      .then(res.status_code == '200' ? notify(data): notify(data) )
+      .then(data => {(data.status_code == '200') ? notify(data): notify(data) })
       .catch(error => console.log(error))
   }
 
     return (
         <>
             <Brudcrums />
+            
       <section className=" cid-qKSii1CMsD" > 
-      
-       
+        <ToastContainer />
        <div className="container ">
            <div className="row main-row">
                <div className=" col-sm-12 col-lg-6 col-md-6  form-container" >
