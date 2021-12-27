@@ -1,25 +1,27 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { parseCookies } from 'nookies'
 import cookie from 'js-cookie'
 import router from 'next/router'
 var CryptoJS = require("crypto-js");
-function Header() {
+import APIs from '../../config.js';
 
-   var isuser = cookie.get('user')
+function Header() {
+ 
+  var isuser = cookie.get('user')
    if(isuser){
     var bytesss  = CryptoJS.AES.decrypt(isuser, '619619');
     const user = JSON.parse(bytesss.toString(CryptoJS.enc.Utf8));
    }
 
-   let userdetails = false
+  //  let userdetails = false
    
-    if(isuser){
-      userdetails = true
-    }else{
-       userdetails = false
-    }
+  //   if(isuser){
+  //     userdetails = true
+  //   }else{
+  //      userdetails = false
+  //   }
 
 
     return (
@@ -48,7 +50,7 @@ function Header() {
                 <ul className="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
                 <li className="nav-item ">
                 <Link href="/" ><a className="nav-link link text-danger  display-4"  >
-                           Home</a></Link>
+                     Home</a></Link>
                 </li>
                 <li className="nav-item ">
                 <Link href="/aboutus" ><a className="nav-link link text-danger  display-4">
@@ -62,9 +64,10 @@ function Header() {
                 <Link href="/currentaffairs" ><a className="nav-link link text-danger  display-4"  >
                      Current Affairs</a></Link>
                 </li>
-                {
-                  
-                  !userdetails ?
+                
+                
+                {  
+                  !isuser?
                 <>
                 <li className="nav-item ">
                     <Link href="/login" ><a className="nav-link link text-danger  display-4"  >Login</a></Link>
@@ -112,4 +115,7 @@ function Header() {
     )
 }
 
+
+
 export default Header
+

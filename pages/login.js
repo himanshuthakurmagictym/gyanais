@@ -17,16 +17,17 @@ const Login = () => {
     const [isOpened, setOpened] = useState(false);
     const notify = (res) => 
     {
-        //console.log(res)
+        // console.log(res.data.user.roles)
         if(res.status_code === 200){
-          
+
              toast.success(res.message, { autoClose: 5000 });
-             cookie.set('token',CryptoJS.AES.encrypt(JSON.stringify(res.data.tokens.access.token), '619619').toString(), { expires: new Date(res.data.tokens.access.expires) })
-             cookie.set('user',CryptoJS.AES.encrypt(JSON.stringify(res.data.user), '619619').toString(), { expires: new Date(res.data.tokens.access.expires) })          
+             cookie.set('token',CryptoJS.AES.encrypt(JSON.stringify(res.data.tokens.access.token), '619619').toString(), { expires: new Date(res.data.tokens.access.expires), secure: true, sameSite: 'strict' })
+             cookie.set('user',CryptoJS.AES.encrypt(JSON.stringify(res.data.user), '619619').toString(), { expires: new Date(res.data.tokens.access.expires), secure: true, sameSite: 'strict' })  
+            // cookie.set('menu', "yes")          
 
             
              if(res.data.user.roles == APIs.roles[1]){
-            setTimeout( ()=>{ router.push('/student/profile') } , 6000);
+            setTimeout(()=>{ router.push('/student/profile') } , 6000);
              }else{
                 setTimeout( ()=>{ router.push('/teacher/profile') } , 6000);
              }
