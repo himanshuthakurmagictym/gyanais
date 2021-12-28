@@ -21,7 +21,7 @@ export default Profile
 
 export async function getServerSideProps(ctx){
     const cookie = parseCookies(ctx)
-
+    
     if(!cookie.token){
         
         return {
@@ -33,10 +33,10 @@ export async function getServerSideProps(ctx){
           };
 
     }else{
-
+       
         var bytesss  = CryptoJS.AES.decrypt(cookie.token, '619619');
         var token = JSON.parse(bytesss.toString(CryptoJS.enc.Utf8));
-
+        console.log(token)
         const sendData = JSON.stringify({token:token})
         const res = await fetch(`${APIs.base_url}auth/verifytoken`, {
             method:"POST",

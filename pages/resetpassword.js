@@ -1,11 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Brudcrums from "../components/Fontend/Brudcrums"
 import Image from 'next/image'
 import Link from 'next/link'
 import APIs from '../config.js';
+import { useRouter } from 'next/router'
 function Resetpassword() {
 
     const [password, setepassword] = useState("");
+    const [confirmpassword, seteconfirmpassword] = useState("");
+    const router = useRouter()
+    const  {token}  = router.query
+   
 
     const notify = (res) => 
     {
@@ -30,13 +35,34 @@ function Resetpassword() {
   const handleconfirmpassword = (e) =>{
     const confirmpassword = e.target.value;
     seteconfirmpassword(confirmpassword)
+    
   }
+
+    useEffect(()=>{
+
+        fetch(APIs.base_url+"auth/verifytoken", {
+            method:'POST',
+            headers: {
+                "Content-Type": "application/json",
+              },
+            body:JSON.stringify({token:token}),
+        }).then(res => res.json())
+        .then(data => (!data.roles) ? router.push('/login') :"")
+        .catch(err => console.log(err));
+    
+
+    },[])
+
+
+
+    
 
   
   const handleresetpassword = (e) =>{
+    
     e.preventDefault();
-    const URLs = APIs+"/auth/forgetpassword";
-    const sendData = JSON.stringify({email:email});
+    const URLs = APIs+"/auth/resetpassword";
+    const sendData = JSON.stringify({password:setepassword, confirmpassword: confirmpassword});
       fetch(URLs,{
          method:'POST',
          headers: {
@@ -44,7 +70,7 @@ function Resetpassword() {
           },
           body:sendData,
       }).then(res => res.json())
-      .then(res.status_code == '200' ? notify(data): notify(data) )
+      .then(data.status_code == '200' ? notify(data): notify(data) )
       .catch(error => console.log(error))
   }
 
@@ -110,3 +136,13 @@ function Resetpassword() {
 }
 
 export default Resetpassword
+export async function getServerSideProps(context) {
+    //console.log(context.query.token);
+    //console.log(password)
+        
+        return {
+            
+            props:{},
+          }   
+    
+  }

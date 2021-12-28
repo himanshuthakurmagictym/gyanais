@@ -15,20 +15,20 @@ const Login = () => {
     const [roles, setRoles] = useState(APIs.roles[0]);
     const [submitted, setSubmitted] = useState("");
     const [isOpened, setOpened] = useState(false);
+    const router  = useRouter();
     const notify = (res) => 
     {
-        // console.log(res.data.user.roles)
+         //console.log(res)
         if(res.status_code === 200){
 
              toast.success(res.message, { autoClose: 5000 });
              cookie.set('token',CryptoJS.AES.encrypt(JSON.stringify(res.data.tokens.access.token), '619619').toString(), { expires: new Date(res.data.tokens.access.expires), secure: true, sameSite: 'strict' })
-             cookie.set('user',CryptoJS.AES.encrypt(JSON.stringify(res.data.user), '619619').toString(), { expires: new Date(res.data.tokens.access.expires), secure: true, sameSite: 'strict' })  
-            // cookie.set('menu', "yes")          
-
+             cookie.set('user',CryptoJS.AES.encrypt(JSON.stringify(res.data.user), '619619').toString(), { expires: new Date(res.data.tokens.access.expires), secure: true, sameSite: 'strict' })          
             
-             if(res.data.user.roles == APIs.roles[1]){
+             if(res.data.user.roles === APIs.roles[1]){
             setTimeout(()=>{ router.push('/student/profile') } , 6000);
              }else{
+
                 setTimeout( ()=>{ router.push('/teacher/profile') } , 6000);
              }
         }else{
@@ -39,7 +39,7 @@ const Login = () => {
     }
 
     
-    const router  = useRouter();
+  
 
     const setCollapseOpen = (data) =>{
        if(data === 1){
@@ -81,14 +81,6 @@ const Login = () => {
     .then(res => res.json())
     .then(data => {(data.status_code == '200') ? notify(data): notify(data) })
     .catch((error) => console.log(error));
-    // const res2 = await ress.json()
-    // if(res2.error){
-    //     console.log(error)
-    // }else{
-    //    console.log(res2)
-      
-    // }
-    
 
   };
 
