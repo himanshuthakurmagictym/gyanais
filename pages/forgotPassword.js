@@ -5,9 +5,16 @@ import Link from 'next/link'
 import APIs from '../config.js';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/router'
 function ForgotPassword() {
 
     const [email, setemail] = useState("");
+    const router = useRouter();
+    const  {token}  = router.query;
+
+    if(token == 1){
+        toast.error("Token has expired. Please resent password after sometime", { autoClose: 5000 });
+    }
 
     const notify = (res) => 
     {
