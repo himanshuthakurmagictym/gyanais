@@ -24,10 +24,8 @@ export async function getServerSideProps(ctx){
 
     }else{
 
-        var bytesss  = CryptoJS.AES.decrypt(cookie.token, '619619');
-        var token = JSON.parse(bytesss.toString(CryptoJS.enc.Utf8));
-
-        const sendData = JSON.stringify({token:token})
+     
+        const sendData = JSON.stringify({token:cookie.token})
         const res = await fetch(`${APIs.base_url}auth/verifytoken`, {
             method:"POST",
             headers: {

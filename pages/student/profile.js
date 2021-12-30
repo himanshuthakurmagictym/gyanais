@@ -12,7 +12,7 @@ function Profile({datas}) {
         <div>
             <Brudcrums/>
          { 
-               datas.email ? datas.email : ""
+            //    datas.email ? datas.email : ""
         }
         </div>
     )
@@ -22,37 +22,37 @@ export default Profile
 
 export async function getServerSideProps(ctx){
     const cookie = await parseCookies(ctx)
-    
-    if(!cookie.token){
+    return{ props:{}}
+    // if(!cookie.token){
         
-        return {
-            redirect: {
-              permanent: false,
-              destination: "/login",
-            },
-            props:{},
-          };
+    //     return {
+    //         redirect: {
+    //           permanent: false,
+    //           destination: "/login",
+    //         },
+    //         props:{},
+    //       };
 
-    }else{
+    // }else{
        
-        var bytesss  = CryptoJS.AES.decrypt(cookie.token, '619619');
-        var token = JSON.parse(bytesss.toString(CryptoJS.enc.Utf8));
+        // var bytesss  = CryptoJS.AES.decrypt(cookie.token, '619619');
+        // var token = JSON.parse(bytesss.toString(CryptoJS.enc.Utf8));
         //console.log(token)
-        const sendData = JSON.stringify({token:token})
-        const res = await fetch(`${APIs.base_url}auth/verifytoken`, {
-            method:"POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body:sendData,
-       });
-       const datas =  await res.json();
+    //     const sendData = JSON.stringify({token:cookie.token})
+    //     const res = await fetch(`${APIs.base_url}auth/verifytoken`, {
+    //         method:"POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body:sendData,
+    //    });
+    //    const datas =  await res.json();
+    //     console.log("sd"+datas);
+    //    return {
+    //     props: {datas: datas.data}
+    //  }
 
-       return {
-        props: {datas: datas.data}
-     }
-
-    }
+    // }
     
 
   

@@ -9,11 +9,11 @@ import APIs from '../../config.js';
 
 function Header() {
  
-  var isuser = cookie.get('user')
-   if(isuser){
-    var bytesss  = CryptoJS.AES.decrypt(isuser, '619619');
-    const user = JSON.parse(bytesss.toString(CryptoJS.enc.Utf8));
-   }
+  var isuser = cookie.get('token')
+  //  if(isuser){
+    // var bytesss  = CryptoJS.AES.decrypt(isuser, '619619');
+    // const user = JSON.parse(bytesss.toString(CryptoJS.enc.Utf8));
+  //  }
 
   //  let userdetails = false
    
