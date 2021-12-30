@@ -31,7 +31,9 @@
     "use-screen-recording": "^2.0.0"
   },
   "devDependencies": {
+    "@types/react": "^17.0.38",
     "eslint": "7.32.0",
-    "eslint-config-next": "12.0.1"
+    "eslint-config-next": "12.0.1",
+    "typescript": "^4.5.4"
   }
 }
