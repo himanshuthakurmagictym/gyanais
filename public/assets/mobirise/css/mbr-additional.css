@@ -2040,3 +2040,32 @@ color: white;
 
 .labelred{color:red}
 .labelgreen{color:green}
+
+.profilebox{
+  padding-bottom: 40px;
+background-color: #f4f8fa;
+}
+
+.profilebox .card-box{
+  background: #ffffff;
+  padding: 2rem 2rem;
+  box-shadow: 0px 0px 30px rgb(115 128 157 / 10%);
+  -webkit-box-shadow: 0px 0px 30px rgb(115 128 157 / 10%);
+  border-radius: 0.25rem
+}
+
+.left_navigation{
+  
+  padding: 2rem;
+  background: linear-gradient(45deg, var(--primary-color), #51aafa);
+  color:white;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  
+}
+
+.left_navigation ul li{
+  list-style: circle; 
+}
+.deactivetab{display:none;}
+.activetab{display:inherit;}

@@ -8,6 +8,10 @@ export async function middleware(req) {
   const tokend = JSON.stringify(req.cookies.token);
   
   if(tokend){
+
+    //  var bytesss  = CryptoJS.AES.decrypt(tokend, '619619');
+    //     var token = (bytesss.toString(CryptoJS.enc.Utf8));
+
     const sendData = JSON.stringify({token:req.cookies.token})
         const res = await fetch(`${APIs.base_url}auth/verifytoken`, {
             method:"POST",

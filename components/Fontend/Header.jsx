@@ -64,7 +64,10 @@ function Header() {
                 <Link href="/currentaffairs" ><a className="nav-link link text-danger  display-4"  >
                      Current Affairs</a></Link>
                 </li>
-                
+                <li className="nav-item">
+                <Link href="/contactus" ><a className="nav-link link text-danger  display-4"  >
+                           Contact Us</a></Link>
+                </li>
                 
                 {  
                   !isuser?
@@ -81,10 +84,7 @@ function Header() {
                 <a className="nav-link link text-danger  display-4" onClick={()=>{cookie.remove('token');cookie.remove('user'); router.push('/login');}} >Logout</a>
                 </li>
                 }
-                <li className="nav-item ">
-                <Link href="/contactus" ><a className="nav-link link text-danger  display-4"  >
-                           Contact Us</a></Link>
-                </li>
+               
                 
 
                     </ul>
