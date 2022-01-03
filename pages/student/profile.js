@@ -5,7 +5,7 @@ import APIs from '../../config.js';
 import Image from 'next/image'
 import moment from 'moment';
 
-function Profile({datas}) {
+function profile({datas}) {
 
    
 
@@ -103,7 +103,7 @@ function Profile({datas}) {
     )
 }
 
-export default Profile
+export default profile
 
 export async function getServerSideProps(ctx){
     const cookie = await parseCookies(ctx);

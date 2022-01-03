@@ -23,7 +23,7 @@ export default function Layout({children}) {
             },
             body:sendData,
        }).then(res =>res.json())
-       .then(res => setres(res))
+       .then(res => setres(res.data))
         }
         }, [])
         

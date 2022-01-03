@@ -12,7 +12,7 @@ function Header() {
  
   // var isuser = cookie.get('token')
   const isuser = useAppContext() ;
-
+   
   
 
 
@@ -79,14 +79,14 @@ function Header() {
                     <Image src={`/assets/images/avatar.png`}  width='40' height='40' alt="avatar"/></a>
                     <div className="dropdown-menu">
                    {
-                     (isuser.data.roles === 'Student') ?
+                     (isuser.roles === 'Student') ?
                      <>
-                       <a className="nav-link dropdown-item display-4" href="/student/profile">Profile</a>
-                      <a className="nav-link dropdown-item display-4" href="/student/setting">Setting</a>
+                       <a className="nav-link dropdown-item display-4" href="/student/Profile">Profile</a>
+                      <a className="nav-link dropdown-item display-4" href="/student/Setting">Setting</a>
                      </> : 
                      <>
-                     <a className="nav-link dropdown-item display-4" href="/teacher/profile">Profile</a>
-                    <a className="nav-link dropdown-item display-4" href="/teacher/setting">Setting</a>
+                     <a className="nav-link dropdown-item display-4" href="/teacher/Profile">Profile</a>
+                    <a className="nav-link dropdown-item display-4" href="/teacher/Setting">Setting</a>
                    </>
 
                    }

@@ -1,20 +1,33 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import APIs from '../../config.js';
 import 'react-toastify/dist/ReactToastify.css';
+import {useAppContext} from '../Fontend/Layout'
 export default function PersonalInformationEdit() {
+    const userdetail = useAppContext();
+        
+        console.log(userdetail)
+
           const [email, setEmail] = useState("");
           const [firstname, setFirstname] = useState("");
           const [Lastname, setLastname] = useState("");
           const [username, setUsername] = useState("")
           const [address, setAddress] = useState("");
+          
+          useEffect(() => { 
+            setEmail(userdetail.email)
+            setFirstname(userdetail.firstname)
+            setLastname(userdetail.lastname)
+            setUsername(userdetail.username)
+            setAddress(userdetail.address)
+        }, [userdetail])
          
           const notify = (data)=>{
             if(data.status_code === 200){
-                toast.success(data.data.message,{autoClose:2000});
+                toast.success(data.message,{autoClose:2000});
             }else{
-                toast.error(data.data.message,{autoClose:2000});
+                toast.error(data.message,{autoClose:2000});
             }
           }        
 
@@ -23,7 +36,7 @@ export default function PersonalInformationEdit() {
           const sendEmail = (e) => {
             e.preventDefault();
              const URLS = APIs.base_url+"student/personalinfoupdate";
-            //const URLS = "http://localhost:5000/api/email_send";
+           
             const sendmaildata = JSON.stringify({firstname: firstname, lastname: Lastname, email:email, address: address, username: username });
             //console.log(sendmaildata);
             const result = fetch(URLS,{
@@ -32,7 +45,7 @@ export default function PersonalInformationEdit() {
                     "Content-Type": "application/json",
                   },
                 body:sendmaildata
-            }).then(res  => notify(res)).catch(err => console.log(err));  
+            }).then(res  => notify(res.data)).catch(err => console.log(err));  
         }
         
     return (
