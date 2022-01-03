@@ -6,22 +6,14 @@ import cookie from 'js-cookie'
 import router from 'next/router'
 var CryptoJS = require("crypto-js");
 import APIs from '../../config.js';
-
+import { useContext } from "react";
+import {useAppContext} from '../Fontend/Layout'
 function Header() {
  
-  var isuser = cookie.get('token')
-  //  if(isuser){
-    // var bytesss  = CryptoJS.AES.decrypt(isuser, '619619');
-    // const user = JSON.parse(bytesss.toString(CryptoJS.enc.Utf8));
-  //  }
+  // var isuser = cookie.get('token')
+  const isuser = useAppContext() ;
 
-  //  let userdetails = false
-   
-  //   if(isuser){
-  //     userdetails = true
-  //   }else{
-  //      userdetails = false
-  //   }
+  
 
 
     return (
@@ -80,9 +72,30 @@ function Header() {
                 </li>
                 </>
                 : 
-                <li className="nav-item ">
-                <a className="nav-link link text-danger  display-4" onClick={()=>{cookie.remove('token');cookie.remove('user'); router.push('/login');}} >Logout</a>
+                <>
+                <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
+                <li class="nav-item dropdown open">
+                    <a class="nav-link  text-danger dropdown-toggle " data-toggle="dropdown-submenu" aria-expanded="true">
+                    <Image src={`/assets/images/avatar.png`}  width='40' height='40' alt="avatar"/></a>
+                    <div class="dropdown-menu">
+                   {
+                     (isuser.data.roles === 'Student') ?
+                     <>
+                       <a class="nav-link dropdown-item display-4" href="/student/profile">Profile</a>
+                      <a class="nav-link dropdown-item display-4" href="/student/setting">Setting</a>
+                     </> : 
+                     <>
+                     <a class="nav-link dropdown-item display-4" href="/teacher/profile">Profile</a>
+                    <a class="nav-link dropdown-item display-4" href="/teacher/setting">Setting</a>
+                   </>
+
+                   }
+                      <a className="nav-link dropdown-item  display-4" onClick={()=>{cookie.remove('token');cookie.remove('user'); router.push('/login');}} >Logout</a>
+                    </div>
                 </li>
+                </ul>
+    
+                </>
                 }
                
                 
