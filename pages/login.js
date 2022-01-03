@@ -21,16 +21,16 @@ const Login = () => {
          //console.log(res)
         if(res.status_code === 200){
 
-             toast.success(res.message, { autoClose: 3000 });
+             toast.success(res.message, { autoClose: 2000 });
              const realtoken = res.data.tokens.access.token;
              cookie.set('token',realtoken, { expires: new Date(res.data.tokens.access.expires), secure: true, sameSite: 'strict' })
             //  cookie.set('user',CryptoJS.AES.encrypt(JSON.stringify(res.data.user), '619619').toString(), { expires: new Date(res.data.tokens.access.expires), secure: true, sameSite: 'strict' })          
             
              if(res.data.user.roles === APIs.roles[1]){
-            setTimeout(()=>{ router.push('/student/profile') } , 3000);
+            setTimeout(()=>{ router.push('/student/profile') } , 1000);
              }else{
 
-                setTimeout( ()=>{ router.push('/teacher/profile') } , 3000);
+                setTimeout( ()=>{ router.push('/teacher/profile') } , 1000);
              }
         }else{
             //console.log(res.status_code)

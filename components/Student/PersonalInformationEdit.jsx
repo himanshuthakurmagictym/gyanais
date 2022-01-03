@@ -1,26 +1,30 @@
 import React from 'react'
 import { useState } from 'react'
-import APIs from '../../config';
+import { ToastContainer, toast } from 'react-toastify';
+import APIs from '../../config.js';
+import 'react-toastify/dist/ReactToastify.css';
 export default function PersonalInformationEdit() {
           const [email, setEmail] = useState("");
           const [firstname, setFirstname] = useState("");
           const [Lastname, setLastname] = useState("");
           const [username, setUsername] = useState("")
           const [address, setAddress] = useState("");
-          const [submitted, setSubmitted] = useState("");
-
-         const handlefirstName = (e) =>{
-            const inputfirstName = e.target.value;
-            setFirstname(inputfirstName)
-          }
+         
+          const notify = (data)=>{
+            if(data.status_code === 200){
+                toast.success(data.data.message,{autoClose:2000});
+            }else{
+                toast.error(data.data.message,{autoClose:2000});
+            }
+          }        
 
           
 
           const sendEmail = (e) => {
             e.preventDefault();
-             const URLS = APIs.base_url+"email/email_send";
+             const URLS = APIs.base_url+"student/personalinfoupdate";
             //const URLS = "http://localhost:5000/api/email_send";
-            const sendmaildata = JSON.stringify({firstname: firstname, email:email, message: message });
+            const sendmaildata = JSON.stringify({firstname: firstname, lastname: Lastname, email:email, address: address, username: username });
             //console.log(sendmaildata);
             const result = fetch(URLS,{
                 method: "POST",
@@ -28,7 +32,7 @@ export default function PersonalInformationEdit() {
                     "Content-Type": "application/json",
                   },
                 body:sendmaildata
-            }).then(res  => res.status == '200' ? setSubmitted(true): console.log("Mail Failed"));  
+            }).then(res  => notify(res)).catch(err => console.log(err));  
         }
         
     return (
@@ -39,13 +43,8 @@ export default function PersonalInformationEdit() {
             <div className="row main-row">
                 <div className="col-sm-12 col-lg-12 col-md-12 form-container" data-form-type="formoid">
                     <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">Persona Information</h2>
-       
-                    {String(submitted) == 'true'?
-                     <div className="alert alert-success" data-form-alert="" hidden="">Thanks for filling out the form!
-                    </div> 
-                    : ''}
-
-
+                    <ToastContainer />
+                   
                     <form className="mbr-form"  data-form-title="My Mobirise Form" onSubmit={sendEmail} method="POST">
                        
                         <div className="row input-main">
@@ -53,7 +52,7 @@ export default function PersonalInformationEdit() {
                                 <input type="text" className="field display-7" name="firstname" placeholder="First Name" data-form-field="First Name" value={firstname} onChange={(e)=>{setFirstname(e.target.value)}} required="" id="firstname-form2-7"/>
                             </div>
                             <div className="col-md-12 col-lg-6 input-wrap" data-for="email">
-                                <input type="text" className="field display-7" name="lastname" data-form-field="Email" placeholder="Last Name*" required="" value={email} onChange={(e)=>{setLastname(e.target.value)}} id="email-form2-7" />
+                                <input type="text" className="field display-7" name="lastname" data-form-field="Email" placeholder="Last Name*" required="" value={Lastname} onChange={(e)=>{setLastname(e.target.value)}} id="email-form2-7" />
                             </div>             
                         </div>
 

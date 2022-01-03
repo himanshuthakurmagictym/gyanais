@@ -9,7 +9,7 @@ import Subscription from '../../components/Student/Subscription'
 import ManageNotification from '../../components/Student/ManageNotification'
 import {useRouter } from "next/router"
 
-function setting() {
+function Setting() {
     const [tabbar, settabbar] = useState(1)
     const router = useRouter();
     useEffect(() => {
@@ -71,7 +71,7 @@ function setting() {
     )
 }
 
-export default setting
+export default Setting
 export async function getServerSideProps(ctx){
    // const cookie = parseCookies(ctx)
 

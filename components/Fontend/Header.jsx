@@ -73,20 +73,20 @@ function Header() {
                 </>
                 : 
                 <>
-                <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
-                <li class="nav-item dropdown open">
-                    <a class="nav-link  text-danger dropdown-toggle " data-toggle="dropdown-submenu" aria-expanded="true">
+                <ul className="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
+                <li className="nav-item dropdown open">
+                    <a className="nav-link  text-danger dropdown-toggle " data-toggle="dropdown-submenu" aria-expanded="true">
                     <Image src={`/assets/images/avatar.png`}  width='40' height='40' alt="avatar"/></a>
-                    <div class="dropdown-menu">
+                    <div className="dropdown-menu">
                    {
                      (isuser.data.roles === 'Student') ?
                      <>
-                       <a class="nav-link dropdown-item display-4" href="/student/profile">Profile</a>
-                      <a class="nav-link dropdown-item display-4" href="/student/setting">Setting</a>
+                       <a className="nav-link dropdown-item display-4" href="/student/profile">Profile</a>
+                      <a className="nav-link dropdown-item display-4" href="/student/setting">Setting</a>
                      </> : 
                      <>
-                     <a class="nav-link dropdown-item display-4" href="/teacher/profile">Profile</a>
-                    <a class="nav-link dropdown-item display-4" href="/teacher/setting">Setting</a>
+                     <a className="nav-link dropdown-item display-4" href="/teacher/profile">Profile</a>
+                    <a className="nav-link dropdown-item display-4" href="/teacher/setting">Setting</a>
                    </>
 
                    }
@@ -96,10 +96,7 @@ function Header() {
                 </ul>
     
                 </>
-                }
-               
-                
-
+                }                               
                     </ul>
                 <div className="icons-menu">
                   <div className="soc-item">
