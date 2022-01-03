@@ -3,25 +3,37 @@ import { useState } from 'react'
 import APIs from '../../config';
 
 function ChangePassword() {
-    const [email, setEmail] = useState("");
-    const [firstname, setFirstname] = useState("");
-    const [Lastname, setLastname] = useState("");
-    const [username, setUsername] = useState("")
-    const [address, setAddress] = useState("");
-    const [submitted, setSubmitted] = useState("");
+    const [password, setpassword] = useState("");
+    const [confirmpassword, setconfirmpassword] = useState("");
+    const [handlelabel, sethandlelabel] = useState("");
+    const [passwordSubmitted, setpasswordSubmitted] = useState("");
 
-   const handlefirstName = (e) =>{
-      const inputfirstName = e.target.value;
-      setFirstname(inputfirstName)
+    const handleConfirmpassword = (e) =>{
+        setconfirmpassword(e.target.value)
+        if(e.target.value === password ){
+            sethandlelabel(1)
+            
+            setpasswordSubmitted("Password has matched")
+        }else{
+            setpasswordSubmitted("Passwords don't match")
+            sethandlelabel(2)
+        }
+
     }
-
+    const notify = (data)=>{
+        if(data.status_code === 200){
+            toast.success(data.message,{autoClose:2000});
+        }else{
+            toast.error(data.message,{autoClose:2000});
+        }
+      }
     
 
     const sendEmail = (e) => {
       e.preventDefault();
-       const URLS = APIs.base_url+"email/email_send";
+       const URLS = APIs.base_url+"student/changepassword";
       //const URLS = "http://localhost:5000/api/email_send";
-      const sendmaildata = JSON.stringify({firstname: firstname, email:email, message: message });
+      const sendmaildata = JSON.stringify({password:password, confirmpassword:confirmpassword});
       //console.log(sendmaildata);
       const result = fetch(URLS,{
           method: "POST",
@@ -29,7 +41,7 @@ function ChangePassword() {
               "Content-Type": "application/json",
             },
           body:sendmaildata
-      }).then(res  => res.status == '200' ? setSubmitted(true): console.log("Mail Failed"));  
+      }).then(res  => notify(res.data)).catch(err => console.log(err));   
   }
     return (
         <section className=" cid-qKSii1CMsD" id="form2-7"> 
@@ -40,27 +52,20 @@ function ChangePassword() {
                 <div className="col-sm-12 col-lg-12 col-md-12 form-container" data-form-type="formoid">
                     <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">Change Password</h2>
        
-                   
-
-
                     <form className="mbr-form"  data-form-title="My Mobirise Form" onSubmit={sendEmail} method="POST">
                        
                         
 
-                        <div className="row input-main">
-                            <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
-                                <input type="text" className="field display-7" name="email" placeholder="Enter Email"  value={email} onChange={(e)=>{setEmail(e.target.value)}} required="" id="firstname-form2-7"/>
-                            </div>
-                                       
-                        </div>
-
-
-                        <div className="row input-main">
-                            <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
-                                <input type="text" className="field display-7" name="username" placeholder="Enter username" value={username} onChange={(e)=>{setUsername(e.target.value)}} required="" id="firstname-form2-7"/>
-                            </div>
-                                        
-                        </div>
+                    <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
+                                 <input type="password" className="field display-7" name="password" value={password} onChange={(e)=>{setpassword(e.target.value)}} placeholder="Password" data-form-field="Password"  required="" minLength="8" id="firstname-form2-7"/>
+                                 <label className={handlelabel == 2 ? "labelred":"labelgreen"}>{passwordSubmitted}</label>
+                                
+                                 
+                             </div>
+                             <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
+                                 <input type="password" minLength="8" className="field display-7" value={confirmpassword} onChange={handleConfirmpassword} name="confirm_password" placeholder="confirm Password" data-form-field="Password"  required="" id="firstname-form2-7"/>
+                                 
+                             </div>
         
                         
                         <div className="row input-main">

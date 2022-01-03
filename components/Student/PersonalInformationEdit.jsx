@@ -6,9 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {useAppContext} from '../Fontend/Layout'
 export default function PersonalInformationEdit() {
     const userdetail = useAppContext();
-        
-        console.log(userdetail)
-
+    
           const [email, setEmail] = useState("");
           const [firstname, setFirstname] = useState("");
           const [Lastname, setLastname] = useState("");
