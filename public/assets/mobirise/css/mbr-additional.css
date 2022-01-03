@@ -2069,3 +2069,4 @@ background-color: #f4f8fa;
 }
 .deactivetab{display:none;}
 .activetab{display:inherit;}
+.dropdown-menu .dropdown-item{color:black!important}

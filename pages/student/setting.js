@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Brudcrums from '../../components/Fontend/Brudcrums'
@@ -10,14 +10,16 @@ import ManageNotification from '../../components/Student/ManageNotification'
 import {useRouter } from "next/router"
 
 function setting() {
-    const [pi, setpi] = useState("1")
-    const [a, seta] = useState("")
-    const [cp, setcp] = useState("")
-    const [mn, setmn] = useState("")
-    const [s, sets] = useState("")
-
+    const [tabbar, settabbar] = useState(1)
     const router = useRouter();
-    console.log(router.route);
+    useEffect(() => {
+       if(router.query.tabs){
+        settabbar(router.query.tabs)
+       }
+       
+    }, [tabbar])
+   
+    
     return (
         <div>
                <Brudcrums/>
@@ -32,11 +34,11 @@ function setting() {
                         <div className="left_navigation">
                                 <div className="">
                                 <ul>
-                                    <a href="/student/setting?tab=1"><li>Personal information</li></a>
-                                    <a href="/student/setting?tab=2"><li>Change Avatar</li></a>
-                                    <a href="/student/setting?tab=3"><li>Change Password</li></a>
-                                    <a href="/student/setting?tab=4"><li>Manage Notification</li></a>
-                                    <a href="/student/setting?tab=5"><li>Subscription</li> </a> 
+                                    <a href="/student/setting?tabs=1"><li>Personal information</li></a>
+                                    <a href="/student/setting?tabs=2"><li>Change Avatar</li></a>
+                                    <a href="/student/setting?tabs=3"><li>Change Password</li></a>
+                                    <a href="/student/setting?tabs=4"><li>Manage Notification</li></a>
+                                    <a href="/student/setting?tabs=5"><li>Subscription</li> </a> 
                                 </ul>
 
                                 </div>     
@@ -46,11 +48,11 @@ function setting() {
 
                         <div className=" col-md-9">
                         <div className="card-box">
-                                <div className={pi ==1? "activetab" : "deactivetab"}><PersonalInformationEdit /></div>
-                               <div className={pi ==2? "activetab" : "deactivetab"}><Avatar  /></div>
-                               <div className={cp ==3? "activetab" : "deactivetab"}><ChangePassword  /></div>
-                               <div className={s ==4? "activetab" : "deactivetab"}><Subscription /></div>
-                               <div className={mn ==5? "activetab" : "deactivetab"}><ManageNotification /></div>
+                                <div className={tabbar ==1? "activetab" : "deactivetab"}><PersonalInformationEdit /></div>
+                               <div className={tabbar == 2? "activetab" : "deactivetab"}><Avatar  /></div>
+                               <div className={tabbar == 3? "activetab" : "deactivetab"}><ChangePassword  /></div>
+                               <div className={tabbar == 4? "activetab" : "deactivetab"}><Subscription /></div>
+                               <div className={tabbar == 5? "activetab" : "deactivetab"}><ManageNotification /></div>
                         </div>
                         </div>
                 </div>
