@@ -12,11 +12,11 @@ export default function Layout({children}) {
 
     const [res, setres] = useState("")
 
-        useEffect(() => {
+        useEffect( async() => {
             var token = cookie.get('token');
         if(token){
             const sendData = JSON.stringify({token:token})
-        const res =  fetch(`${APIs.base_url}auth/verifytoken`, {
+        const res = await fetch(`${APIs.base_url}auth/verifytoken`, {
             method:"POST",
             headers: {
                 "Content-Type": "application/json",
