@@ -71,6 +71,7 @@ const Login = () => {
     e.preventDefault();
     const sendData = JSON.stringify({ email: email, password: password, roles: roles})
     const URLS = APIs.base_url+"authlogin/login";
+    //const URLS = "http://localhost:5000/api/authlogin/login";
     //console.log(sendData);
     const ress = await fetch(URLS, {
         method:"POST",
