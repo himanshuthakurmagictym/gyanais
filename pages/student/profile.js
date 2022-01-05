@@ -66,19 +66,26 @@ function Profile({datas, paidcourse}) {
         <h1 className="mbr-fonts-style mb-3 align-center display-2">All subscription courses</h1>
         <div className="row"> 
         
-                        <div className=" col-md-12">
+                        <div className=" col-md-6">
                         <div className="">
                                                        
                                 {paidcourse.map((categoryid) =>{
                                     return(
                                         <>
-                                        <li key={categoryid.category_id}>{categoryid.category_id}</li>
+                                        {/* <li key={categoryid.category_id}>{categoryid.category_id}</li> */}
                                        
                                                 {categoryid.paid_user.map((paiduser)=>(
                                                     <>
-                                                   <Link href="login" passHref>
-                                                    <Singleclass singleclass={paiduser} key="{paiduser[0]._id}" />
-                                                    </Link>
+                                                    <div className="wrapper">
+                                                   <div className="card-img pb-3 align-center">
+        
+                                                    <Image src={`/assets/images/category/${paiduser.course_category_image}`} width="100" height="100" className="categoryimage" alt="category" />
+                                                    <h4 className="mbr-fonts-style mbr-card-title align-center display-7"> {paiduser.course_category_name}</h4>
+                                                </div>
+                                                </div>
+                            
+                                                
+                                                   
                                                     </>
                                                 ))}
                                         </>
