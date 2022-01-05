@@ -7,7 +7,7 @@ import Chatbox from "../../../components/Fontend/Chatbox";
 import Whiteboard from "../../../components/Fontend/Whiteboard";
 
 const Webcamerasforst = dynamic(
-  () => import('../../components/Fontend/Webcameras'),
+  () => import('../../../components/Fontend/Webcameras'),
   { ssr: false }
 )
 
