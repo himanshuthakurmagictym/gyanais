@@ -12,6 +12,7 @@ export default function PersonalInformationEdit() {
           const [Lastname, setLastname] = useState("");
           const [username, setUsername] = useState("")
           const [address, setAddress] = useState("");
+          const [_id, set_id] = useState("");
           
           useEffect(() => { 
             setEmail(userdetail.email)
@@ -19,9 +20,11 @@ export default function PersonalInformationEdit() {
             setLastname(userdetail.lastname)
             setUsername(userdetail.username)
             setAddress(userdetail.address)
+            set_id(userdetail._id)
         }, [userdetail])
          
           const notify = (data)=>{
+              console.log(data)
             if(data.status_code === 200){
                 toast.success(data.message,{autoClose:2000});
             }else{
@@ -33,9 +36,9 @@ export default function PersonalInformationEdit() {
 
           const sendEmail = (e) => {
             e.preventDefault();
-             const URLS = APIs.base_url+"student/personalinfoupdate";
+             const URLS = APIs.base_url+"auth/userupdate";
            
-            const sendmaildata = JSON.stringify({firstname: firstname, lastname: Lastname, email:email, address: address, username: username });
+            const sendmaildata = JSON.stringify({firstname: firstname, lastname: Lastname, email:email, address: address, username: username, _id:_id });
             //console.log(sendmaildata);
             const result = fetch(URLS,{
                 method: "POST",
@@ -43,7 +46,7 @@ export default function PersonalInformationEdit() {
                     "Content-Type": "application/json",
                   },
                 body:sendmaildata
-            }).then(res  => notify(res.data)).catch(err => console.log(err));  
+            }).then(res => res.json()).then(res  =>  notify(res) ).catch(err => console.log(err));  
         }
         
     return (

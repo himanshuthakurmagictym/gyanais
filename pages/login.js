@@ -27,10 +27,11 @@ const Login = () => {
             //  cookie.set('user',CryptoJS.AES.encrypt(JSON.stringify(res.data.user), '619619').toString(), { expires: new Date(res.data.tokens.access.expires), secure: true, sameSite: 'strict' })          
             
              if(res.data.user.roles === APIs.roles[1]){
-            setTimeout(()=>{ router.push('/student/profile') } , 1000);
+                router.push('/student/profile')
+            //setTimeout(()=>{ router.push('/student/profile') } , 3000);
              }else{
-
-                setTimeout( ()=>{ router.push('/teacher/profile') } , 1000);
+                router.push('/teacher/profile')
+                //setTimeout( ()=>{ router.push('/teacher/profile') } , 3000);
              }
         }else{
             //console.log(res.status_code)

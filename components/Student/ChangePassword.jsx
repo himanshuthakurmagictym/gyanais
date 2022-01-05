@@ -31,7 +31,7 @@ function ChangePassword() {
 
     const sendEmail = (e) => {
       e.preventDefault();
-       const URLS = APIs.base_url+"student/changepassword";
+       const URLS = APIs.base_url+"auth/changepassword";
       //const URLS = "http://localhost:5000/api/email_send";
       const sendmaildata = JSON.stringify({password:password, confirmpassword:confirmpassword});
       //console.log(sendmaildata);
@@ -41,7 +41,7 @@ function ChangePassword() {
               "Content-Type": "application/json",
             },
           body:sendmaildata
-      }).then(res  => notify(res.data)).catch(err => console.log(err));   
+      }).then(res => res.json()).then(res  => notify(res)).catch(err => console.log(err));   
   }
     return (
         <section className=" cid-qKSii1CMsD" id="form2-7"> 

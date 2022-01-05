@@ -18,7 +18,7 @@ function Header() {
 
     return (
 
-        <section className="menu cid-qKSs6VLKjY" once="menu" id="menu1-h">
+        <section className="menu cid-qKSs6VLKjY"  id="menu1-h">
 
     
     
@@ -81,10 +81,12 @@ function Header() {
                    {
                      (isuser.roles === APIs.roles[1]) ?
                      <>
+                      <a className="nav-link dropdown-item display-4" href="/courses">Courses</a>
                        <a className="nav-link dropdown-item display-4" href="/student/profile">Profile</a>
                       <a className="nav-link dropdown-item display-4" href="/student/setting">Setting</a>
                      </> : 
                      <>
+                      <a className="nav-link dropdown-item display-4" href="/teacher/dashboard">Dashboard</a>
                      <a className="nav-link dropdown-item display-4" href="/teacher/profile">Profile</a>
                     <a className="nav-link dropdown-item display-4" href="/teacher/setting">Setting</a>
                    </>

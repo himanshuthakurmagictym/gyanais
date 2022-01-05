@@ -25,7 +25,7 @@ function Avatar() {
 
     const sendAvatar = (e) => {
       e.preventDefault();
-       const URLS = APIs.base_url+"student/avatar";
+       const URLS = APIs.base_url+"auth/avatar";
       //const URLS = "http://localhost:5000/api/email_send";
 
       const body = new FormData();
@@ -38,7 +38,7 @@ function Avatar() {
               "Content-Type": "multipart/form-data",
             },
           body:sendmaildata
-      }).then(res  => notify(res.data)).catch(err => console.log(err)); 
+      }).then(res => res.json()).then(res  => notify(res)).catch(err => console.log(err)); 
   }
     return (
         <>

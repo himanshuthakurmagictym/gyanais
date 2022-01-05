@@ -1,8 +1,8 @@
 import React from 'react'
-import Brudcrums from "../../components/Fontend/Brudcrums"
-import Singleclass from "../../components/Fontend/Classes/Singleclass"
+import Brudcrums from "../../../components/Fontend/Brudcrums"
+import Singleclass from "../../../components/Fontend/Classes/Singleclass"
 import Link from 'next/link'
-import APIs from '../../config.js';
+import APIs from '../../../config.js';
 
 function Category({allclasses, categoryid}) {
 

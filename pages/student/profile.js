@@ -5,9 +5,10 @@ import APIs from '../../config.js';
 import Image from 'next/image'
 import moment from 'moment';
 import Link from 'next/link'
-import Singleclass from "../../components/Fontend/Classes/Singleclass"
-function Profile({datas, paidcourse}) {
 
+
+function Profile({datas, paidcourse}) {
+    
    
 
     return (
@@ -66,28 +67,38 @@ function Profile({datas, paidcourse}) {
         <h1 className="mbr-fonts-style mb-3 align-center display-2">All subscription courses</h1>
         <div className="row"> 
         
-                        <div className=" col-md-6">
-                        <div className="">
+                        
+                       
                                                        
                                 {paidcourse.map((categoryid) =>{
                                     return(
                                         <>
-                                        {/* <li key={categoryid.category_id}>{categoryid.category_id}</li> */}
-                                       
+                                        {/* <li key={categoryid.category_id}></li> */}
+                                        <div className=" col-md-6">
+                                        <div className="wrapper" >
+                                                   <div className="card-img pb-3 align-center">
                                                 {categoryid.paid_user.map((paiduser)=>(
                                                     <>
-                                                    <div className="wrapper">
-                                                   <div className="card-img pb-3 align-center">
+                                                    
+                                                    
         
-                                                    <Image src={`/assets/images/category/${paiduser.course_category_image}`} width="100" height="100" className="categoryimage" alt="category" />
-                                                    <h4 className="mbr-fonts-style mbr-card-title align-center display-7"> {paiduser.course_category_name}</h4>
-                                                </div>
-                                                </div>
-                            
+                                                    <Image src={`/assets/images/category/${paiduser.course_category_image}`} width="100" height="100" className="categoryimage" alt="category" key={paiduser._id} />
+                                                    <h2 className="mbr-fonts-style mbr-card-title align-center display-2" > {paiduser.course_category_name}</h2>
+                                                    <div className="line"></div>
+                                                
+                                                
                                                 
                                                    
                                                     </>
                                                 ))}
+                                                <h4 className="mbr-fonts-style mbr-card-title align-center display-7" > <strong>Plan:</strong> {categoryid.duration} Days</h4>
+                                                <h4 className="mbr-fonts-style mbr-card-title align-center display-7" > <strong>Plan Start:</strong> {moment(categoryid.paymentStartTime).format("DD MMM YY")} </h4>
+                                                <h4 className="mbr-fonts-style mbr-card-title align-center display-7" > <strong>Plan Expire:</strong> {moment(categoryid.paymentEndTime).format("DDD MMM YY")} </h4>
+                                                <h4 className="mbr-fonts-style mbr-card-title align-center display-7" > <strong>Remaing Days:</strong> {moment(categoryid.paymentEndTime).diff( moment() , 'days')} Days</h4>
+                                                </div>
+                                                </div>
+                                                
+                                                </div>
                                         </>
                                             )
 
@@ -100,8 +111,8 @@ function Profile({datas, paidcourse}) {
                                 <div className="line"></div>
                         
                        
-                        </div>
-                        </div>
+                       
+                        
                 </div>
             </div>
            
@@ -123,6 +134,7 @@ function Profile({datas, paidcourse}) {
 export default Profile
 
 export async function getServerSideProps(ctx){
+   
     const cookie = await parseCookies(ctx);
   
     if(!cookie.token){

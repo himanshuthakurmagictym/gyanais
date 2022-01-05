@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
-import Brudcrums from "../../components/Fontend/Brudcrums"
+import Brudcrums from "../../../components/Fontend/Brudcrums"
 import Link from 'next/link'
-import APIs from '../../config.js';
+import APIs from '../../../config.js';
 import Image from 'next/image'
 var moment = require('moment');
 import Breadcrumbs from 'nextjs-breadcrumbs';

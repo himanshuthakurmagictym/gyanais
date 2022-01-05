@@ -1,10 +1,10 @@
 import React, { useRef, useEffect } from 'react';
-import Brudcrums from "../../components/Fontend/Brudcrums";
+import Brudcrums from "../../../components/Fontend/Brudcrums";
 
 
 import dynamic from 'next/dynamic'
-import Chatbox from "../../components/Fontend/Chatbox";
-import Whiteboard from "../../components/Fontend/Whiteboard";
+import Chatbox from "../../../components/Fontend/Chatbox";
+import Whiteboard from "../../../components/Fontend/Whiteboard";
 
 const Webcamerasforst = dynamic(
   () => import('../../components/Fontend/Webcameras'),
