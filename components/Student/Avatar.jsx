@@ -2,6 +2,8 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import APIs from '../../config';
 import Image from 'next/image'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {useAppContext} from '../Fontend/Layout'
 function Avatar() {
 
@@ -44,7 +46,7 @@ function Avatar() {
         <>
              <section className=" cid-qKSii1CMsD" id="form2-7"> 
       
-        
+             <ToastContainer />
       <div className="container ">
           <div className="row main-row">
               <div className="col-sm-12 col-lg-12 col-md-12 form-container" data-form-type="formoid">
