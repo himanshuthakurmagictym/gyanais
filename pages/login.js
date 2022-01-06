@@ -68,13 +68,13 @@ const Login = () => {
         setRoles(roles)
       };
 
-  const handleLogin =  useCallback((e) =>{
+  const handleLogin =  async(e) =>{
     e.preventDefault();
     const sendData = JSON.stringify({ email: email, password: password, roles: roles})
     const URLS = APIs.base_url+"authlogin/login";
     //const URLS = "http://localhost:5000/api/authlogin/login";
     //console.log(sendData);
-    const ress = fetch(URLS, {
+    const ress = await fetch(URLS, {
         method:"POST",
         headers: {
             "Content-Type": "application/json",
@@ -85,7 +85,7 @@ const Login = () => {
     .then(data => {(data.status_code == '200') ? notify(data): notify(data) })
     .catch((error) => console.log(error));
 
-  }, []);
+  }
 
   useEffect(() => {
     // Prefetch the dashboard page
