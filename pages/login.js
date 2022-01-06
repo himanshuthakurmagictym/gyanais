@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Brudcrums from "../components/Fontend/Brudcrums"
 import Image from 'next/image'
 import Link from 'next/link'
@@ -87,7 +87,10 @@ const Login = () => {
 
   };
 
-
+  useEffect(() => {
+    // Prefetch the dashboard page
+    router.prefetch('/profile')
+  }, [])
 
 
 
