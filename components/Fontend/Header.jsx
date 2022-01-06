@@ -9,9 +9,10 @@ import APIs from '../../config.js';
 import { useContext } from "react";
 import {useAppContext} from '../Fontend/Layout'
 function Header() {
- 
+  
   // var isuser = cookie.get('token')
-  const isuser = useAppContext() ;
+   const isuser = useAppContext();
+  //  setstate(isusers);
    
   
 
@@ -92,7 +93,7 @@ function Header() {
                    </>
 
                    }
-                      <a className="nav-link dropdown-item  display-4" onClick={()=>{cookie.remove('token');cookie.remove('user'); router.push('/login');}} >Logout</a>
+                      <a className="nav-link dropdown-item  display-4" onClick={()=>{cookie.remove('token'); router.push('/login'); router.reload() }} >Logout</a>
                     </div>
                 </li>
                 </ul>

@@ -27,10 +27,16 @@ const Login = () => {
             //  cookie.set('user',CryptoJS.AES.encrypt(JSON.stringify(res.data.user), '619619').toString(), { expires: new Date(res.data.tokens.access.expires), secure: true, sameSite: 'strict' })          
             
              if(res.data.user.roles === APIs.roles[1]){
+              
                 router.push('/student/profile')
+                router.reload()
+                
             //setTimeout(()=>{ router.push('/student/profile') } , 3000);
              }else{
+              
                 router.push('/teacher/profile')
+                router.reload()
+                
                 //setTimeout( ()=>{ router.push('/teacher/profile') } , 3000);
              }
         }else{
@@ -41,7 +47,7 @@ const Login = () => {
     }
 
     
-  
+    
 
     const setCollapseOpen = (data) =>{
        if(data === 1){
@@ -68,13 +74,13 @@ const Login = () => {
         setRoles(roles)
       };
 
-  const handleLogin =  async(e) =>{
+  const handleLogin =  useCallback((e) =>{
     e.preventDefault();
     const sendData = JSON.stringify({ email: email, password: password, roles: roles})
     const URLS = APIs.base_url+"authlogin/login";
     //const URLS = "http://localhost:5000/api/authlogin/login";
     //console.log(sendData);
-    const ress = await fetch(URLS, {
+    const ress =  fetch(URLS, {
         method:"POST",
         headers: {
             "Content-Type": "application/json",
@@ -85,7 +91,7 @@ const Login = () => {
     .then(data => {(data.status_code == '200') ? notify(data): notify(data) })
     .catch((error) => console.log(error));
 
-  }
+  })
 
   useEffect(() => {
     // Prefetch the dashboard page
