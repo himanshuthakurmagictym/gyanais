@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import Brudcrums from "../components/Fontend/Brudcrums"
 import Image from 'next/image'
 import Link from 'next/link'
@@ -68,13 +68,13 @@ const Login = () => {
         setRoles(roles)
       };
 
-  const handleLogin = async (e) =>{
+  const handleLogin =  useCallback((e) =>{
     e.preventDefault();
     const sendData = JSON.stringify({ email: email, password: password, roles: roles})
     const URLS = APIs.base_url+"authlogin/login";
     //const URLS = "http://localhost:5000/api/authlogin/login";
     //console.log(sendData);
-    const ress = await fetch(URLS, {
+    const ress = fetch(URLS, {
         method:"POST",
         headers: {
             "Content-Type": "application/json",
@@ -85,7 +85,7 @@ const Login = () => {
     .then(data => {(data.status_code == '200') ? notify(data): notify(data) })
     .catch((error) => console.log(error));
 
-  };
+  }, []);
 
   useEffect(() => {
     // Prefetch the dashboard page
