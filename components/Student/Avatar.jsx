@@ -25,21 +25,19 @@ function Avatar() {
       }
 
 
-    const sendAvatar = (e) => {
+    const sendAvatar = async (e) => {
       e.preventDefault();
        const URLS = APIs.base_url+"auth/avatar";
-      //const URLS = "http://localhost:5000/api/email_send";
-
       const body = new FormData();
         body.append("file", avatar);
         body.append("user", user);
       //console.log(sendmaildata);
-      const result = fetch(URLS,{
+      const result = await fetch(URLS,{
           method: "POST",
           headers: {
               "Content-Type": "multipart/form-data",
             },
-          body:sendmaildata
+          body
       }).then(res => res.json()).then(res  => notify(res)).catch(err => console.log(err)); 
   }
     return (
