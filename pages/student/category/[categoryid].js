@@ -11,8 +11,9 @@ import { useRouter } from 'next/router'
 function Category({allclasses, categoryid}) {
     const userdetail = useAppContext();
     const router = useRouter();
-    const URLS = APIs.base_url+"payment/paymentStatus";
-    const sendData = JSON.stringify({  categoryid: categoryid,  userid: userdetail._id })
+    const URLS = APIs.base_url+"payment/status";
+    const sendData = JSON.stringify({  category_id: categoryid,  user: userdetail._id })
+   // console.log(sendData);
     const ress =  fetch(URLS, {
         method:"POST",
         headers: {
@@ -23,14 +24,21 @@ function Category({allclasses, categoryid}) {
     .then(res => res.json())
     .then(data => {
         (data.status_code == '200') ? notify(data): router.push({
-            pathname: '/subscription/[categoryid]',
+            pathname: '/student/subscription/[categoryid]',
             query: { categoryid: categoryid},
           }) 
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+        console.log(error)
+        router.push({
+            pathname: '/student/subscription/[categoryid]',
+            query: { categoryid: categoryid},
+          }) 
+    });
 
     const notify =(data) =>{
-        toast.success( data.message, { autoClose: 5000 });
+      console.log(data.message)  
+        // toast.success( data.message, { autoClose: 5000 });
     }
 
 
