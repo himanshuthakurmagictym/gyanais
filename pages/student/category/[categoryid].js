@@ -3,8 +3,36 @@ import Brudcrums from "../../../components/Fontend/Brudcrums"
 import Singleclass from "../../../components/Fontend/Classes/Singleclass"
 import Link from 'next/link'
 import APIs from '../../../config.js';
+import {useAppContext} from '../../../components/Fontend/Layout'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/router'
 
 function Category({allclasses, categoryid}) {
+    const userdetail = useAppContext();
+    const router = useRouter();
+    const URLS = APIs.base_url+"payment/paymentStatus";
+    const sendData = JSON.stringify({  categoryid: categoryid,  userid: userdetail._id })
+    const ress =  fetch(URLS, {
+        method:"POST",
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body:sendData,
+    })
+    .then(res => res.json())
+    .then(data => {
+        (data.status_code == '200') ? notify(data): router.push({
+            pathname: '/subscription/[categoryid]',
+            query: { categoryid: categoryid},
+          }) 
+    })
+    .catch((error) => console.log(error));
+
+    const notify =(data) =>{
+        toast.success( data.message, { autoClose: 5000 });
+    }
+
 
     return (
         <>
