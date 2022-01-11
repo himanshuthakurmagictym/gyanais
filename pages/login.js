@@ -7,8 +7,9 @@ import APIs from '../config.js';
 import 'react-toastify/dist/ReactToastify.css';
 import cookie from 'js-cookie'
 import {useRouter} from 'next/router'
+import {useAppContext} from '../components/Fontend/Layout'
 var CryptoJS = require("crypto-js");
-
+  
 const Login = () => {
     const [email, setemail] = useState("");
     const [password, setPassword] = useState("");
@@ -16,6 +17,7 @@ const Login = () => {
     const [submitted, setSubmitted] = useState("");
     const [isOpened, setOpened] = useState(false);
     const router  = useRouter();
+    const userdetail = useAppContext();
     const notify = (res) => 
     {
          //console.log(res)
@@ -29,13 +31,13 @@ const Login = () => {
              if(res.data.user.roles === APIs.roles[1]){
               
                 router.push('/student/profile')
-                router.reload()
+                //router.reload()
                 
             //setTimeout(()=>{ router.push('/student/profile') } , 3000);
              }else{
               
                 router.push('/teacher/profile')
-                router.reload()
+                //router.reload()
                 
                 //setTimeout( ()=>{ router.push('/teacher/profile') } , 3000);
              }
@@ -94,9 +96,9 @@ const Login = () => {
   })
 
   useEffect(() => {
-    // Prefetch the dashboard page
-    router.prefetch('/profile')
-  }, [])
+    if (userdetail) router.push("/student/profile");
+  }, [userdetail]);
+ 
 
 
 
