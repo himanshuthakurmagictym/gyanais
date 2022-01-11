@@ -9,7 +9,7 @@ function Subscription({packages, categoryName}) {
     const router = useRouter();
     const {categoryid} = router.query;
     const userdetail = useAppContext();
-    const [amount, setamount] = useState("")
+    //const [amount, setamount] = useState("")
     const initializeRazorpay = () => {
         return new Promise((resolve) => {
           const script = document.createElement("script");
@@ -45,14 +45,14 @@ function Subscription({packages, categoryName}) {
           key: APIs.RAZORPAY_KEY, // Enter the Key ID generated from the Dashboard
           name: "Gyan IAS "+categoryName,
           currency: "INR",
-          amount: Newamount,
+          amount: Newamount+'00',
           // order_id: userdetail._id,
           description: "Subscription of "+categoryName,
           image: "https://manuarora.in/logo.png",
           handler: function (response) {
             // Validate payment at server - using webhooks is a better idea.
            alert(response.razorpay_payment_id);
-            // alert(response.razorpay_order_id);
+            alert(response.razorpay_order_id);
             alert(response.razorpay_signature);
           },
           prefill: {
