@@ -84,7 +84,7 @@ function Subscription({packages, categoryName}) {
             }).then((t) =>
             t.json()
             );
-            toast.success(razorpaydetails.data, { autoClose: 2000 });
+            toast.success(razorpaydetails.message, { autoClose: 2000 });
             console.log(razorpaydetails);
 
           },
