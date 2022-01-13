@@ -68,7 +68,7 @@ function Subscription({packages, categoryName}) {
             //console.log(response)
             const sendData2 = JSON.stringify(
               { 
-                payment_id: response.razorpay_payment_id, order_id: response.razorpay_order_id,
+                payment_id: response.razorpay_payment_id, order_id: response.razorpay_order_id, amount: Newamount,
                 // amount:data.data.amount,payeeemail:userdetail.email, paymentCreatedTime:new Date(), paymentGateway: "razorpay",paymentId: response.razorpay_payment_id, user:userdetail._id, category_id:categoryid, duration:packageDuration, paymentStarttime:new Date(), 
                 // paymentEndTime:moment().add(packageDuration, 'days')
               })
