@@ -3,7 +3,7 @@
 //live url
  const base_url = 'https://gyaniasapi.herokuapp.com/api/';
  const roles = ['Teacher', 'Student', 'Admin'];
- const RAZORPAY_KEY= 'rzp_test_53HjjqbH9TZ0Ac';
+ const RAZORPAY_KEY= 'rzp_test_ukrfVTcdYzOvVw';
 
 const APIs = {
     base_url, 
