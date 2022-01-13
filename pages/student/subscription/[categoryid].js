@@ -5,6 +5,9 @@ import Brudcrums from "../../../components/Fontend/Brudcrums"
 import APIs from '../../../config.js';
 import {useRouter} from 'next/router'
 import {useAppContext} from '../../../components/Fontend/Layout'
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 var moment = require('moment');
 
 function Subscription({packages, categoryName}) {
@@ -81,7 +84,7 @@ function Subscription({packages, categoryName}) {
             }).then((t) =>
             t.json()
             );
-
+            toast.success(razorpaydetails.data, { autoClose: 2000 });
             console.log(razorpaydetails);
 
           },
@@ -105,6 +108,7 @@ function Subscription({packages, categoryName}) {
     return (
         <div>
              <Brudcrums/>
+             <ToastContainer />
              <section className="testimonials2 cid-qKSrnk6eVJ" id="testimonials2-e">
              <div className='container'>
              <h2 className="mbr-fonts-style mbr-section-title align-center  display-2 mb-5">Payment Plan for {categoryName}</h2>
