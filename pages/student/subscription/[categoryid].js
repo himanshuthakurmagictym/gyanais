@@ -59,9 +59,9 @@ function Subscription({packages, categoryName}) {
           handler: async function (response) {
             // Validate payment at server - using webhooks is a better idea.
           //   alert(response)
-           alert(response.razorpay_payment_id);
-             alert(response.razorpay_order_id);
-             alert(response.razorpay_signature);
+          //  alert(response.razorpay_payment_id);
+          //    alert(response.razorpay_order_id);
+          //    alert(response.razorpay_signature);
             //console.log(response)
             const sendData2 = JSON.stringify(
               { 
