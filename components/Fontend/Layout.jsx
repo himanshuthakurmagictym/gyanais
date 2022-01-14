@@ -5,12 +5,13 @@ import Footer from '../Fontend/Footer';
 import cookie from 'js-cookie'
 import APIs from '../../config.js';
 import { createContext, useContext } from 'react';
-const AppContext = createContext();
+// import AppContext from '../Fontend/UserContext';
+ const AppContext = createContext();
 export default function Layout({children}) {
 
     
 
-    const [res, setres] = useState("")
+    const [ress, setres] = useState("")
 
         useEffect( async() => {
             var token = cookie.get('token');
@@ -31,7 +32,7 @@ export default function Layout({children}) {
   
 
  return(
-    <AppContext.Provider value={res}>
+    <AppContext.Provider value={ress}>
          <Header />
          {children}
          <Footer /> 

@@ -6,7 +6,8 @@ import CryptoJS from "crypto-js"
 export async function middleware(req) {
 
   const tokend = JSON.stringify(req.cookies.token);
-  
+  // const categoryid = req.page.params.categoryid || null? req.page.params.categoryid:'';
+  //console.log(req.page.params)
   if(tokend){
 
     //  var bytesss  = CryptoJS.AES.decrypt(tokend, '619619');
@@ -20,9 +21,16 @@ export async function middleware(req) {
             },
             body:sendData,
        }).then(res => res.json())
-       .then(res => res)
+       .then(res => {
+
+        //console.log(res.data._id);
+
+       })
   
-       
+      
+
+
+
   return NextResponse.next()
   }else{
     return NextResponse.redirect('/login');

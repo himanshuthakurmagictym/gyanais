@@ -72,7 +72,7 @@ import {
                         <div className="row justify-content-center pt-2" key={coursevideo._id}>     
                                 <div className="card col-12 col-md-10">
                                 <div className="card-box">
-                                <Link href={`/coursevideo/${coursevideo._id}`}>
+                                <Link href={`/student/coursevideo/${coursevideo._id}`}>
                                 <div className="row">
                                         <div className="col-md-3">
                                         <Image src={`/assets/images/videoicon.png`} width='50' height='50' alt='videoicon'/>
@@ -112,9 +112,43 @@ export const getServerSideProps = async (context) => {
     const {courseid } = params;
      const res = await fetch(`${APIs.base_url}course/coursedetails/${courseid}`);
     const datas = await res.json()
-
+    //console.log(datas)
     const ress = await fetch(`${APIs.base_url}coursevideo/video`);
     const datass = await ress.json()
+
+
+        const URLS = APIs.base_url+"payment/status";
+        const sendData = JSON.stringify({ category_id: datas.data.category_id,  user: context.req.cookies['cid'] })
+        //console.log(datas/ata)
+        const payment = await fetch(URLS, {
+            method:"POST",
+            headers: {
+                "Content-Type": "application/json",
+              },
+            body:sendData,
+        });
+       
+       const paymentconfirm =  await payment.json();
+      // console.log(paymentconfirm.status_code)
+            if(paymentconfirm.status_code !== 200){
+                 
+                // return {
+                //     redirect: {
+                //     permanent: true,
+                //     destination: `/student/subscription/${datas.data.category_id}`,
+                //   },
+                //   props:{},
+                // }
+
+                return {
+                    props:{
+                       coursedetail: datas.data,
+                       coursevideo: datass.data,
+                    }
+                }
+              
+              
+            }else{
     
     return {
         props:{
@@ -122,4 +156,5 @@ export const getServerSideProps = async (context) => {
            coursevideo: datass.data,
         }
     }
+}
 }

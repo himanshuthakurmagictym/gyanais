@@ -26,6 +26,7 @@ const Login = () => {
              toast.success(res.message, { autoClose: 2000 });
              const realtoken = res.data.tokens.access.token;
              cookie.set('token',realtoken, { expires: new Date(res.data.tokens.access.expires), secure: true, sameSite: 'strict' })
+             cookie.set('cid',res.data.user._id, { expires: new Date(res.data.tokens.access.expires), secure: true, sameSite: 'strict' })
             //  cookie.set('user',CryptoJS.AES.encrypt(JSON.stringify(res.data.user), '619619').toString(), { expires: new Date(res.data.tokens.access.expires), secure: true, sameSite: 'strict' })          
             
              if(res.data.user.roles === APIs.roles[1]){
