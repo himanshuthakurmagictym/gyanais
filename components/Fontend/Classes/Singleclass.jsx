@@ -13,7 +13,8 @@ const Singleclass = ({singleclass})=>{
         <Image src={`/assets/images/course/${singleclass.course_image}`}  alt="class" width="200" height="100"/>
       </div>
       <h4 className="mbr-fonts-style mbr-card-title align-center display-7"> {singleclass.course_name}</h4>
-      <h5 className="mbr-fonts-style align-center "> {singleclass.course_laungauge} • Started at {moment(singleclass.created_at).format('MM Do')}</h5>
+      <h5 className="mbr-fonts-style align-center "> {singleclass.course_laungauge} 
+      <br/>• Started at {moment(singleclass.created_at).format('MM Do')}</h5>
     </div>
        
   </div>

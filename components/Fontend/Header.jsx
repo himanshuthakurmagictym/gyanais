@@ -83,12 +83,12 @@ function Header() {
                      (isuser.roles === APIs.roles[1]) ?
                      <>
                       <a className="nav-link dropdown-item display-4" href="/courses">Courses</a>
-                      <a className="nav-link dropdown-item display-4" href="/student/dashboard">Dashboard</a>
+                      {/* <a className="nav-link dropdown-item display-4" href="/student/dashboard">Dashboard</a> */}
                        <a className="nav-link dropdown-item display-4" href="/student/profile">Profile</a>
                       <a className="nav-link dropdown-item display-4" href="/student/setting">Setting</a>
                      </> : 
                      <>
-                      <a className="nav-link dropdown-item display-4" href="/teacher/dashboard">Dashboard</a>
+                      {/* <a className="nav-link dropdown-item display-4" href="/teacher/dashboard">Dashboard</a> */}
                      <a className="nav-link dropdown-item display-4" href="/teacher/profile">Profile</a>
                     <a className="nav-link dropdown-item display-4" href="/teacher/setting">Setting</a>
                    </>

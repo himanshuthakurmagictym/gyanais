@@ -30,9 +30,10 @@ export async function middleware(req) {
           return NextResponse.redirect('/login');
           }
 
-        // if(res.data.isVerified === 0){
-        //   return NextResponse.redirect('/emailVerification');
-        //   }
+        if(result.data.isVerified === '0'){
+          //console.log(result.data.isVerified)
+          return NextResponse.redirect('/emailVerification');
+          }
 
        
   

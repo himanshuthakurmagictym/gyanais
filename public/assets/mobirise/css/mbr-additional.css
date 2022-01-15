@@ -2096,3 +2096,17 @@ background-color: #f4f8fa;
   color: black!important;
   padding: 10px;
 }
+
+.cid-qKSrnk6eVJs {
+  padding-top: 20px;
+  padding-bottom: 40px;
+  background-color: #f4f8fa;
+}
+
+.cid-qKSrnk6ess .card-box {
+  background: #ffffff;
+  padding: 2rem 2rem;
+  box-shadow: 0px 0px 30px rgb(115 128 157 / 10%);
+  -webkit-box-shadow: 0px 0px 30px rgb(115 128 157 / 10%);
+  border-radius: 0.25rem;
+}
