@@ -6,7 +6,7 @@ import cookie from 'js-cookie'
 import router from 'next/router'
 var CryptoJS = require("crypto-js");
 import APIs from '../../config.js';
-import { useContext } from "react";
+
 import {useAppContext} from '../Fontend/Layout'
 function Header() {
   

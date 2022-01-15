@@ -32,13 +32,13 @@ const Login = () => {
              if(res.data.user.roles === APIs.roles[1]){
               
                 router.push('/student/profile')
-                //router.reload()
+                router.reload()
                 
             //setTimeout(()=>{ router.push('/student/profile') } , 3000);
              }else{
               
                 router.push('/teacher/profile')
-                //router.reload()
+                router.reload()
                 
                 //setTimeout( ()=>{ router.push('/teacher/profile') } , 3000);
              }

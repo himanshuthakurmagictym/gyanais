@@ -20,15 +20,24 @@ export async function middleware(req) {
                 "Content-Type": "application/json",
             },
             body:sendData,
-       }).then(res => res.json())
-       .then(res => {
-
-        //console.log(res.data._id);
-
        })
+      //  .then(res => res.json())
+      //  .then(res => {})
+
+        const result = await res.json();
+        //console.log(res.data._id);
+        if(result.status_code !== 200){
+          return NextResponse.redirect('/login');
+          }
+
+        // if(res.data.isVerified === 0){
+        //   return NextResponse.redirect('/emailVerification');
+        //   }
+
+       
   
       
-
+      
 
 
   return NextResponse.next()
