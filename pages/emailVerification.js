@@ -6,8 +6,9 @@ import APIs from '../config.js';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router'
+import {useAppContext} from '../components/Fontend/Layout'
 function EmailVerification() {
-
+    const userdetail = useAppContext();
     const [emailotp, setemailotp] = useState("");
     const router = useRouter();
     const  {token}  = router.query;
@@ -22,7 +23,7 @@ function EmailVerification() {
         if(res.status_code === 200){
              console.log(res.message)
              toast.success(res.message, { autoClose: 5000 });
-            
+             router.push('/student/profile') ;
             //setTimeout( ()=>{ router.push('/student/profile') } , 6000);
         }else{
             //console.log(res.status_code)
@@ -39,8 +40,8 @@ function EmailVerification() {
   
   const handleresetpassword = (e) =>{
     e.preventDefault();
-    const URLs = APIs.base_url+"auth/emailVerifcation";
-    const sendData = JSON.stringify({emailOtp:emailotp});
+    const URLs = APIs.base_url+"auth/emailotp";
+    const sendData = JSON.stringify({emailotp:emailotp, _id:userdetail._id});
       fetch(URLs,{
          method:'POST',
          headers: {

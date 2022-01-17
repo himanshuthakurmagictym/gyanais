@@ -31,10 +31,10 @@ function Category({allnotes, categoryid}) {
 
                         <div className="col-md-9">
                         <div className="card-box">
-                            {/* {allnotes.map((notes) => (
+                            {allnotes.map((notes) => (
                                <Notes notes={notes}/>
 
-                            ))} */}
+                            ))}
                         </div>
                     </div>
                     </div>
@@ -50,17 +50,18 @@ export default Category
 export const getServerSideProps = async (context) =>{
     const { params } = context;
     const {categoryid } = params;
-    const res = await fetch(`${APIs.base_url}notes/categoryid`,{
-        headers:{
-            "Content-Types":"application/json"
-        },
+    const res = await fetch(`${APIs.base_url}student/notes/categoryid`,{
+        headers: {
+            "Content-Type": "application/json",
+          },
         method:"POST",
         body:JSON.stringify({category_id:categoryid})
     });
+    
     const datas = await res.json()
-    console.log(datas) 
+    //console.log(datas)
         const URLS = APIs.base_url+"payment/status";
-        const sendData = JSON.stringify({  category_id: categoryid,  user: context.req.cookies['cid'] })
+        const sendData = JSON.stringify({category_id: categoryid, user: context.req.cookies['cid'] })
         const ress = await fetch(URLS, {
             method:"POST",
             headers: {
