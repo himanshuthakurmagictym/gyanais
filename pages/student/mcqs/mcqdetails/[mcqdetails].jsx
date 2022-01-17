@@ -11,7 +11,7 @@ import {fetchUser} from '../../../../lib/user'
 import Sidebar from '../../../../components/Fontend/sidebar';
 import Notes from '../../../../components/Fontend/Classes/notes';
 
-function Notesdetails({note}) {
+function index({mcq}) {
   
 
 
@@ -21,18 +21,18 @@ function Notesdetails({note}) {
             
             <section className="features11 cid-qKSpeMafIm  cid-qKSrnk6ess pt-5" id="features11-d">
                 <div className="container">
-                <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">{note.notes_name}</h2>
+                <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">{mcq.mcq_name}</h2>
                 <h3 className="mbr-fonts-style mbr-section-subtitle align-center mbr-light pt-3 display-7">We also offer services in the live class, doubts, chat, paid and utilization of signage.</h3>
             
                 <div className="row justify-content-center pt-4">
     
                          <div className="col-md-3">
-                         <Sidebar categoryid ={note.category_id}/>
+                         <Sidebar categoryid ={mcq.category_id}/>
                             </div>
     
                             <div className="col-md-9">
                             <div className="card-box">
-                               {note.notes_description}
+                               {mcq.mcq_description}
                             </div>
                         </div>
                         </div>
@@ -44,12 +44,12 @@ function Notesdetails({note}) {
    
 }
 
-export default Notesdetails
+export default index
 export const getServerSideProps = async (context) =>{
     const { params } = context;
-    const {notedetails} = params;
+    const {mcqdetails} = params;
    
-    const res = await fetch(`${APIs.base_url}student/notes/noteDetails/${notedetails}`);
+    const res = await fetch(`${APIs.base_url}student/mcq/mcqDetails/${mcqdetails}`);
     const datas = await res.json()
     console.log(datas)
         const URLS = APIs.base_url+"payment/status";
@@ -69,7 +69,7 @@ export const getServerSideProps = async (context) =>{
                 return {
                     redirect: {
                     permanent: true,
-                    destination: `/student/subscription/${paymentconfirm.category_id}`,
+                    destination: `/student/subscription/${paymentconfirm.data.category_id}`,
                   },
                   props:{},
                 }
@@ -79,7 +79,7 @@ export const getServerSideProps = async (context) =>{
 
                 return {
                     props: {
-                        note: datas.data,
+                        mcq: datas.data,
                     }
                 }
 

@@ -9,7 +9,8 @@ function sidebar({categoryid}) {
                                    <Link href={`/student/category/${categoryid}`}><li>Course</li></Link>
                                    <Link href={`/student/notes/${categoryid}`}><li>Notes</li></Link>
                                    <Link href={`/student/freelive/${categoryid}`}><li>Free Live Classes</li></Link>
-                                   <Link href={`/student/syllabus/${categoryid}`}><li>Syllabus</li></Link>
+                                   <Link href={`/student/syllabuses/${categoryid}`}><li>Syllabus</li></Link>
+                                   <Link href={`/student/mcqs/${categoryid}`}><li>MCQ Practice</li></Link>
                                    {/* <a href="/student/profile"><li>Subscription</li> </a>  */}
                                </ul>
 
