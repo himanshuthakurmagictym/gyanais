@@ -27,8 +27,8 @@ function index({mcq}) {
                 <div className="row justify-content-center pt-4">
     
                          <div className="col-md-3">
-                         <Sidebar categoryid ={mcq.category_id}/>
-                            </div>
+                             <Sidebar categoryid ={mcq.category_id}/>
+                        </div>
     
                             <div className="col-md-9">
                             <div className="card-box">
