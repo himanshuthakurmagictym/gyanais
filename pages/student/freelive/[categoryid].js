@@ -7,7 +7,7 @@ import {useAppContext} from '../../../components/Fontend/Layout'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router'
-import {fetchUser} from '../../../lib/user'
+
 import Sidebar from '../../../components/Fontend/sidebar';
 
 function Category({allclasses, categoryid}) {

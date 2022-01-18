@@ -7,7 +7,7 @@ import {useAppContext} from '../../../components/Fontend/Layout'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router'
-import {fetchUser} from '../../../lib/user'
+
 import Sidebar from '../../../components/Fontend/sidebar';
 import Syllabus from '../../../components/Fontend/Classes/syllabus';
 
@@ -20,7 +20,7 @@ function Syllabuses({allsyllabus, categoryid}) {
         
         <section className="features11 cid-qKSpeMafIm  cid-qKSrnk6ess pt-5" id="features11-d">
             <div className="container">
-            <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">All Notes</h2>
+            <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">All Syllabus</h2>
             <h3 className="mbr-fonts-style mbr-section-subtitle align-center mbr-light pt-3 display-7">We also offer services in the live class, doubts, chat, paid and utilization of signage.</h3>
         
             <div className="row justify-content-center pt-4">
