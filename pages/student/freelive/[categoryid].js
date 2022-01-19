@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext } from 'react'
 import Brudcrums from "../../../components/Fontend/Brudcrums"
-import Singleclass from "../../../components/Fontend/Classes/Singleclass"
+import Freeclass from "../../../components/Fontend/Classes/Freeclasses"
 import Link from 'next/link'
 import APIs from '../../../config.js';
 import {useAppContext} from '../../../components/Fontend/Layout'
@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 
 import Sidebar from '../../../components/Fontend/sidebar';
 
-function Category({allclasses, categoryid}) {
+function freelive({allclasses, categoryid}) {
 
 
     return (
@@ -30,8 +30,8 @@ function Category({allclasses, categoryid}) {
 
                         <div className="col-md-9">
                         <div className="card-box">
-                            {allclasses.map((all_class) => (
-                                <Singleclass singleclass={all_class} key="{allclasses[0]._id}" />
+                            {allclasses.map((freeclass) => (
+                               <Freeclass freeclass={freeclass}/>
                             ))}
                         </div>
                     </div>
@@ -43,12 +43,12 @@ function Category({allclasses, categoryid}) {
     )
 }
 
-export default Category
+export default freelive
 
 export const getServerSideProps = async (context) =>{
     const { params } = context;
     const {categoryid } = params;
-    const res = await fetch(`${APIs.base_url}course/${categoryid}`);
+    const res = await fetch(`${APIs.base_url}student/coursevideo/${categoryid}`);
     const datas = await res.json()
    
         const URLS = APIs.base_url+"payment/status";

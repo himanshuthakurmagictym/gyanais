@@ -12,18 +12,55 @@ import Sidebar from '../../../../components/Fontend/sidebar';
 import Notes from '../../../../components/Fontend/Classes/notes';
 
 function index({mcq}) {
+const [answer, setanswer] = useState([])
 
-  const [set, useset] =  useState(1)
-  const count =1;
- const handleanswer = (hello)=>{
-    console.log(hello)
- }
+ const handleanswer = (getanswer, id)=>{
+   
+    if(getanswer){
+        if(answer === null){
+            console.log('null');
+            setanswer([...answer, {
+                id,
+                getanswer
+            }]);
+      
+        } else {
+            const arr = [...answer];
+            const index = arr.findIndex((item)=> item.id == id)
+            if (index > -1)
+            {
+                arr[index] = {id, getanswer}; //replace item in array 
+                setanswer(arr);
+            } else {
+                setanswer([...answer, {
+                    id,
+                    getanswer
+                  }]);
+            }
+        }
+    }
 
- const [checkedState, setCheckedState] = useState("");
- const handleform =  ((e) =>{
+//  setanswer([...answer, {
+//     id,
+//     getanswer
+//   }]);
+}
+
+
+ const [checkedState, setCheckedState] = useState("checked");
+
+ const handleform =   (async(e) =>{
     e.preventDefault();
-    const sendData = JSON.stringify({ email: email, password: password, roles: roles})
-    const URLS = APIs.base_url+"authlogin/login";
+    const sendData = JSON.stringify({ answer: answer})
+    const URLS = APIs.base_url+"student/mcq/updateanwers";
+    console.log(answer)
+    const ress = await fetch(URLS, {
+        method:"POST",
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body:sendData,
+    });
  })
 
         return (
@@ -45,14 +82,14 @@ function index({mcq}) {
                             <div className="card-box">
                             <div className='question'>
                             <form onSubmit={handleform}>
-                            {mcq.mcq.map((mcqs)=>(
+                            {mcq.mcq.map((mcqs, i)=>(
 <>                         
-                            <strong>Question 1:  {mcqs.question}</strong>
+                            <strong>Question {++i}:  {mcqs.question}</strong>
 
-                            <div className=''><input type="radio" checked={checkedState} name={mcqs._id} onChange={()=>{handleanswer(mcqs.option_1)}}/>A. {mcqs.option_1}</div>
-                            <div className=''><input type="radio" checked={checkedState} name={mcqs._id} onChange={()=>{handleanswer(mcqs.option_2)}}/>B. {mcqs.option_2}</div>
-                            <div className=''><input type="radio" checked={checkedState} name={mcqs._id }onChange={()=>{handleanswer(mcqs.option_3)}}/>C. {mcqs.option_3}</div>
-                            <div className=''><input type="radio" checked={checkedState} name={mcqs._id} onChange={()=>{handleanswer(mcqs.option_4)}}/>D. {mcqs.option_4}</div>
+                            <div className=''><input type="radio" required name={mcqs._id} onChange={()=>{handleanswer(mcqs.option_1,mcqs._id)}}/>A. {mcqs.option_1}</div>
+                            <div className=''><input type="radio"  required name={mcqs._id} onChange={()=>{handleanswer(mcqs.option_2, mcqs._id)}}/>B. {mcqs.option_2}</div>
+                            <div className=''><input type="radio" required  name={mcqs._id }onChange={()=>{handleanswer(mcqs.option_3, mcqs._id)}}/>C. {mcqs.option_3}</div>
+                            <div className=''><input type="radio" required name={mcqs._id} onChange={()=>{handleanswer(mcqs.option_4, mcqs._id)}}/>D. {mcqs.option_4}</div>
                             
 </>
                             ))}
