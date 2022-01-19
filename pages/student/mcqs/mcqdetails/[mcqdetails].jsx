@@ -53,20 +53,40 @@ const [answer, setanswer] = useState([])
     e.preventDefault();
     const sendData = JSON.stringify({ answer: answer})
     const URLS = APIs.base_url+"student/mcq/updateanwers";
-    console.log(answer)
+    //console.log(answer)
     const ress = await fetch(URLS, {
         method:"POST",
         headers: {
             "Content-Type": "application/json",
           },
         body:sendData,
-    });
+    }).then(res => res.json())
+    .then(data => {(data.status_code == '200') ? notify(data): notify(data) })
+
+
  })
+
+
+ const notify = (res) => 
+ {
+      //console.log(res)
+    //console.log(res)
+    if(res.status_code === 200){
+       // console.log(res.message)
+        toast.success(res.message, { autoClose: 5000 });
+        // router.push('/student/profile') ;
+       //setTimeout( ()=>{ router.push('/student/profile') } , 6000);
+   }else{
+       //console.log(res.status_code)
+        toast.error(res.message, { autoClose: 5000 });
+   }
+     
+ }
 
         return (
             <>
             <Brudcrums />
-            
+            <ToastContainer />
             <section className="features11 cid-qKSpeMafIm  cid-qKSrnk6ess pt-5" id="features11-d">
                 <div className="container">
                 <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">{mcq.bank_name}</h2>
