@@ -5,7 +5,7 @@ const Freeclasses = ({freeclass})=>{
     return(
       <>
 
-      <Link href={`/student/mcqs/mcqdetails/${freeclass._id}`} passHref>
+      <Link href={`/student/coursevideo/${freeclass._id}`} passHref>
     <div className="col-md-6 col-lg-3 row-item">
         <div className="wrapper">
         <h4 className="mbr-fonts-style align-center "> 
