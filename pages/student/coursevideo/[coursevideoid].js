@@ -60,7 +60,7 @@ export const getServerSideProps = async (context) =>{
     
         const URLS = APIs.base_url+"payment/status";
         //console.log(datas.data[0].category_id)
-       // const sendData = JSON.stringify({category_id: datas.data.category_id, user: context.req.cookies['cid'] })
+        const sendData = JSON.stringify({category_id: datas.data.category_id, user: context.req.cookies['cid'] })
       // console.log(datas.data['category_id'])
         const ress = await fetch(URLS, {
             method:"POST",
