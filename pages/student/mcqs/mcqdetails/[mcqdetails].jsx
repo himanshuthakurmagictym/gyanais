@@ -13,7 +13,7 @@ import Notes from '../../../../components/Fontend/Classes/notes';
 
 function index({mcq}) {
 const [answer, setanswer] = useState([])
-
+const userid = useAppContext();
  const handleanswer = (getanswer, id)=>{
    
     if(getanswer){
@@ -51,7 +51,7 @@ const [answer, setanswer] = useState([])
 
  const handleform =   (async(e) =>{
     e.preventDefault();
-    const sendData = JSON.stringify({ answer: answer})
+    const sendData = JSON.stringify({ answer: answer, userid: userid._id})
     const URLS = APIs.base_url+"student/mcq/updateanwers";
     //console.log(answer)
     const ress = await fetch(URLS, {

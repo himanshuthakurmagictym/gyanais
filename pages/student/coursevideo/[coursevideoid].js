@@ -16,17 +16,21 @@ const Webcamerasforst = dynamic(
   { ssr: false }
 )
 
-function Coursevideo() {
+function Coursevideo({videodetails}) {
     
     return (
         <>
         <Brudcrums />
               <section> 
               <div className="container-fluid">   
-              <section className="testimonials2 topbrumb" id="testimonials2-e">            
+              <section className="testimonials2 topbrumb" id="testimonials2-e">   
+                     
                 <div className="container-fluid">
-                          <div className="row justify-content-center">                                 
+                
+                          <div className="row justify-content-center">  
+                                                         
                               <div className="card col-12 col-md-9">
+                               <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">{videodetails.video_title} </h2>
                                   <Whiteboard />     
                               </div>
                               <div className="card col-12 col-md-3">
@@ -53,15 +57,15 @@ function Coursevideo() {
 export default Coursevideo
 export const getServerSideProps = async (context) =>{
     const { params } = context;
-    const {mcqdetails} = params;
+    const {coursevideoid} = params;
    
-    const res = await fetch(`${APIs.base_url}student/coursevideo/courseId/${mcqdetails}`);
+    const res = await fetch(`${APIs.base_url}student/coursevideo/videoDetails/${coursevideoid}`);
     const datas = await res.json()
     
         const URLS = APIs.base_url+"payment/status";
-        //console.log(datas.data[0].category_id)
+        //console.log(datas)
         const sendData = JSON.stringify({category_id: datas.data.category_id, user: context.req.cookies['cid'] })
-      // console.log(datas.data['category_id'])
+       console.log(datas.data['category_id'])
         const ress = await fetch(URLS, {
             method:"POST",
             headers: {
@@ -71,26 +75,26 @@ export const getServerSideProps = async (context) =>{
         });
        
        const paymentconfirm =  await ress.json();
-            // if(paymentconfirm.status_code !== 200){
+            if(paymentconfirm.status_code !== 200){
               
-            //     return {
-            //         redirect: {
-            //         permanent: true,
-            //         destination: `/student/subscription/${paymentconfirm.category_id}`,
-            //       },
-            //       props:{},
-            //     }
+                return {
+                    redirect: {
+                    permanent: true,
+                    destination: `/student/subscription/${paymentconfirm.category_id}`,
+                  },
+                  props:{},
+                }
 
               
-            // }else{
+            }else{
 
                 return {
                     props: {
-                        mcq: datas.data[0],
+                        videodetails: datas.data,
                     }
                 }
 
-            // }
+            }
      
       
 
