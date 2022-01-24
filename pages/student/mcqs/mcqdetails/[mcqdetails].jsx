@@ -52,7 +52,7 @@ const userid = useAppContext();
  const handleform =   (async(e) =>{
     e.preventDefault();
     const sendData = JSON.stringify({ answer: answer, userid: userid._id})
-    const URLS = APIs.base_url+"student/mcq/updateanwers";
+    const URLS = APIs.base_url+"student/mcq/answerUpdate";
     //console.log(answer)
     const ress = await fetch(URLS, {
         method:"POST",
