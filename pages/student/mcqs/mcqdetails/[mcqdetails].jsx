@@ -11,30 +11,36 @@ import { useRouter } from 'next/router'
 import Sidebar from '../../../../components/Fontend/sidebar';
 import Notes from '../../../../components/Fontend/Classes/notes';
 
-function index({mcq}) {
-const [answer, setanswer] = useState([])
-const userid = useAppContext();
- const handleanswer = (getanswer, id)=>{
+function index({mcq, bankstatus}) {
+const [allanswer, setanswer] = useState([])
+const router = useRouter();
+const userids = useAppContext();
+const userid = userids._id;
+ const handleanswer = (answer, question, mcqsid)=>{
    
-    if(getanswer){
-        if(answer === null){
+    if(answer){
+        if(allanswer === null){
             console.log('null');
-            setanswer([...answer, {
-                id,
-                getanswer
+            setanswer([...allanswer, {
+                question,
+                answer,
+                userid,
+                mcqsid
             }]);
       
         } else {
-            const arr = [...answer];
-            const index = arr.findIndex((item)=> item.id == id)
+            const arr = [...allanswer];
+            const index = arr.findIndex((item)=> item.question == question)
             if (index > -1)
             {
-                arr[index] = {id, getanswer}; //replace item in array 
+                arr[index] = {question, answer, userid, mcqsid}; //replace item in array 
                 setanswer(arr);
             } else {
-                setanswer([...answer, {
-                    id,
-                    getanswer
+                setanswer([...allanswer, {
+                    question,
+                    answer,
+                    userid,
+                    mcqsid
                   }]);
             }
         }
@@ -47,11 +53,11 @@ const userid = useAppContext();
 }
 
 
- const [checkedState, setCheckedState] = useState("checked");
+ const [checkedState, setCheckedState] = useState("");
 
  const handleform =   (async(e) =>{
     e.preventDefault();
-    const sendData = JSON.stringify({ answer: answer, userid: userid._id})
+    const sendData = JSON.stringify({ allanswer: allanswer})
     const URLS = APIs.base_url+"student/mcq/answerUpdate";
     //console.log(answer)
     const ress = await fetch(URLS, {
@@ -69,16 +75,16 @@ const userid = useAppContext();
 
  const notify = (res) => 
  {
-      //console.log(res)
-    //console.log(res)
+
     if(res.status_code === 200){
        // console.log(res.message)
+       setCheckedState(1)
         toast.success(res.message, { autoClose: 5000 });
-        // router.push('/student/profile') ;
-       //setTimeout( ()=>{ router.push('/student/profile') } , 6000);
+        router.reload();
    }else{
-       //console.log(res.status_code)
+     
         toast.error(res.message, { autoClose: 5000 });
+        router.reload();
    }
      
  }
@@ -100,17 +106,20 @@ const userid = useAppContext();
     
                             <div className="col-md-9">
                             <div className="card-box">
+                                {bankstatus? <><div className='mbr-fonts-style mbr-section-title align-center statuscolor display-2'><h2>{mcq.bank_name} is Already Submitted</h2></div></>:
                             <div className='question'>
                             <form onSubmit={handleform}>
                             {mcq.mcq.map((mcqs, i)=>(
 <>                         
                             <strong>Question {++i}:  {mcqs.question}</strong>
 
-                            <div className=''><input type="radio" required name={mcqs._id} onChange={()=>{handleanswer(mcqs.option_1,mcqs._id)}}/>A. {mcqs.option_1}</div>
-                            <div className=''><input type="radio"  required name={mcqs._id} onChange={()=>{handleanswer(mcqs.option_2, mcqs._id)}}/>B. {mcqs.option_2}</div>
-                            <div className=''><input type="radio" required  name={mcqs._id }onChange={()=>{handleanswer(mcqs.option_3, mcqs._id)}}/>C. {mcqs.option_3}</div>
-                            <div className=''><input type="radio" required name={mcqs._id} onChange={()=>{handleanswer(mcqs.option_4, mcqs._id)}}/>D. {mcqs.option_4}</div>
-                            
+                            <div className=''><input type="radio" required name={mcqs._id} onChange={()=>{handleanswer(mcqs.option_1,mcqs._id, mcqs.mcqsid)}}/>A. {mcqs.option_1}</div>
+                            <div className=''><input type="radio"  required name={mcqs._id} onChange={()=>{handleanswer(mcqs.option_2, mcqs._id, mcqs.mcqsid)}}/>B. {mcqs.option_2}</div>
+                            <div className=''><input type="radio" required  name={mcqs._id }onChange={()=>{handleanswer(mcqs.option_3, mcqs._id, mcqs.mcqsid)}}/>C. {mcqs.option_3}</div>
+                            <div className=''><input type="radio" required name={mcqs._id} onChange={()=>{handleanswer(mcqs.option_4, mcqs._id, mcqs.mcqsid)}}/>D. {mcqs.option_4}</div>
+                            <div><strong className='statuscolor'>{checkedState === 1 ? `Correct Answer: ${mcqs.answer}`: "" }</strong>
+                           
+                            </div>
 </>
                             ))}
 
@@ -127,6 +136,8 @@ const userid = useAppContext();
                             </form>
                             
                             </div>
+
+                            }
                             </div>
                         </div>
                         </div>
@@ -157,7 +168,21 @@ export const getServerSideProps = async (context) =>{
               },
             body:sendData,
         });
-       
+
+
+        const bankstatusURLS = APIs.base_url+"student/mcq/bankstatus";
+        //console.log(datas.data[0].category_id)
+        const bankstatussendData = JSON.stringify({mcqsid: datas.data[0].mcq[0].mcqsid, userid: context.req.cookies['cid'] })
+      // console.log(datas.data['category_id'])
+        const bankstatusress = await fetch(bankstatusURLS, {
+            method:"POST",
+            headers: {
+                "Content-Type": "application/json",
+              },
+            body:bankstatussendData,
+        });
+        const bankstatus =  await bankstatusress.json();
+       //console.log(bankstatus.data)
        const paymentconfirm =  await ress.json();
             if(paymentconfirm.status_code !== 200){
               
@@ -175,6 +200,7 @@ export const getServerSideProps = async (context) =>{
                 return {
                     props: {
                         mcq: datas.data[0],
+                        bankstatus: bankstatus.data._id,
                     }
                 }
 
