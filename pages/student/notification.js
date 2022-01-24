@@ -2,14 +2,12 @@ import React, {useState, useEffect} from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Brudcrums from '../../components/Fontend/Brudcrums'
-import PersonalInformationEdit from '../../components/Student/PersonalInformationEdit'
 import Avatar from '../../components/Student/Avatar'
-import ChangePassword from '../../components/Student/ChangePassword'
-import Subscription from '../../components/Student/Subscription'
-import ManageNotification from '../../components/Student/ManageNotification'
+import APIs from '../../config.js';
 import {useRouter } from "next/router"
 
-function notification() {
+
+function Notification({notification}) {
     return (
         <div>
               <Brudcrums/>
@@ -19,10 +17,13 @@ function notification() {
                             <div className="card col-12 col-md-12">
                             
                                         <div className="row"> 
-                            
+                                                 
                                             <div className="col-md-12">
+                                            <h2 className="mbr-fonts-style mb-3 align-center display-2">All  Notification</h2>  
                                             <div className="card-box">
-
+                                            {notification.map((noty)=>(
+                                                <li>{noty.message}</li>
+                                            ))}
                                             </div>
                                             </div>
                                         </div>
@@ -34,4 +35,16 @@ function notification() {
     )
 }
 
-export default notification;
+export default Notification;
+export async function getServerSideProps(context){
+
+    const res = await fetch(`${APIs.base_url}notification/${context.req.cookies['cid']}`);
+    const datas = await res.json()
+    //console.log(datas);
+    return {   
+        props:{
+            notification: datas.data,
+        },
+      };
+
+}
