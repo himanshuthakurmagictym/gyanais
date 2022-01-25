@@ -2114,3 +2114,14 @@ background-color: #f4f8fa;
 .statuscolor{
   color:green;
 }
+
+.notifyBody{
+  padding-top: 20px;
+  padding-bottom: 20px;
+    
+    font-weight: 600;
+    text-transform: capitalize;
+}
+.notify{
+  border-bottom: 1px solid darkgray;
+}
