@@ -61,14 +61,7 @@ function Header() {
                 <Link href="/contactus" ><a className="nav-link link text-danger  display-4"  >
                            Contact Us</a></Link>
                 </li>
-                <li className="nav-item">
-                <Link href="/contactus" >
-                <a className=" nav-link "  >
-                <Image src={`/assets/images/notify.png`}  width='40' height='40' alt="avatar"/>
-                <div className='notifycount'>1</div>
-                </a>
-                </Link>
-                </li>
+                
                 
                 {  
                   !isuser?
@@ -82,6 +75,14 @@ function Header() {
                 </>
                 : 
                 <>
+                <li className="nav-item">
+                <Link href="/contactus" >
+                <a className=" nav-link "  >
+                <Image src={`/assets/images/notify.png`}  width='40' height='40' alt="avatar"/>
+                <div className='notifycount'>1</div>
+                </a>
+                </Link>
+                </li>
                 <ul className="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
                 <li className="nav-item dropdown open">
                     <a className="nav-link  text-danger dropdown-toggle " data-toggle="dropdown-submenu" aria-expanded="true">
