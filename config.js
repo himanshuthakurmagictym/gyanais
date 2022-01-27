@@ -9,7 +9,8 @@ const base_url_home = 'https://gyaniasapi.herokuapp.com/';
 const APIs = {
     base_url, 
     roles,
-    RAZORPAY_KEY
+    RAZORPAY_KEY,
+    base_url_home
 }
 
 
