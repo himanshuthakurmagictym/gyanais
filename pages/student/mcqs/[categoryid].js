@@ -32,7 +32,7 @@ function Mcq({allmcqs, categoryid}) {
                         <div className="col-md-9">
                         <div className="card-box">
                             {allmcqs.map((mcqs) => (
-                               <Mcqs mcqs={mcqs}/>
+                               <Mcqs mcqs={mcqs} key={mcqs._id}/>
 
                             ))}
                         </div>

@@ -31,7 +31,7 @@ function freelive({allclasses, categoryid}) {
                         <div className="col-md-9">
                         <div className="card-box">
                             {allclasses.map((freeclass) => (
-                               <Freeclass freeclass={freeclass}/>
+                               <Freeclass freeclass={freeclass} key={freeclass._id}/>
                             ))}
                         </div>
                     </div>

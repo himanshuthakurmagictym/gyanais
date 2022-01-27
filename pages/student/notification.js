@@ -28,7 +28,7 @@ function Notification({notification}) {
                                             <h2 className="mbr-fonts-style mb-3 align-center display-2">All  Notification</h2>  
                                             <div className="card-box">
                                             {notification.map((noty, i)=>(
-                                                <div className='notify'>
+                                                <div className='notify' key={noty._id}>
                                                 <div className="row">
                                                 <div className="col-md-2">
                                                     <Image src={`/assets/images/avatar.png`} width={100} height={100} alt="course image" />

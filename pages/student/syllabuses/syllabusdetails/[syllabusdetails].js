@@ -30,7 +30,7 @@ function index({syllabus}) {
                          <Sidebar categoryid ={syllabus.category_id}/>
                             </div>
     
-                            <div className="col-md-9">
+                            <div className="col-md-9" key={syllabus._id}>
                             <div className="card-box">
                                {syllabus.syllabus_description}
                             </div>

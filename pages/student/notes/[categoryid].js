@@ -32,7 +32,7 @@ function Category({allnotes, categoryid}) {
                         <div className="col-md-9">
                         <div className="card-box">
                             {allnotes.map((notes) => (
-                               <Notes notes={notes}/>
+                               <Notes notes={notes} key={notes._id}/>
 
                             ))}
                         </div>

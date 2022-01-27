@@ -13,8 +13,12 @@ function Header() {
   // var isuser = cookie.get('token')
    const isuser = useAppContext();
   //  setstate(isusers);
-   
-  
+   const[notification, setnotification] =useState([])
+  useEffect(()=>{
+    const res =  fetch(`${APIs.base_url}notification/${isuser._id}`);
+  const datas =  res.json()
+  console.log(datas)
+  },[])
 
 
     return (
@@ -82,6 +86,31 @@ function Header() {
                 <div className='notifycount'>1</div>
                 </a>
                 </Link>
+                <div className='notifymodel'>
+                <div className="card-box">
+                                            {notification.map((noty, i)=>(
+                                                <div className='notify'>
+                                                <div className="row">
+                                                <div className="col-md-2">
+                                                    <Image src={`/assets/images/avatar.png`} width={100} height={100} alt="course image" />
+                                                </div>
+                                                <div className="col-md-9">
+                                                    <div className='notifyBody'>
+                                                    <h1>heading</h1>
+                                                    <p>lorem</p>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-1">
+                                                <div className='notifyfooter'>
+                                                    <p>time</p>
+                                                    </div>
+                                                </div>
+                                                </div>
+
+                                                </div>
+                                            ))}
+                                            </div>
+                </div>
                 </li>
                 <ul className="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
                 <li className="nav-item dropdown open">

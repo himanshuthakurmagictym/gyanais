@@ -114,7 +114,7 @@ function Subscription({packages, categoryName}) {
              <h2 className="mbr-fonts-style mbr-section-title align-center  display-2 mb-5">Payment Plan for {categoryName}</h2>
                  <div className='row '>
                {packages.map((subscription)=>(
-                        <div className='bodycontent col-md-4'>
+                        <div className='bodycontent col-md-4' key={subscription._id}>
                         <h4 className="card-titles mbr-fonts-style align-center mb-0 mbr-white display-5">
                             {subscription.packageName}   
                         </h4>
