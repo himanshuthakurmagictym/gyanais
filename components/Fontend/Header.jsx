@@ -14,9 +14,9 @@ function Header() {
    const isuser = useAppContext();
   //  setstate(isusers);
    const[notification, setnotification] =useState([])
-  useEffect(()=>{
-    const res =  fetch(`${APIs.base_url}notification/${isuser._id}`);
-  const datas =  res.json()
+  useEffect(async()=>{
+    const res = await fetch(`${APIs.base_url}notification/${isuser._id}`);
+  const datas =  await res.json()
   console.log(datas)
   },[])
 
