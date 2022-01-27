@@ -17,7 +17,7 @@ function Header() {
   useEffect(async()=>{
     const res = await fetch(`${APIs.base_url}notification/${isuser._id}`);
   const datas =  await res.json()
-  console.log(datas)
+  // console.log(datas)
   },[])
 
 

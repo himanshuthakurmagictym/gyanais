@@ -10,7 +10,7 @@ import {io} from 'socket.io-client'
 function Notification({notification}) {
 
     useEffect(()=>{
-        const socket = io("http://localhost:5000");
+        const socket = io(APIs.base_url);
         console.log(socket)
     }, [])
 
@@ -64,7 +64,7 @@ export async function getServerSideProps(context){
 
     const res = await fetch(`${APIs.base_url}notification/${context.req.cookies['cid']}`);
     const datas = await res.json()
-    //console.log(datas);
+    //console.log(context.req.cookies['cid']);
     return {   
         props:{
             notification: datas.data,
