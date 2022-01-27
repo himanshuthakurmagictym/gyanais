@@ -6,6 +6,7 @@ import Avatar from '../../components/Student/Avatar'
 import APIs from '../../config.js';
 import {useRouter } from "next/router"
 import {io} from 'socket.io-client'
+import moment from 'moment'
 
 function Notification({notification}) {
 
@@ -36,13 +37,13 @@ function Notification({notification}) {
                                                 </div>
                                                 <div className="col-md-9">
                                                     <div className='notifyBody'>
-                                                    <h1>heading</h1>
-                                                    <p>lorem</p>
+                                                    <h1>{noty.videoid.video_title}</h1>
+                                                    <p>{moment(noty.videoid.videoDate).format('DD MMM YYY')}</p>
                                                     </div>
                                                 </div>
                                                 <div className="col-md-1">
                                                 <div className='notifyfooter'>
-                                                    <p>time</p>
+                                                    <p>{noty.videoid.videoDuration}</p>
                                                     </div>
                                                 </div>
                                                 </div>
