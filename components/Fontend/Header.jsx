@@ -89,7 +89,7 @@ function Header() {
                 <div className='notifymodel'>
                 <div className="card-box">
                                             {notification.map((noty, i)=>(
-                                                <div className='notify'>
+                                                <div className='notify' key={noty._id}>
                                                 <div className="row">
                                                 <div className="col-md-2">
                                                     <Image src={`/assets/images/avatar.png`} width={100} height={100} alt="course image" />

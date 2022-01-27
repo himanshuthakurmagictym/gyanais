@@ -32,7 +32,7 @@ function Syllabuses({allsyllabus, categoryid}) {
                         <div className="col-md-9">
                         <div className="card-box">
                             {allsyllabus.map((syllabus) => (
-                               <Syllabus syllabus={syllabus}/>
+                               <Syllabus syllabus={syllabus} key={syllabus._id}/>
 
                             ))}
                         </div>

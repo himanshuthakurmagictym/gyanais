@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 import Sidebar from '../../../../components/Fontend/sidebar';
 import Notes from '../../../../components/Fontend/Classes/notes';
 
-function index({mcq, bankstatus}) {
+function Index({mcq, bankstatus}) {
 const [allanswer, setanswer] = useState([])
 const router = useRouter();
 const userids = useAppContext();
@@ -149,7 +149,7 @@ const userid = userids._id;
    
 }
 
-export default index
+export default Index
 export const getServerSideProps = async (context) =>{
     const { params } = context;
     const {mcqdetails} = params;
