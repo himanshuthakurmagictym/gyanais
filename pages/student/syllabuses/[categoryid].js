@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router'
 
 import Sidebar from '../../../components/Fontend/sidebar';
-import Syllabus from '../../../components/Fontend/Classes/syllabus';
+import Syllabus from '../../../components/Fontend/Classes/Syllabus';
 
 function Syllabuses({allsyllabus, categoryid}) {
 

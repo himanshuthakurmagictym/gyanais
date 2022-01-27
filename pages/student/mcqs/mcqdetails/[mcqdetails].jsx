@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router'
 
 import Sidebar from '../../../../components/Fontend/sidebar';
-import Notes from '../../../../components/Fontend/Classes/notes';
+
 
 function Index({mcq, bankstatus}) {
 const [allanswer, setanswer] = useState([])

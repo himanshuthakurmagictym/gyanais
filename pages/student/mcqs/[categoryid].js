@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router'
 
 import Sidebar from '../../../components/Fontend/sidebar';
-import Mcqs from '../../../components/Fontend/Classes/mcqs';
+import Mcqs from '../../../components/Fontend/Classes/Mcqs';
 
 function Mcq({allmcqs, categoryid}) {
 
