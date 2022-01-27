@@ -11,8 +11,9 @@ import moment from 'moment'
 function Notification({notification}) {
 
     useEffect(()=>{
-         const socket = io(APIs.base_url_home);
+         //const socket = io(APIs.base_url_home);
         //const socket = io('http://localhost:5000', { transports : ['websocket'] });
+         const socket = io('http://localhost:5000/');
         console.log(socket)
     }, [])
 
