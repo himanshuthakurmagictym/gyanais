@@ -10,7 +10,8 @@ import {io} from 'socket.io-client'
 function Notification({notification}) {
 
     useEffect(()=>{
-        const socket = io(APIs.base_url);
+         const socket = io(APIs.base_url);
+        //const socket = io('http://localhost:5000', { transports : ['websocket'] });
         console.log(socket)
     }, [])
 
