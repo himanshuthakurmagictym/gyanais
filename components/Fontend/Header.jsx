@@ -32,7 +32,7 @@ function Header() {
     // const datas =  await res.json()
   
   },[socket])
-  console.log(socket)
+  
 
     return (
 
