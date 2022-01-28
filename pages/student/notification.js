@@ -11,10 +11,8 @@ import moment from 'moment'
 function Notification({notification}) {
 
     useEffect(()=>{
-         //const socket = io(APIs.base_url_home);
-        //const socket = io('http://localhost:5000', { transports : ['websocket'] });
-         const socket = io('http://localhost:5000/');
-        console.log(socket)
+        //  const socket = io(APIs.base_url_home);
+        // console.log(socket)
     }, [])
 
     return (
@@ -38,7 +36,7 @@ function Notification({notification}) {
                                                 </div>
                                                 <div className="col-md-9">
                                                     <div className='notifyBody'>
-                                                    <h1>{noty.videoid.video_title}</h1>
+                                                    <h1 className=" display-5">{noty.videoid.video_title}</h1>
                                                     <p>{moment(noty.videoid.videoDate).format('DD MMM YYY')}</p>
                                                     </div>
                                                 </div>

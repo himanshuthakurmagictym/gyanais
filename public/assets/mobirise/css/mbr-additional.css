@@ -2011,6 +2011,8 @@ color: white;
     justify-content: center;
     -webkit-justify-content: center;
   }
+
+  .buttonlink{display: none!important;}
 }
 .cid-qKSj0s9f9b .list-item {
   display: flex;
@@ -2126,7 +2128,7 @@ background-color: #f4f8fa;
   border-bottom: 1px solid darkgray;
 }
 .notifycount{
-  position: relative;
+  position: absolute;
     /* top: 36%; */
     color: white;
     background: red;
@@ -2134,4 +2136,6 @@ background-color: #f4f8fa;
     text-align: center;
     border-radius: 20px;
     right: 30%;
+    margin-right: 8px;
 }
+.anotifynav{margin-right: 18px;}

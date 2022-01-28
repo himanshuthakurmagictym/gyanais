@@ -130,8 +130,9 @@ const Login = () => {
                        <div className="row input-main">
                             <div className="col-md-12 col-lg-12 input-wrap mb-3" >
                                <select className="field display-7 custom-select" id="email-form2-7" name="role" value={roles} onChange={handleroles}>
+                                        <option value={APIs.roles[1]}>{APIs.roles[1]}</option>
                                         <option value={APIs.roles[0]}>{APIs.roles[0]}</option>  
-                                        <option value={APIs.roles[1]}>{APIs.roles[1]}</option>  
+                                          
                                </select>
                             </div>
                            

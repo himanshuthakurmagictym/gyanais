@@ -6,17 +6,24 @@ import cookie from 'js-cookie'
 import router from 'next/router'
 var CryptoJS = require("crypto-js");
 import APIs from '../../config.js';
-
+import {io} from 'socket.io-client'
 import {useAppContext} from '../Fontend/Layout'
 function Header() {
   
   // var isuser = cookie.get('token')
    const isuser = useAppContext();
   //  setstate(isusers);
-   const[notification, setnotification] =useState([])
+   const[notification, setNotifications] =useState([])
+
   useEffect(async()=>{
-    const res = await fetch(`${APIs.base_url}notification/${isuser._id}`);
-  const datas =  await res.json()
+      const socket = io(APIs.base_url_home);
+      socket.emit('userid', isuser._id);
+
+      socket.on('notification', (data)=>{
+        setNotifications((prev) => [...prev, data]);
+      })
+    // const res = await fetch(`${APIs.base_url}notification/${isuser._id}`);
+    // const datas =  await res.json()
   // console.log(datas)
   },[])
 
@@ -79,15 +86,17 @@ function Header() {
                 </>
                 : 
                 <>
-                <li className="nav-item">
-                <Link href="/contactus" >
-                <a className=" nav-link "  >
+                <ul className="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
+                <li className="nav-item dropdown open">
+              
+                
+                <a className="nav-link  text-danger dropdown-toggle anotifynav" data-toggle="dropdown-submenu" aria-expanded="true">
                 <Image src={`/assets/images/notify.png`}  width='40' height='40' alt="avatar"/>
                 <div className='notifycount'>1</div>
                 </a>
-                </Link>
-                <div className='notifymodel'>
-                <div className="card-box">
+            
+                        <div className="dropdown-menu notifymodel" >
+                                        <div className="card-box">
                                             {notification.map((noty, i)=>(
                                                 <div className='notify' key={noty._id}>
                                                 <div className="row">
@@ -109,9 +118,13 @@ function Header() {
 
                                                 </div>
                                             ))}
-                                            </div>
-                </div>
+                                          </div>
+                            </div>
+                            
+               
                 </li>
+                </ul>
+
                 <ul className="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
                 <li className="nav-item dropdown open">
                     <a className="nav-link  text-danger dropdown-toggle " data-toggle="dropdown-submenu" aria-expanded="true">
