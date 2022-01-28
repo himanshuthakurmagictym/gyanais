@@ -14,10 +14,14 @@ function Header() {
    const isuser = useAppContext();
   //  setstate(isusers);
    const[notification, setNotifications] =useState([])
+   const [socket, setSocket] = useState(null);
+   useEffect(async()=>{
+    setSocket(io(APIs.base_url_home));
+   }[])
 
-  useEffect(async()=>{
-      const socket = io(APIs.base_url_home);
-      socket.emit('userid', isuser._id);
+  useEffect(()=>{
+   
+      socket?.emit('userid', isuser._id);
 
       socket.on('notification', (data)=>{
         setNotifications((prev) => [...prev, data]);
@@ -25,7 +29,7 @@ function Header() {
     // const res = await fetch(`${APIs.base_url}notification/${isuser._id}`);
     // const datas =  await res.json()
    console.log(notification)
-  },[notification])
+  },[socket])
 
 
     return (
