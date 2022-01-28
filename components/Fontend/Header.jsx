@@ -25,7 +25,7 @@ function Header() {
     // const res = await fetch(`${APIs.base_url}notification/${isuser._id}`);
     // const datas =  await res.json()
   // console.log(datas)
-  },[])
+  },[notification])
 
 
     return (
