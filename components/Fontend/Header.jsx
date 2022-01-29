@@ -16,24 +16,27 @@ function Header() {
   //  setstate(isusers);
    const[notification, setNotifications] =useState([])
    const [socket, setSocket] = useState(null);
-   
+   const [newuser, setuserid] = useState("");
+
    useEffect(()=>{
     setSocket(io(APIs.base_url_home));
    },[])
 
-   
+   useEffect(()=>{
+    setuserid(isuser._id)
+   },[])
 
   useEffect(()=>{
     
     // console.log(`hello${isuser._id}`)
-      if(isuser._id){
-      socket?.emit('userid', isuser._id);
+      if(newuser){
+      socket?.emit('userid',newuser);
       socket?.on('notification', (data)=>{
         setNotifications((prev) => [...prev, data]);
       })
     }
   
-  },[socket, isuser])
+  },[socket, newuser])
   console.log(`notification received: ${notification}`)
 
     return (
