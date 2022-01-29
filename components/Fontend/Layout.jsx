@@ -5,7 +5,7 @@ import Footer from '../Fontend/Footer';
 import cookie from 'js-cookie'
 import APIs from '../../config.js';
 import { createContext, useContext } from 'react';
-// import AppContext from '../Fontend/UserContext';
+import {io} from 'socket.io-client'
  const AppContext = createContext();
 export default function Layout({children}) {
 
@@ -27,13 +27,16 @@ export default function Layout({children}) {
        .then(res => setres(res.data))
         }
         }, [])
-        
-  
+
+        const [socket, setSocket] = useState(null);
+        useEffect(()=>{
+            setSocket(io(APIs.base_url_home));
+           },[])
   
 
  return(
     <AppContext.Provider value={ress}>
-         <Header />
+         <Header socket={socket}/>
          {children}
          <Footer /> 
          </AppContext.Provider>

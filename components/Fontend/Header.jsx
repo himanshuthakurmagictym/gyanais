@@ -6,21 +6,18 @@ import cookie from 'js-cookie'
 import router from 'next/router'
 var CryptoJS = require("crypto-js");
 import APIs from '../../config.js';
-import {io} from 'socket.io-client'
 import {useAppContext} from '../Fontend/Layout'
 
-function Header() {
+function Header({socket}) {
   
   // var isuser = cookie.get('token')
    const isuser = useAppContext();
   //  setstate(isusers);
    const[notification, setNotifications] =useState([])
-   const [socket, setSocket] = useState(null);
+  
    const [newuser, setuserid] = useState("");
 
-   useEffect(()=>{
-    setSocket(io(APIs.base_url_home));
-   },[])
+   
 
    useEffect(()=>{
     setuserid(isuser._id)
