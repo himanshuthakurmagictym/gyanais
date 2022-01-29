@@ -8,6 +8,7 @@ var CryptoJS = require("crypto-js");
 import APIs from '../../config.js';
 import {io} from 'socket.io-client'
 import {useAppContext} from '../Fontend/Layout'
+
 function Header() {
   
   // var isuser = cookie.get('token')
@@ -16,13 +17,15 @@ function Header() {
    const[notification, setNotifications] =useState([])
    const [socket, setSocket] = useState(null);
    
-   
    useEffect(()=>{
     setSocket(io(APIs.base_url_home));
    },[])
 
-  useEffect(()=>{
    
+
+  useEffect(()=>{
+    
+    console.log(`hello${isuser._id}`)
       socket?.emit('userid', isuser._id);
 
       socket?.on('notification', (data)=>{
@@ -31,7 +34,7 @@ function Header() {
     // const res = await fetch(`${APIs.base_url}notification/${isuser._id}`);
     // const datas =  await res.json()
   
-  },[socket])
+  },[socket, isuser])
   console.log(socket)
 
     return (
