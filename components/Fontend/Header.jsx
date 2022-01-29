@@ -24,13 +24,13 @@ function Header() {
 
    useEffect(()=>{
     setuserid(isuser._id)
-   },[])
+   },[isuser])
 
   useEffect(()=>{
     
     // console.log(`hello${isuser._id}`)
       if(newuser){
-      socket?.emit('userid',newuser);
+      socket?.emit('userid', newuser);
       socket?.on('notification', (data)=>{
         setNotifications((prev) => [...prev, data]);
       })
