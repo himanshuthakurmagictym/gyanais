@@ -44,7 +44,7 @@ useEffect(()=>{
   return () => {
     socket.close;
 }
-},[notification])
+},[socket, notification])
 
   console.log(`notification received: ${notification}`)
 
