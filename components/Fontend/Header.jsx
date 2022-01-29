@@ -42,7 +42,7 @@ useEffect(()=>{
   socket?.on('notification', handlenotification)
 
   return () => {
-    socket.off('notification', handlenotification);
+    socket.close;
 }
 },[socket])
 
