@@ -41,10 +41,7 @@ useEffect(()=>{
   }
   socket?.on('notification', handlenotification)
 
-  return () => {
-    socket.close;
-}
-},[socket, notification])
+},[notification])
 
   console.log(`notification received: ${notification}`)
 
