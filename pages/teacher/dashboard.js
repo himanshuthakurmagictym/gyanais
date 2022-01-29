@@ -6,7 +6,7 @@ import moment from 'moment';
 import Link from 'next/link'
 import React, {useState, useEffect} from 'react'
 import {useRouter } from "next/router"
-function dashboard() {
+function Dashboard() {
 
     const [tabbar, settabbar] = useState(1)
     const router = useRouter();
@@ -70,4 +70,4 @@ function dashboard() {
     )
 }
 
-export default dashboard
+export default Dashboard
