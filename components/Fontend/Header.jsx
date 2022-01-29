@@ -33,7 +33,7 @@ function Header({socket}) {
       })
     }
   
-  },[socket, newuser])
+  },[newuser])
   console.log(`notification received: ${notification}`)
 
     return (
