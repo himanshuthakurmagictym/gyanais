@@ -25,17 +25,16 @@ function Header() {
 
   useEffect(()=>{
     
-    console.log(`hello${isuser._id}`)
+    // console.log(`hello${isuser._id}`)
+      if(isuser._id){
       socket?.emit('userid', isuser._id);
-
       socket?.on('notification', (data)=>{
         setNotifications((prev) => [...prev, data]);
       })
-    // const res = await fetch(`${APIs.base_url}notification/${isuser._id}`);
-    // const datas =  await res.json()
+    }
   
   },[socket, isuser])
-  console.log(socket)
+  console.log(`notification received: ${notification}`)
 
     return (
 
@@ -101,7 +100,9 @@ function Header() {
                 
                 <a className="nav-link  text-danger dropdown-toggle anotifynav" data-toggle="dropdown-submenu" aria-expanded="true">
                 <Image src={`/assets/images/notify.png`}  width='40' height='40' alt="avatar"/>
-                <div className='notifycount'>1</div>
+                {
+                  notification.length >0 && <div className='notifycount'>{notification.length}</div>
+                  }
                 </a>
             
                         <div className="dropdown-menu  notifymodel"  >
@@ -114,13 +115,13 @@ function Header() {
                                                 </div>
                                                 <div className="col-md-9">
                                                     <div className='notifyBody'>
-                                                    <h1>heading</h1>
-                                                    <p>lorem</p>
+                                                    <h1 className=" display-5">{noty.videoid.video_title}</h1>
+                                                    <p>{moment(noty.videoid.videoDate).format('DD MMM YYY')}</p>
                                                     </div>
                                                 </div>
                                                 <div className="col-md-1">
                                                 <div className='notifyfooter'>
-                                                    <p>time</p>
+                                                <p>{noty.videoid.videoDuration}</p>
                                                     </div>
                                                 </div>
                                                 </div>
@@ -148,7 +149,7 @@ function Header() {
                       <a className="nav-link dropdown-item display-4" href="/student/setting">Setting</a>
                      </> : 
                      <>
-                      {/* <a className="nav-link dropdown-item display-4" href="/teacher/dashboard">Dashboard</a> */}
+                      <a className="nav-link dropdown-item display-4" href="/teacher/dashboard"> Dashboard</a>
                      <a className="nav-link dropdown-item display-4" href="/teacher/profile">Profile</a>
                     <a className="nav-link dropdown-item display-4" href="/teacher/setting">Setting</a>
                    </>
