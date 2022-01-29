@@ -41,7 +41,7 @@ useEffect(()=>{
     console.log(data)
   })
 
-},[socket])
+},[])
 
   console.log(`notification received: ${notification}`)
 
