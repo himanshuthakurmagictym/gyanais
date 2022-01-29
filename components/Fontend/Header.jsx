@@ -35,11 +35,15 @@ function Header({socket}) {
 
 useEffect(()=>{
 
-  socket?.on('notification', (data)=>{
-    //setNotifications((prev) => [...prev, data]);
-    setNotifications(data);
-    console.log(data)
-  })
+  const handlenotification =  (datas) => {
+    //console.log(updates); // this will now display the current data
+    setNotifications(datas)
+  }
+  socket?.on('notification', handlenotification)
+
+  return () => {
+    socket.off('notification', handlenotification);
+}
 },[socket])
 
   console.log(`notification received: ${notification}`)
