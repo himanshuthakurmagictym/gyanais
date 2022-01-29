@@ -29,7 +29,7 @@ function Header({socket}) {
       if(newuser){
       socket?.emit('userid', newuser);
       socket?.on('notification', (data)=>{
-        setNotifications((prev) => [...prev, data]);
+        //setNotifications((prev) => [...prev, data]);
       })
     }
   
