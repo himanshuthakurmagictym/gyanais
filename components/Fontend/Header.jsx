@@ -33,16 +33,13 @@ function Header({socket}) {
   },[newuser])
 
 
-useEffect(()=>{
-
   const handlenotification =  (datas) => {
     //console.log(updates); // this will now display the current data
     console.log(datas)
     setNotifications(datas)
   }
   socket?.on('notification', handlenotification)
-
-},[notification])
+  
 
   console.log(`notification received: ${notification}`)
 
