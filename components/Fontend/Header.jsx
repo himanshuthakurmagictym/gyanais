@@ -96,7 +96,7 @@ function Header() {
                 : 
                 <>
                 <ul className="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
-                <li className="nav-item dropdown open">
+                <li className="nav-item dropdown ">
               
                 
                 <a className="nav-link  text-danger dropdown-toggle anotifynav" data-toggle="dropdown-submenu" aria-expanded="true">
@@ -104,7 +104,7 @@ function Header() {
                 <div className='notifycount'>1</div>
                 </a>
             
-                        <div className="dropdown-menu notifymodel" >
+                        <div className="dropdown-menu  notifymodel"  >
                                         <div className="card-box">
                                             {notification.map((noty, i)=>(
                                                 <div className='notify' key={noty._id}>
