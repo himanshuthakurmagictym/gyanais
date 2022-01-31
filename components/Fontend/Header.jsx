@@ -12,6 +12,8 @@ function Header({socket}) {
   
   // var isuser = cookie.get('token')
    const isuser = useAppContext();
+
+   
   //  setstate(isusers);
    const [notification, setNotifications] =useState([])
   
@@ -30,12 +32,19 @@ function Header({socket}) {
   useEffect(()=>{
   socket?.on('notification', (data) => {
     //console.log(data);
-    setNotifications((data));
+    setNotifications(data);
    
   })
 
 },[socket])
   
+const handleRead = (notyid) => {
+  //  id?setNotifications([]):"";
+  console.log(notyid)
+  socket.emit('readnotification', notyid)
+
+};
+
 //console.log(`notification received: ${JSON.stringify(notification)}`)
 
     return (
@@ -108,31 +117,49 @@ function Header({socket}) {
                 </a>
             
                         <div className="dropdown-menu  notifymodel"  >
-                                        <div className="card-box">
+                                        <div className="card-box container">
                                             {notification.map((noty, i)=>(
-                                                <div className='notify' key={noty._id}>
-                                                <div className="row">
-                                                <div className="col-md-2">
+                                                <div className='notify ' key={noty._id} >
+                                                  
+                                                <div className="row" onClick={e=>{handleRead(noty._id)}}>
+                                                {/* <div className="col-md-2">
                                                     <Image src={`/assets/images/avatar.png`} width={100} height={100} alt="course image" />
-                                                </div>
-                                                <div className="col-md-9">
-                                                    <div className='notifyBody'>
+                                                </div> */}
+                                                <div className="col-md-12">
+                                                    <div className='notifyBodynav'>
                                                    
-                                                    <h1 className=" display-5">{noty.videoid.video_title}</h1>
+                                                    <strong className="">{noty.videoid.video_title}</strong>
                                                     <p>{moment(noty.videoid.videoDate).format('DD MMM YYY')}</p>
                                                     </div>
+                                                    <p>{noty.videoid.videoDuration}</p>
                                                 </div>
-                                                <div className="col-md-1">
-                                                <div className='notifyfooter'>
-                                                <p>{noty.videoid.videoDuration}</p>
-                                                    </div>
+                                               
+                                                
+                                               
+                                                    
+                                                
                                                 </div>
-                                                </div>
-
+                                              
+                                               
                                                 </div>
                                             ))}
+        {
+          (isuser.roles === APIs.roles[1]) ?
+          <>
+           <a href="/student/notification" className='align-center'> <button className="btn align-center btn-success display-2 w-100" onClick={handleRead}>
+            Read All
+          </button></a>
+          </>:
+          <a href="/teacher/notification"> <button className="btn align-center btn-success display-2 w-100" onClick={handleRead}>
+          Read All
+        </button></a>
+        }
                                           </div>
+
+                                          
                             </div>
+                            
+                            
                             
                
                 </li>

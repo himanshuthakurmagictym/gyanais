@@ -2139,3 +2139,9 @@ background-color: #f4f8fa;
     margin-right: 8px;
 }
 .anotifynav{margin-right: 18px;}
+
+.notifyBodynav{
+
+    font-weight: 600;
+    text-transform: capitalize;
+}
