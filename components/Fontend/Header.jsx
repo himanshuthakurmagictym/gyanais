@@ -13,35 +13,30 @@ function Header({socket}) {
   // var isuser = cookie.get('token')
    const isuser = useAppContext();
   //  setstate(isusers);
-   const[notification, setNotifications] =useState([])
+   const [notification, setNotifications] =useState([])
   
    const [newuser, setuserid] = useState("");
-
-   
 
    useEffect(()=>{
     setuserid(isuser._id)
    },[isuser])
 
   useEffect(()=>{
-    
-    // console.log(`hello${isuser._id}`)
       if(newuser){
       socket?.emit('userid', newuser);
     }
-  
   },[newuser])
 
-
-  const handlenotification =  (datas) => {
-    //console.log(updates); // this will now display the current data
-    console.log(datas)
-    // setNotifications(datas)
-  }
+  useEffect(()=>{
   socket?.on('notification', handlenotification)
-  
+  const handlenotification = (datas) => {
+    console.log(`nooo${datas}`);
+    setNotifications(datas);
+  }
 
-  console.log(`notification received: ${notification}`)
+},[socket])
+  
+console.log(`notification received: ${notification}`)
 
     return (
 
@@ -107,14 +102,14 @@ function Header({socket}) {
                 
                 <a className="nav-link  text-danger dropdown-toggle anotifynav" data-toggle="dropdown-submenu" aria-expanded="true">
                 <Image src={`/assets/images/notify.png`}  width='40' height='40' alt="avatar"/>
-                {
+                {/* {
                   notification.length >0 && <div className='notifycount'>{notification.length}</div>
-                  }
+                  } */}
                 </a>
             
                         <div className="dropdown-menu  notifymodel"  >
                                         <div className="card-box">
-                                            {notification.map((noty, i)=>(
+                                            {/* {notification.map((noty, i)=>(
                                                 <div className='notify' key={noty._id}>
                                                 <div className="row">
                                                 <div className="col-md-2">
@@ -134,7 +129,7 @@ function Header({socket}) {
                                                 </div>
 
                                                 </div>
-                                            ))}
+                                            ))} */}
                                           </div>
                             </div>
                             
