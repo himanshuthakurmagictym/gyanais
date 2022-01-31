@@ -42,7 +42,7 @@ function Notification({notification}) {
                                                 </div>
                                                 <div className="col-md-1">
                                                 <div className='notifyfooter'>
-                                                    <p>{noty.videoid.videoDuration}</p>
+                                                <p>{moment(noty.createdAt).fromNow()}</p>
                                                     </div>
                                                 </div>
                                                 </div>

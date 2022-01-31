@@ -131,7 +131,7 @@ const handleRead = (notyid) => {
                                                     <strong className="">{noty.videoid.video_title}</strong>
                                                     <p>{moment(noty.videoid.videoDate).format('DD MMM YYY')}</p>
                                                     </div>
-                                                    <p>{noty.videoid.videoDuration}</p>
+                                                    <p>{moment(noty.createdAt).fromNow()}</p>
                                                 </div>
                                                
                                                 
