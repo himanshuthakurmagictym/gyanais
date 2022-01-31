@@ -36,7 +36,7 @@ function Header({socket}) {
   const handlenotification =  (datas) => {
     //console.log(updates); // this will now display the current data
     console.log(datas)
-    setNotifications(datas)
+    // setNotifications(datas)
   }
   socket?.on('notification', handlenotification)
   
