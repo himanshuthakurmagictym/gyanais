@@ -7,7 +7,7 @@ import router from 'next/router'
 var CryptoJS = require("crypto-js");
 import APIs from '../../config.js';
 import {useAppContext} from '../Fontend/Layout'
-
+import moment from 'moment'
 function Header({socket}) {
   
   // var isuser = cookie.get('token')
@@ -28,15 +28,15 @@ function Header({socket}) {
   },[newuser])
 
   useEffect(()=>{
-  socket?.on('notification', handlenotification)
-  const handlenotification = (datas) => {
-    console.log(`nooo${datas}`);
-    setNotifications(datas);
-  }
+  socket?.on('notification', (data) => {
+    //console.log(data);
+    setNotifications((data));
+   
+  })
 
 },[socket])
   
-console.log(`notification received: ${notification}`)
+//console.log(`notification received: ${JSON.stringify(notification)}`)
 
     return (
 
@@ -102,14 +102,14 @@ console.log(`notification received: ${notification}`)
                 
                 <a className="nav-link  text-danger dropdown-toggle anotifynav" data-toggle="dropdown-submenu" aria-expanded="true">
                 <Image src={`/assets/images/notify.png`}  width='40' height='40' alt="avatar"/>
-                {/* {
+                {
                   notification.length >0 && <div className='notifycount'>{notification.length}</div>
-                  } */}
+                  }
                 </a>
             
                         <div className="dropdown-menu  notifymodel"  >
                                         <div className="card-box">
-                                            {/* {notification.map((noty, i)=>(
+                                            {notification.map((noty, i)=>(
                                                 <div className='notify' key={noty._id}>
                                                 <div className="row">
                                                 <div className="col-md-2">
@@ -117,6 +117,7 @@ console.log(`notification received: ${notification}`)
                                                 </div>
                                                 <div className="col-md-9">
                                                     <div className='notifyBody'>
+                                                   
                                                     <h1 className=" display-5">{noty.videoid.video_title}</h1>
                                                     <p>{moment(noty.videoid.videoDate).format('DD MMM YYY')}</p>
                                                     </div>
@@ -129,7 +130,7 @@ console.log(`notification received: ${notification}`)
                                                 </div>
 
                                                 </div>
-                                            ))} */}
+                                            ))}
                                           </div>
                             </div>
                             
