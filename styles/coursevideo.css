@@ -38,7 +38,7 @@
     background-color: rgb(252, 252, 252);
     width: 100%;
     color:black;
-    height: 180px;
+    /* height: 180px; */
     overflow-y: auto;
 }
 

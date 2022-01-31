@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Brudcrums from "../../../components/Fontend/Brudcrums";
 import Link from 'next/link'
 import APIs from '../../../config.js';
@@ -6,7 +6,7 @@ import {useAppContext} from '../../../components/Fontend/Layout'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router'
-
+import {io} from 'socket.io-client';
 import dynamic from 'next/dynamic'
 import Chatbox from "../../../components/Fontend/Chatbox";
 import Whiteboard from "../../../components/Fontend/Whiteboard";
@@ -16,7 +16,19 @@ const Webcamerasforst = dynamic(
   { ssr: false }
 )
 
-function Coursevideo({videodetails}) {
+
+
+function Coursevideo({videodetails, userid}) {
+
+    const isuser = useAppContext();
+    const [newuser, setuserid] = useState("");
+
+   
+
+    const [socket, setSocket] = useState(null);
+    useEffect(()=>{
+        setSocket(io(APIs.base_url_home));
+       },[])
     
     return (
         <>
@@ -39,7 +51,7 @@ function Coursevideo({videodetails}) {
                                                 <Webcamerasforst />                                  
                                         </div>
                                         <div className='roomchat'>
-                                                <Chatbox />
+                                                <Chatbox socket={socket} userid={userid}/>
                                         </div>
                                   </div>      
                               </div>
@@ -91,6 +103,7 @@ export const getServerSideProps = async (context) =>{
                 return {
                     props: {
                         videodetails: datas.data,
+                        userid: context.req.cookies['cid']
                     }
                 }
 
