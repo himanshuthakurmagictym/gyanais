@@ -91,7 +91,7 @@ export const getServerSideProps = async (context) =>{
        const getuserid = context.req.cookies['cid'];
         
          //video is available in room id or not
-         const resroom = await fetch(`${APIs.base_url}roomavailable/${coursevideoid}`);
+         const resroom = await fetch(`${APIs.base_url}roomAvailable/${coursevideoid}`);
 
          const isRoomid =await resroom.json();
            
