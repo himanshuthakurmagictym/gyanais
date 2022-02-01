@@ -10,9 +10,9 @@ const isuser = useAppContext();
 const bottomRef = useRef();
 
 const[users, setusers] = useState([])
-   useEffect(()=>{
-    setuserdetail(isuser)
-   },[isuser])
+//    useEffect(()=>{
+//     setuserdetail(isuser)
+//    },[isuser])
 
 
 

@@ -23,16 +23,17 @@ function Coursevideo({videodetails, userid, coursevideoid}) {
 
     const isuser = useAppContext();
     const roomid= videodetails._id;
-    const[users, setusers] = useState([])
-    const [userdetail, setuserdetail] = useState("");
+    const [users, setusers] = useState([])
+    const [userdetail, setUserDetail] = useState("");
     const [socket, setSocket] = useState(null);
+
     useEffect(()=>{
         setSocket(io(APIs.base_url_home));
        },[])
     
-    
-       useEffect(()=>{
-        setuserdetail(isuser)
+
+    useEffect(()=>{
+        setUserDetail(isuser);
        },[isuser])
             
        
