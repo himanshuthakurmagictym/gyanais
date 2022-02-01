@@ -108,6 +108,7 @@ export const getServerSideProps = async (context) =>{
                      //set to cookies room data in cookies
                     // cookie.set('sessionroom',coursevideoid, { expires: new Date(videodetails.createdAt), secure: true, sameSite: 'strict' })
                      // Join chatroom
+                     console.log(`getroom${data}`)
                      socket?.emit('joinRoom', { getuserid, coursevideoid, data });
                  }
 
