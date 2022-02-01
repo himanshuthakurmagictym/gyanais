@@ -2,24 +2,21 @@
 import {useEffect, useState, useRef} from "react";
 import APIs from '../../config.js';
 import {useAppContext} from '../Fontend/Layout'
-const Chatbox = ({socket, userid})=>{
+const Chatbox = ({socket, userid, roomid})=>{
 
 const[sentmessage, setsendmessage] = useState("")
 const[message, setMessage] = useState([])
 const isuser = useAppContext();
 const bottomRef = useRef();
-const [username, setuserid] = useState("");
+
 const[users, setusers] = useState([])
    useEffect(()=>{
-    setuserid(isuser.username)
+    setuserdetail(isuser)
    },[isuser])
 
 
-const room = "chatBox";
-// Join chatroom
-socket?.emit('joinRoom', { username, room });
 
-socket?.on('roomUsers', ({ room, users }) => {
+socket?.on('roomUsers', ({ roomid, users }) => {
     // outputRoomName(room);
     setusers(users);
   });
