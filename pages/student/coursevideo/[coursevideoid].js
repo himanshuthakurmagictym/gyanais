@@ -48,8 +48,8 @@ function Coursevideo({videodetails, userid, coursevideoid}) {
                 //set to cookies room data in cookies
                // cookie.set('sessionroom',coursevideoid, { expires: new Date(videodetails.createdAt), secure: true, sameSite: 'strict' })
                 // Join chatroom
-                console.log(`getroom${data}`)
-                socket?.emit('joinRoom', { userdetail, coursevideoid, data });
+                console.log(`getroom${JSON.stringify(data)}`)
+                socket?.emit('join-session-room', { userdetail, coursevideoid, data });
             }
 
         });
