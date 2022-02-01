@@ -36,7 +36,23 @@ function Coursevideo({videodetails, userid, coursevideoid}) {
        },[isuser])
             
        
+       if(coursevideoid !== null){
+        //create room
+        socket?.emit("create-session-room", { userid, coursevideoid })
+        
+        //getroom details
+        socket?.on("get-session-room", (data)=>{
 
+            if(data){
+                //set to cookies room data in cookies
+               // cookie.set('sessionroom',coursevideoid, { expires: new Date(videodetails.createdAt), secure: true, sameSite: 'strict' })
+                // Join chatroom
+                console.log(`getroom${data}`)
+                socket?.emit('joinRoom', { userdetail, coursevideoid, data });
+            }
+
+        });
+   }
 
 
 
@@ -85,35 +101,15 @@ export const getServerSideProps = async (context) =>{
    
     const res = await fetch(`${APIs.base_url}student/coursevideo/videoDetails/${coursevideoid}`);
     const datas = await res.json();
-
-    console.log(datas.data.course_id.teacher_id)
         // Perform localStorage action
-       const getuserid = datas.data.course_id.teacher_id;
+    //    const getuserid = datas.data.course_id.teacher_id;
+    //    const userid = context.req.cookies['cid']
         
          //video is available in room id or not
-         const resroom = await fetch(`${APIs.base_url}roomAvailable/${coursevideoid}`);
-
-         const isRoomid =await resroom.json();
+        //  const resroom = await fetch(`${APIs.base_url}getroom/${coursevideoid}`);
+        //  const isRoomid =await resroom.json();
            
-         if(isRoomid.data !== null){
-             console.log(isRoomid.data);
-         }else{
-             //create room
-             socket?.emit("create-room", { getuserid, coursevideoid })
-
-             //getroom details
-             socket?.on("get-room", (data)=>{
-
-                 if(data){
-                     //set to cookies room data in cookies
-                    // cookie.set('sessionroom',coursevideoid, { expires: new Date(videodetails.createdAt), secure: true, sameSite: 'strict' })
-                     // Join chatroom
-                     console.log(`getroom${data}`)
-                     socket?.emit('joinRoom', { getuserid, coursevideoid, data });
-                 }
-
-             });
-         }
+        
        
            
 
