@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router'
 import {io} from 'socket.io-client';
+import cookie from 'js-cookie'
 import dynamic from 'next/dynamic'
 import Chatbox from "../../../components/Fontend/Chatbox";
 import Whiteboard from "../../../components/Fontend/Whiteboard";
@@ -18,18 +19,29 @@ const Webcamerasforst = dynamic(
 
 
 
-function Coursevideo({videodetails, userid}) {
+function Coursevideo({videodetails, userid, coursevideoid}) {
 
     const isuser = useAppContext();
-    const [newuser, setuserid] = useState("");
-
-   
-
+    const roomid= videodetails._id;
+    const[users, setusers] = useState([])
+    const [userdetail, setuserdetail] = useState("");
     const [socket, setSocket] = useState(null);
     useEffect(()=>{
         setSocket(io(APIs.base_url_home));
        },[])
     
+    
+       useEffect(()=>{
+        setuserdetail(isuser)
+       },[isuser])
+            
+       
+
+
+
+
+
+
     return (
         <>
         <Brudcrums />
@@ -51,7 +63,7 @@ function Coursevideo({videodetails, userid}) {
                                                 <Webcamerasforst />                                  
                                         </div>
                                         <div className='roomchat'>
-                                                <Chatbox socket={socket} userid={userid}/>
+                                                <Chatbox socket={socket} userid={userid} roomid={videodetails._id}/>
                                         </div>
                                   </div>      
                               </div>
@@ -72,7 +84,38 @@ export const getServerSideProps = async (context) =>{
     const {coursevideoid} = params;
    
     const res = await fetch(`${APIs.base_url}student/coursevideo/videoDetails/${coursevideoid}`);
-    const datas = await res.json()
+    const datas = await res.json();
+
+    
+        // Perform localStorage action
+       const getuserid = context.req.cookies['cid'];
+        
+         //video is available in room id or not
+         const resroom = await fetch(`${APIs.base_url}roomavailable/${coursevideoid}`);
+
+         const isRoomid =await resroom.json();
+           
+         if(isRoomid.data !== null){
+             console.log(isRoomid.data);
+         }else{
+             //create room
+             socket?.emit("create-room", { getuserid, coursevideoid })
+
+             //getroom details
+             socket?.on("get-room", (data)=>{
+
+                 if(data){
+                     //set to cookies room data in cookies
+                    // cookie.set('sessionroom',coursevideoid, { expires: new Date(videodetails.createdAt), secure: true, sameSite: 'strict' })
+                     // Join chatroom
+                     socket?.emit('joinRoom', { getuserid, coursevideoid, data });
+                 }
+
+             });
+         }
+       
+           
+
     
         const URLS = APIs.base_url+"payment/status";
         //console.log(datas)
@@ -103,7 +146,8 @@ export const getServerSideProps = async (context) =>{
                 return {
                     props: {
                         videodetails: datas.data,
-                        userid: context.req.cookies['cid']
+                        userid: context.req.cookies['cid'],
+                        coursevideoid
                     }
                 }
 
