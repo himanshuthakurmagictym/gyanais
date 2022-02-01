@@ -86,9 +86,9 @@ export const getServerSideProps = async (context) =>{
     const res = await fetch(`${APIs.base_url}student/coursevideo/videoDetails/${coursevideoid}`);
     const datas = await res.json();
 
-    
+    console.log(datas.data.course_id.teacher_id)
         // Perform localStorage action
-       const getuserid = context.req.cookies['cid'];
+       const getuserid = datas.data.course_id.teacher_id;
         
          //video is available in room id or not
          const resroom = await fetch(`${APIs.base_url}roomAvailable/${coursevideoid}`);
