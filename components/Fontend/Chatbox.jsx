@@ -16,13 +16,15 @@ const[users, setusers] = useState([])
   // Message from server
   useEffect(() => {
 socket?.emit('getmessage', roomid);
-}, []);
+},[]);
 
+useEffect(() => {
 socket?.on('message', (msg) => {
      console.log(`inner${msg}`);
     setMessage(msg);
     // socket?.emit('sendMessage', "welcome");
   });
+},[socket]);
 
   console.log(`outer${message}`)
   useEffect(() => {
