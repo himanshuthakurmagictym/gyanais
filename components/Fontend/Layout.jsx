@@ -30,8 +30,8 @@ export default function Layout({children}) {
 
         const [socket, setSocket] = useState(null);
         useEffect(()=>{
-            // setSocket(io(APIs.base_url_home));
-            setSocket(1);
+             setSocket(io(APIs.base_url_home));
+        //setSocket(1);
            },[])
   
 
