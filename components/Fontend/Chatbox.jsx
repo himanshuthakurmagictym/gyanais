@@ -19,9 +19,9 @@ const[users, setusers] = useState([])
 
 
   // Message from server
-socket?.on('message', (message) => {
-    // console.log(message);
-    setMessage(message);
+socket?.on('message', (msg) => {
+     console.log(msg);
+    setMessage(msg);
   
     // // Scroll down
     // chatMessages.scrollTop = chatMessages.scrollHeight;
