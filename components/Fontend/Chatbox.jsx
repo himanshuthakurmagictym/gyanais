@@ -14,7 +14,9 @@ const[users, setusers] = useState([])
 //     setuserdetail(isuser)
 //    },[isuser])
   // Message from server
+  useEffect(() => {
 socket?.emit('getmessage', roomid);
+}, []);
 
 socket?.on('message', (msg) => {
      console.log(`inner${msg}`);
