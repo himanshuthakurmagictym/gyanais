@@ -28,7 +28,7 @@ export default function Layout({children}) {
         }
         }, [])
 
-        const [socket, setSocket] = useState(null);
+        const [Socket, setSocket] = useState(null);
         useEffect(()=>{
              setSocket(io(APIs.base_url_home));
         //setSocket(1);
@@ -37,7 +37,7 @@ export default function Layout({children}) {
 
  return(
     <AppContext.Provider value={ress}>
-         <Header socket={socket}/>
+         <Header socket={Socket}/>
          {children}
          <Footer /> 
          </AppContext.Provider>
@@ -50,5 +50,5 @@ export function useAppContext() {
 
 
   export function useio() {
-    return useContext(socket);
+    return useContext(Socket);
   }
