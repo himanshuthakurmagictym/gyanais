@@ -18,12 +18,10 @@ const[users, setusers] = useState([])
 socket?.on('message', (msg) => {
      //console.log(msg);
     setMessage(msg);
-    socket?.emit('sendMessage', "welcome");
+    // socket?.emit('sendMessage', "welcome");
   });
 
-
-
-console.log(message)
+    console.log(message)
   useEffect(() => {
     bottomRef.current.scrollIntoView({ behavior: "smooth" });
   }, [message]);
