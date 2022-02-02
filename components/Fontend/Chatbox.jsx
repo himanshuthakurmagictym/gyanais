@@ -14,7 +14,7 @@ const[users, setusers] = useState([])
 //     setuserdetail(isuser)
 //    },[isuser])
   // Message from server
- 
+socket?.emit('getmessage', roomid);
 socket?.on('message', (msg) => {
      //console.log(msg);
     setMessage(msg);
