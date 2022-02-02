@@ -49,6 +49,6 @@ export function useAppContext() {
   }
 
 
-  export function useio() {
+  export function Useio() {
     return useContext(Socket);
   }
