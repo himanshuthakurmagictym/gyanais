@@ -145,7 +145,7 @@ export const getServerSideProps = async (context) =>{
                     props: {
                         videodetails: datas.data,
                         userid: context.req.cookies['cid'],
-                        coursevideoid
+                        coursevideoid: coursevideoid
                     }
                 }
 
