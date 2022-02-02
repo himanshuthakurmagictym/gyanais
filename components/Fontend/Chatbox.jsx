@@ -18,7 +18,7 @@ const[users, setusers] = useState([])
 socket?.on('message', (msg) => {
      //console.log(msg);
     setMessage(msg);
-    socket?.emit('sendMessage', "");
+    socket?.emit('sendMessage', "welcome");
   });
 }, [socket]);
 
