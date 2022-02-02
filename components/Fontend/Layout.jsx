@@ -47,3 +47,8 @@ export default function Layout({children}) {
 export function useAppContext() {
     return useContext(AppContext);
   }
+
+
+  export function useio() {
+    return useContext(socket);
+  }
