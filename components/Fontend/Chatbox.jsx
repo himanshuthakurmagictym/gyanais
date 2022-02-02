@@ -82,7 +82,6 @@ socket?.on('message', (message) => {
 
                                     ))}
                                     
-
                                     <div className="outgoing_message">
                                         <h4>Shaam</h4>
                                         <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas placeat earum provident</p>
