@@ -20,7 +20,6 @@ socket?.emit('getmessage', roomid);
 
 useEffect(() => {
 socket?.on('message', (msg) => {
-     console.log(`inner${msg}`);
     setMessage(msg);
     // socket?.emit('sendMessage', "welcome");
   });
@@ -37,7 +36,7 @@ socket?.on('message', (msg) => {
     //const sendData = JSON.stringify({message:message, userid:userid})
     // console.log(sendData);
     let msg = sentmessage;
-        msg = msg.trim();
+        // msg = msg.trim();
         if (!msg) {
             return false;
         }
