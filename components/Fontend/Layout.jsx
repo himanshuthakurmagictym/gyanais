@@ -36,7 +36,7 @@ export default function Layout({children}) {
 
  return(
     <AppContext.Provider value={ress}>
-         <Header socket={socket}/>
+         <Header />
          {children}
          <Footer /> 
          </AppContext.Provider>
