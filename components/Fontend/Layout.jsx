@@ -30,13 +30,14 @@ export default function Layout({children}) {
 
         const [socket, setSocket] = useState(null);
         useEffect(()=>{
-            setSocket(io(APIs.base_url_home));
+            // setSocket(io(APIs.base_url_home));
+            setSocket(1);
            },[])
   
 
  return(
     <AppContext.Provider value={ress}>
-         <Header />
+         <Header socket={socket}/>
          {children}
          <Footer /> 
          </AppContext.Provider>
