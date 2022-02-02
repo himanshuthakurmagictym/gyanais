@@ -15,13 +15,14 @@ const[users, setusers] = useState([])
 //    },[isuser])
   // Message from server
 socket?.emit('getmessage', roomid);
+
 socket?.on('message', (msg) => {
-     //console.log(msg);
+     console.log(`inner${msg}`);
     setMessage(msg);
     // socket?.emit('sendMessage', "welcome");
   });
 
-    console.log(message)
+  console.log(`outer${message}`)
   useEffect(() => {
     bottomRef.current.scrollIntoView({ behavior: "smooth" });
   }, [message]);
