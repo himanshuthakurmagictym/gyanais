@@ -20,14 +20,14 @@ const[users, setusers] = useState([])
 
   // Message from server
 socket?.on('message', (msg) => {
-     console.log(msg);
+     //console.log(msg);
     setMessage(msg);
   
     // // Scroll down
     // chatMessages.scrollTop = chatMessages.scrollHeight;
   });
 
-
+console.log(message)
   useEffect(() => {
     bottomRef.current.scrollIntoView({ behavior: "smooth" });
   }, [message]);
@@ -36,7 +36,7 @@ socket?.on('message', (msg) => {
  const handleSubmitChat = (e)=>{
      e.preventDefault();
     //const sendData = JSON.stringify({message:message, userid:userid})
-    console.log(sendData);
+    // console.log(sendData);
     let msg = sentmessage;
         msg = msg.trim();
         if (!msg) {
@@ -73,14 +73,14 @@ socket?.on('message', (msg) => {
                             <div className=" row">
                                 <div className="col-md-12">
                                 <div className="chatbody" >
-                                    {message.map((message) =>(
+                                    {/* {message.map((message) =>(
 
                                     <div className="incoming_message" key={message._id}>
                                     <h4>{message.firstname}</h4>
                                     <p>{message.message}</p>
                                     </div>
 
-                                    ))}
+                                    ))} */}
                                     
                                     <div className="outgoing_message">
                                         <h4>Shaam</h4>
