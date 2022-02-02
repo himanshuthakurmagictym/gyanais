@@ -14,13 +14,13 @@ const[users, setusers] = useState([])
 //     setuserdetail(isuser)
 //    },[isuser])
   // Message from server
-  useEffect(() => {
+ 
 socket?.on('message', (msg) => {
      //console.log(msg);
     setMessage(msg);
     socket?.emit('sendMessage', "welcome");
   });
-}, [socket]);
+
 
 
 console.log(message)
