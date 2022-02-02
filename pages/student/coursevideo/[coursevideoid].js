@@ -118,7 +118,7 @@ export const getServerSideProps = async (context) =>{
         const URLS = APIs.base_url+"payment/status";
         //console.log(datas)
         const sendData = JSON.stringify({category_id: datas.data.category_id, user: context.req.cookies['cid'] })
-       console.log(datas.data['category_id'])
+       //console.log(datas.data['category_id'])
         const ress = await fetch(URLS, {
             method:"POST",
             headers: {
@@ -145,7 +145,7 @@ export const getServerSideProps = async (context) =>{
                     props: {
                         videodetails: datas.data,
                         userid: context.req.cookies['cid'],
-                        coursevideoid: coursevideoid
+                        coursevideoid
                     }
                 }
 

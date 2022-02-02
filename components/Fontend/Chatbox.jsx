@@ -16,10 +16,7 @@ const[users, setusers] = useState([])
 
 
 
-socket?.on('roomUsers', ({ roomid, users }) => {
-    // outputRoomName(room);
-    setusers(users);
-  });
+
 
   // Message from server
 socket?.on('message', (message) => {
@@ -46,7 +43,7 @@ socket?.on('message', (message) => {
             return false;
         }
   // Emit message to server
-  socket?.emit('chatMessage', msg);
+  socket?.emit('sendMessage', msg);
  }   
 
     return(
@@ -76,10 +73,15 @@ socket?.on('message', (message) => {
                             <div className=" row">
                                 <div className="col-md-12">
                                 <div className="chatbody" >
+                                    {message.map((message) =>(
+
                                     <div className="incoming_message">
-                                        <h4>Rahul</h4>
-                                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas placeat earum provident</p>
+                                    <h4>{message.firstname}</h4>
+                                    <p>{message.message}</p>
                                     </div>
+
+                                    ))}
+                                    
 
                                     <div className="outgoing_message">
                                         <h4>Shaam</h4>
