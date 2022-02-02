@@ -13,19 +13,14 @@ const[users, setusers] = useState([])
 //    useEffect(()=>{
 //     setuserdetail(isuser)
 //    },[isuser])
-
-
-
-
-
   // Message from server
 socket?.on('message', (msg) => {
      //console.log(msg);
     setMessage(msg);
-  
-    // // Scroll down
-    // chatMessages.scrollTop = chatMessages.scrollHeight;
+    socket?.emit('sendMessage', "");
   });
+
+
 
 console.log(message)
   useEffect(() => {
