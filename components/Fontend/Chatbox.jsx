@@ -75,7 +75,7 @@ socket?.on('message', (message) => {
                                 <div className="chatbody" >
                                     {message.map((message) =>(
 
-                                    <div className="incoming_message">
+                                    <div className="incoming_message" key={message._id}>
                                     <h4>{message.firstname}</h4>
                                     <p>{message.message}</p>
                                     </div>
