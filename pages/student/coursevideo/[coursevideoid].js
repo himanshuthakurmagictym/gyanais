@@ -29,34 +29,29 @@ function Coursevideo({videodetails, userid, coursevideoid}) {
 
     useEffect(()=>{
         setSocket(io(APIs.base_url_home));
+
+            //create room
+            socket?.emit("create-session-room", { userid, coursevideoid })
+            //getroom details
+            socket?.on("get-session-room", (data)=>{
+                if(data){    
+                    socket?.emit('join-session-room', { userdetail, coursevideoid, data });
+                }
+    
+            });
+
        },[])
     
 
     useEffect(()=>{
         setUserDetail(isuser);
+
+      
+
+
        },[isuser])
             
-       
-       if(coursevideoid !== null){
-        //create room
-        socket?.emit("create-session-room", { userid, coursevideoid })
-        
-        //getroom details
-        socket?.on("get-session-room", (data)=>{
-
-            if(data){
-                //set to cookies room data in cookies
-               // cookie.set('sessionroom',coursevideoid, { expires: new Date(videodetails.createdAt), secure: true, sameSite: 'strict' })
-                // Join chatroom
-                //console.log(`getroom${JSON.stringify(data)}`)
-                socket?.emit('join-session-room', { userdetail, coursevideoid, data });
-            }
-
-        });
-   }
-
-
-
+   
 
 
     return (
