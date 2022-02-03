@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 // import io from 'socket.io-client';
 
-const Whiteboard = () =>{
+const Whiteboard = ({socket}) =>{
     const canvasRef = useRef(null);
     const colorsRef = useRef(null);
     const socketRef = useRef();
