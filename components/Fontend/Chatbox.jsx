@@ -6,6 +6,7 @@ const Chatbox = ({socket, userid, roomid})=>{
 
 const[sentmessage, setsendmessage] = useState("")
 const[message, setMessage] = useState([])
+const[newMessage, setnewMessage] = useState("")
 const isuser = useAppContext();
 const bottomRef = useRef();
 
@@ -16,18 +17,19 @@ const[users, setusers] = useState([])
   // Message from server
   
   useEffect(() => {
-      console.log("getmessage")
+     
       socket?.emit('getmessage', roomid);
-},[]);
+},[isuser]);
 
 useEffect(() => {
-socket?.on('message', (msg) => {
-    setMessage(msg);
+socket?.on('message', (allchat) => {
+    //console.log(allchat)
+    setMessage(allchat);
     // socket?.emit('sendMessage', "welcome");
   });
-},[]);
+},[socket]);
 
-  console.log(`outer${message}`)
+ 
   useEffect(() => {
     bottomRef.current.scrollIntoView({ behavior: "smooth" });
   }, [message]);
@@ -43,7 +45,9 @@ socket?.on('message', (msg) => {
             return false;
         }
   // Emit message to server
-  socket?.emit('sendMessage', msg);
+ 
+  socket?.emit('sendMessage', {msg, userid});
+  setsendmessage("")
  }   
 
     return(
@@ -73,14 +77,14 @@ socket?.on('message', (msg) => {
                             <div className=" row">
                                 <div className="col-md-12">
                                 <div className="chatbody" >
-                                    {/* {message.map((message) =>(
+                                    {message.map((message) =>(
 
                                     <div className="incoming_message" key={message._id}>
                                     <h4>{message.firstname}</h4>
                                     <p>{message.message}</p>
                                     </div>
 
-                                    ))} */}
+                                    ))}
                                     
                                     <div className="outgoing_message">
                                         <h4>Shaam</h4>
@@ -103,7 +107,7 @@ socket?.on('message', (msg) => {
                                     <div className="row">
                                         <div className="col-md-9 col-sx-12 chatleft">
                                            
-                                            <input type="text" onChange={(e)=>{setsendmessage(e.target.value)}}className="commenttype" placeholder="Type your comment here..." />
+                                            <input type="text" value={sentmessage} onChange={(e)=>{setsendmessage(e.target.value)}}className="commenttype" placeholder="Type your comment here..." />
                                            
                                         </div>
                                         <div className="col-md-3 col-sx-12 chatleft" >

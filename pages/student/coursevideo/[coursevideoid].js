@@ -29,27 +29,25 @@ function Coursevideo({videodetails, userid, coursevideoid}) {
 
     useEffect(()=>{
         setSocket(io(APIs.base_url_home));
+       },[])
+    
+       useEffect(()=>{
+        setUserDetail(isuser);
+    },[isuser])
 
+    useEffect(()=>{
             //create room
             socket?.emit("create-session-room", { userid, coursevideoid })
             //getroom details
             socket?.on("get-session-room", (data)=>{
                 if(data){    
+                   // console.log(userdetail);
                     socket?.emit('join-session-room', { userdetail, coursevideoid, data });
                 }
-    
+
             });
 
-       },[])
-    
-
-    useEffect(()=>{
-        setUserDetail(isuser);
-
-      
-
-
-       },[isuser])
+       },[userdetail])
             
    
 
