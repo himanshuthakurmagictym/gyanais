@@ -65,12 +65,12 @@ function Coursevideo({videodetails, userid, coursevideoid}) {
                                                          
                               <div className="card col-12 col-md-9">
                                <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">{videodetails.video_title} </h2>
-                                  <Whiteboard />     
+                                  <Whiteboard socket={socket}/>     
                               </div>
                               <div className="card col-12 col-md-3">
                                   <div className='rightside '>
                                         <div className='webcam'> 
-                                                <Webcamerasforst />                                  
+                                                <Webcamerasforst socket={socket} />                                  
                                         </div>
                                         <div className='roomchat'>
                                                 <Chatbox socket={socket} userid={userid} roomid={videodetails._id}/>

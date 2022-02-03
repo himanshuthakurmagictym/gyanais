@@ -38,28 +38,23 @@ socket?.on('message', (allchat) => {
     //console.log(allchat)
     //setMessage(allchat);
     setMessage((prev) => [...prev, allchat]);
-    // socket?.emit('sendMessage', "welcome");
   });
 },[socket]);
 
 
   useEffect(() => {
-    bottomRef.current.scrollIntoView({ behavior: "smooth" });
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [message]);
 
 // console.log(message)
  const handleSubmitChat = async(e)=>{
      e.preventDefault();
-    //const sendData = JSON.stringify({message:message, userid:userid})
-    // console.log(sendData);
+
     let msg = sentmessage;
-        // msg = msg.trim();
+         msg = msg.trim();
         if (!msg) {
             return false;
         }
-  // Emit message to server
- 
-  
   const message = {
     userid: userid,
     message: msg,
@@ -82,16 +77,11 @@ socket?.on('message', (allchat) => {
     //    const sendaconversion =  await ress.json();
        socket?.emit('sendMessage', {msg, userid});
         setsendmessage("")
-  } catch (err) {
-    console.log(err);
-  }
-
-
-
-
-  
+        } catch (err) {
+            console.log(err);
+        }
  }   
-
+ 
     return(
         <>
       <main>
@@ -103,7 +93,7 @@ socket?.on('message', (allchat) => {
                             <div className="row">
                                 <div className="col-md-12">
                                     <div className="heading">
-                                    Message
+                                    Message 
                                     </div>
                                      
                                 </div>
@@ -114,25 +104,23 @@ socket?.on('message', (allchat) => {
 
 
 
-                    <div className="chat-body" ref={bottomRef}>
+                    <div className="chat-body" >
                         <div className="container">
                             <div className=" row">
                                 <div className="col-md-12">
-                                <div className="chatbody" >
+                                <div className="chatbody"  >
                                     
                                     {message.map((msg) =>(
-
-                                    <div className="incoming_message" key={msg._id}>
-                                    <h4>{msg.firstname}</h4>
-                                    <p>{msg.message}</p>
+                                    <div ref={bottomRef}>
+                                        <div className={msg.suserid === userid ? "outgoing_message" : "incoming_message"} key={msg._id} >
+                                        <h4>{msg.firstname} {msg.suserid}</h4>
+                                        <p>{msg.message}</p>
+                                        </div>
                                     </div>
 
                                     ))}
                                     
-                                    <div className="outgoing_message">
-                                        <h4>Shaam</h4>
-                                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas placeat earum provident</p>
-                                    </div>
+                                   
                                    </div>  
                                 </div>
                                
