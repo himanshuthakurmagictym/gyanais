@@ -14,16 +14,18 @@ const[users, setusers] = useState([])
 //     setuserdetail(isuser)
 //    },[isuser])
   // Message from server
+  
   useEffect(() => {
-socket?.emit('getmessage', roomid);
-},[socket]);
+      console.log("getmessage")
+      socket?.emit('getmessage', roomid);
+},[]);
 
 useEffect(() => {
 socket?.on('message', (msg) => {
     setMessage(msg);
     // socket?.emit('sendMessage', "welcome");
   });
-},[socket]);
+},[]);
 
   console.log(`outer${message}`)
   useEffect(() => {
