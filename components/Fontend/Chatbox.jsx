@@ -5,6 +5,7 @@ import {useAppContext} from '../Fontend/Layout'
 const Chatbox = ({socket, userid, roomid})=>{
 
 const[sentmessage, setsendmessage] = useState("")
+
 const[message, setMessage] = useState([])
 const[newMessage, setnewMessage] = useState("")
 const isuser = useAppContext();
@@ -18,24 +19,36 @@ const[users, setusers] = useState([])
   
   useEffect(() => {
      
-      socket?.emit('getmessage', roomid);
+    //  
+    const getConversations = async () => {
+        try {
+            const allconversion = await fetch(`${APIs.base_url}messages/getMessages/${roomid}`);
+            const conversion = await allconversion.json();
+          setMessage(conversion.data);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      getConversations();
+
 },[isuser]);
 
 useEffect(() => {
 socket?.on('message', (allchat) => {
     //console.log(allchat)
-    setMessage(allchat);
+    //setMessage(allchat);
+    setMessage((prev) => [...prev, allchat]);
     // socket?.emit('sendMessage', "welcome");
   });
 },[socket]);
 
- 
+
   useEffect(() => {
     bottomRef.current.scrollIntoView({ behavior: "smooth" });
   }, [message]);
 
-
- const handleSubmitChat = (e)=>{
+// console.log(message)
+ const handleSubmitChat = async(e)=>{
      e.preventDefault();
     //const sendData = JSON.stringify({message:message, userid:userid})
     // console.log(sendData);
@@ -46,8 +59,37 @@ socket?.on('message', (allchat) => {
         }
   // Emit message to server
  
-  socket?.emit('sendMessage', {msg, userid});
-  setsendmessage("")
+  
+  const message = {
+    userid: userid,
+    message: msg,
+    serverUserType:"real",
+    roomid:roomid
+  };
+
+  try {
+
+    const URLS = APIs.base_url+"messages/postMessages";
+        const sendData = JSON.stringify(message)
+        const ress = await fetch(URLS, {
+            method:"POST",
+            headers: {
+                "Content-Type": "application/json",
+              },
+            body:sendData,
+        });
+       
+       const sendaconversion =  await ress.json();
+       socket?.emit('sendMessage', {msg, userid});
+        setsendmessage("")
+  } catch (err) {
+    console.log(err);
+  }
+
+
+
+
+  
  }   
 
     return(
@@ -77,11 +119,12 @@ socket?.on('message', (allchat) => {
                             <div className=" row">
                                 <div className="col-md-12">
                                 <div className="chatbody" >
-                                    {message.map((message) =>(
+                                    
+                                    {message.map((msg) =>(
 
-                                    <div className="incoming_message" key={message._id}>
-                                    <h4>{message.firstname}</h4>
-                                    <p>{message.message}</p>
+                                    <div className="incoming_message" key={msg._id}>
+                                    <h4>{msg.firstname}</h4>
+                                    <p>{msg.message}</p>
                                     </div>
 
                                     ))}
