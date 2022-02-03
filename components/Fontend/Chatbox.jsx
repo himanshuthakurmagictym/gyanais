@@ -69,17 +69,17 @@ socket?.on('message', (allchat) => {
 
   try {
 
-    const URLS = APIs.base_url+"messages/postMessages";
-        const sendData = JSON.stringify(message)
-        const ress = await fetch(URLS, {
-            method:"POST",
-            headers: {
-                "Content-Type": "application/json",
-              },
-            body:sendData,
-        });
+    // const URLS = APIs.base_url+"messages/postMessages";
+    //     const sendData = JSON.stringify(message)
+    //     const ress = await fetch(URLS, {
+    //         method:"POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //           },
+    //         body:sendData,
+    //     });
        
-       const sendaconversion =  await ress.json();
+    //    const sendaconversion =  await ress.json();
        socket?.emit('sendMessage', {msg, userid});
         setsendmessage("")
   } catch (err) {
