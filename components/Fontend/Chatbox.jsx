@@ -55,12 +55,12 @@ socket?.on('message', (allchat) => {
         if (!msg) {
             return false;
         }
-  const message = {
-    userid: userid,
-    message: msg,
-    serverUserType:"real",
-    roomid:roomid
-  };
+//   const message = {
+//     userid: userid,
+//     message: msg,
+//     serverUserType:"real",
+//     roomid:roomid
+//   };
 
   try {
 
