@@ -113,7 +113,7 @@ socket?.on('message', (allchat) => {
                                     {message.map((msg) =>(
                                     <div ref={bottomRef} key={msg._id}>
                                         <div className={msg.suserid === userid ? "outgoing_message" : "incoming_message"}  >
-                                        <h4>{msg.firstname} {msg.suserid}</h4>
+                                        <h4>{msg.firstname}</h4>
                                         <p>{msg.message}</p>
                                         </div>
                                     </div>
