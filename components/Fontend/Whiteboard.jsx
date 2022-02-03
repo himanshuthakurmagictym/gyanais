@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 // import io from 'socket.io-client';
 
-const Whiteboard = ({socket}) =>{
+const Whiteboard = ({socket, roomid}) =>{
     const canvasRef = useRef(null);
     const colorsRef = useRef(null);
     const socketRef = useRef();
@@ -48,17 +48,20 @@ const Whiteboard = ({socket}) =>{
         context.stroke();
         context.closePath();
   
-      //   if (!emit) { return; }
-      //   const w = canvas.width;
-      //   const h = canvas.height;
+        if (!emit) { return; }
+        const w = canvas.width;
+        const h = canvas.height;
+
+
+        const whitedata = {
+          x0: x0 / w,
+          y0: y0 / h,
+          x1: x1 / w,
+          y1: y1 / h,
+          color,
+        }
   
-      //   socketRef.current.emit('drawing', {
-      //     x0: x0 / w,
-      //     y0: y0 / h,
-      //     x1: x1 / w,
-      //     y1: y1 / h,
-      //     color,
-      //   });
+        socketRef.current.emit("draw-coordinates", {roomid, whitedata});
       };
   
       // ---------------- mouse movement --------------------------------------
@@ -126,9 +129,9 @@ const Whiteboard = ({socket}) =>{
         drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
       }
   
-      // socketRef.current = io.connect('/');
-      // socketRef.current.on('drawing', onDrawingEvent);
-    }, []);
+      socketRef.current = socket;
+      socketRef.current.on("draw", onDrawingEvent);
+    }, [socket]);
   
 
     return(

@@ -3,7 +3,7 @@
 import React, {useEffect, useRef} from 'react'
 import { useRecordWebcam } from 'react-record-webcam'
 
-function Webcameras({socket}) {
+function Webcameras({socket, roomid}) {
 
   const recordWebcam = useRecordWebcam();
 
