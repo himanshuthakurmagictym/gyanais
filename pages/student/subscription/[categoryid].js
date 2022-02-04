@@ -86,6 +86,7 @@ function Subscription({packages, categoryName}) {
             );
             toast.success(razorpaydetails.message, { autoClose: 2000 });
             console.log(razorpaydetails);
+            router.push(`/student/category/${categoryid}`);
 
           },
 

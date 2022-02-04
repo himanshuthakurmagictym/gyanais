@@ -112,3 +112,43 @@ function EmailVerification() {
 }
 
 export default EmailVerification
+export const getServerSideProps = async (context) => {
+    if(context.req.cookies['token']){
+            const sendData = JSON.stringify({token:context.req.cookies['token']})
+            const res = await fetch(`${APIs.base_url}auth/verifytoken`, {
+                method:"POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body:sendData,
+        });
+        const result =  await res.json();
+
+        if(result.data.isVerified === '1'){
+            //console.log(result.data.isVerified)
+            return {
+                redirect: {
+                permanent: true,
+                destination: `/student/profile`,
+              },
+              props:{},
+            }
+
+            }else{
+
+                return {
+                  props:{},
+                }
+
+            }
+    }else{
+        return {
+            redirect: {
+            permanent: true,
+            destination: `/student/profile`,
+          },
+          props:{},
+        }
+
+    }
+}
