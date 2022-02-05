@@ -51,7 +51,7 @@ export const getServerSideProps = async (context) =>{
     const { params } = context;
     const {categoryid } = params;
     
-    const res = await fetch(`${APIs.base_url}student/syllabusDetails/categoryid`,{
+    const res = await fetch(`${APIs.base_url}student/syllabus/categoryid`,{
         method:"POST",
             headers: {
                 "Content-Type": "application/json",
@@ -60,6 +60,7 @@ export const getServerSideProps = async (context) =>{
     });
     
     const datas = await res.json()
+    console.log(datas)
     
         const URLS = APIs.base_url+"payment/status";
         const sendData = JSON.stringify({category_id: categoryid, user: context.req.cookies['cid'] })

@@ -49,7 +49,7 @@ export const getServerSideProps = async (context) =>{
     const { params } = context;
     const {syllabusdetails} = params;
    
-    const res = await fetch(`${APIs.base_url}student/syllabusDetails//${syllabusdetails}`);
+    const res = await fetch(`${APIs.base_url}student/syllabus/${syllabusdetails}`);
     const datas = await res.json()
    
         const URLS = APIs.base_url+"payment/status";

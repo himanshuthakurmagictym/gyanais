@@ -13,7 +13,7 @@ import {
   } from 'next-share';
 
  
- const Course = ({coursedetail, coursevideo})=>{
+ const Course = ({coursedetail, coursevideo, syllabuss, notes, mcqs})=>{
         const [sociallinks, setsociallinks] = useState('')
     return(
         <>
@@ -94,6 +94,91 @@ import {
                         </div>
 
                     ))}
+
+
+                    {notes.map((notes) =>(   
+                        <div className="row justify-content-center pt-2" key={notes._id}>     
+                                <div className="card col-12 col-md-10">
+                                <div className="card-box">
+                                <Link href={`/student/notes/notedetails/${notes._id}`}>
+                                <div className="row cursorlink">
+                                        <div className="col-md-3">
+                                        <Image src={`/assets/images/doc.png`} width='50' height='50' alt='videoicon'/>
+                                            
+                                        </div>
+                                        <div className="col-md-7">
+                                        <h1> <strong>Notes</strong></h1>
+                                            <p>{notes.notes_name}<tab> {moment(notes.createdAt).format('MM Do')} </tab> </p>
+                                        </div>
+                                        <div className="col-md-2">
+                                            {/* <Link href={notes.videoPdf}>
+                                         <Image src={`/assets/images/pdfd.png`} width='50' height='50' alt='videoicon'/>
+                                        </Link> */}
+                                        </div>
+                                    </div>
+                                    </Link>
+                                    </div>
+                                </div>
+                        </div>
+
+                    ))}
+
+
+            {syllabuss.map((syllabuss) =>(   
+                        <div className="row justify-content-center pt-2" key={syllabuss._id}>     
+                                <div className="card col-12 col-md-10">
+                                <div className="card-box">
+                                <Link href={`/student/syllabuses/syllabusdetails/${syllabuss._id}`}>
+                                <div className="row cursorlink">
+                                        <div className="col-md-3">
+                                        <Image src={`/assets/images/doc.png`} width='50' height='50' alt='videoicon'/>
+                                            
+                                        </div>
+                                        <div className="col-md-7">
+                                        <h1><strong>Syllabus</strong> </h1>
+                                            <p>{syllabuss.syllabus_name}<tab> {moment(syllabuss.createdAt).format('MM Do')} </tab> </p>
+                                        </div>
+                                        <div className="col-md-2">
+                                            {/* <Link href={notes.videoPdf}>
+                                         <Image src={`/assets/images/pdfd.png`} width='50' height='50' alt='videoicon'/>
+                                        </Link> */}
+                                        </div>
+                                    </div>
+                                    </Link>
+                                    </div>
+                                </div>
+                        </div>
+
+                    ))}
+
+
+                {mcqs.map((mcqs) =>(   
+                        <div className="row justify-content-center pt-2" key={mcqs._id}>     
+                                <div className="card col-12 col-md-10">
+                                <div className="card-box">
+                                <Link href={`/student/mcqs/mcqdetails/${mcqs._id}`}>
+                                <div className="row cursorlink">
+                                        <div className="col-md-3">
+                                        <Image src={`/assets/images/doc.png`} width='50' height='50' alt='videoicon'/>
+                                            
+                                        </div>
+                                        <div className="col-md-7">
+                                        <h1><strong>MCQ</strong></h1>
+                                            <p> {mcqs.bank_name}<tab> {moment(mcqs.createdAt).format('MM Do')} </tab> </p>
+                                        </div>
+                                        <div className="col-md-2">
+                                            {/* <Link href={notes.videoPdf}>
+                                         <Image src={`/assets/images/pdfd.png`} width='50' height='50' alt='videoicon'/>
+                                        </Link> */}
+                                        </div>
+                                    </div>
+                                    </Link>
+                                    </div>
+                                </div>
+                        </div>
+
+                    ))}
+                    
                         
                 </div>
             </section>
@@ -112,10 +197,44 @@ export const getServerSideProps = async (context) => {
     const {courseid } = params;
      const res = await fetch(`${APIs.base_url}course/coursedetails/${courseid}`);
     const datas = await res.json()
-    //console.log(datas)
-    const ress = await fetch(`${APIs.base_url}student/coursevideo/video`);
+     console.log(datas)
+    const ress = await fetch(`${APIs.base_url}student/coursevideo/video`,{
+        method:"POST",
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body:JSON.stringify({course_id:datas.data._id}),
+    });
     const datass = await ress.json()
+    //console.log(datass);
+    const mcq = await fetch(`${APIs.base_url}student/mcq/getbycourse`,{
+        method:"POST",
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body:JSON.stringify({course_id:datas.data._id}),
+    });
+    const mcqs = await mcq.json()
 
+    const note = await fetch(`${APIs.base_url}student/notes/getbycourse`,{
+        method:"POST",
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body:JSON.stringify({course_id:datas.data._id}),
+    });
+    const notes = await note.json()
+
+    const syllabus = await fetch(`${APIs.base_url}student/syllabus/getbycourse`,{
+        method:"POST",
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body:JSON.stringify({course_id:datas.data._id}),
+    });
+    const syllabuss = await syllabus.json()
+     
+   // console.log(syllabuss);
 
         const URLS = APIs.base_url+"payment/status";
         const sendData = JSON.stringify({ category_id: datas.data.category_id,  user: context.req.cookies['cid'] })
@@ -144,6 +263,9 @@ export const getServerSideProps = async (context) => {
                     props:{
                        coursedetail: datas.data,
                        coursevideo: datass.data,
+                       syllabuss: syllabuss.data,
+                       notes: notes.data,
+                       mcqs: mcqs.data,
                     }
                 }
               
@@ -154,6 +276,9 @@ export const getServerSideProps = async (context) => {
         props:{
            coursedetail: datas.data,
            coursevideo: datass.data,
+           syllabuss: syllabuss.data,
+                       notes: notes.data,
+                       mcqs: mcqs.data,
         }
     }
 }
