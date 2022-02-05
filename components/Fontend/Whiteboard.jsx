@@ -83,7 +83,7 @@ const Whiteboard = ({socket, roomid, userRole}) =>{
         if (!drawing) { return; }
         drawLine(current.x, current.y, e.clientX || e.touches[0].clientX, e.clientY || e.touches[0].clientY, current.color, true);
         current.x = e.clientX || e.touches[0].clientX;
-        current.y = e.clientY || e.touches[0].clientY;
+        current.y = e.clientY || e.touches[0].clientY; 
       };
   
       const onMouseUp = (e) => {
@@ -122,8 +122,11 @@ const Whiteboard = ({socket, roomid, userRole}) =>{
       // -------------- make the canvas fill its parent component -----------------
   
       const onResize = () => {
+        // canvas.width = window.innerWidth;
+        // canvas.height = window.innerHeight;
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+        
       };
   
       window.addEventListener('resize', onResize, false);

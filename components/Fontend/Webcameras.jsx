@@ -5,11 +5,8 @@ import { useRecordWebcam } from 'react-record-webcam'
 import APIs from '../../config';
 
 function Webcameras({socket, roomid, userRole}) {
-console.log(userRole)
+
   const recordWebcam = useRecordWebcam();
-
-
- 
 
     return (
         <>
