@@ -146,7 +146,7 @@ const Whiteboard = ({socket, roomid, userRole}) =>{
         <>
         <div className='whiteboardmain'>
                 <canvas ref={canvasRef} className="whiteboard" id="canvas" />
-                                    
+               {(userRole === APIs.roles[0])?      
                         <div ref={colorsRef} className="colors">
                                 <div className="color black" />
                                 <div className="color red" />
@@ -154,6 +154,7 @@ const Whiteboard = ({socket, roomid, userRole}) =>{
                                 <div className="color blue" />
                                 <div className="color yellow" />
                         </div>
+              :""}
         </div> 
         </>
     )

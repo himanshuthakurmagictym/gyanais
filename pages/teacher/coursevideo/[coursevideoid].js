@@ -124,18 +124,18 @@ export const getServerSideProps = async (context) =>{
        
        const paymentconfirm =  await ress.json();
        //console.log(paymentconfirm)
-            if(paymentconfirm.status_code !== 200){
+            // if(paymentconfirm.status_code !== 200){
               
-                return {
-                    redirect: {
-                    permanent: true,
-                    destination: `/student/subscription/${paymentconfirm.category_id}`,
-                  },
-                  props:{},
-                }
+            //     return {
+            //         redirect: {
+            //         permanent: true,
+            //         destination: `/student/subscription/${paymentconfirm.category_id}`,
+            //       },
+            //       props:{},
+            //     }
 
               
-            }else{
+            // }else{
 
                 return {
                     props: {
@@ -146,7 +146,7 @@ export const getServerSideProps = async (context) =>{
                     }
                 }
 
-            }
+            // }
      
       
 
