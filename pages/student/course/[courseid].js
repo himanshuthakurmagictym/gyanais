@@ -73,7 +73,7 @@ import {
                                 <div className="card col-12 col-md-10">
                                 <div className="card-box">
                                 <Link href={`/student/coursevideo/${coursevideo._id}`}>
-                                <div className="row">
+                                <div className="row cursorlink">
                                         <div className="col-md-3">
                                         <Image src={`/assets/images/videoicon.png`} width='50' height='50' alt='videoicon'/>
                                             
