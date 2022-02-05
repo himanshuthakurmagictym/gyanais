@@ -197,7 +197,7 @@ export const getServerSideProps = async (context) => {
     const {courseid } = params;
      const res = await fetch(`${APIs.base_url}course/coursedetails/${courseid}`);
     const datas = await res.json()
-     console.log(datas)
+     //console.log(datas)
     const ress = await fetch(`${APIs.base_url}student/coursevideo/video`,{
         method:"POST",
         headers: {
