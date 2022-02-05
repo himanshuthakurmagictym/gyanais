@@ -113,7 +113,7 @@ export const getServerSideProps = async (context) =>{
         const URLS = APIs.base_url+"payment/status";
         //console.log(datas)
         const sendData = JSON.stringify({category_id: datas.data.category_id, user: context.req.cookies['cid'] })
-       console.log(sendData)
+      // console.log(sendData)
         const ress = await fetch(URLS, {
             method:"POST",
             headers: {
@@ -123,7 +123,7 @@ export const getServerSideProps = async (context) =>{
         });
        
        const paymentconfirm =  await ress.json();
-       console.log(paymentconfirm)
+       //console.log(paymentconfirm)
             if(paymentconfirm.status_code !== 200){
               
                 return {

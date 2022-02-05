@@ -130,7 +130,7 @@ const Whiteboard = ({socket, roomid}) =>{
       }
   
       socketRef.current = socket;
-      socketRef.current.on("draw", onDrawingEvent);
+      // socketRef.current.on("draw", onDrawingEvent);
     }, [socket]);
   
 
