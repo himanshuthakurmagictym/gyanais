@@ -2,8 +2,9 @@
 
 import React, {useEffect, useRef} from 'react'
 import { useRecordWebcam } from 'react-record-webcam'
+import APIs from '../../config';
 
-function Webcameras({socket, roomid}) {
+function Webcameras({socket, roomid, userRole}) {
 
   const recordWebcam = useRecordWebcam();
 
@@ -13,8 +14,12 @@ function Webcameras({socket, roomid}) {
     return (
         <>
         <div className="camerabutton">
+          {(userRole === APIs.roles[1])?
+          <>
         <button onClick={recordWebcam.open}>Open Camera</button>
        <button onClick={recordWebcam.stop}>Stop Camera</button>
+       </>
+       :""}
        </div>
       <video ref={recordWebcam.webcamRef} autoPlay muted width='100%' height='100%'/>
     
