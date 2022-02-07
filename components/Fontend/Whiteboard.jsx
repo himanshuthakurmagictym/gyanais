@@ -1,21 +1,24 @@
 import React, { useRef, useEffect } from 'react';
 import APIs from '../../config';
+
 // import io from 'socket.io-client';
 
 const Whiteboard = ({socket, roomid, userRole}) =>{
     const canvasRef = useRef(null);
+      const widref = useRef(null);  
     const colorsRef = useRef(null);
     const socketRef = useRef();
     // const recordWebcam = useRecordWebcam();
-  
+
   
     useEffect(() => {
   
       // --------------- getContext() method returns a drawing context on the canvas-----
+        const parentref = widref.current;
   
       const canvas = canvasRef.current;
       const test = colorsRef.current;
-      const context = canvas.getContext('2d');
+      const contexts = canvas.getContext('2d');
    
       // ----------------------- Colors --------------------------------------------------
   
@@ -41,13 +44,13 @@ const Whiteboard = ({socket, roomid, userRole}) =>{
       // ------------------------------- create the drawing ----------------------------
     
       const drawLine = (x0, y0, x1, y1, color, emit) => {
-        context.beginPath();
-        context.moveTo(x0, y0);
-        context.lineTo(x1, y1);
-        context.strokeStyle = color;
-        context.lineWidth = 2;
-        context.stroke();
-        context.closePath();
+        contexts.beginPath();
+        contexts.moveTo(x0, y0);
+        contexts.lineTo(x1, y1);
+        contexts.strokeStyle = color;
+        contexts.lineWidth = 2;
+        contexts.stroke();
+        contexts.closePath();
   
         if (!emit) { return; }
         const w = canvas.width;
@@ -64,8 +67,7 @@ const Whiteboard = ({socket, roomid, userRole}) =>{
   
 
       
-        socketRef.current.emit("draw-coordinates", {roomid, whitedata});
-       
+        socketRef.current?.emit("draw-coordinates", {roomid, whitedata});
 
 
       };
@@ -124,9 +126,11 @@ const Whiteboard = ({socket, roomid, userRole}) =>{
       const onResize = () => {
         // canvas.width = window.innerWidth;
         // canvas.height = window.innerHeight;
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        
+         canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+        // canvas.width = '600';
+        // canvas.height = '600';
+
       };
   
       window.addEventListener('resize', onResize, false);
@@ -147,10 +151,9 @@ const Whiteboard = ({socket, roomid, userRole}) =>{
 
     return(
         <>
-        <div className='whiteboardmain'>
-                <canvas ref={canvasRef} className="whiteboard" id="canvas" />
+                <canvas ref={canvasRef} className="whiteboard" > </canvas>
                {(userRole === APIs.roles[0])?      
-                        <div ref={colorsRef} className="colors">
+                        <div ref={colorsRef} className="colors cursorlink">
                                 <div className="color black" />
                                 <div className="color red" />
                                 <div className="color green" />
@@ -158,8 +161,7 @@ const Whiteboard = ({socket, roomid, userRole}) =>{
                                 <div className="color yellow" />
                         </div>
               :""}
-        </div> 
-        </>
+        </> 
     )
 
 }

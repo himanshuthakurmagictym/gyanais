@@ -1,15 +1,15 @@
-.whiteboard{ background: white; width:100%; }
+.whiteboard{ background: white; width:100%;  height:100%; }
+.whiteboardmain{  width:100%; height:500px;  }
 .webcam{ width: 100%; height:200px; background:black;}
-.roomchat{ width: 100%; height:100%; margin-top:10px; background:rgb(235, 235, 235); border:1px solid gray; border-radius: 5px;}
+.roomchat{ width: 100%; margin-top:10px; background:rgb(235, 235, 235); border:1px solid gray; border-radius: 5px;}
 .roomchat .heading{font-weight: 700; text-align: center;  }
 .camerabutton{position: absolute;
     top: -37px;
     left: 13px;
 }
 
-.colors {
-    /* position: fixed; */
-  }
+
+
   
   .color {
     display: inline-block;

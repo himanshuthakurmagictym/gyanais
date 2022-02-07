@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router'
 import {io} from 'socket.io-client';
-import cookie from 'js-cookie'
+// import cookie from 'js-cookie'
 import dynamic from 'next/dynamic'
 import Chatbox from "../../../components/Fontend/Chatbox";
 import Whiteboard from "../../../components/Fontend/Whiteboard";
@@ -54,19 +54,18 @@ function Coursevideo({videodetails, userid, coursevideoid, roles}) {
 
     return (
         <>
-        <Brudcrums />
-              <section> 
-              <div className="container-fluid">   
-              <section className="testimonials2 topbrumb" id="testimonials2-e">   
-                     
-                <div className="container-fluid">
+  <Brudcrums />
+                <section className="testimonials2 topbrumb" id="testimonials2-e"> 
+               <div className="container-fluid">
                 
-                          <div className="row justify-content-center">  
-                                                         
+                            <div className="row justify-content-center">  
+                                       
                               <div className="card col-12 col-md-9">
                                <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">{videodetails.video_title} </h2>
-                                  <Whiteboard socket={socket} roomid={videodetails._id} userRole={roles}/>     
-                              </div>
+                                 <div className='whiteboardmain'>
+                                  <Whiteboard socket={socket} roomid={videodetails._id} userRole={roles}/>   
+                                  </div>  
+                            </div>
                               <div className="card col-12 col-md-3">
                                   <div className='rightside '>
                                         <div className='webcam'> 
@@ -76,14 +75,10 @@ function Coursevideo({videodetails, userid, coursevideoid, roles}) {
                                                 <Chatbox socket={socket} userid={userid} roomid={videodetails._id}/>
                                         </div>
                                   </div>      
-                              </div>
+                              </div> 
                           </div>                                         
                 </div>
-            </section>
-             
-           
-              </div>
-           </section>
+            </section>           
         </>
     )
 }
