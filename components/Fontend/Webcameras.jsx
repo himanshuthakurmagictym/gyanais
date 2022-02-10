@@ -190,10 +190,10 @@ const config = {
           <div className="camerabutton">
         <button onClick={e=>{(setStreamstart(1))}}>Open Camera</button>
        <button onClick={e=>{setStreamstart(2)}}>Stop Camera</button>
-       <strong className="audioselect">
+       {/* <strong className="audioselect">
       <label for="audioSource">Audio: </label>
       <select ref={audiodev} id="audioSource"></select>
-      </strong>
+      </strong> */}
       </div>
       <video ref={videoscream} autoPlay muted width='100%' height='100%'/>
        </>
