@@ -1,8 +1,8 @@
 import React from 'react';
 import Brudcrums from "../components/Fontend/Brudcrums";
-import Whiteboard from "../components/Fontend/Whiteboard";
+import Whiteboards from "../components/Fontend/Whiteboard";
 import { useReactMediaRecorder } from "react-media-recorder";
-function whiteboard() {
+function Whiteboard() {
 
   const {
     status,
@@ -22,4 +22,4 @@ function whiteboard() {
   ) 
 }
 
-export default whiteboard;
+export default Whiteboard;
