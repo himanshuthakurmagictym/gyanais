@@ -9,8 +9,9 @@ function MyApp({ Component, pageProps }) {
 
     if(router.pathname == "/teacher/coursevideo/[coursevideoid]" ){
       return(
-        
+        <Layout>
         <Component {...pageProps} /> 
+        </Layout>
         )
       
 

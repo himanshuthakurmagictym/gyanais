@@ -15,6 +15,7 @@ export default function Layout({children}) {
 
         useEffect( async() => {
             var token = cookie.get('token');
+           
         if(token){
             const sendData = JSON.stringify({token:token})
         const res = await fetch(`${APIs.base_url}auth/verifytoken`, {
@@ -33,6 +34,8 @@ export default function Layout({children}) {
              setSocket(io(APIs.base_url_home));
         //setSocket(1);
            },[])
+
+         
   
 
  return(

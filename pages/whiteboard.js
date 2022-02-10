@@ -1,20 +1,23 @@
 import React from 'react';
 import Brudcrums from "../components/Fontend/Brudcrums";
 import Whiteboard from "../components/Fontend/Whiteboard";
+import { useReactMediaRecorder } from "react-media-recorder";
 function whiteboard() {
+
+  const {
+    status,
+    startRecording,
+    stopRecording,
+    mediaBlobUrl,
+  } = useReactMediaRecorder({ video: true });
   return(
      <>
-      <section className="testimonials2 topbrumb" id="testimonials2-e"> 
-               <div className="container-fluid">
-                
-                            <div className="row justify-content-center">  
-                                       
-                              <div className="card col-12 col-md-9">
-    <Whiteboard  roomid="61b7378b8da8c782461e4044" userRole="Teacher"/>
-    </div> 
-                          </div>                                         
-                </div>
-            </section> 
+      <div>
+      <p>{status}</p>
+      <button onClick={startRecording}>Start Recording</button>
+      <button onClick={stopRecording}>Stop Recording</button>
+      <video src={mediaBlobUrl} controls autoPlay loop />
+    </div>
     </>
   ) 
 }

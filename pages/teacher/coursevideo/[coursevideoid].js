@@ -33,15 +33,17 @@ function Coursevideo({videodetails, userid, coursevideoid, roles}) {
     
        useEffect(()=>{
         setUserDetail(isuser);
+       
     },[isuser])
 
     useEffect(()=>{
+        
             //create room
             socket?.emit("create-session-room", { userid, coursevideoid })
             //getroom details
             socket?.on("get-session-room", (data)=>{
                 if(data){    
-                   // console.log(userdetail);
+                    // console.log(userdetail);
                     socket?.emit('join-session-room', { userdetail, coursevideoid, data });
                 }
 
@@ -69,7 +71,7 @@ function Coursevideo({videodetails, userid, coursevideoid, roles}) {
                               <div className="card col-12 col-md-3">
                                   <div className='rightside '>
                                         <div className='webcam'> 
-                                                <Webcamerasforst socket={socket} roomid={videodetails._id} userRole={roles}/>                                  
+                                                <Webcamerasforst socket={socket} userid={userid} roomid={videodetails._id} userRole={roles}/>                                  
                                         </div>
                                         <div className='roomchat'>
                                                 <Chatbox socket={socket} userid={userid} roomid={videodetails._id}/>
