@@ -43,11 +43,20 @@ const config = {
     if(streamstart){
     navigator.mediaDevices.getUserMedia({
       video: { facingMode: "user" },
-      audio: true
+      audio: {
+        echoCancellationType: 'system',
+        echoCancellation: true,
+        noiseSuppression: true,
+        sampleRate:24000,
+        sampleSize:16,
+        channelCount:2,
+        volume:0
+      }
     }).then(stream => {
       
       if(streamstart == 1){
       videoscream.current.srcObject = stream;
+      videoscream.current.volume = 0;
       setStream(stream)
 
 
@@ -171,12 +180,12 @@ const config = {
     
     window.onunload = window.onbeforeunload = () => {
       socket.close();
-      peerConnectionclient.close();
+       peerConnectionclient.close();
     };
 
 
   }
- },[])
+ },[socket])
 
   
   // const recordWebcam = useRecordWebcam();
@@ -195,7 +204,7 @@ const config = {
       <select ref={audiodev} id="audioSource"></select>
       </strong> */}
       </div>
-      <video ref={videoscream} autoPlay muted width='100%' height='100%'/>
+      <video ref={videoscream} autoPlay muted="true" width='100%' height='100%'/>
        </>
        :
        <>
