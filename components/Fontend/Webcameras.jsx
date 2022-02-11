@@ -22,7 +22,7 @@ function Webcameras({socket, roomid, userid, userRole}) {
 
 //const peerConnections = {};
 const videoscream = useRef(null)
-const clientvideoscream = useRef()
+const clientvideoscream = useRef(null)
 const audiodev = useRef(null)
 const [streamstart, setStreamstart] =useState(null)
 const [clientcall, Setclientcall] =useState(null)
