@@ -251,7 +251,7 @@ const config = {
        :
        <>
         <div className="camerabutton">
-        <button onClick={e=>{enableAudio()}}>Open Camera</button>
+        <button onClick={e=>{enableAudio()}}>Audio Enabled</button>
         </div>
         <video ref={clientvideoscream} autoPlay playsInline muted width='100%' height='100%'/>
        </>
