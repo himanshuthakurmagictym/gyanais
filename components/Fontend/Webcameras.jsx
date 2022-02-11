@@ -28,7 +28,6 @@ const [streamstart, setStreamstart] =useState(null)
 const [stream, setStream] =useState("")
 const [audioDevices, setaudioDevices] =useState([])
 // const [peerConnections, setpeerConnections] =useState([])
-// const [peerConnectionclient, setpeerConnectionclient] =useState()
 const config = {
   iceServers: [
     {
@@ -36,6 +35,8 @@ const config = {
     },
   ],
 };
+// const [peerConnectionclient, setpeerConnectionclient] =useState(new RTCPeerConnection(config))
+
 
 
 
@@ -55,8 +56,10 @@ const config = {
     }).then(stream => {
       
       if(streamstart == 1){
+        console.log(stream)
       videoscream.current.srcObject = stream;
       videoscream.current.volume = 0;
+      socket.emit("broadcaster");
       setStream(stream)
 
 
@@ -77,49 +80,49 @@ const config = {
         
       // }
       
-      
 
+    }
 
-        socket.emit("broadcaster");
-        const peerConnections = {};
-        socket.on("watcher", id => {
-          const peerConnection = new RTCPeerConnection(config);
-          peerConnections[id] = peerConnection;
+    let peerConnections = {};
+    socket.on("watcher", id => {
+      const peerConnection = new RTCPeerConnection(config);
+      peerConnections[id] = peerConnection;
+    
+      // let stream = video.srcObject;
+      stream.getTracks().forEach(track => peerConnection.addTrack(track, stream));
         
-          // let stream = video.srcObject;
-          stream.getTracks().forEach(track => peerConnection.addTrack(track, stream));
-            
-          peerConnection.onicecandidate = event => {
-            if (event.candidate) {
-              socket.emit("candidate", id, event.candidate);
-            }
-          };
-        
-          peerConnection
-            .createOffer()
-            .then(sdp => peerConnection.setLocalDescription(sdp))
-            .then(() => {
-              socket.emit("offer", id, peerConnection.localDescription);
-            });
+      peerConnection.onicecandidate = event => {
+        if (event.candidate) {
+          console.log(`add head candidiate ${event.candidate}`)
+          socket.emit("candidate", id, event.candidate);
+        }
+      };
+    
+      peerConnection
+        .createOffer()
+        .then(sdp => peerConnection.setLocalDescription(sdp))
+        .then(() => {
+          socket.emit("offer", id, peerConnection.localDescription);
         });
+    });
 
 
-        socket.on("answer", (id, description) => {
-         peerConnections[id].setRemoteDescription(description);
-        });
-        
-        socket.on("candidate", (id, candidate) => {
-         peerConnections[id].addIceCandidate(new RTCIceCandidate(candidate));
-        });
-      
-        
-        
-        window.onunload = window.onbeforeunload = () => {
-          socket.close();
-        };
+    socket.on("answer", (id, description) => {
+      console.log(`add head anwer ${id}`)
+     peerConnections[id].setRemoteDescription(description);
+    });
+    
+    socket.on("candidate", (id, candidate) => {
+      console.log(`add head candidatet ${id}`)
+     peerConnections[id].addIceCandidate(new RTCIceCandidate(candidate));
+    });
+  
+    
+    
+    window.onunload = window.onbeforeunload = () => {
+       socket.close();
+    };
 
-      }
-      
       if(streamstart == 2){
         stream.getTracks().forEach(function(track) {
           track.stop();
@@ -129,10 +132,12 @@ const config = {
 
         socket.on("disconnectPeer", id => {
           peerConnections[id].close();
+          peerConnections[id] = null;
+          console.log(`di disconnect ${id}`)
           //how to delte any array from array
-          const arr = [...peerConnections];
-          const index = arr.findIndex((item)=> item.id !== id)
-          setpeerConnections(index);
+          // const arr = [...peerConnections];
+          // const index = arr.findIndex((item)=> item.id !== id)
+          // setpeerConnections(index);
           delete peerConnections[id];
         });
 
@@ -146,7 +151,17 @@ const config = {
   if((userRole === APIs.roles[1])){
     let peerConnectionclient;
     socket.on("offer", (id, description) => {
-      peerConnectionclient = new RTCPeerConnection(config);
+       peerConnectionclient = new RTCPeerConnection(config);
+         
+    //   console.log(peerConnectionclient);
+    //   setpeerConnectionclient(prevState => ({
+    //     ...prevState,
+    //     setRemoteDescription(description)
+    //  })).then(() => peerConnectionclient.createAnswer())
+    //    .then(sdp => peerConnectionclient.setLocalDescription(sdp))
+    //    .then(() => {
+    //      socket.emit("answer", id, peerConnectionclient.localDescription);
+    //    });
       peerConnectionclient
         .setRemoteDescription(description)
         .then(() => peerConnectionclient.createAnswer())
@@ -154,22 +169,31 @@ const config = {
         .then(() => {
           socket.emit("answer", id, peerConnectionclient.localDescription);
         });
+
+        
         peerConnectionclient.ontrack = event => {
+          console.log(`ontrack stream add ${event.streams[0]}`)
+        
         clientvideoscream.current.srcObject = event.streams[0];
       };
+
+      
+      
       peerConnectionclient.onicecandidate = event => {
         if (event.candidate) {
+          console.log(`event candicate ${event.candidate}`)
           socket.emit("candidate", id, event.candidate);
         }
       };
     });
 
     socket.on("candidate", (id, candidate) => {
+     
       peerConnectionclient
         .addIceCandidate(new RTCIceCandidate(candidate))
         .catch(e => console.error(e));
     });
-    
+   
     socket.on("connect", () => {
       socket.emit("watcher");
     });
@@ -179,13 +203,14 @@ const config = {
     });
     
     window.onunload = window.onbeforeunload = () => {
-      socket.close();
-       peerConnectionclient.close();
+      //socket.close();
+      //  peerConnectionclient.close();
+       peerConnectionclient = null;
     };
 
 
   }
- },[socket])
+ },[])
 
   
   // const recordWebcam = useRecordWebcam();
@@ -204,11 +229,11 @@ const config = {
       <select ref={audiodev} id="audioSource"></select>
       </strong> */}
       </div>
-      <video ref={videoscream} autoPlay muted="true" width='100%' height='100%'/>
+      <video ref={videoscream} autoPlay muted={true} width='100%' height='100%'/>
        </>
        :
        <>
-        <video ref={clientvideoscream} autoPlay  width='100%' height='100%'/>
+        <video ref={clientvideoscream} autoPlay playsInline   width='100%' height='100%'/>
        </>
        }
        
