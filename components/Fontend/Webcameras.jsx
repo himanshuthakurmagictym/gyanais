@@ -224,13 +224,10 @@ const config = {
   }
  },[clientcall])
 
- function enableAudio() {
-  console.log("Enabling audio")
+  const enableAudio = ()=> {
   clientvideoscream.current?.muted = false;
- 
-  // video.muted = false;
-}
-  // const recordWebcam = useRecordWebcam();
+  }
+  
 
     return (
         <>
