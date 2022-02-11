@@ -211,14 +211,14 @@ const config = {
     });
     
     window.onunload = window.onbeforeunload = () => {
-      //socket.close();
+        socket.close();
       //  peerConnectionclient.close();
        peerConnectionclient = null;
     };
 
 
   }
- },[clientcall, clientvideoscream])
+ },[clientcall])
 
   
   // const recordWebcam = useRecordWebcam();
@@ -237,13 +237,14 @@ const config = {
       <select ref={audiodev} id="audioSource"></select>
       </strong> */}
       </div>
-      <video ref={videoscream} autoPlay muted={true} width='100%' height='100%'/>
+      {/* <video ref={videoscream} autoPlay muted width='100%' height='100%'/> */}
        </>
        :
        <>
-        <video ref={videoscream} autoPlay playsInline   width='100%' height='100%'/>
+        {/* <video ref={videoscream} autoPlay playsInline  muted width='100%' height='100%'/> */}
        </>
        }
+         <video ref={videoscream} autoPlay playsInline  muted width='100%' height='100%'/>
        
      
     
