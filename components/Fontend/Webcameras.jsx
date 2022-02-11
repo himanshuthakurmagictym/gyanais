@@ -178,7 +178,11 @@ const config = {
           console.log(event.streams[0]);
         
         // clientvideoscream.current.srcObject = event.streams[0];
-        videoscream.current.srcObject = event.streams[0]
+        
+       clientvideoscream.current.srcObject = event.streams[0];
+     
+      //  clientvideoscream.current?.defaultMuted = false;
+        
       };
 
       
@@ -220,7 +224,12 @@ const config = {
   }
  },[clientcall])
 
-  
+ function enableAudio() {
+  console.log("Enabling audio")
+  clientvideoscream.current?.muted = false;
+ 
+  // video.muted = false;
+}
   // const recordWebcam = useRecordWebcam();
 
     return (
@@ -237,14 +246,18 @@ const config = {
       <select ref={audiodev} id="audioSource"></select>
       </strong> */}
       </div>
-      {/* <video ref={videoscream} autoPlay muted width='100%' height='100%'/> */}
+      <video ref={videoscream} autoPlay muted width='100%' height='100%'/>
        </>
        :
        <>
-        {/* <video ref={videoscream} autoPlay playsInline  muted width='100%' height='100%'/> */}
+        <div className="camerabutton">
+        <button onClick={e=>{enableAudio()}}>Open Camera</button>
+        </div>
+        <video ref={clientvideoscream} autoPlay playsInline muted width='100%' height='100%'/>
        </>
        }
-         <video ref={videoscream} autoPlay playsInline  muted width='100%' height='100%'/>
+      
+        
        
      
     
