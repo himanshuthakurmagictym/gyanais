@@ -22,10 +22,10 @@ function Webcameras({socket, roomid, userid, userRole}) {
 
 //const peerConnections = {};
 const videoscream = useRef(null)
-const clientvideoscream = useRef(null)
+const clientvideoscream = useRef()
 const audiodev = useRef(null)
 const [streamstart, setStreamstart] =useState(null)
-const [stream, setStream] =useState("")
+const [clientcall, Setclientcall] =useState(null)
 const [audioDevices, setaudioDevices] =useState([])
 // const [peerConnections, setpeerConnections] =useState([])
 const config = {
@@ -60,7 +60,8 @@ const config = {
       videoscream.current.srcObject = stream;
       videoscream.current.volume = 0;
       socket.emit("broadcaster");
-      setStream(stream)
+      // setStream(stream)
+      Setclientcall(1)
 
 
       // getDevices();
@@ -79,49 +80,51 @@ const config = {
 
         
       // }
+
+      let peerConnections = {};
+      socket.on("watcher", id => {
+        const peerConnection = new RTCPeerConnection(config);
+        peerConnections[id] = peerConnection;
+      
+        // let stream = video.srcObject;
+        stream.getTracks().forEach(track => peerConnection.addTrack(track, stream));
+          
+        peerConnection.onicecandidate = event => {
+          if (event.candidate) {
+            console.log(`add head candidiate ${event.candidate}`)
+            socket.emit("candidate", id, event.candidate);
+          }
+        };
+      
+        peerConnection
+          .createOffer()
+          .then(sdp => peerConnection.setLocalDescription(sdp))
+          .then(() => {
+            socket.emit("offer", id, peerConnection.localDescription);
+          });
+      });
+  
+  
+      socket.on("answer", (id, description) => {
+        console.log(`add head anwer ${id}`)
+       peerConnections[id].setRemoteDescription(description);
+      });
+      
+      socket.on("candidate", (id, candidate) => {
+        console.log(`add head candidatet ${id}`)
+       peerConnections[id].addIceCandidate(new RTCIceCandidate(candidate));
+      });
+    
+      
+      
+      window.onunload = window.onbeforeunload = () => {
+         socket.close();
+      };
       
 
     }
 
-    let peerConnections = {};
-    socket.on("watcher", id => {
-      const peerConnection = new RTCPeerConnection(config);
-      peerConnections[id] = peerConnection;
-    
-      // let stream = video.srcObject;
-      stream.getTracks().forEach(track => peerConnection.addTrack(track, stream));
-        
-      peerConnection.onicecandidate = event => {
-        if (event.candidate) {
-          console.log(`add head candidiate ${event.candidate}`)
-          socket.emit("candidate", id, event.candidate);
-        }
-      };
-    
-      peerConnection
-        .createOffer()
-        .then(sdp => peerConnection.setLocalDescription(sdp))
-        .then(() => {
-          socket.emit("offer", id, peerConnection.localDescription);
-        });
-    });
-
-
-    socket.on("answer", (id, description) => {
-      console.log(`add head anwer ${id}`)
-     peerConnections[id].setRemoteDescription(description);
-    });
-    
-    socket.on("candidate", (id, candidate) => {
-      console.log(`add head candidatet ${id}`)
-     peerConnections[id].addIceCandidate(new RTCIceCandidate(candidate));
-    });
-  
-    
-    
-    window.onunload = window.onbeforeunload = () => {
-       socket.close();
-    };
+   
 
       if(streamstart == 2){
         stream.getTracks().forEach(function(track) {
@@ -171,34 +174,39 @@ const config = {
         });
 
         
-        peerConnectionclient.ontrack = event => {
-          console.log(`ontrack stream add ${event.streams[0]}`)
+        peerConnectionclient.ontrack = (event) => {
+          console.log(event.streams[0]);
         
-        clientvideoscream.current.srcObject = event.streams[0];
+        // clientvideoscream.current.srcObject = event.streams[0];
+        videoscream.current.srcObject = event.streams[0]
       };
 
       
       
       peerConnectionclient.onicecandidate = event => {
         if (event.candidate) {
-          console.log(`event candicate ${event.candidate}`)
+          // console.log(`event candicate ${event.candidate}`)
           socket.emit("candidate", id, event.candidate);
         }
       };
     });
 
     socket.on("candidate", (id, candidate) => {
-     
+      // console.log(`candidate call ${candidate}`)
       peerConnectionclient
         .addIceCandidate(new RTCIceCandidate(candidate))
         .catch(e => console.error(e));
+        // console.log(peerConnectionclient)
     });
    
     socket.on("connect", () => {
+      // console.log(`waching `)
+        
       socket.emit("watcher");
     });
     
     socket.on("broadcaster", () => {
+      console.log(`waching braodcast`)
       socket.emit("watcher");
     });
     
@@ -210,7 +218,7 @@ const config = {
 
 
   }
- },[])
+ },[clientcall, clientvideoscream])
 
   
   // const recordWebcam = useRecordWebcam();
@@ -233,7 +241,7 @@ const config = {
        </>
        :
        <>
-        <video ref={clientvideoscream} autoPlay playsInline   width='100%' height='100%'/>
+        <video ref={videoscream} autoPlay playsInline   width='100%' height='100%'/>
        </>
        }
        
