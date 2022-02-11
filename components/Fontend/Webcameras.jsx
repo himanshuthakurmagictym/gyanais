@@ -56,7 +56,7 @@ const config = {
     }).then(stream => {
       
       if(streamstart == 1){
-        console.log(stream)
+       
       videoscream.current.srcObject = stream;
       videoscream.current.volume = 0;
       socket.emit("broadcaster");
@@ -91,7 +91,7 @@ const config = {
           
         peerConnection.onicecandidate = event => {
           if (event.candidate) {
-            console.log(`add head candidiate ${event.candidate}`)
+           
             socket.emit("candidate", id, event.candidate);
           }
         };
@@ -106,12 +106,12 @@ const config = {
   
   
       socket.on("answer", (id, description) => {
-        console.log(`add head anwer ${id}`)
+        
        peerConnections[id].setRemoteDescription(description);
       });
       
       socket.on("candidate", (id, candidate) => {
-        console.log(`add head candidatet ${id}`)
+        
        peerConnections[id].addIceCandidate(new RTCIceCandidate(candidate));
       });
     
@@ -136,7 +136,7 @@ const config = {
         socket.on("disconnectPeer", id => {
           peerConnections[id].close();
           peerConnections[id] = null;
-          console.log(`di disconnect ${id}`)
+        
           //how to delte any array from array
           // const arr = [...peerConnections];
           // const index = arr.findIndex((item)=> item.id !== id)
@@ -175,7 +175,7 @@ const config = {
 
         
         peerConnectionclient.ontrack = (event) => {
-          console.log(event.streams[0]);
+          
         
         // clientvideoscream.current.srcObject = event.streams[0];
         
@@ -210,7 +210,7 @@ const config = {
     });
     
     socket.on("broadcaster", () => {
-      console.log(`waching braodcast`)
+     
       socket.emit("watcher");
     });
     

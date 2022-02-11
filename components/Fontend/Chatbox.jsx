@@ -75,7 +75,7 @@ socket?.on('message', (allchat) => {
     //     });
        
     //    const sendaconversion =  await ress.json();
-       socket?.emit('sendMessage', {msg, userid});
+       socket?.emit('sendMessage', {msg, userid, roomid});
         setsendmessage("")
         } catch (err) {
             console.log(err);

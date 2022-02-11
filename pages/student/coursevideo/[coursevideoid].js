@@ -27,6 +27,8 @@ function Coursevideo({videodetails, userid, coursevideoid, roles}) {
     const [userdetail, setUserDetail] = useState("");
     const [socket, setSocket] = useState(null);
 
+    
+
     useEffect(()=>{
         setSocket(io(APIs.base_url_home));
        },[])
