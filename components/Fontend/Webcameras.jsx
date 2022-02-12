@@ -26,6 +26,7 @@ const clientvideoscream = useRef(null)
 const audiodev = useRef(null)
 const [streamstart, setStreamstart] =useState(null)
 const [clientcall, Setclientcall] =useState(null)
+const [audiovalue, setaudiovalue] =useState("")
 const [audioDevices, setaudioDevices] =useState([])
 // const [peerConnections, setpeerConnections] =useState([])
 const config = {
@@ -225,8 +226,12 @@ const config = {
  },[clientcall])
 
   const enableAudio = ()=> {
-    console.log("audio coming")
+   if(audiovalue == 0){
   clientvideoscream.current.muted = false;
+  setaudiovalue(1);
+   }else{
+     
+   }
   }
   
 
@@ -249,7 +254,7 @@ const config = {
        :
        <>
         <div className="camerabutton">
-        <button onClick={e=>{enableAudio()}}>Audio Enabled</button>
+        <button onClick={e=>{enableAudio()}}>{(audiovalue == 1)? "Audio Disabled":" Audio Enabled"}Audio Enabled</button>
         </div>
         <video ref={clientvideoscream} autoPlay playsInline muted width='100%' height='100%'/>
        </>
