@@ -44,15 +44,15 @@ const config = {
     if(streamstart){
     navigator.mediaDevices.getUserMedia({
       video: { facingMode: "user" },
-      // audio: {
-      //   echoCancellationType: 'system',
-      //   echoCancellation: true,
-      //   noiseSuppression: true,
-      //   sampleRate:24000,
-      //   sampleSize:16,
-      //   channelCount:2,
-      //   volume:0.9
-      // }
+      audio: {
+        echoCancellationType: 'system',
+        echoCancellation: true,
+        noiseSuppression: true,
+        sampleRate:24000,
+        sampleSize:16,
+        channelCount:2,
+        volume:0.9
+      }
     }).then(stream => {
       
       if(streamstart == 1){
@@ -224,9 +224,10 @@ const config = {
   }
  },[clientcall])
 
-  // const enableAudio = ()=> {
-  // clientvideoscream.current?.muted = false;
-  // }
+  const enableAudio = ()=> {
+    console.log("audio coming")
+  clientvideoscream.current.muted = false;
+  }
   
 
     return (
@@ -248,7 +249,7 @@ const config = {
        :
        <>
         <div className="camerabutton">
-        <button onClick={e=>{clientvideoscream.current.muted = false}}>Audio Enabled</button>
+        <button onClick={e=>{enableAudio()}}>Audio Enabled</button>
         </div>
         <video ref={clientvideoscream} autoPlay playsInline muted width='100%' height='100%'/>
        </>
