@@ -230,7 +230,8 @@ const config = {
   clientvideoscream.current.muted = false;
   setaudiovalue(1);
    }else{
-     
+    clientvideoscream.current.muted = true;
+    setaudiovalue(0);
    }
   }
   
