@@ -44,15 +44,15 @@ const config = {
     if(streamstart){
     navigator.mediaDevices.getUserMedia({
       video: { facingMode: "user" },
-      audio: {
-        echoCancellationType: 'system',
-        echoCancellation: true,
-        noiseSuppression: true,
-        sampleRate:24000,
-        sampleSize:16,
-        channelCount:2,
-        volume:0
-      }
+      // audio: {
+      //   echoCancellationType: 'system',
+      //   echoCancellation: true,
+      //   noiseSuppression: true,
+      //   sampleRate:24000,
+      //   sampleSize:16,
+      //   channelCount:2,
+      //   volume:0.9
+      // }
     }).then(stream => {
       
       if(streamstart == 1){
