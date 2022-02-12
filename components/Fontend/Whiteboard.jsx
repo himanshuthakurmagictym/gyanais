@@ -72,26 +72,34 @@ const Whiteboard = ({socket, roomid, userRole}) =>{
 
       };
    
+      const getTopCanvasDif = () => {
+        let rec = canvas.getBoundingClientRect();
+        return rec.top;
+      }
+      const getLeftCanvasDif = () => {
+        let rec = canvas.getBoundingClientRect();
+        return rec.left;
+      }
   
       // ---------------- mouse movement --------------------------------------
   
       const onMouseDown = (e) => {
         drawing = true;
-        current.x = e.clientX || e.touches[0].clientX;
-        current.y = e.clientY || e.touches[0].clientY;
+        current.x = (e.clientX || e.touches[0].clientX) - getLeftCanvasDif();
+        current.y = (e.clientY || e.touches[0].clientY) - getTopCanvasDif();
       };
   
       const onMouseMove = (e) => {
         if (!drawing) { return; }
-        drawLine(current.x, current.y, e.clientX || e.touches[0].clientX, e.clientY || e.touches[0].clientY, current.color, true);
-        current.x = e.clientX || e.touches[0].clientX;
-        current.y = e.clientY || e.touches[0].clientY; 
+        drawLine(current.x, current.y, (e.clientX || e.touches[0].clientX) - getLeftCanvasDif(), (e.clientY || e.touches[0].clientY) - getTopCanvasDif(), current.color, true);
+        current.x = (e.clientX || e.touches[0].clientX) - getLeftCanvasDif();
+        current.y = (e.clientY || e.touches[0].clientY) - getTopCanvasDif(); 
       };
   
       const onMouseUp = (e) => {
         if (!drawing) { return; }
         drawing = false;
-        drawLine(current.x, current.y, e.clientX || e.touches[0].clientX, e.clientY || e.touches[0].clientY, current.color, true);
+        drawLine(current.x, current.y, (e.clientX || e.touches[0].clientX) - getLeftCanvasDif(), (e.clientY || e.touches[0].clientY) - getTopCanvasDif(), current.color, true);
       };
   
       // ----------- limit the number of events per second -----------------------
