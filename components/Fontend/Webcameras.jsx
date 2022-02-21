@@ -41,7 +41,7 @@ const config = {
 
 
 useEffect(()=>{
-  socket.emit("handleclassbutton", handleclass)
+  socket.emit("handleclassbutton", {handleclass, roomid})
 
 },[handleclass])
 
