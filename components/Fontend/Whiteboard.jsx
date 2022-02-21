@@ -48,7 +48,11 @@ const Whiteboard = ({socket, roomid, userRole}) =>{
         contexts.moveTo(x0, y0);
         contexts.lineTo(x1, y1);
         contexts.strokeStyle = color;
+        if(color == 'white'){
+          contexts.lineWidth = 50;
+        }else{
         contexts.lineWidth = 2;
+        }
         contexts.stroke();
         contexts.closePath();
   
@@ -167,6 +171,9 @@ const Whiteboard = ({socket, roomid, userRole}) =>{
                                 <div className="color green" />
                                 <div className="color blue" />
                                 <div className="color yellow" />
+                                
+                                <div className="color white" />
+                               
                         </div>
               :""}
         </> 

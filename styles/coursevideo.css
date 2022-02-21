@@ -22,7 +22,15 @@
   .color.green { background-color: green; }
   .color.blue { background-color: blue; }
   .color.yellow { background-color: yellow; }
+  .color.white { background-color: white; float: right; border-radius: 10px; border:1px solid black; box-shadow: 2px 2px 2px gray; }
+  .color.white::after {content: 'Eraser';
+    left: 6px;
+    top: 25%;
+    background-image: url('/assets/images/eraser.png');
 
+    position: relative;
+    font-size: 13px;
+  }
 .chat-header{
     background-color:var(--primary-color);
     width: 100%;
