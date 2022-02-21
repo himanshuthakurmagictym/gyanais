@@ -16,7 +16,7 @@ const constraints = {
 
 
 
-function Webcameras({socket, roomid, userid, userRole}) {
+function Webcameras({socket, roomid, userid, userRole, handleclassbutton}) {
  
   const router  = useRouter();
 
@@ -27,7 +27,7 @@ const audiodev = useRef(null)
 const [streamstart, setStreamstart] =useState(null)
 const [clientcall, Setclientcall] =useState(null)
 const [audiovalue, setaudiovalue] =useState("")
-const [handleclass, sethandleclass] =useState("")
+const [handleclass, sethandleclass] =useState(handleclassbutton)
 const [audioDevices, setaudioDevices] =useState([])
 // const [peerConnections, setpeerConnections] =useState([])
 const config = {

@@ -19,12 +19,13 @@ const Webcamerasforst = dynamic(
 
 
 
-function Coursevideo({videodetails, userid, coursevideoid, roles}) {
+function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbutton}) {
 
     const isuser = useAppContext();
     const roomid= videodetails._id;
     const [users, setusers] = useState([])
     const [userdetail, setUserDetail] = useState("");
+    const [handleclass, sethandleclass] = useState(handleclassbutton);
     const [socket, setSocket] = useState(null);
 
     useEffect(()=>{
@@ -52,9 +53,13 @@ function Coursevideo({videodetails, userid, coursevideoid, roles}) {
        },[userdetail])
             
    
+       useEffect(()=>{
+        socket?.on("receivedclassbutton", (data)=>{
+            sethandleclass(data);
+        })
+       },[socket])
 
-
-    return (
+    return ( handleclass?
         <>
   <Brudcrums />
                 <section className="testimonials2 topbrumb" id="testimonials2-e"> 
@@ -71,7 +76,7 @@ function Coursevideo({videodetails, userid, coursevideoid, roles}) {
                               <div className="card col-12 col-md-3">
                                   <div className='rightside '>
                                         <div className='webcam'> 
-                                                <Webcamerasforst socket={socket} userid={userid} roomid={videodetails._id} userRole={roles}/>                                  
+                                                <Webcamerasforst socket={socket} userid={userid} roomid={videodetails._id} userRole={roles} handleclassbutton={handleclassbutton}/>                                  
                                         </div>
                                         <div className='roomchat'>
                                                 <Chatbox socket={socket} userid={userid} roomid={videodetails._id}/>
@@ -81,7 +86,7 @@ function Coursevideo({videodetails, userid, coursevideoid, roles}) {
                           </div>                                         
                 </div>
             </section>           
-        </>
+        </> : ""
     )
 }
 
@@ -102,7 +107,9 @@ export const getServerSideProps = async (context) =>{
         //  const resroom = await fetch(`${APIs.base_url}getroom/${coursevideoid}`);
         //  const isRoomid =await resroom.json();
            
-        
+        //checking class over or not
+
+ 
        
            
 
@@ -139,7 +146,8 @@ export const getServerSideProps = async (context) =>{
                         videodetails: datas.data,
                         userid: context.req.cookies['cid'],
                         coursevideoid,
-                        roles: context.req.cookies['role']
+                        roles: context.req.cookies['role'],
+                        handleclassbutton: datas.data.handleclassbutton
                     }
                 }
 

@@ -19,14 +19,14 @@ const Webcamerasforst = dynamic(
 
 
 
-function Coursevideo({videodetails, userid, coursevideoid, roles}) {
+function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbutton}) {
 
     const isuser = useAppContext();
     const roomid= videodetails._id;
     const [users, setusers] = useState([])
     const [userdetail, setUserDetail] = useState("");
     const [socket, setSocket] = useState(null);
-
+    const [handleclass, sethandleclass] = useState(handleclassbutton);
     
 
     useEffect(()=>{
@@ -51,10 +51,14 @@ function Coursevideo({videodetails, userid, coursevideoid, roles}) {
 
        },[userdetail])
             
-   
+       useEffect(()=>{
+        socket?.on("receivedclassbutton", (data)=>{
+            sethandleclass(data);
+        })
+       },[socket])
 
 
-    return (
+    return ( handleclass == 0?
         <>
         <Brudcrums />
               <section> 
@@ -86,7 +90,7 @@ function Coursevideo({videodetails, userid, coursevideoid, roles}) {
            
               </div>
            </section>
-        </>
+        </> : <>Hello</>
     )
 }
 
@@ -144,7 +148,8 @@ export const getServerSideProps = async (context) =>{
                         videodetails: datas.data,
                         userid: context.req.cookies['cid'],
                         coursevideoid,
-                        roles: context.req.cookies['role']
+                        roles: context.req.cookies['role'],
+                        handleclassbutton: datas.data.handleclassbutton
                     }
                 }
 
