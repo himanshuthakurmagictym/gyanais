@@ -58,11 +58,12 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
        },[socket])
 
 
-    return ( handleclass == 0?
+    return (
         <>
         <Brudcrums />
               <section> 
               <div className="container-fluid">   
+              {handleclass == 0?
               <section className="testimonials2 topbrumb" id="testimonials2-e">   
                      
                 <div className="container-fluid">
@@ -86,11 +87,26 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
                           </div>                                         
                 </div>
             </section>
-             
+            : 
+        
+        <section className="testimonials2 topbrumb classover" id="testimonials2-e">
+        <div className="container">
+                
+                <div className="row justify-content-center">  
+                                               
+                    <div className="card col-12 col-md-12 text-center">
+                        <h1 className="mbr-fonts-style mbr-section-title align-center  display-2">Class is Over</h1>
+                      <a href="/courses" className='btn btn-form btn-success'>Back To Courses</a>
+                    </div>
+                </div>
+        </div>
+        </section>
+}
            
               </div>
            </section>
-        </> : <>Hello</>
+        </> 
+           
     )
 }
 

@@ -247,9 +247,9 @@ useEffect(()=>{
           {(userRole === APIs.roles[0])?
           <>
           <div className="camerabutton">
-        <button onClick={e=>{(setStreamstart(1))}}>Open Camera</button>
-       <button onClick={e=>{setStreamstart(2)}}>Stop Camera</button>
-       <button onClick={e=>{(handleclass == 0)? sethandleclass(1):sethandleclass(0)}}>{(handleclass == 0)? "Start Class":"Stop Class"}</button>
+        <button className='btn-success ' onClick={e=>{(setStreamstart(1))}}>Open Camera</button>
+       <button className='btn-success ' onClick={e=>{setStreamstart(2)}}>Stop Camera</button>
+       <button className='btn-success ' onClick={e=>{(handleclass == 0)? sethandleclass(1):sethandleclass(0)}}>{(handleclass == 0)? "Start Class":"Stop Class"}</button>
        {/* <strong className="audioselect">
       <label for="audioSource">Audio: </label>
       <select ref={audiodev} id="audioSource"></select>
