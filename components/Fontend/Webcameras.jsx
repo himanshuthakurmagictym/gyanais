@@ -27,6 +27,7 @@ const audiodev = useRef(null)
 const [streamstart, setStreamstart] =useState(null)
 const [clientcall, Setclientcall] =useState(null)
 const [audiovalue, setaudiovalue] =useState("")
+const [handleclass, sethandleclass] =useState("")
 const [audioDevices, setaudioDevices] =useState([])
 // const [peerConnections, setpeerConnections] =useState([])
 const config = {
@@ -39,7 +40,10 @@ const config = {
 // const [peerConnectionclient, setpeerConnectionclient] =useState(new RTCPeerConnection(config))
 
 
+useEffect(()=>{
+  socket.emit("handleclassbutton", handleclass)
 
+},[handleclass])
 
   useEffect(()=>{
     if(streamstart){
@@ -245,6 +249,7 @@ const config = {
           <div className="camerabutton">
         <button onClick={e=>{(setStreamstart(1))}}>Open Camera</button>
        <button onClick={e=>{setStreamstart(2)}}>Stop Camera</button>
+       <button onClick={e=>{(handleclass == 0)? sethandleclass(1):sethandleclass(0)}}>{(handleclass == 0)? "Start Class":"Stop Class"}</button>
        {/* <strong className="audioselect">
       <label for="audioSource">Audio: </label>
       <select ref={audiodev} id="audioSource"></select>
