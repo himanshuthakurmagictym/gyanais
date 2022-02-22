@@ -2,6 +2,8 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import APIs from '../../config';
 import Image from 'next/image'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {useAppContext} from '../Fontend/Layout'
 function Avatar() {
 
@@ -23,28 +25,26 @@ function Avatar() {
       }
 
 
-    const sendAvatar = (e) => {
+    const sendAvatar = async (e) => {
       e.preventDefault();
        const URLS = APIs.base_url+"auth/avatar";
-      //const URLS = "http://localhost:5000/api/email_send";
-
       const body = new FormData();
         body.append("file", avatar);
         body.append("user", user);
       //console.log(sendmaildata);
-      const result = fetch(URLS,{
+      const result = await fetch(URLS,{
           method: "POST",
           headers: {
               "Content-Type": "multipart/form-data",
             },
-          body:sendmaildata
+          body
       }).then(res => res.json()).then(res  => notify(res)).catch(err => console.log(err)); 
   }
     return (
         <>
              <section className=" cid-qKSii1CMsD" id="form2-7"> 
       
-        
+             <ToastContainer />
       <div className="container ">
           <div className="row main-row">
               <div className="col-sm-12 col-lg-12 col-md-12 form-container" data-form-type="formoid">

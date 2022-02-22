@@ -1,6 +1,8 @@
 import React from 'react'
 import { useState } from 'react'
 import APIs from '../../config';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function ChangePassword() {
     const [password, setpassword] = useState("");
@@ -31,7 +33,7 @@ function ChangePassword() {
 
     const sendEmail = (e) => {
       e.preventDefault();
-       const URLS = APIs.base_url+"auth/changepassword";
+       const URLS = APIs.base_url+"auth/updateUserPassword";
       //const URLS = "http://localhost:5000/api/email_send";
       const sendmaildata = JSON.stringify({password:password, confirmpassword:confirmpassword});
       //console.log(sendmaildata);
@@ -46,7 +48,7 @@ function ChangePassword() {
     return (
         <section className=" cid-qKSii1CMsD" id="form2-7"> 
       
-        
+      <ToastContainer />
         <div className="container ">
             <div className="row main-row">
                 <div className="col-sm-12 col-lg-12 col-md-12 form-container" data-form-type="formoid">
