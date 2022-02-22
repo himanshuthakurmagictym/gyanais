@@ -5,15 +5,17 @@ import Footer from '../Fontend/Footer';
 import cookie from 'js-cookie'
 import APIs from '../../config.js';
 import { createContext, useContext } from 'react';
-const AppContext = createContext();
+import {io} from 'socket.io-client'
+ const AppContext = createContext();
 export default function Layout({children}) {
 
     
 
-    const [res, setres] = useState("")
+    const [ress, setres] = useState("")
 
         useEffect( async() => {
             var token = cookie.get('token');
+           
         if(token){
             const sendData = JSON.stringify({token:token})
         const res = await fetch(`${APIs.base_url}auth/verifytoken`, {
@@ -26,13 +28,19 @@ export default function Layout({children}) {
        .then(res => setres(res.data))
         }
         }, [])
-        
-  
+
+        const [socket, setSocket] = useState(null);
+        useEffect(()=>{
+             setSocket(io(APIs.base_url_home));
+        //setSocket(1);
+           },[])
+
+         
   
 
  return(
-    <AppContext.Provider value={res}>
-         <Header />
+    <AppContext.Provider value={ress}>
+         <Header socket={socket}/>
          {children}
          <Footer /> 
          </AppContext.Provider>
@@ -42,3 +50,6 @@ export default function Layout({children}) {
 export function useAppContext() {
     return useContext(AppContext);
   }
+
+
+ 

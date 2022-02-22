@@ -37,7 +37,7 @@ function Setting() {
                                     <a href="/student/setting?tabs=1"><li>Personal information</li></a>
                                     <a href="/student/setting?tabs=2"><li>Change Avatar</li></a>
                                     <a href="/student/setting?tabs=3"><li>Change Password</li></a>
-                                    <a href="/student/setting?tabs=4"><li>Manage Notification</li></a>
+                                    <a href="/student/notification"><li>Notification</li></a>
                                     <a href="/student/profile"><li>Subscription</li> </a> 
                                 </ul>
 

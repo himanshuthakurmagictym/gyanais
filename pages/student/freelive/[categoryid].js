@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext } from 'react'
 import Brudcrums from "../../../components/Fontend/Brudcrums"
-import Singleclass from "../../../components/Fontend/Classes/Singleclass"
+import Freeclass from "../../../components/Fontend/Classes/Freeclasses"
 import Link from 'next/link'
 import APIs from '../../../config.js';
 import {useAppContext} from '../../../components/Fontend/Layout'
@@ -10,8 +10,7 @@ import { useRouter } from 'next/router'
 
 import Sidebar from '../../../components/Fontend/sidebar';
 
-
-function Category({allclasses, categoryid}) {
+function freelive({allclasses, categoryid}) {
 
 
     return (
@@ -20,19 +19,19 @@ function Category({allclasses, categoryid}) {
         
         <section className="features11 cid-qKSpeMafIm  cid-qKSrnk6ess pt-5" id="features11-d">
             <div className="container">
-            <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">All Classes</h2>
+            <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">All Live Classes</h2>
             <h3 className="mbr-fonts-style mbr-section-subtitle align-center mbr-light pt-3 display-7">We also offer services in the live class, doubts, chat, paid and utilization of signage.</h3>
         
             <div className="row justify-content-center pt-4">
 
                      <div className="col-md-3">
-                       <Sidebar categoryid ={categoryid}/>
+                     <Sidebar categoryid ={categoryid}/>
                         </div>
 
                         <div className="col-md-9">
                         <div className="card-box">
-                            {allclasses.map((all_class) => (
-                                <Singleclass singleclass={all_class} key="{allclasses[0]._id}" />
+                            {allclasses.map((freeclass) => (
+                               <Freeclass freeclass={freeclass} key={freeclass._id}/>
                             ))}
                         </div>
                     </div>
@@ -44,12 +43,12 @@ function Category({allclasses, categoryid}) {
     )
 }
 
-export default Category
+export default freelive
 
 export const getServerSideProps = async (context) =>{
     const { params } = context;
     const {categoryid } = params;
-    const res = await fetch(`${APIs.base_url}course/${categoryid}`);
+    const res = await fetch(`${APIs.base_url}student/coursevideo/${categoryid}`);
     const datas = await res.json()
    
         const URLS = APIs.base_url+"payment/status";

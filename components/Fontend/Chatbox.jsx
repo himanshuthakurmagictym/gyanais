@@ -1,6 +1,87 @@
 
+import {useEffect, useState, useRef} from "react";
+import APIs from '../../config.js';
+import {useAppContext} from '../Fontend/Layout'
+const Chatbox = ({socket, userid, roomid})=>{
 
-const Chatbox = ()=>{
+const[sentmessage, setsendmessage] = useState("")
+
+const[message, setMessage] = useState([])
+const[newMessage, setnewMessage] = useState("")
+const isuser = useAppContext();
+const bottomRef = useRef();
+
+const[users, setusers] = useState([])
+//    useEffect(()=>{
+//     setuserdetail(isuser)
+//    },[isuser])
+  // Message from server
+  
+  useEffect(() => {
+     
+    //  
+    const getConversations = async () => {
+        try {
+            const allconversion = await fetch(`${APIs.base_url}messages/getMessages/${roomid}`);
+            const conversion = await allconversion.json();
+          setMessage(conversion.data);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      getConversations();
+
+},[isuser]);
+
+useEffect(() => {
+socket?.on('message', (allchat) => {
+    //console.log(allchat)
+    //setMessage(allchat);
+    setMessage((prev) => [...prev, allchat]);
+  });
+},[socket]);
+
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [message]);
+
+// console.log(message)
+ const handleSubmitChat = async(e)=>{
+     e.preventDefault();
+
+    let msg = sentmessage;
+         msg = msg.trim();
+        if (!msg) {
+            return false;
+        }
+//   const message = {
+//     userid: userid,
+//     message: msg,
+//     serverUserType:"real",
+//     roomid:roomid
+//   };
+
+  try {
+
+    // const URLS = APIs.base_url+"messages/postMessages";
+    //     const sendData = JSON.stringify(message)
+    //     const ress = await fetch(URLS, {
+    //         method:"POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //           },
+    //         body:sendData,
+    //     });
+       
+    //    const sendaconversion =  await ress.json();
+       socket?.emit('sendMessage', {msg, userid, roomid});
+        setsendmessage("")
+        } catch (err) {
+            console.log(err);
+        }
+ }   
+ 
     return(
         <>
       <main>
@@ -12,7 +93,7 @@ const Chatbox = ()=>{
                             <div className="row">
                                 <div className="col-md-12">
                                     <div className="heading">
-                                    Message
+                                    Message 
                                     </div>
                                      
                                 </div>
@@ -23,20 +104,23 @@ const Chatbox = ()=>{
 
 
 
-                    <div className="chat-body">
+                    <div className="chat-body" >
                         <div className="container">
                             <div className=" row">
                                 <div className="col-md-12">
-                                <div className="chatbody">
-                                    <div className="incoming_message">
-                                        <h4>Rahul</h4>
-                                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas placeat earum provident</p>
+                                <div className="chatbody"  >
+                                    
+                                    {message.map((msg) =>(
+                                    <div ref={bottomRef} key={msg._id}>
+                                        <div className={msg.suserid === userid ? "outgoing_message" : "incoming_message"}  >
+                                        <h4>{msg.firstname}</h4>
+                                        <p>{msg.message}</p>
+                                        </div>
                                     </div>
 
-                                    <div className="outgoing_message">
-                                        <h4>Shaam</h4>
-                                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas placeat earum provident</p>
-                                    </div>
+                                    ))}
+                                    
+                                   
                                    </div>  
                                 </div>
                                
@@ -49,12 +133,12 @@ const Chatbox = ()=>{
                        
                            
                                     <div className="chatfooter">
-                                    <form> 
+                                    <form onSubmit={handleSubmitChat}> 
                                     <div className="container">
                                     <div className="row">
                                         <div className="col-md-9 col-sx-12 chatleft">
                                            
-                                            <input type="text" className="commenttype" placeholder="Type your comment here..." />
+                                            <input type="text" value={sentmessage} onChange={(e)=>{setsendmessage(e.target.value)}}className="commenttype" placeholder="Type your comment here..." />
                                            
                                         </div>
                                         <div className="col-md-3 col-sx-12 chatleft" >

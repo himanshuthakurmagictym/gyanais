@@ -29,7 +29,7 @@ export async function getServerSideProps(context){
     const alldatass =  await fetch(APIs.base_url+'courseCategory/detailsCategory')
    
     const allcategory =  await alldatass.json()
-    console.log(allcategory.data)
+    //console.log(allcategory.data)
   
     {
         return {

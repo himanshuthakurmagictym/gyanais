@@ -7,8 +7,9 @@ import APIs from '../config.js';
 import 'react-toastify/dist/ReactToastify.css';
 import cookie from 'js-cookie'
 import {useRouter} from 'next/router'
+import {useAppContext} from '../components/Fontend/Layout'
 var CryptoJS = require("crypto-js");
-
+  
 const Login = () => {
     const [email, setemail] = useState("");
     const [password, setPassword] = useState("");
@@ -16,6 +17,7 @@ const Login = () => {
     const [submitted, setSubmitted] = useState("");
     const [isOpened, setOpened] = useState(false);
     const router  = useRouter();
+    const userdetail = useAppContext();
     const notify = (res) => 
     {
          //console.log(res)
@@ -24,6 +26,8 @@ const Login = () => {
              toast.success(res.message, { autoClose: 2000 });
              const realtoken = res.data.tokens.access.token;
              cookie.set('token',realtoken, { expires: new Date(res.data.tokens.access.expires), secure: true, sameSite: 'strict' })
+             cookie.set('cid',res.data.user._id, { expires: new Date(res.data.tokens.access.expires), secure: true, sameSite: 'strict' })
+             cookie.set('role',res.data.user.roles, { expires: new Date(res.data.tokens.access.expires), secure: true, sameSite: 'strict' })
             //  cookie.set('user',CryptoJS.AES.encrypt(JSON.stringify(res.data.user), '619619').toString(), { expires: new Date(res.data.tokens.access.expires), secure: true, sameSite: 'strict' })          
             
              if(res.data.user.roles === APIs.roles[1]){
@@ -94,9 +98,9 @@ const Login = () => {
   })
 
   useEffect(() => {
-    // Prefetch the dashboard page
-    router.prefetch('/profile')
-  }, [])
+    if (userdetail) router.push("/student/profile");
+  }, [userdetail]);
+ 
 
 
 
@@ -127,8 +131,9 @@ const Login = () => {
                        <div className="row input-main">
                             <div className="col-md-12 col-lg-12 input-wrap mb-3" >
                                <select className="field display-7 custom-select" id="email-form2-7" name="role" value={roles} onChange={handleroles}>
+                                        <option value={APIs.roles[1]}>{APIs.roles[1]}</option>
                                         <option value={APIs.roles[0]}>{APIs.roles[0]}</option>  
-                                        <option value={APIs.roles[1]}>{APIs.roles[1]}</option>  
+                                          
                                </select>
                             </div>
                            

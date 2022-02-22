@@ -1,20 +1,24 @@
 import React, { useRef, useEffect } from 'react';
+import APIs from '../../config';
+
 // import io from 'socket.io-client';
 
-const Whiteboard = () =>{
+const Whiteboard = ({socket, roomid, userRole}) =>{
     const canvasRef = useRef(null);
+      const widref = useRef(null);  
     const colorsRef = useRef(null);
     const socketRef = useRef();
     // const recordWebcam = useRecordWebcam();
-  
+
   
     useEffect(() => {
   
       // --------------- getContext() method returns a drawing context on the canvas-----
+        const parentref = widref.current;
   
       const canvas = canvasRef.current;
       const test = colorsRef.current;
-      const context = canvas.getContext('2d');
+      const contexts = canvas.getContext('2d');
    
       // ----------------------- Colors --------------------------------------------------
   
@@ -38,48 +42,68 @@ const Whiteboard = () =>{
       let drawing = false;
   
       // ------------------------------- create the drawing ----------------------------
-  
+    
       const drawLine = (x0, y0, x1, y1, color, emit) => {
-        context.beginPath();
-        context.moveTo(x0, y0);
-        context.lineTo(x1, y1);
-        context.strokeStyle = color;
-        context.lineWidth = 2;
-        context.stroke();
-        context.closePath();
+        contexts.beginPath();
+        contexts.moveTo(x0, y0);
+        contexts.lineTo(x1, y1);
+        contexts.strokeStyle = color;
+        if(color == 'white'){
+          contexts.lineWidth = 50;
+        }else{
+        contexts.lineWidth = 2;
+        }
+        contexts.stroke();
+        contexts.closePath();
   
-      //   if (!emit) { return; }
-      //   const w = canvas.width;
-      //   const h = canvas.height;
+        if (!emit) { return; }
+        const w = canvas.width;
+        const h = canvas.height;
+
+
+        const whitedata = {
+          x0: x0 / w,
+          y0: y0 / h,
+          x1: x1 / w,
+          y1: y1 / h,
+          color,
+        }
   
-      //   socketRef.current.emit('drawing', {
-      //     x0: x0 / w,
-      //     y0: y0 / h,
-      //     x1: x1 / w,
-      //     y1: y1 / h,
-      //     color,
-      //   });
+
+      
+        socketRef.current?.emit("draw-coordinates", {roomid, whitedata});
+
+
       };
+   
+      const getTopCanvasDif = () => {
+        let rec = canvas.getBoundingClientRect();
+        return rec.top;
+      }
+      const getLeftCanvasDif = () => {
+        let rec = canvas.getBoundingClientRect();
+        return rec.left;
+      }
   
       // ---------------- mouse movement --------------------------------------
   
       const onMouseDown = (e) => {
         drawing = true;
-        current.x = e.clientX || e.touches[0].clientX;
-        current.y = e.clientY || e.touches[0].clientY;
+        current.x = (e.clientX || e.touches[0].clientX) - getLeftCanvasDif();
+        current.y = (e.clientY || e.touches[0].clientY) - getTopCanvasDif();
       };
   
       const onMouseMove = (e) => {
         if (!drawing) { return; }
-        drawLine(current.x, current.y, e.clientX || e.touches[0].clientX, e.clientY || e.touches[0].clientY, current.color, true);
-        current.x = e.clientX || e.touches[0].clientX;
-        current.y = e.clientY || e.touches[0].clientY;
+        drawLine(current.x, current.y, (e.clientX || e.touches[0].clientX) - getLeftCanvasDif(), (e.clientY || e.touches[0].clientY) - getTopCanvasDif(), current.color, true);
+        current.x = (e.clientX || e.touches[0].clientX) - getLeftCanvasDif();
+        current.y = (e.clientY || e.touches[0].clientY) - getTopCanvasDif(); 
       };
   
       const onMouseUp = (e) => {
         if (!drawing) { return; }
         drawing = false;
-        drawLine(current.x, current.y, e.clientX || e.touches[0].clientX, e.clientY || e.touches[0].clientY, current.color, true);
+        drawLine(current.x, current.y, (e.clientX || e.touches[0].clientX) - getLeftCanvasDif(), (e.clientY || e.touches[0].clientY) - getTopCanvasDif(), current.color, true);
       };
   
       // ----------- limit the number of events per second -----------------------
@@ -97,7 +121,7 @@ const Whiteboard = () =>{
       };
   
       // -----------------add event listeners to our canvas ----------------------
-  
+      if(userRole === APIs.roles[0]){
       canvas.addEventListener('mousedown', onMouseDown, false);
       canvas.addEventListener('mouseup', onMouseUp, false);
       canvas.addEventListener('mouseout', onMouseUp, false);
@@ -108,12 +132,17 @@ const Whiteboard = () =>{
       canvas.addEventListener('touchend', onMouseUp, false);
       canvas.addEventListener('touchcancel', onMouseUp, false);
       canvas.addEventListener('touchmove', throttle(onMouseMove, 10), false);
-      
+    }
       // -------------- make the canvas fill its parent component -----------------
   
       const onResize = () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        // canvas.width = window.innerWidth;
+        // canvas.height = window.innerHeight;
+         canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+        // canvas.width = '600';
+        // canvas.height = '600';
+
       };
   
       window.addEventListener('resize', onResize, false);
@@ -121,30 +150,33 @@ const Whiteboard = () =>{
   
       // ----------------------- socket.io connection ----------------------------
       const onDrawingEvent = (data) => {
+        //console.log(data)
         const w = canvas.width;
         const h = canvas.height;
         drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
       }
   
-      // socketRef.current = io.connect('/');
-      // socketRef.current.on('drawing', onDrawingEvent);
-    }, []);
+      socketRef.current = socket;
+     socketRef.current?.on("draw", onDrawingEvent);
+    }, [socket]);
   
 
     return(
         <>
-        <div className='whiteboardmain'>
-                <canvas ref={canvasRef} className="whiteboard" id="canvas" />
-                                    
-                        <div ref={colorsRef} className="colors">
+                <canvas ref={canvasRef} className="whiteboard" > </canvas>
+               {(userRole === APIs.roles[0])?      
+                        <div ref={colorsRef} className="colors cursorlink">
                                 <div className="color black" />
                                 <div className="color red" />
                                 <div className="color green" />
                                 <div className="color blue" />
                                 <div className="color yellow" />
+                                
+                                <div className="color white" />
+                               
                         </div>
-        </div> 
-        </>
+              :""}
+        </> 
     )
 
 }

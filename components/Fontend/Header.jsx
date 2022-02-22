@@ -6,16 +6,46 @@ import cookie from 'js-cookie'
 import router from 'next/router'
 var CryptoJS = require("crypto-js");
 import APIs from '../../config.js';
-import { useContext } from "react";
 import {useAppContext} from '../Fontend/Layout'
-function Header() {
+import moment from 'moment'
+function Header({socket}) {
   
   // var isuser = cookie.get('token')
    const isuser = useAppContext();
-  //  setstate(isusers);
-   
-  
 
+   
+  //  setstate(isusers);
+   const [notification, setNotifications] =useState([])
+  
+   const [newuser, setuserid] = useState("");
+
+   useEffect(()=>{
+    setuserid(isuser._id)
+   },[isuser])
+
+  useEffect(()=>{
+      if(newuser){
+      socket?.emit('userid', newuser);
+    }
+  },[newuser])
+
+  useEffect(()=>{
+  socket?.on('notification', (data) => {
+    //console.log(data);
+    setNotifications(data);
+   
+  })
+
+},[socket])
+  
+const handleRead = (notyid) => {
+  //  id?setNotifications([]):"";
+  console.log(notyid)
+  socket.emit('readnotification', notyid)
+
+};
+
+//console.log(`notification received: ${JSON.stringify(notification)}`)
 
     return (
 
@@ -62,6 +92,7 @@ function Header() {
                            Contact Us</a></Link>
                 </li>
                 
+                
                 {  
                   !isuser?
                 <>
@@ -75,7 +106,67 @@ function Header() {
                 : 
                 <>
                 <ul className="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
-                <li className="nav-item dropdown open">
+                <li className="nav-item dropdown ">
+              
+                
+                <a className="nav-link  text-danger dropdown-toggle anotifynav" data-toggle="dropdown-submenu" aria-expanded="true">
+                <Image src={`/assets/images/notify.png`}  width='40' height='40' alt="avatar"/>
+                {
+                  notification.length >0 && <div className='notifycount'>{notification.length}</div>
+                  }
+                </a>
+            
+                        <div className="dropdown-menu  notifymodel"  >
+                                        <div className="card-box container">
+                                            {notification.map((noty, i)=>(
+                                                <div className='notify ' key={noty._id} >
+                                                  
+                                                <div className="row" onClick={e=>{handleRead(noty._id)}}>
+                                                {/* <div className="col-md-2">
+                                                    <Image src={`/assets/images/avatar.png`} width={100} height={100} alt="course image" />
+                                                </div> */}
+                                                <div className="col-md-12">
+                                                    <div className='notifyBodynav'>
+                                                   
+                                                    <strong className="">{noty.videoid.video_title}</strong>
+                                                    <p>{moment(noty.videoid.videoDate).format('DD MMM YYY')}</p>
+                                                    </div>
+                                                    <p>{moment(noty.createdAt).fromNow()}</p>
+                                                </div>
+                                               
+                                                
+                                               
+                                                    
+                                                
+                                                </div>
+                                              
+                                               
+                                                </div>
+                                            ))}
+        {
+          (isuser.roles === APIs.roles[1]) ?
+          <>
+           <a href="/student/notification" className='row'> <button className="btn align-center btn-success display-2 w-100" onClick={handleRead}>
+            Read All
+          </button></a>
+          </>:
+          <a href="/teacher/notification"  className='row'> <button className="btn align-center btn-success display-2 w-100" onClick={handleRead}>
+          Read All
+        </button></a>
+        }
+                                          </div>
+
+                                          
+                            </div>
+                            
+                            
+                            
+               
+                </li>
+                </ul>
+
+                <ul className="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
+                <li className="nav-item dropdown">
                     <a className="nav-link  text-danger dropdown-toggle " data-toggle="dropdown-submenu" aria-expanded="true">
                     <Image src={`/assets/images/avatar.png`}  width='40' height='40' alt="avatar"/></a>
                     <div className="dropdown-menu">
@@ -83,11 +174,12 @@ function Header() {
                      (isuser.roles === APIs.roles[1]) ?
                      <>
                       <a className="nav-link dropdown-item display-4" href="/courses">Courses</a>
+                      {/* <a className="nav-link dropdown-item display-4" href="/student/dashboard">Dashboard</a> */}
                        <a className="nav-link dropdown-item display-4" href="/student/profile">Profile</a>
                       <a className="nav-link dropdown-item display-4" href="/student/setting">Setting</a>
                      </> : 
                      <>
-                      <a className="nav-link dropdown-item display-4" href="/teacher/dashboard">Dashboard</a>
+                      <a className="nav-link dropdown-item display-4" href="/teacher/dashboard"> Teacher Dashboard</a>
                      <a className="nav-link dropdown-item display-4" href="/teacher/profile">Profile</a>
                     <a className="nav-link dropdown-item display-4" href="/teacher/setting">Setting</a>
                    </>

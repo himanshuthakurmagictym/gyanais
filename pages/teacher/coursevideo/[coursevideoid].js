@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router'
 import {io} from 'socket.io-client';
-import cookie from 'js-cookie'
+// import cookie from 'js-cookie'
 import dynamic from 'next/dynamic'
 import Chatbox from "../../../components/Fontend/Chatbox";
 import Whiteboard from "../../../components/Fontend/Whiteboard";
@@ -25,9 +25,8 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
     const roomid= videodetails._id;
     const [users, setusers] = useState([])
     const [userdetail, setUserDetail] = useState("");
-    const [socket, setSocket] = useState(null);
     const [handleclass, sethandleclass] = useState(handleclassbutton);
-    
+    const [socket, setSocket] = useState(null);
 
     useEffect(()=>{
         setSocket(io(APIs.base_url_home));
@@ -35,15 +34,17 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
     
        useEffect(()=>{
         setUserDetail(isuser);
+       
     },[isuser])
 
     useEffect(()=>{
+        
             //create room
             socket?.emit("create-session-room", { userid, coursevideoid })
             //getroom details
             socket?.on("get-session-room", (data)=>{
                 if(data){    
-                   // console.log(userdetail);
+                    // console.log(userdetail);
                     socket?.emit('join-session-room', { userdetail, coursevideoid, data });
                 }
 
@@ -51,62 +52,41 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
 
        },[userdetail])
             
+   
        useEffect(()=>{
         socket?.on("receivedclassbutton", (data)=>{
             sethandleclass(data);
         })
        },[socket])
 
-
-    return (
+    return ( handleclass?
         <>
-        <Brudcrums />
-              <section> 
-              <div className="container-fluid">   
-              {handleclass == 0?
-              <section className="testimonials2 topbrumb" id="testimonials2-e">   
-                     
-                <div className="container-fluid">
+  <Brudcrums />
+                <section className="testimonials2 topbrumb" id="testimonials2-e"> 
+               <div className="container-fluid">
                 
-                          <div className="row justify-content-center">  
-                                                         
+                            <div className="row justify-content-center">  
+                                       
                               <div className="card col-12 col-md-9">
                                <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">{videodetails.video_title} </h2>
-                                  <Whiteboard socket={socket} roomid={videodetails._id} userRole={roles}/>     
-                              </div>
+                                 <div className='whiteboardmain'>
+                                  <Whiteboard socket={socket} roomid={videodetails._id} userRole={roles}/>   
+                                  </div>  
+                            </div>
                               <div className="card col-12 col-md-3">
                                   <div className='rightside '>
                                         <div className='webcam'> 
-                                                <Webcamerasforst socket={socket} roomid={videodetails._id} userRole={roles}/>                                  
+                                                <Webcamerasforst socket={socket} userid={userid} roomid={videodetails._id} userRole={roles} handleclassbutton={handleclassbutton}/>                                  
                                         </div>
                                         <div className='roomchat'>
                                                 <Chatbox socket={socket} userid={userid} roomid={videodetails._id}/>
                                         </div>
                                   </div>      
-                              </div>
+                              </div> 
                           </div>                                         
                 </div>
-            </section>
-            : 
-        
-        <section className="testimonials2 topbrumb classover" id="testimonials2-e">
-        <div className="container">
-                
-                <div className="row justify-content-center">  
-                                               
-                    <div className="card col-12 col-md-12 text-center">
-                        <h1 className="mbr-fonts-style mbr-section-title align-center  display-2">Class is Over</h1>
-                      <a href="/courses" className='btn btn-form btn-success'>Back To Courses</a>
-                    </div>
-                </div>
-        </div>
-        </section>
-}
-           
-              </div>
-           </section>
-        </> 
-           
+            </section>           
+        </> : ""
     )
 }
 
@@ -127,7 +107,9 @@ export const getServerSideProps = async (context) =>{
         //  const resroom = await fetch(`${APIs.base_url}getroom/${coursevideoid}`);
         //  const isRoomid =await resroom.json();
            
-        
+        //checking class over or not
+
+ 
        
            
 
@@ -146,18 +128,18 @@ export const getServerSideProps = async (context) =>{
        
        const paymentconfirm =  await ress.json();
        //console.log(paymentconfirm)
-            if(paymentconfirm.status_code !== 200){
+            // if(paymentconfirm.status_code !== 200){
               
-                return {
-                    redirect: {
-                    permanent: true,
-                    destination: `/student/subscription/${paymentconfirm.category_id}`,
-                  },
-                  props:{},
-                }
+            //     return {
+            //         redirect: {
+            //         permanent: true,
+            //         destination: `/student/subscription/${paymentconfirm.category_id}`,
+            //       },
+            //       props:{},
+            //     }
 
               
-            }else{
+            // }else{
 
                 return {
                     props: {
@@ -169,7 +151,7 @@ export const getServerSideProps = async (context) =>{
                     }
                 }
 
-            }
+            // }
      
       
 

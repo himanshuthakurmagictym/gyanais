@@ -6,9 +6,10 @@ import CryptoJS from "crypto-js"
 export async function middleware(req) {
 
   const tokend = JSON.stringify(req.cookies.token);
-  // const categoryid = req.page.params.categoryid || null? req.page.params.categoryid:'';
-  //console.log(req.page.params)
+  // const categoryid = req.page.params.categoryid ;
+  // console.log(`urlcheck${JSON.stringify(req.nextUrl.pathname)}`)
   const {pathname} = req.nextUrl;
+  
   if(tokend){
 
     //  var bytesss  = CryptoJS.AES.decrypt(tokend, '619619');
@@ -36,11 +37,12 @@ export async function middleware(req) {
           return NextResponse.redirect('/emailVerification');
           }
 
-        //if equal to student and login as teacher
-        if(result.data.roles === APIs.roles[0]){
+            //if equal to teacher and login as teacher
           
-          return NextResponse.redirect('/teacher/profile');
-          }
+          if(result.data.roles === APIs.roles[1]){
+          
+            return NextResponse.redirect('/student/profile');
+            }
   
       
       
