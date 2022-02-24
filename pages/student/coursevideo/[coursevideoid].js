@@ -63,7 +63,7 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
         <Brudcrums />
               <section> 
               <div className="container-fluid">   
-              {handleclass == 0?
+              {handleclass == 1?
               <section className="testimonials2 topbrumb" id="testimonials2-e">   
                      
                 <div className="container-fluid">
