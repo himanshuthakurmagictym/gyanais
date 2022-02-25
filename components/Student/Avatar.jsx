@@ -23,7 +23,8 @@ function Avatar() {
             toast.error(data.message,{autoClose:2000});
         }
       }
-
+    
+      
 
     const sendAvatar = async (e) => {
       e.preventDefault();

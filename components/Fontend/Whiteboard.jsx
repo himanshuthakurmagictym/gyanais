@@ -1,6 +1,7 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import APIs from '../../config';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // import io from 'socket.io-client';
 
 const Whiteboard = ({socket, roomid, userRole}) =>{
@@ -8,8 +9,33 @@ const Whiteboard = ({socket, roomid, userRole}) =>{
       const widref = useRef(null);  
     const colorsRef = useRef(null);
     const socketRef = useRef();
+    const [pdffile, setFile] = useState("");
     // const recordWebcam = useRecordWebcam();
+    const notify = (data)=>{
+      if(data.status_code === 200){
+          toast.success(data.message,{autoClose:2000});
+      }else{
+          toast.error(data.message,{autoClose:2000});
+      }
+    }
+    const sendpdffile = async(e)=>{
+       e.preventDefault();
+       setFile(e.target.files[0])
+       console.log("pdf upload")
+       const URLS = APIs.base_url+"teacher/videoPdfUpload";
+      const body = new FormData();
+        body.append("file", e.target.files[0]);
+        body.append("roomid", roomid);
+      //console.log(sendmaildata);
+      const result = await fetch(URLS,{
+          method: "POST",
+          headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          body
+      }).then(res => res.json()).then(res  => notify(res)).catch(err => console.log(err)); 
 
+    }
   
     useEffect(() => {
   
@@ -72,6 +98,7 @@ const Whiteboard = ({socket, roomid, userRole}) =>{
 
       
         socketRef.current?.emit("draw-coordinates", {roomid, whitedata});
+
 
 
       };
@@ -164,17 +191,25 @@ const Whiteboard = ({socket, roomid, userRole}) =>{
     return(
         <>
                 <canvas ref={canvasRef} className="whiteboard" > </canvas>
-               {(userRole === APIs.roles[0])?      
+               {(userRole === APIs.roles[0])?
+              
                         <div ref={colorsRef} className="colors cursorlink">
                                 <div className="color black" />
                                 <div className="color red" />
                                 <div className="color green" />
                                 <div className="color blue" />
                                 <div className="color yellow" />
-                                
-                                <div className="color white" />
-                               
+                                <div className="color white" />   
+
+
+                                <div className="rightSide-color">
+                                      <div className="fileupload"> 
+                                            <input type="file" onChange={(e)=>{sendpdffile(e)}} className='uploadfile' accept=".pdf"/>
+                                      </div>
+                                </div>     
                         </div>
+                         
+                         
               :""}
         </> 
     )

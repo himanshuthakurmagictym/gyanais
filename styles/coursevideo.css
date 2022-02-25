@@ -22,15 +22,20 @@
   .color.green { background-color: green; }
   .color.blue { background-color: blue; }
   .color.yellow { background-color: yellow; }
-  .color.white { background-color: white; float: right; border-radius: 10px; border:1px solid black; box-shadow: 2px 2px 2px gray; }
-  .color.white::after {content: 'Eraser';
+  .color.white { background-color: white;  border-radius: 10px; border:1px solid black; box-shadow: 2px 2px 2px gray; margin-left: 20px; position: absolute;
+    background-image: url('/assets/images/eraser.png');
+    background-size: 30px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  /* .color.white::after {content:'Eraser';
     left: 6px;
     top: 25%;
-    background-image: url('/assets/images/eraser.png');
-
+    
     position: relative;
     font-size: 13px;
-  }
+  } */
+ .rightSide-color{float:right;}
 .chat-header{
     background-color:var(--primary-color);
     width: 100%;
@@ -40,7 +45,19 @@
     color:white;
     font-weight: 500;
 }
-
+.fileupload{
+  display: inline-block;
+ 
+  color: white;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  height: 50px;
+  width: 50px;
+  background-repeat: no-repeat;
+  background-image: url(/assets/images/upload.png);
+  background-size: contain;
+}
+.uploadfile{opacity: 0; margin-top:2px;}
 
 .chat-body{
     background-color: rgb(252, 252, 252);
