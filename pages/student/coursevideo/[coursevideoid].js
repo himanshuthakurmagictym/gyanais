@@ -95,7 +95,7 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
                 <div className="row justify-content-center">  
                                                
                     <div className="card col-12 col-md-12 text-center">
-                        <h1 className="mbr-fonts-style mbr-section-title align-center  display-2">Class is Over</h1>
+                        <h1 className="mbr-fonts-style mbr-section-title align-center  display-2">Class Will Start</h1>
                       <a href="/courses" className='btn btn-form btn-success'>Back To Courses</a>
                     </div>
                 </div>
