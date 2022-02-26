@@ -36,6 +36,7 @@
     font-size: 13px;
   } */
  .rightSide-color{float:right;}
+ .imageuploaded{float:right;}
 .chat-header{
     background-color:var(--primary-color);
     width: 100%;

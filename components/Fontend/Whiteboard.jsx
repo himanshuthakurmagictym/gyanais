@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import APIs from '../../config';
+import Image from 'next/image';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import io from 'socket.io-client';
@@ -203,6 +204,9 @@ const Whiteboard = ({socket, roomid, userRole}) =>{
 
 
                                 <div className="rightSide-color">
+                                      <div className='imageuploaded'>
+                                            <Image src={`/assets/images/pdfd.png`} alt="pdf" width="50" height="50"/>
+                                      </div>
                                       <div className="fileupload"> 
                                             <input type="file" onChange={(e)=>{sendpdffile(e)}} className='uploadfile' accept=".pdf"/>
                                       </div>
