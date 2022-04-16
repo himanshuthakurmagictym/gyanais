@@ -36,7 +36,15 @@
     font-size: 13px;
   } */
  .rightSide-color{float:right;}
- .imageuploaded{float:right;}
+ .imageuploaded{float:right;
+  background-repeat: no-repeat;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  height: 50px;
+  width: 50px;
+  background-image: url(/assets/images/imageupload.png);
+  background-size: contain;
+}
 .chat-header{
     background-color:var(--primary-color);
     width: 100%;
@@ -46,6 +54,7 @@
     color:white;
     font-weight: 500;
 }
+.imageuploaded input, .fileupload input{width:inherit;}
 .fileupload{
   display: inline-block;
  
@@ -55,7 +64,7 @@
   height: 50px;
   width: 50px;
   background-repeat: no-repeat;
-  background-image: url(/assets/images/upload.png);
+  background-image: url(/assets/images/pdfupload.png);
   background-size: contain;
 }
 .uploadfile{opacity: 0; margin-top:2px;}

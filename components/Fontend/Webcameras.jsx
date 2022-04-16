@@ -105,18 +105,19 @@ useEffect(()=>{
           .createOffer()
           .then(sdp => peerConnection.setLocalDescription(sdp))
           .then(() => {
+            console.log("offer", id)
             socket.emit("offer", id, peerConnection.localDescription);
           });
       });
   
   
       socket.on("answer", (id, description) => {
-        
+        console.log("awnswer", id, description)
        peerConnections[id].setRemoteDescription(description);
       });
       
       socket.on("candidate", (id, candidate) => {
-        
+        console.log("candidate", id, candidate)
        peerConnections[id].addIceCandidate(new RTCIceCandidate(candidate));
       });
     

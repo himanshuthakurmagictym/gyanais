@@ -5,34 +5,82 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import io from 'socket.io-client';
 
-const Whiteboard = ({socket, roomid, userRole}) =>{
+
+const Whiteboard = ({socket, roomid, userRole, coursevideoid}) =>{
     const canvasRef = useRef(null);
       const widref = useRef(null);  
     const colorsRef = useRef(null);
     const socketRef = useRef();
     const [pdffile, setFile] = useState("");
+    const [allimages, setAllimages] = useState("");
+    const [pdffiledetails, setpdffiledetails] = useState("");
     // const recordWebcam = useRecordWebcam();
     const notify = (data)=>{
       if(data.status_code === 200){
+        // console.log(data);
+         
           toast.success(data.message,{autoClose:2000});
       }else{
           toast.error(data.message,{autoClose:2000});
       }
     }
+
+    const uploadimages = (e)=>{
+     e.preventDefault();
+        console.log(e.target.files)
+      const uploadimage = APIs.base_url+"teacher/uploadimages" 
+      fetch(uploadimage, {
+        method: 'POST',
+        headers: {
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({})
+      })
+    }
+
+    const getpdfdetails = () => {
+      const pdfdetails = APIs.base_url+"teacher/getpdfdetails";
+      setpdffiledetails(pdfdetails)
+    }
+    const getallimages = () => {
+
+      const allimagesAPI = APIs.base_url+"teacher/getallimages";
+      const allImages =  fetch(allimagesAPI, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({roomid:roomid})
+      })
+      setAllimages(allimages)
+    }
+
+    const deletepdffile = ()=>{
+
+      const deletepdffiledetails = fetch("teacher/deletePdfFile").then(res=> notify(res)).catch(err => console.log(err));
+      
+    }
     const sendpdffile = async(e)=>{
        e.preventDefault();
        setFile(e.target.files[0])
+       console.log(e.target.files[0])
        console.log("pdf upload")
-       const URLS = APIs.base_url+"teacher/videoPdfUpload";
+       const URLS = APIs.base_url+"teacher/videoPdfUpload/uploadfile";
       const body = new FormData();
-        body.append("file", e.target.files[0]);
+        body.append("pdfName", e.target.files[0]);
         body.append("roomid", roomid);
+        body.append("courseid", coursevideoid);
+        body.append("videoid", roomid);
+       
+
       //console.log(sendmaildata);
       const result = await fetch(URLS,{
           method: "POST",
-          headers: {
-              "Content-Type": "multipart/form-data",
-            },
+          // headers: {
+          //   'Accept': 'application/json',
+          //   'Access-Control-Allow-Origin': '*',
+          //    "Content-Type": "multipart/form-data",
+          //   },
           body
       }).then(res => res.json()).then(res  => notify(res)).catch(err => console.log(err)); 
 
@@ -191,7 +239,14 @@ const Whiteboard = ({socket, roomid, userRole}) =>{
 
     return(
         <>
-                <canvas ref={canvasRef} className="whiteboard" > </canvas>
+                {allimages}
+                {allimages?allimages.map((pdfImages)=>(
+                console.log(pdfImages),
+               <Image src={`${APIs.base_url}${pdfImages.imagePath}`}  layout="responsive" /> 
+            )
+            ):""}
+                <canvas ref={canvasRef} className="whiteboard" > 
+                </canvas>
                {(userRole === APIs.roles[0])?
               
                         <div ref={colorsRef} className="colors cursorlink">
@@ -205,11 +260,18 @@ const Whiteboard = ({socket, roomid, userRole}) =>{
 
                                 <div className="rightSide-color">
                                       <div className='imageuploaded'>
-                                            <Image src={`/assets/images/pdfd.png`} alt="pdf" width="50" height="50"/>
+                                      <input type="file" multiple onChange={(e)=>{uploadimages(e)}} className='uploadfile' title='image update' accept="image/*"/>
+                                            
                                       </div>
+                                      {pdffiledetails?
                                       <div className="fileupload"> 
-                                            <input type="file" onChange={(e)=>{sendpdffile(e)}} className='uploadfile' accept=".pdf"/>
+                                            <input type="file" onChange={(e)=>{deletepdffile(e)}} className='uploadfile' title='delete' accept=".pdf"/>
                                       </div>
+                                       :
+                                       <div className="fileupload"> 
+                                            <input type="file" onChange={(e)=>{sendpdffile(e)}} className='uploadfile'title='Upload'  accept=".pdf"/>
+                                       </div>
+                                       }
                                 </div>     
                         </div>
                          

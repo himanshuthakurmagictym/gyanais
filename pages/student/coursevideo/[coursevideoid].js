@@ -72,7 +72,7 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
                                                          
                               <div className="card col-12 col-md-9">
                                <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">{videodetails.video_title} </h2>
-                                  <Whiteboard socket={socket} roomid={videodetails._id} userRole={roles}/>     
+                                  <Whiteboard socket={socket} roomid={videodetails._id} userRole={roles} coursevideoid={coursevideoid}/>     
                               </div>
                               <div className="card col-12 col-md-3">
                                   <div className='rightside '>
