@@ -45,6 +45,26 @@
   background-image: url(/assets/images/imageupload.png);
   background-size: contain;
 }
+
+.leftslider{float:right;
+  background-repeat: no-repeat;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  height: 50px;
+  width: 50px;
+  background-image: url(/assets/images/right.png);
+  background-size: contain;
+}
+
+.rightslider{float:right;
+  background-repeat: no-repeat;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  height: 50px;
+  width: 50px;
+  background-image: url(/assets/images/left.png);
+  background-size: contain;
+}
 .chat-header{
     background-color:var(--primary-color);
     width: 100%;

@@ -13,6 +13,8 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid}) =>{
     const socketRef = useRef();
     const [pdffile, setFile] = useState("");
     const [allimages, setAllimages] = useState("");
+    const [slidetime, setslidetime] = useState(0);
+    
     const [pdffiledetails, setpdffiledetails] = useState("");
     // const recordWebcam = useRecordWebcam();
     const notify = (data)=>{
@@ -25,34 +27,26 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid}) =>{
       }
     }
 
-    const uploadimages = (e)=>{
+    const uploadimages = async(e)=>{
      e.preventDefault();
-        console.log(e.target.files)
+        //console.log(e.target.files)
       const uploadimage = APIs.base_url+"teacher/uploadimages" 
-      fetch(uploadimage, {
-        method: 'POST',
-        headers: {
-          "Content-Type":"application/json"
-        },
-        body:JSON.stringify({})
-      })
+      const body = new FormData();
+      body.append("images", e.target.files);
+      body.append("roomid", roomid);
+      body.append("courseid", coursevideoid);
+      body.append("videoid", roomid);
+      const result = await fetch(uploadimage,{
+        method: "POST",
+    
+        body
+    }).then(res => res.json()).then(res  => notify(res)).catch(err => console.log(err));
     }
+   
 
     const getpdfdetails = () => {
       const pdfdetails = APIs.base_url+"teacher/getpdfdetails";
       setpdffiledetails(pdfdetails)
-    }
-    const getallimages = () => {
-
-      const allimagesAPI = APIs.base_url+"teacher/getallimages";
-      const allImages =  fetch(allimagesAPI, {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({roomid:roomid})
-      })
-      setAllimages(allimages)
     }
 
     const deletepdffile = ()=>{
@@ -85,8 +79,54 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid}) =>{
       }).then(res => res.json()).then(res  => notify(res)).catch(err => console.log(err)); 
 
     }
-  
+    
+    const leftslide = ()=>{  
+      const totoalslide = allimages.length;
+        if(slidetime < totoalslide-1){  
+          setslidetime(slidetime + 1)
+        }else{
+          if(slidetime = totoalslide){
+            setslidetime(0)
+          }
+        }
+    }
+
+    const rightslide = ()=>{
+      const totoalslide = allimages.length;
+        if(slidetime == 0 ){  
+          setslidetime(totoalslide-1)
+        }else{
+          if(slidetime < totoalslide){ 
+            setslidetime(slidetime - 1)
+          }
+        }
+       
+    }
+
+    useEffect(()=>{
+      socket?.emit("backgroundimage",{roomid, slidetime});
+      
+    
+    },[slidetime])
+    
     useEffect(() => {
+
+      socket?.on("handlebackgroundimage", slidetime=>{
+        console.log(slidetime)
+          if(userRole === APIs.roles[1]){
+            setslidetime(slidetime)
+          }
+        })
+
+      const allimagesAPI = APIs.base_url+"teacher/getallimages";
+       fetch(allimagesAPI, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({roomid:roomid})
+      }).then(res => res.json()).then(res  => setAllimages(res.data) ).catch(err => console.log(err)); 
+      
   
       // --------------- getContext() method returns a drawing context on the canvas-----
         const parentref = widref.current;
@@ -145,7 +185,8 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid}) =>{
         }
   
 
-      
+        
+
         socketRef.current?.emit("draw-coordinates", {roomid, whitedata});
 
 
@@ -236,17 +277,38 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid}) =>{
      socketRef.current?.on("draw", onDrawingEvent);
     }, [socket]);
   
+    function GraphCMSImageLoader({ src, width }) {
+      const relativeSrc = (src) => src.split("/").pop();
+    
+      return `${(src)}`;
+    }
+
+  
 
     return(
         <>
-                {allimages}
-                {allimages?allimages.map((pdfImages)=>(
-                console.log(pdfImages),
-               <Image src={`${APIs.base_url}${pdfImages.imagePath}`}  layout="responsive" /> 
-            )
-            ):""}
-                <canvas ref={canvasRef} className="whiteboard" > 
+               
+               {/* <div className="imagesincanvas">
+               {allimages?allimages.map((pdfImages, setslideimage)=>(
+                       <Image className="imageincanvas" loader={GraphCMSImageLoader} src={`${APIs.base_url_home}${pdfImages.imagePath}`}  width="500" height="500" /> 
+                 )
+                ):""}
+               </div> */}
+                       
+                       {/* <Image className="imageincanvas" loader={GraphCMSImageLoader} src={`${APIs.base_url_home}${allimages[0].imagePath}`}  width="500" height="500" />  */}
+          
+           
+              
+                <canvas ref={canvasRef} className="whiteboard" style={{
+                          backgroundImage: `url(${APIs.base_url_home}${allimages?allimages[slidetime].imagePath:""})`,
+                          width:"100%",
+                          height:"100%",
+                          backgroundRepeat: "repeat-y",
+                          backgroundPosition: 'center',
+                          backgroundSize: 'contain',
+                      }}>
                 </canvas>
+                
                {(userRole === APIs.roles[0])?
               
                         <div ref={colorsRef} className="colors cursorlink">
@@ -259,10 +321,17 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid}) =>{
 
 
                                 <div className="rightSide-color">
-                                      <div className='imageuploaded'>
+                                    <div className='leftslider' onClick={leftslide}>
+                                      <button className='uploadfile'></button>      
+                                    </div>
+                                    <div className='rightslider' onClick={rightslide}>
+                                      <button className='uploadfile'></button>          
+                                    </div>  
+
+                                      {/* <div className='imageuploaded'>
                                       <input type="file" multiple onChange={(e)=>{uploadimages(e)}} className='uploadfile' title='image update' accept="image/*"/>
                                             
-                                      </div>
+                                      </div> */}
                                       {pdffiledetails?
                                       <div className="fileupload"> 
                                             <input type="file" onChange={(e)=>{deletepdffile(e)}} className='uploadfile' title='delete' accept=".pdf"/>
