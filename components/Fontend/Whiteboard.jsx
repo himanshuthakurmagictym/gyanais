@@ -116,13 +116,16 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, }) =>{
 
    
 
-    useEffect(()=>{
-   
-      window.addEventListener('onbeforeunload', (event) => {
-        event.returnValue = `Are you sure you want to leave?`;
-      });
-
+    useEffect(() => {
+      window.addEventListener('beforeunload', alertUser)
+      return () => {
+        window.removeEventListener('beforeunload', alertUser)
+      }
     }, [])
+    const alertUser = e => {
+      e.preventDefault()
+      e.returnValue = ''
+    }
 
     const uploadimages = async(e)=>{
      e.preventDefault();
@@ -233,7 +236,7 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, }) =>{
       
       imageRef.current?.onload = () =>{
         imageRef.current.crossOrigin = "Anonymous";
-        contexts?.drawImage(imageRef.current, 100, 100)
+        contexts?.drawImage(imageRef.current, 0, 0, canvas.width, canvas.height)
         }
 
       const colors = document.getElementsByClassName('color');
@@ -386,6 +389,8 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, }) =>{
 
     return(
         <>
+
+
 
               {/* <video controls ref={videoRef}></video> */}
                {(userRole === APIs.roles[0])?
