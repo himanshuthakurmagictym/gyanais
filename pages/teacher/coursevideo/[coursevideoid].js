@@ -16,26 +16,36 @@ const Webcamerasforst = dynamic(
   () => import('../../../components/Fontend/Webcameras'),
   { ssr: false }
 )
+const Whiteboarddyn = dynamic(
+    () => import('../../../components/Fontend/Whiteboard'),
+    { ssr: false }
+  )
 
 
-
-function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbutton}) {
+function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbutton, recordingwhiteboard}) {
 
     const isuser = useAppContext();
     const roomid= videodetails._id;
     const [users, setusers] = useState([])
     const [userdetail, setUserDetail] = useState("");
+    
     const [handleclass, sethandleclass] = useState(handleclassbutton);
     const [socket, setSocket] = useState(null);
 
+
     useEffect(()=>{
         setSocket(io(APIs.base_url_home));
+       
        },[])
     
        useEffect(()=>{
         setUserDetail(isuser);
        
     },[isuser])
+
+    useEffect(()=>{
+      
+    },[handleclass])
 
     useEffect(()=>{
         
@@ -56,6 +66,7 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
        useEffect(()=>{
         socket?.on("receivedclassbutton", (data)=>{
             sethandleclass(data);
+          
         })
        },[socket])
 
@@ -63,14 +74,18 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
         <>
   <Brudcrums />
                 <section className="testimonials2 topbrumb" id="testimonials2-e"> 
-               <div className="container-fluid">
+
+                
+             
+               <div className="container-fluid"  id="screenrecorder">
                 
                             <div className="row justify-content-center">  
-                                       
+                                         
                               <div className="card col-12 col-md-9">
+                             
                                <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">{videodetails.video_title} </h2>
                                  <div className='whiteboardmain'>
-                                  <Whiteboard socket={socket} roomid={videodetails._id} userRole={roles} coursevideoid={coursevideoid}/>   
+                                  <Whiteboarddyn socket={socket} roomid={videodetails._id} userRole={roles} coursevideoid={coursevideoid}/>   
                                   </div>  
                             </div>
                               <div className="card col-12 col-md-3">
@@ -85,6 +100,7 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
                               </div> 
                           </div>                                         
                 </div>
+                
             </section>           
         </>
     )
@@ -147,7 +163,8 @@ export const getServerSideProps = async (context) =>{
                         userid: context.req.cookies['cid'],
                         coursevideoid,
                         roles: context.req.cookies['role'],
-                        handleclassbutton: datas.data.handleclassbutton
+                        handleclassbutton: datas.data.handleclassbutton,
+                        recordingwhiteboard: datas.data.recordedVideo
                     }
                 }
 

@@ -3,19 +3,26 @@ import APIs from '../../config';
 import Image from 'next/image';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+// import RecordRTC, { invokeSaveAsDialog } from 'recordrtc';
 // import io from 'socket.io-client';
+let mediaRecorder = null
+let dataChunks = []
 
-
-const Whiteboard = ({socket, roomid, userRole, coursevideoid}) =>{
+const Whiteboard = ({socket, roomid, userRole, coursevideoid, }) =>{
     const canvasRef = useRef(null);
+    const imageRef = useRef(null);
       const widref = useRef(null);  
     const colorsRef = useRef(null);
+    const videoRef = useRef();
     const socketRef = useRef();
+    const [screenrecording, setScreenrecording] = useState(0);
     const [pdffile, setFile] = useState("");
     const [allimages, setAllimages] = useState("");
     const [slidetime, setslidetime] = useState(0);
-    
+ 
     const [pdffiledetails, setpdffiledetails] = useState("");
+    const [screenStream, setscreenStream] = useState();
+    const [voiceStream, setvoiceStream] = useState();
     // const recordWebcam = useRecordWebcam();
     const notify = (data)=>{
       if(data.status_code === 200){
@@ -26,6 +33,96 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid}) =>{
           toast.error(data.message,{autoClose:2000});
       }
     }
+
+    
+   
+ const startrecording = (e)=>{
+   
+      navigator.mediaDevices?.getUserMedia({
+          audio: true
+          }).then((audiostream)=>{
+            setvoiceStream(audiostream);
+              // var canvas = document.getElementById('screenrecorder');
+             const canvasStream = canvasRef?.current?.captureStream();
+                setscreenStream(canvasStream);
+              })
+                //  var finalStream = new MediaStream();
+                //  getTracks(audiostream, 'audio').forEach(function(track) {
+                //      finalStream.addTrack(track);
+                //  });
+                //  getTracks(canvasStream, 'video').forEach(function(track) {
+                //      finalStream.addTrack(track);
+                //  }); 
+
+                // let mediaStream
+                // mediaStream = new MediaStream([
+                //   ...screenStream?.getVideoTracks(),
+                //   // ...voiceStream.getAudioTracks()
+                // ])
+
+         
+
+        
+          
+          // var recorder = new RecordRTC(finalStream, {
+          //     type: 'video'
+          // });
+          // recorder.startRecording();
+      //database update entery   
+  }
+
+ useEffect(()=>{
+  let mediaStream;
+  if (screenStream && voiceStream && !mediaRecorder) {
+    console.log('it is present')
+    mediaStream = new MediaStream([
+      ...screenStream.getVideoTracks(),
+      ...voiceStream.getAudioTracks()
+    ])
+
+        setScreenrecording(1)
+        // mediaRecorder instance
+        mediaRecorder = new MediaRecorder(mediaStream)
+        mediaRecorder.ondataavailable = ({ data }) => {
+          dataChunks.push(data)
+          socketRef.current.emit('screenData:start', {
+            data
+          })
+        }
+        mediaRecorder.onstop = stoprecording
+        mediaRecorder.start(250)
+
+  }
+
+ 
+
+ },[screenStream, voiceStream])
+
+
+    const stoprecording = ()=>{
+        console.log("stop recording")
+        // socketRef.current.emit('screenData:end', username.current)
+
+        const videoBlob = new Blob(dataChunks, {
+          type: 'video/webm'
+        })
+        
+        const videoSrc = URL.createObjectURL(videoBlob)
+        console.log(videoSrc)
+        videoRef.current.src = videoSrc
+        mediaRecorder = null
+        dataChunks = []
+    }
+
+   
+
+    useEffect(()=>{
+   
+      window.addEventListener('onbeforeunload', (event) => {
+        event.returnValue = `Are you sure you want to leave?`;
+      });
+
+    }, [])
 
     const uploadimages = async(e)=>{
      e.preventDefault();
@@ -57,8 +154,8 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid}) =>{
     const sendpdffile = async(e)=>{
        e.preventDefault();
        setFile(e.target.files[0])
-       console.log(e.target.files[0])
-       console.log("pdf upload")
+      //  console.log(e.target.files[0])
+      //  console.log("pdf upload")
        const URLS = APIs.base_url+"teacher/videoPdfUpload/uploadfile";
       const body = new FormData();
         body.append("pdfName", e.target.files[0]);
@@ -105,14 +202,12 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid}) =>{
 
     useEffect(()=>{
       socket?.emit("backgroundimage",{roomid, slidetime});
-      
-    
     },[slidetime])
     
     useEffect(() => {
 
       socket?.on("handlebackgroundimage", slidetime=>{
-        console.log(slidetime)
+      
           if(userRole === APIs.roles[1]){
             setslidetime(slidetime)
           }
@@ -129,14 +224,18 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid}) =>{
       
   
       // --------------- getContext() method returns a drawing context on the canvas-----
-        const parentref = widref.current;
-  
+ 
       const canvas = canvasRef.current;
       const test = colorsRef.current;
       const contexts = canvas.getContext('2d');
-   
+
       // ----------------------- Colors --------------------------------------------------
-  
+      
+      imageRef.current?.onload = () =>{
+        imageRef.current.crossOrigin = "Anonymous";
+        contexts?.drawImage(imageRef.current, 100, 100)
+        }
+
       const colors = document.getElementsByClassName('color');
       // console.log(colors, 'the colors');
       // console.log(test);
@@ -287,19 +386,17 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid}) =>{
 
     return(
         <>
-               
-               {/* <div className="imagesincanvas">
-               {allimages?allimages.map((pdfImages, setslideimage)=>(
-                       <Image className="imageincanvas" loader={GraphCMSImageLoader} src={`${APIs.base_url_home}${pdfImages.imagePath}`}  width="500" height="500" /> 
-                 )
-                ):""}
-               </div> */}
-                       
-                       {/* <Image className="imageincanvas" loader={GraphCMSImageLoader} src={`${APIs.base_url_home}${allimages[0].imagePath}`}  width="500" height="500" />  */}
-          
-           
-              
-                <canvas ref={canvasRef} className="whiteboard" style={{
+
+              {/* <video controls ref={videoRef}></video> */}
+               {(userRole === APIs.roles[0])?
+
+              <button className='btn-success ' onClick={e=>{screenrecording == 0?startrecording():stoprecording()}}>{screenrecording == 0?"Start Recording":"Stop Recording"}</button>
+
+              :""}
+             
+                <img className="imagehide" ref={imageRef} src={`${APIs.base_url_home}${allimages?allimages[slidetime].imagePath:""}`} width="100" height="100" alt="test" />
+
+                {/* <canvas ref={canvasRef} className="whiteboard" style={{
                           backgroundImage: `url(${APIs.base_url_home}${allimages?allimages[slidetime].imagePath:""})`,
                           width:"100%",
                           height:"100%",
@@ -307,6 +404,10 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid}) =>{
                           backgroundPosition: 'center',
                           backgroundSize: 'contain',
                       }}>
+
+                      
+                </canvas> */}
+                <canvas ref={canvasRef} className="whiteboard" >   
                 </canvas>
                 
                {(userRole === APIs.roles[0])?
