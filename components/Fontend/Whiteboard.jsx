@@ -5,8 +5,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import RecordRTC, { invokeSaveAsDialog } from 'recordrtc';
 // import io from 'socket.io-client';
-let mediaRecorder = null
-let dataChunks = []
+let mediaRecorder = null;
+let dataChunks = [];
 
 const Whiteboard = ({socket, roomid, userRole, coursevideoid, }) =>{
     const canvasRef = useRef(null);
@@ -63,9 +63,7 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, }) =>{
         
         mediaRecorder.ondataavailable = ({ data }) => {
           dataChunks.push(data)
-          socketRef.current.emit('screenData:start', {
-            data
-          })
+          socketRef.current.emit('screenData:start', {data, roomid})
         }
         // mediaRecorder.onstop = stoprecording
         mediaRecorder.start(250)
@@ -88,7 +86,7 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, }) =>{
 
     const stoprecording = ()=>{
         console.log("stop recording")
-        // socketRef.current.emit('screenData:end', username.current)
+        socketRef?.current.emit('screenData:end', {roomid})
         setScreenrecording(0);
         mediaRecorder?.stop();
        
