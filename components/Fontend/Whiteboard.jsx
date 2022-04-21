@@ -18,6 +18,7 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, }) =>{
     const [screenrecording, setScreenrecording] = useState(0);
     const [pdffile, setFile] = useState("");
     const [allimages, setAllimages] = useState("");
+    const [mediaRecorderstatus, setmediaRecorderstatus] = useState("");
     const [slidetime, setslidetime] = useState(0);
  
     const [pdffiledetails, setpdffiledetails] = useState("");
@@ -46,35 +47,11 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, }) =>{
              const canvasStream = canvasRef?.current?.captureStream();
                 setscreenStream(canvasStream);
               })
-                //  var finalStream = new MediaStream();
-                //  getTracks(audiostream, 'audio').forEach(function(track) {
-                //      finalStream.addTrack(track);
-                //  });
-                //  getTracks(canvasStream, 'video').forEach(function(track) {
-                //      finalStream.addTrack(track);
-                //  }); 
-
-                // let mediaStream
-                // mediaStream = new MediaStream([
-                //   ...screenStream?.getVideoTracks(),
-                //   // ...voiceStream.getAudioTracks()
-                // ])
-
-         
-
-        
-          
-          // var recorder = new RecordRTC(finalStream, {
-          //     type: 'video'
-          // });
-          // recorder.startRecording();
-      //database update entery   
   }
 
  useEffect(()=>{
   let mediaStream;
   if (screenStream && voiceStream && !mediaRecorder) {
-    console.log('it is present')
     mediaStream = new MediaStream([
       ...screenStream.getVideoTracks(),
       ...voiceStream.getAudioTracks()
@@ -83,15 +60,25 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, }) =>{
         setScreenrecording(1)
         // mediaRecorder instance
         mediaRecorder = new MediaRecorder(mediaStream)
+        
         mediaRecorder.ondataavailable = ({ data }) => {
           dataChunks.push(data)
           socketRef.current.emit('screenData:start', {
             data
           })
         }
-        mediaRecorder.onstop = stoprecording
+        // mediaRecorder.onstop = stoprecording
         mediaRecorder.start(250)
+        setmediaRecorderstatus(mediaRecorder.state)
 
+       
+       
+       
+
+  }else{
+    mediaRecorder?.stop();
+    mediaStream?.stop();
+    
   }
 
  
@@ -102,14 +89,16 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, }) =>{
     const stoprecording = ()=>{
         console.log("stop recording")
         // socketRef.current.emit('screenData:end', username.current)
-
+        setScreenrecording(0);
+        mediaRecorder?.stop();
+       
+        setmediaRecorderstatus(mediaRecorder.state)
         const videoBlob = new Blob(dataChunks, {
           type: 'video/webm'
         })
         
-        const videoSrc = URL.createObjectURL(videoBlob)
-        console.log(videoSrc)
-        videoRef.current.src = videoSrc
+        // const videoSrc = URL.createObjectURL(videoBlob)
+        // videoRef.current.src = videoSrc
         mediaRecorder = null
         dataChunks = []
     }
@@ -246,7 +235,7 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, }) =>{
       const current = {
         color: 'black',
       };
-   
+      
       // helper that will update the current color
       const onColorUpdate = (e) => {
         current.color = e.target.className.split(' ')[1];
@@ -265,9 +254,14 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, }) =>{
         contexts.moveTo(x0, y0);
         contexts.lineTo(x1, y1);
         contexts.strokeStyle = color;
+      
         if(color == 'white'){
-          contexts.lineWidth = 50;
+          // contexts.lineWidth = 50;      
+           contexts.clearRect(0, 0, canvas.width, canvas.height)
+            imageRef.current.crossOrigin = "Anonymous";
+            contexts?.drawImage(imageRef.current, 0, 0, canvas.width, canvas.height)   
         }else{
+        
         contexts.lineWidth = 2;
         }
         contexts.stroke();
@@ -393,10 +387,12 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, }) =>{
 
 
               {/* <video controls ref={videoRef}></video> */}
+              
                {(userRole === APIs.roles[0])?
-
+              <>
               <button className='btn-success ' onClick={e=>{screenrecording == 0?startrecording():stoprecording()}}>{screenrecording == 0?"Start Recording":"Stop Recording"}</button>
-
+              {mediaRecorderstatus?<div className="recordingbox">{mediaRecorderstatus}</div> :""}
+                </>
               :""}
              
                 <img className="imagehide" ref={imageRef} src={`${APIs.base_url_home}${allimages?allimages[slidetime].imagePath:""}`} width="100" height="100" alt="test" />
@@ -424,7 +420,7 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, }) =>{
                                 <div className="color blue" />
                                 <div className="color yellow" />
                                 <div className="color white" />   
-
+                                
 
                                 <div className="rightSide-color">
                                     <div className='leftslider' onClick={leftslide}>

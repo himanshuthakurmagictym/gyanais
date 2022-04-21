@@ -22,7 +22,7 @@
   .color.green { background-color: green; }
   .color.blue { background-color: blue; }
   .color.yellow { background-color: yellow; }
-  .color.white { background-color: white;  border-radius: 10px; border:1px solid black; box-shadow: 2px 2px 2px gray; margin-left: 20px; position: absolute;
+  .color.white {   border-radius: 10px; border:1px solid black; box-shadow: 2px 2px 2px gray; margin-left: 20px; position: absolute;
     background-image: url('/assets/images/eraser.png');
     background-size: 30px;
     background-position: center;
@@ -115,3 +115,9 @@
 .audioselect{padding: 0px 14px;}
 .classover{padding: 12em;}
 .imagehide{display:none;}
+.recordingbox{background: red;
+  color: white;
+  display: inline-block;
+  padding: 3px;
+  box-shadow: 2px 2px 2px grey;
+}
