@@ -14,7 +14,8 @@ const constraints = {
    audio: true,
 };
 
-
+let mediaRecorder = null;
+let dataChunks = [];
 
 function Webcameras({socket, roomid, userid, userRole, handleclassbutton}) {
  
@@ -30,6 +31,11 @@ const [audiovalue, setaudiovalue] =useState("")
 const [handleclass, sethandleclass] =useState(handleclassbutton)
 const [audioDevices, setaudioDevices] =useState([])
 // const [peerConnections, setpeerConnections] =useState([])
+const [screenrecording, setScreenrecording] = useState(0);
+const [mediaRecorderstatus, setmediaRecorderstatus] = useState("");
+const [screenStream, setscreenStream] = useState();
+const [voiceStream, setvoiceStream] = useState();
+
 const config = {
   iceServers: [
     {
@@ -61,7 +67,7 @@ useEffect(()=>{
     }).then(stream => {
       
       if(streamstart == 1){
-       
+      startrecording();
       videoscream.current.srcObject = stream;
       videoscream.current.volume = 0;
       socket.emit("broadcaster");
@@ -138,7 +144,7 @@ useEffect(()=>{
           videoscream.current.srcObject = null;
           router.reload()
         });
-
+        mediaRecorder?.stop();
         socket.on("disconnectPeer", id => {
           peerConnections[id].close();
           peerConnections[id] = null;
@@ -239,6 +245,63 @@ useEffect(()=>{
     setaudiovalue(0);
    }
   }
+
+   
+ const startrecording = (e)=>{
+   
+  navigator.mediaDevices?.getUserMedia({
+      audio: true
+      }).then((audiostream)=>{
+        setvoiceStream(audiostream);
+         const canvasStream = canvasRef?.current?.captureStream();
+            setscreenStream(canvasStream);
+          })
+}
+
+useEffect(()=>{
+let mediaStream;
+if (screenStream && voiceStream && !mediaRecorder) {
+mediaStream = new MediaStream([
+  ...screenStream.getVideoTracks(),
+  ...voiceStream.getAudioTracks()
+])
+
+    setScreenrecording(1)
+    // mediaRecorder instance
+    mediaRecorder = new MediaRecorder(mediaStream)
+    
+    mediaRecorder.ondataavailable = ({ data }) => {
+      dataChunks.push(data)
+      socketRef.current.emit('screenData:start', {data, roomid})
+    }
+    mediaRecorder.onstop = stoprecording
+    mediaRecorder.start(1000)
+    setmediaRecorderstatus(mediaRecorder.state)       
+
+}
+
+},[screenStream, voiceStream])
+
+
+const stoprecording = ()=>{
+    console.log("stop recording")
+    socketRef?.current.emit('screenData:end', {roomid})
+    setScreenrecording(0);
+    // mediaRecorder?.stop();
+   
+    setmediaRecorderstatus(mediaRecorder?.state)
+    const videoBlob = new Blob(dataChunks, {
+      type: 'video/webm'
+    })
+    
+    screenStream?.getTracks().forEach((track) => track?.stop());
+    voiceStream?.getTracks().forEach((track) => track?.stop());
+    // const videoSrc = URL.createObjectURL(videoBlob)
+    // videoRef.current.src = videoSrc
+    mediaRecorder = null
+    dataChunks = []
+}
+
   
 
     return (

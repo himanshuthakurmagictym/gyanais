@@ -43,7 +43,6 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, }) =>{
           audio: true
           }).then((audiostream)=>{
             setvoiceStream(audiostream);
-              // var canvas = document.getElementById('screenrecorder');
              const canvasStream = canvasRef?.current?.captureStream();
                 setscreenStream(canvasStream);
               })
@@ -66,7 +65,7 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, }) =>{
           socketRef.current.emit('screenData:start', {data, roomid})
         }
         mediaRecorder.onstop = stoprecording
-        mediaRecorder.start(250)
+        mediaRecorder.start(1000)
         setmediaRecorderstatus(mediaRecorder.state)       
 
   }
