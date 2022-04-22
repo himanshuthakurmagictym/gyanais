@@ -65,21 +65,11 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, }) =>{
           dataChunks.push(data)
           socketRef.current.emit('screenData:start', {data, roomid})
         }
-        // mediaRecorder.onstop = stoprecording
+        mediaRecorder.onstop = stoprecording
         mediaRecorder.start(250)
-        setmediaRecorderstatus(mediaRecorder.state)
+        setmediaRecorderstatus(mediaRecorder.state)       
 
-       
-       
-       
-
-  }else{
-    mediaRecorder?.stop();
-    mediaStream?.stop();
-    
   }
-
- 
 
  },[screenStream, voiceStream])
 
@@ -88,13 +78,15 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, }) =>{
         console.log("stop recording")
         socketRef?.current.emit('screenData:end', {roomid})
         setScreenrecording(0);
-        mediaRecorder?.stop();
+        // mediaRecorder?.stop();
        
-        setmediaRecorderstatus(mediaRecorder.state)
+        setmediaRecorderstatus(mediaRecorder?.state)
         const videoBlob = new Blob(dataChunks, {
           type: 'video/webm'
         })
         
+        screenStream?.getTracks().forEach((track) => track?.stop());
+	      voiceStream?.getTracks().forEach((track) => track?.stop());
         // const videoSrc = URL.createObjectURL(videoBlob)
         // videoRef.current.src = videoSrc
         mediaRecorder = null
@@ -388,7 +380,7 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, }) =>{
               
                {(userRole === APIs.roles[0])?
               <>
-              <button className='btn-success ' onClick={e=>{screenrecording == 0?startrecording():stoprecording()}}>{screenrecording == 0?"Start Recording":"Stop Recording"}</button>
+              <button className='btn-success ' onClick={e=>{screenrecording == 0?startrecording():mediaRecorder?.stop();}}>{screenrecording == 0?"Start Recording":"Stop Recording"}</button>
               {mediaRecorderstatus?<div className="recordingbox">{mediaRecorderstatus}</div> :""}
                 </>
               :""}
