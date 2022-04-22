@@ -67,7 +67,11 @@ useEffect(()=>{
     }).then(stream => {
       
       if(streamstart == 1){
-      startrecording();
+
+
+      setscreenStream(stream);
+
+
       videoscream.current.srcObject = stream;
       videoscream.current.volume = 0;
       socket.emit("broadcaster");
@@ -142,7 +146,7 @@ useEffect(()=>{
         stream.getTracks().forEach(function(track) {
           track.stop();
           videoscream.current.srcObject = null;
-          router.reload()
+          // router.reload()
         });
         mediaRecorder?.stop();
         socket.on("disconnectPeer", id => {
@@ -247,23 +251,14 @@ useEffect(()=>{
   }
 
    
- const startrecording = (e)=>{
-   
-  navigator.mediaDevices?.getUserMedia({
-      audio: true
-      }).then((audiostream)=>{
-        setvoiceStream(audiostream);
-         const canvasStream = canvasRef?.current?.captureStream();
-            setscreenStream(canvasStream);
-          })
-}
+ 
 
 useEffect(()=>{
 let mediaStream;
-if (screenStream && voiceStream && !mediaRecorder) {
+if (screenStream  && !mediaRecorder) {
 mediaStream = new MediaStream([
   ...screenStream.getVideoTracks(),
-  ...voiceStream.getAudioTracks()
+  // ...voiceStream.getAudioTracks()
 ])
 
     setScreenrecording(1)
@@ -272,7 +267,7 @@ mediaStream = new MediaStream([
     
     mediaRecorder.ondataavailable = ({ data }) => {
       dataChunks.push(data)
-      socketRef.current.emit('screenData:start', {data, roomid})
+      socket?.emit('camscreenData:start', {data, roomid})
     }
     mediaRecorder.onstop = stoprecording
     mediaRecorder.start(1000)
@@ -285,7 +280,7 @@ mediaStream = new MediaStream([
 
 const stoprecording = ()=>{
     console.log("stop recording")
-    socketRef?.current.emit('screenData:end', {roomid})
+    socket?.emit('camscreenData:end', {roomid})
     setScreenrecording(0);
     // mediaRecorder?.stop();
    
@@ -295,7 +290,7 @@ const stoprecording = ()=>{
     })
     
     screenStream?.getTracks().forEach((track) => track?.stop());
-    voiceStream?.getTracks().forEach((track) => track?.stop());
+    // voiceStream?.getTracks().forEach((track) => track?.stop());
     // const videoSrc = URL.createObjectURL(videoBlob)
     // videoRef.current.src = videoSrc
     mediaRecorder = null
