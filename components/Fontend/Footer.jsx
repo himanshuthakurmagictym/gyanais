@@ -6,8 +6,6 @@ function Footer() {
         
 <section className="footer1 cid-qKSj0s9f9b" id="footer3-a">
 
-    
-
 <div className="mbr-overlay footerlink" ></div>
 
 <div className="container">
