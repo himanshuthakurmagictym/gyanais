@@ -121,3 +121,8 @@
   padding: 3px;
   box-shadow: 2px 2px 2px grey;
 }
+.progressbarnew{
+  width: 48px;
+    margin-top: 17px;
+}
+progress::-webkit-progress-value { background: red; }
