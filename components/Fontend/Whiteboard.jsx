@@ -20,15 +20,21 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, }) =>{
     const [allimages, setAllimages] = useState("");
     const [mediaRecorderstatus, setmediaRecorderstatus] = useState("");
     const [slidetime, setslidetime] = useState(0);
- 
+    const [progressbar, setprogressbar] = useState("");
+    const [progressbarpercentage, setprogressbarpercentage] = useState("");
+    
     const [pdffiledetails, setpdffiledetails] = useState("");
     const [screenStream, setscreenStream] = useState();
     const [voiceStream, setvoiceStream] = useState();
     // const recordWebcam = useRecordWebcam();
+    //console.log(allimages)
     const notify = (data)=>{
-      if(data.status_code === 200){
-        // console.log(data);
-         
+     
+
+      if(data.status_Code === 200){
+       
+        setprogressbar(2);
+        setprogressbarpercentage(100);
           toast.success(data.message,{autoClose:2000});
       }else{
           toast.error(data.message,{autoClose:2000});
@@ -143,7 +149,8 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, }) =>{
         body.append("roomid", roomid);
         body.append("courseid", coursevideoid);
         body.append("videoid", roomid);
-       
+        setprogressbar(1);
+        setprogressbarpercentage(10);
 
       //console.log(sendmaildata);
       const result = await fetch(URLS,{
@@ -154,14 +161,17 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, }) =>{
           //    "Content-Type": "multipart/form-data",
           //   },
           body
-      }).then(res => res.json()).then(res  => notify(res)).catch(err => console.log(err)); 
+      }).then(res => res.json()).then(res=>notify(res)).catch(err => console.log(err)); 
 
     }
     
     const leftslide = ()=>{  
       const totoalslide = allimages.length;
+      // console.log(totoalslide);
         if(slidetime < totoalslide-1){  
+         
           setslidetime(slidetime + 1)
+          // console.log(slidetime);
         }else{
           if(slidetime = totoalslide){
             setslidetime(0)
@@ -171,11 +181,14 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, }) =>{
 
     const rightslide = ()=>{
       const totoalslide = allimages.length;
+      // console.log(totoalslide)
         if(slidetime == 0 ){  
           setslidetime(totoalslide-1)
+         
         }else{
           if(slidetime < totoalslide){ 
             setslidetime(slidetime - 1)
+            // console.log(slidetime);
           }
         }
        
@@ -376,7 +389,7 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, }) =>{
 
 
               {/* <video controls ref={videoRef}></video> */}
-              
+              <ToastContainer />
                {(userRole === APIs.roles[0])?
               <>
               <button className='btn-success ' onClick={e=>{screenrecording == 0?startrecording():mediaRecorder?.stop();}}>{screenrecording == 0?"Start Recording":"Stop Recording"}</button>
@@ -429,6 +442,9 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, }) =>{
                                       </div>
                                        :
                                        <div className="fileupload"> 
+                                       {progressbar == 1?
+                                       <progress className="progressbarnew" id="file" value={progressbarpercentage} max="100"></progress>
+                                       :""}
                                             <input type="file" onChange={(e)=>{sendpdffile(e)}} className='uploadfile'title='Upload'  accept=".pdf"/>
                                        </div>
                                        }
