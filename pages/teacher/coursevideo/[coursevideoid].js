@@ -73,7 +73,7 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
     return (
         <>
   <Brudcrums />
-                <section className="testimonials2 topbrumb" id="testimonials2-e"> 
+    <section className="testimonials2 topbrumb" id="testimonials2-e"> 
 
                 
              
@@ -101,7 +101,7 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
                           </div>                                         
                 </div>
                 
-            </section>           
+    </section>           
         </>
     )
 }

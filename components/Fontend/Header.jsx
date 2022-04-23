@@ -179,7 +179,7 @@ const handleRead = (notyid) => {
                       <a className="nav-link dropdown-item display-4" href="/student/setting">Setting</a>
                      </> : 
                      <>
-                      <a className="nav-link dropdown-item display-4" href="/teacher/dashboard"> Teacher Dashboard</a>
+                      <a className="nav-link dropdown-item display-4" href="/teacher/dashboard"> Dashboard</a>
                      <a className="nav-link dropdown-item display-4" href="/teacher/profile">Profile</a>
                     <a className="nav-link dropdown-item display-4" href="/teacher/setting">Setting</a>
                    </>

@@ -69,7 +69,7 @@ export const getServerSideProps = async (context) => {
     const { params } = context;
     const {democourseid } = params;
     
-     const res = await fetch(`${APIs.base_url}demodetails/${democourseid}`);
+    const res = await fetch(`${APIs.base_url}demodetails/${democourseid}`);
     const datas = await res.json()
     console.log(datas.data)
     
