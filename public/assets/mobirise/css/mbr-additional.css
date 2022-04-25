@@ -848,11 +848,13 @@ pre {
   padding: .5rem 1rem;
   margin-bottom: 1rem;
   border: 1px solid #efefef;
+  border-color: hsl(0, 0%, 80%)!important;
 }
 .input-main textarea {
   background-color: #ffffff;
   padding: .5rem 1rem;
   border: 1px solid #efefef;
+  border-color: hsl(0, 0%, 80%)!important;
   border-radius: 0;
 }
 .carousel-item.active,

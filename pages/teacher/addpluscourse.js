@@ -3,25 +3,87 @@ import SubmenuDashboard from "../../components/Teacher/SubmenuDashboard"
 import { parseCookies } from 'nookies'
 import APIs from '../../config.js';
 import { ToastContainer, toast } from 'react-toastify';
-
+import Select from 'react-select'
+import makeAnimated from 'react-select/animated';
 import 'react-toastify/dist/ReactToastify.css';
 import Image from 'next/image'
 import moment from 'moment';
 import Link from 'next/link'
 import React, {useState, useEffect} from 'react'
 import {useRouter } from "next/router"
-function addpluscourse() {
+const animatedComponents = makeAnimated();
+
+
+function addpluscourse({allcategory}) {
     const [courseName, setcourseName] = useState("");
     const [courseDescription, setcourseDescription]= useState("");
-    const [writtencontent, setwrittencontent]= useState("");
+    const [writtencontent, setwrittencontent]= useState([]);
     const [goal, setgoal]= useState("");
     const [topics, settopics]= useState("");
     const [coursetype, setcoursetype]= useState("");
     const [targetexams, settargetexams]= useState("");
     const [image, setimage]= useState("");
-    const [language, setlanguage]= useState("");
-    const addcourse = ()=>{
-        
+    const [language, setlanguage]= useState(null);
+    
+    const options = [
+        { value: 'Hindi', label: 'Hindi' },
+        { value: 'English', label: 'English' },
+        { value: 'Tamil', label: 'Tamil' },
+        { value: 'Spanish', label: 'Spanish' },
+        { value: 'French', label: 'French' }
+      ];
+
+  
+      const goalOptions = 
+        allcategory.map((x)=>{
+            x
+        })
+      ;
+
+    //   allcategory.forEach((x)=>{
+    //       {goalOptions['value'] = x.course_category_name, goalOptions['label'] = x.course_category_name}
+    //   })
+
+   
+
+    //   console.log(goalOptions.map(x=>x.course_category_name));
+    console.log(goalOptions);
+    console.log(options);
+
+      const topicOptions = [
+        { value: 'Hindi', label: 'Hindi' },
+        { value: 'English', label: 'English' },
+        { value: 'Tamil', label: 'Tamil' },
+        { value: 'Spanish', label: 'Spanish' },
+        { value: 'French', label: 'French' }
+      ]
+
+      const coursetypeOptions= [
+        { value: 'Crash Course', label: 'Crash Course' },
+        { value: 'Theorical Course', label: 'Theorical Course' },
+        { value: 'Practical course', label: 'Practical course' },
+      ]
+
+      const targetexamOptions = [
+        { value: 'Crash Course', label: 'Crash Course' },
+        { value: 'Theorical Course', label: 'Theorical Course' },
+        { value: 'Practical course', label: 'Practical course' },
+      ]
+    const addCourse = (e)=>{
+        e.preventDefault();
+       const handleFormfield = JSON.stringify({
+        courseName,
+        courseDescription,
+        writtencontent,
+        goal,
+        topics,
+        coursetype,
+        targetexams,
+        language,
+        image,
+       })
+       
+       console.log(handleFormfield);
     }
 
   return (
@@ -45,7 +107,7 @@ function addpluscourse() {
                     <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">Add Course</h2>
                     <ToastContainer />
                    
-                    <form className="mbr-form"  data-form-title="My Mobirise Form" onSubmit={addcourse} method="POST">
+                    <form className="mbr-form"  data-form-title="My Mobirise Form" onSubmit={addCourse} method="POST">
                        
                         <div className="row input-main">
                             <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
@@ -61,53 +123,75 @@ function addpluscourse() {
                         </div>
 
                         <div className="row input-main">
-                            <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
-                                <input type="text" className="field display-7" name="email" placeholder="Enter Spoken Language"  value={language} onChange={(e)=>{setlanguage(e.target.value)}} required="" id="firstname-form2-7"/>
+                            <div className="col-md-12 col-lg-12 input-wrap" >
+                               
+                                {/* <select className="custom-select display-7" value={language} onChange={(e)=>{setlanguage(e.target.value)}} required="" id="firstname-form2-7">
+                                <option selected> Select Language </option>
+                                    <option >English</option>
+                                    <option value="hindi">Hindi</option>
+                                    <option value="Punjabi">Punjabi</option>
+                                    <option value="Tamil" >Tamil</option>
+                                    <option value="French">French</option>
+                                    <option value="Spanish">Spanish</option>
+                                </select> */}
+                               
+                                <Select   isSearchable className=" field display-7" placeholder="Select Language" defaultValue={language} onChange={(e)=>{setlanguage(e.value)}} options={options} components={animatedComponents} id="firstname-form2-7"/>
+ 
                             </div>
+                            
+
+                                       
+                        </div>
+                                
+                        <div className="row input-main">
+                            <div className="col-md-12 col-lg-12 input-wrap" >                               
+                                <Select options={options} value={options.filter(obj => writtencontent.includes(obj.value))} onChange={(e)=>{setwrittencontent(Array.isArray(e) ? e.map(x => x.value) : [])}} isMulti isSearchable className=" field display-7" placeholder="Written Content/Slide Language"  components={animatedComponents}  id="firstname-form2-7"/>
+                            </div>
+
                             
                                        
                         </div>
 
                         <div className="row input-main">
                             <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
-                                <input type="text" className="field display-7" name="email" placeholder="Enter Written Content"  value={writtencontent} onChange={(e)=>{setwrittencontent(e.target.value)}} required="" id="firstname-form2-7"/>
+                                {/* <input type="text" className="field display-7" name="email" placeholder="Enter Select A Goal "  value={goal} onChange={(e)=>{setgoal(e.target.value)}} required="" id="firstname-form2-7"/> */}
+                                <Select options={goalOptions} defaultValue={goal} onChange={(e)=>{setgoal(e.value)}} isSearchable className=" field display-7"  id="firstname-form2-7"  components={animatedComponents} placeholder="Select a goal"/>
                             </div>
                                        
                         </div>
 
                         <div className="row input-main">
                             <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
-                                <input type="text" className="field display-7" name="email" placeholder="Enter Select A Goal "  value={goal} onChange={(e)=>{setgoal(e.target.value)}} required="" id="firstname-form2-7"/>
+                                {/* <input type="text" className="field display-7" name="email" placeholder="Enter Topics "  value={topics} onChange={(e)=>{settopics(e.target.value)}} required="" id="firstname-form2-7"/> */}
+                                <Select options={topicOptions} value={topicOptions.filter(ob => topics.includes(ob.value))} isMulti onChange={(e)=>{settopics(Array.isArray(e)? e.map(x=>x.value): [])}}  isSearchable className=" field display-7"  id="firstname-form2-7"  components={animatedComponents} placeholder="Select a Topics"/>
                             </div>
                                        
                         </div>
 
                         <div className="row input-main">
                             <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
-                                <input type="text" className="field display-7" name="email" placeholder="Enter Topics "  value={topics} onChange={(e)=>{settopics(e.target.value)}} required="" id="firstname-form2-7"/>
+                                {/* <input type="text" className="field display-7" name="email" placeholder="Enter Coursetype "  value={coursetype} onChange={(e)=>{setcoursetype(e.target.value)}} required="" id="firstname-form2-7"/> */}
+                                <Select options={coursetypeOptions} defaultValue={coursetype} isSearchable className=" field display-7"  id="firstname-form2-7" name="coursetype"  components={animatedComponents} onChange={(e)=>{setcoursetype(e.value)}}  placeholder="Course Type"/>
                             </div>
                                        
                         </div>
 
                         <div className="row input-main">
                             <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
-                                <input type="text" className="field display-7" name="email" placeholder="Enter Coursetype "  value={coursetype} onChange={(e)=>{setcoursetype(e.target.value)}} required="" id="firstname-form2-7"/>
-                            </div>
-                                       
-                        </div>
-
-                        <div className="row input-main">
-                            <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
-                                <input type="text" className="field display-7" name="email" placeholder="Enter targetexams "  value={targetexams} onChange={(e)=>{settargetexams(e.target.value)}} required="" id="firstname-form2-7"/>
+                               
+                                <Select options={targetexamOptions} value={targetexamOptions.filter(ob => targetexams.includes(ob.value))} onChange={(e)=>{settargetexams(Array.isArray(e)? e.map(x=>x.value): [])}} isSearchable className=" field display-7"  id="firstname-form2-7" name="coursetype"  components={animatedComponents}  placeholder="Target Exams"/>
                             </div>
                                        
                         </div>
 
                         <div className="row input-main">
                         
-                            <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
+                            <div className="col-md-12 col-lg-12 input-wrap " >
                                 
-                                <input type="file" className="field display-7" name="image" placeholder="First Name" data-form-field="First Name" accept="image/*"  onChange={(e)=>{setimage(e.target.files[0])}} required="" id="firstname-form2-7"/>
+                                <div className=" custom-file">
+                                    <input type="file" className="custom-file-input" id="customFile" />
+                                    <label className="custom-file-label" name="image" for="customFile" accept="image/*"  onChange={(e)=>{setimage(e.target.files[0])}}>Choose Preview Image</label>
+                                </div>
                             </div>
                                        
                         </div>
@@ -144,3 +228,19 @@ function addpluscourse() {
 }
 
 export default addpluscourse
+
+export async function getServerSideProps(context){
+    const alldatass =  await fetch(APIs.base_url+'courseCategory/detailsCategory')
+   
+    const allcategory =  await alldatass.json()
+    //console.log(allcategory.data)
+  
+    {
+        return {
+            props: {
+                allcategory: allcategory.data,
+            },
+
+        }
+    }
+} 

@@ -126,3 +126,10 @@
     margin-top: 17px;
 }
 progress::-webkit-progress-value { background: red; }
+.custom-select, .custom-file, .css-b62m3t-container{
+  margin-bottom: 1rem;
+}
+textarea{resize: none;}
+.custom-file-label, .custom-file-input{
+  z-index:0!important;
+}
