@@ -14,11 +14,12 @@ import {useRouter } from "next/router"
 const animatedComponents = makeAnimated();
 
 
-function addpluscourse({allcategory}) {
+function addpluscourse({allcategory, teacherid}) {
     const [courseName, setcourseName] = useState("");
     const [courseDescription, setcourseDescription]= useState("");
     const [writtencontent, setwrittencontent]= useState([]);
     const [goal, setgoal]= useState("");
+    const [categoryid, setcategoryid]= useState("");
     const [topics, settopics]= useState("");
     const [coursetype, setcoursetype]= useState("");
     const [targetexams, settargetexams]= useState("");
@@ -35,8 +36,9 @@ function addpluscourse({allcategory}) {
 
       const goalOptions= [];
       allcategory.forEach((x)=>{
-         goalOptions.push({value:x.course_category_name, label:x.course_category_name}) 
+         goalOptions.push({value:x.course_category_name, label:x.course_category_name, categoryid:x._id}) 
       })
+    //   console.log(goal)
       const topicOptions = [
         { value: 'Hindi', label: 'Hindi' },
         { value: 'English', label: 'English' },
@@ -81,13 +83,14 @@ function addpluscourse({allcategory}) {
        body.append("targetexams", targetexams);
        body.append("language", language);
        body.append("coursePreview", image);
-       console.log(body);
+       body.append("teacherid", teacherid);
+       body.append("categoryid", categoryid);
 
        await fetch(APIs.base_url+'teacher/addcourse', {
         method:"POST",
-        headers: {
-            "Content-Type": "multipart/form-data",
-          },
+        // headers: {
+        //     "Content-Type": "multipart/form-data",
+        //   },
         body,
        }).then(res=>res.json()).then(res=>notify(res)).catch(err=>console.log(err));
        
@@ -112,6 +115,13 @@ function addpluscourse({allcategory}) {
                          <div className="row"> 
                             <div className="col-md-3">
                                 <SubmenuDashboard />
+                                <div className="row">
+                                    <div className="col-md-12 col-lg-12 mt-3 input-wrap text-center" >
+                                        <h2 className="mbr-section-title mbr-fonts-style pb-3 display-5">Course Image Preview</h2>
+                                         <Image src={image?URL.createObjectURL(image):'/assets/images/imageupload.png'} width={200} height={200} alt="avatar"/>
+                                
+                                    </div>
+                                 </div> 
                             </div>
 
                             <div className=" col-md-9">
@@ -169,7 +179,7 @@ function addpluscourse({allcategory}) {
 
                         <div className="row input-main">
                             <div className="col-md-12 col-lg-12 input-wrap">
-                                <Select options={goalOptions} defaultValue={goal} onChange={(e)=>{setgoal(e.value)}} isSearchable className=" field display-7"  id="firstname-form2-7"  components={animatedComponents} placeholder="Select a goal"/>
+                                <Select options={goalOptions} defaultValue={goal} onChange={(e)=>{setgoal(e.value),setcategoryid(e.categoryid)}} isSearchable className=" field display-7"  id="firstname-form2-7"  components={animatedComponents} placeholder="Select a goal"/>
                             </div>
                                        
                         </div>
@@ -204,7 +214,7 @@ function addpluscourse({allcategory}) {
                                 
                                 <div className=" custom-file">
                                     <input type="file" className="custom-file-input" id="customFile" accept="image/*"  onChange={(e)=>{setimage(e.target.files[0])}} />
-                                    <label className="custom-file-label" name="image" for="customFile" >Choose Preview Image</label>
+                                    <label className="custom-file-label" name="image" for="customFile" >Choose Course Image Preview </label>
                                 </div>
                             </div>
                                        
@@ -253,6 +263,7 @@ export async function getServerSideProps(context){
         return {
             props: {
                 allcategory: allcategory.data,
+                teacherid: context.req.cookies['cid']
             },
 
         }
