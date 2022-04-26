@@ -83,13 +83,22 @@ function addpluscourse({allcategory}) {
        body.append("coursePreview", image);
        console.log(body);
 
-       await fetch(APIs.base_url, {
+       await fetch(APIs.base_url+'teacher/addcourse', {
         method:"POST",
         headers: {
             "Content-Type": "multipart/form-data",
           },
         body,
        }).then(res=>res.json()).then(res=>notify(res)).catch(err=>console.log(err));
+       
+       const notify = (data)=>{
+        if(data.status_code === 200){
+            toast.success(data.message,{autoClose:2000});
+        }else{
+            toast.error(data.message,{autoClose:2000});
+        }
+      }
+
     }
 
   return (
