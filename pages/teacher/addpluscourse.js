@@ -14,17 +14,26 @@ import {useRouter } from "next/router"
 const animatedComponents = makeAnimated();
 
 
-function addpluscourse({allcategory, teacherid}) {
+function addpluscourse({allcategory, teacherid, allsubcategories}) {
     const [courseName, setcourseName] = useState("");
     const [courseDescription, setcourseDescription]= useState("");
     const [writtencontent, setwrittencontent]= useState([]);
     const [goal, setgoal]= useState("");
     const [categoryid, setcategoryid]= useState("");
-    const [topics, settopics]= useState("");
+    const [topics, settopics]= useState([]);
     const [coursetype, setcoursetype]= useState("");
     const [targetexams, settargetexams]= useState("");
     const [image, setimage]= useState("");
     const [language, setlanguage]= useState(null);
+    
+    const notify = (data)=>{
+        console.log(data);
+     if(data.status_code === 200){
+         toast.success(data.message,{autoClose:2000});
+     }else{
+         toast.error(data.message,{autoClose:2000});
+     }
+   }
     
     const options = [
         { value: 'Hindi', label: 'Hindi' },
@@ -39,13 +48,15 @@ function addpluscourse({allcategory, teacherid}) {
          goalOptions.push({value:x.course_category_name, label:x.course_category_name, categoryid:x._id}) 
       })
     //   console.log(goal)
-      const topicOptions = [
-        { value: 'Hindi', label: 'Hindi' },
-        { value: 'English', label: 'English' },
-        { value: 'Tamil', label: 'Tamil' },
-        { value: 'Spanish', label: 'Spanish' },
-        { value: 'French', label: 'French' }
-      ]
+    var topicOptions = [];
+    useEffect(()=>{
+         allsubcategories.forEach((x)=>{      
+            if(x.categoryid == categoryid){
+                (topicOptions.push({value:x.subcategory_name, label:x.subcategory_name, subcategoryid:x._id}))
+            }
+        })
+      },[][categoryid])
+      
 
       const coursetypeOptions= [
         { value: 'Crash Course', label: 'Crash Course' },
@@ -60,6 +71,8 @@ function addpluscourse({allcategory, teacherid}) {
         { value: 'Spanish', label: 'Spanish' },
         { value: 'French', label: 'French' }
       ]
+
+      
     const addCourse = async(e)=>{
         e.preventDefault();
     //    const handleFormfield = JSON.stringify({
@@ -94,19 +107,14 @@ function addpluscourse({allcategory, teacherid}) {
         body,
        }).then(res=>res.json()).then(res=>notify(res)).catch(err=>console.log(err));
        
-       const notify = (data)=>{
-        if(data.status_code === 200){
-            toast.success(data.message,{autoClose:2000});
-        }else{
-            toast.error(data.message,{autoClose:2000});
-        }
-      }
+     
 
     }
 
   return (
     <>
     <Brudcrums/>
+    <ToastContainer />
         <section className="testimonials2 cid-qKSrnk6eVJ" id="testimonials2-e">
             <div className="container">   
                 <div className="row justify-content-center pt-2"> 
@@ -130,7 +138,7 @@ function addpluscourse({allcategory, teacherid}) {
             <div className="row main-row">
                 <div className="col-sm-12 col-lg-12 col-md-12 form-container" data-form-type="formoid">
                     <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">Add Course</h2>
-                    <ToastContainer />
+                   
                    
                     <form className="mbr-form"  data-form-title="My Mobirise Form" onSubmit={addCourse} method="POST">
                        
@@ -183,11 +191,11 @@ function addpluscourse({allcategory, teacherid}) {
                             </div>
                                        
                         </div>
-
+                       
                         <div className="row input-main">
                             <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
                                 {/* <input type="text" className="field display-7" name="email" placeholder="Enter Topics "  value={topics} onChange={(e)=>{settopics(e.target.value)}} required="" id="firstname-form2-7"/> */}
-                                <Select options={topicOptions} value={topicOptions.filter(ob => topics.includes(ob.value))} isMulti onChange={(e)=>{settopics(Array.isArray(e)? e.map(x=>x.value): [])}}  isSearchable className=" field display-7"  id="firstname-form2-7"  components={animatedComponents} placeholder="Select a Topics"/>
+                                <Select options={topicOptions} defaultValue={topicOptions?.filter(ob => topics?.includes(ob.value))} isMulti onChange={(e)=>{settopics(Array.isArray(e)? e.map(x=>x.value): [])}}  isSearchable className=" field display-7"  id="firstname-form2-7"  components={animatedComponents} placeholder="Select a Topics"/>
                             </div>
                                        
                         </div>
@@ -254,16 +262,19 @@ function addpluscourse({allcategory, teacherid}) {
 export default addpluscourse
 
 export async function getServerSideProps(context){
-    const alldatass =  await fetch(APIs.base_url+'courseCategory/detailsCategory')
+    const alldatass =  await fetch(APIs.base_url+'courseCategory/detailsCategory');
+    const allsubcategories =  await fetch(APIs.base_url+'courseCategory/getsubCategory');
    
     const allcategory =  await alldatass.json()
-    //console.log(allcategory.data)
+    const Getallsubcategories =  await allsubcategories.json()
+   
   
     {
         return {
             props: {
                 allcategory: allcategory.data,
-                teacherid: context.req.cookies['cid']
+                teacherid: context.req.cookies['cid'],
+                allsubcategories: Getallsubcategories.data
             },
 
         }
