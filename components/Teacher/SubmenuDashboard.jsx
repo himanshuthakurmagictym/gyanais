@@ -9,6 +9,7 @@ function SubmenuDashboard() {
                                         <ul>
                                             <a href="/teacher/mySchedule"><li>My Schedule</li></a>
                                             <a href="/teacher/addpluscourse"><li>Add Plus Course</li></a>
+                                            <a href="/teacher/allpluscourse"><li>All Plus Course</li></a>
                                             <a href="/teacher/addfreeclass"><li>Add Free Class </li></a>
                                             <a href="/teacher/addplusclass"><li>Add paid Class</li></a>
                                             <a href="/teacher/uploadMCQ"><li>Upload MCQ</li></a>
