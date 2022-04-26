@@ -37,7 +37,7 @@ function Avatar() {
           headers: {
               "Content-Type": "multipart/form-data",
             },
-          body:sendmaildata
+          body
       }).then(res => res.json()).then(res  => notify(res)).catch(err => console.log(err)); 
   }
     return (

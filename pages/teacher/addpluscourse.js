@@ -33,23 +33,10 @@ function addpluscourse({allcategory}) {
         { value: 'French', label: 'French' }
       ];
 
-  
-      const goalOptions = 
-        allcategory.map((x)=>{
-            x
-        })
-      ;
-
-    //   allcategory.forEach((x)=>{
-    //       {goalOptions['value'] = x.course_category_name, goalOptions['label'] = x.course_category_name}
-    //   })
-
-   
-
-    //   console.log(goalOptions.map(x=>x.course_category_name));
-    console.log(goalOptions);
-    console.log(options);
-
+      const goalOptions= [];
+      allcategory.forEach((x)=>{
+         goalOptions.push({value:x.course_category_name, label:x.course_category_name}) 
+      })
       const topicOptions = [
         { value: 'Hindi', label: 'Hindi' },
         { value: 'English', label: 'English' },
@@ -65,25 +52,44 @@ function addpluscourse({allcategory}) {
       ]
 
       const targetexamOptions = [
-        { value: 'Crash Course', label: 'Crash Course' },
-        { value: 'Theorical Course', label: 'Theorical Course' },
-        { value: 'Practical course', label: 'Practical course' },
+        { value: 'Hindi', label: 'Hindi' },
+        { value: 'English', label: 'English' },
+        { value: 'Tamil', label: 'Tamil' },
+        { value: 'Spanish', label: 'Spanish' },
+        { value: 'French', label: 'French' }
       ]
-    const addCourse = (e)=>{
+    const addCourse = async(e)=>{
         e.preventDefault();
-       const handleFormfield = JSON.stringify({
-        courseName,
-        courseDescription,
-        writtencontent,
-        goal,
-        topics,
-        coursetype,
-        targetexams,
-        language,
-        image,
-       })
-       
-       console.log(handleFormfield);
+    //    const handleFormfield = JSON.stringify({
+    //     courseName,
+    //     courseDescription,
+    //     writtencontent,
+    //     goal,
+    //     topics,
+    //     coursetype,
+    //     targetexams,
+    //     language,
+    //     image,
+    //    })
+       const body = new FormData();
+       body.append("courseName", courseName);
+       body.append("courseDescription", courseDescription);
+       body.append("writtencontent", writtencontent);
+       body.append("goal", goal);
+       body.append("topics", topics);
+       body.append("coursetype", coursetype);
+       body.append("targetexams", targetexams);
+       body.append("language", language);
+       body.append("coursePreview", image);
+       console.log(body);
+
+       await fetch(APIs.base_url, {
+        method:"POST",
+        headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        body,
+       }).then(res=>res.json()).then(res=>notify(res)).catch(err=>console.log(err));
     }
 
   return (
@@ -153,8 +159,7 @@ function addpluscourse({allcategory}) {
                         </div>
 
                         <div className="row input-main">
-                            <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
-                                {/* <input type="text" className="field display-7" name="email" placeholder="Enter Select A Goal "  value={goal} onChange={(e)=>{setgoal(e.target.value)}} required="" id="firstname-form2-7"/> */}
+                            <div className="col-md-12 col-lg-12 input-wrap">
                                 <Select options={goalOptions} defaultValue={goal} onChange={(e)=>{setgoal(e.value)}} isSearchable className=" field display-7"  id="firstname-form2-7"  components={animatedComponents} placeholder="Select a goal"/>
                             </div>
                                        
@@ -179,7 +184,7 @@ function addpluscourse({allcategory}) {
                         <div className="row input-main">
                             <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
                                
-                                <Select options={targetexamOptions} value={targetexamOptions.filter(ob => targetexams.includes(ob.value))} onChange={(e)=>{settargetexams(Array.isArray(e)? e.map(x=>x.value): [])}} isSearchable className=" field display-7"  id="firstname-form2-7" name="coursetype"  components={animatedComponents}  placeholder="Target Exams"/>
+                                <Select options={targetexamOptions} value={targetexamOptions.filter(ob => targetexams.includes(ob.value))} isMulti onChange={(e)=>{settargetexams(Array.isArray(e)? e.map(x=>x.value): [])}} isSearchable className=" field display-7"  id="firstname-form2-7" name="coursetype"  components={animatedComponents}  placeholder="Target Exams"/>
                             </div>
                                        
                         </div>
@@ -189,8 +194,8 @@ function addpluscourse({allcategory}) {
                             <div className="col-md-12 col-lg-12 input-wrap " >
                                 
                                 <div className=" custom-file">
-                                    <input type="file" className="custom-file-input" id="customFile" />
-                                    <label className="custom-file-label" name="image" for="customFile" accept="image/*"  onChange={(e)=>{setimage(e.target.files[0])}}>Choose Preview Image</label>
+                                    <input type="file" className="custom-file-input" id="customFile" accept="image/*"  onChange={(e)=>{setimage(e.target.files[0])}} />
+                                    <label className="custom-file-label" name="image" for="customFile" >Choose Preview Image</label>
                                 </div>
                             </div>
                                        
