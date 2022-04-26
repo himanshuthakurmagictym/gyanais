@@ -14,7 +14,7 @@ import {useRouter } from "next/router"
 const animatedComponents = makeAnimated();
 
 
-function addpluscourse({allcategory, teacherid, allsubcategories}) {
+function addpluscourse({allcategory, teacherid, allsubcategories, alltargetexams}) {
     const [courseName, setcourseName] = useState("");
     const [courseDescription, setcourseDescription]= useState("");
     const [writtencontent, setwrittencontent]= useState([]);
@@ -56,6 +56,15 @@ function addpluscourse({allcategory, teacherid, allsubcategories}) {
             }
         })
       },[][categoryid])
+
+      var targetexamOptions = [];
+    useEffect(()=>{
+        alltargetexams.forEach((x)=>{      
+            if(x.categoryid == categoryid){
+                (targetexamOptions.push({value:x.targetexams, label:x.targetexams, subcategoryid:x._id}))
+            }
+        })
+      },[][categoryid])
       
 
       const coursetypeOptions= [
@@ -64,13 +73,7 @@ function addpluscourse({allcategory, teacherid, allsubcategories}) {
         { value: 'Practical course', label: 'Practical course' },
       ]
 
-      const targetexamOptions = [
-        { value: 'Hindi', label: 'Hindi' },
-        { value: 'English', label: 'English' },
-        { value: 'Tamil', label: 'Tamil' },
-        { value: 'Spanish', label: 'Spanish' },
-        { value: 'French', label: 'French' }
-      ]
+    
 
       
     const addCourse = async(e)=>{
@@ -211,7 +214,7 @@ function addpluscourse({allcategory, teacherid, allsubcategories}) {
                         <div className="row input-main">
                             <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
                                
-                                <Select options={targetexamOptions} value={targetexamOptions.filter(ob => targetexams.includes(ob.value))} isMulti onChange={(e)=>{settargetexams(Array.isArray(e)? e.map(x=>x.value): [])}} isSearchable className=" field display-7"  id="firstname-form2-7" name="coursetype"  components={animatedComponents}  placeholder="Target Exams"/>
+                                <Select options={targetexamOptions} defaultValue={targetexamOptions.filter(ob => targetexams.includes(ob.value))} isMulti onChange={(e)=>{settargetexams(Array.isArray(e)? e.map(x=>x.value): [])}} isSearchable className=" field display-7"  id="firstname-form2-7" name="coursetype"  components={animatedComponents}  placeholder="Target Exams"/>
                             </div>
                                        
                         </div>
@@ -264,9 +267,11 @@ export default addpluscourse
 export async function getServerSideProps(context){
     const alldatass =  await fetch(APIs.base_url+'courseCategory/detailsCategory');
     const allsubcategories =  await fetch(APIs.base_url+'courseCategory/getsubCategory');
+    const alltargetexam =  await fetch(APIs.base_url+'courseCategory/gettargetexams');
    
     const allcategory =  await alldatass.json()
     const Getallsubcategories =  await allsubcategories.json()
+    const getalltargetexam =  await alltargetexam.json();
    
   
     {
@@ -274,7 +279,8 @@ export async function getServerSideProps(context){
             props: {
                 allcategory: allcategory.data,
                 teacherid: context.req.cookies['cid'],
-                allsubcategories: Getallsubcategories.data
+                allsubcategories: Getallsubcategories.data,
+                alltargetexams: getalltargetexam.data
             },
 
         }
