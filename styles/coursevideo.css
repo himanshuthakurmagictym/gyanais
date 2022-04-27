@@ -126,7 +126,7 @@
     margin-top: 17px;
 }
 progress::-webkit-progress-value { background: red; }
-.custom-select, .custom-file, .css-b62m3t-container{
+.custom-select, .custom-file, .css-b62m3t-container, input[type=number]{
   margin-bottom: 1rem;
 }
 textarea{resize: none;}
