@@ -5,7 +5,7 @@ import APIs from '../../config.js';
 import { ToastContainer, toast } from 'react-toastify';
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated';
-import Singleclass from "../../components/Fontend/Classes/Singleclass"
+import Singleclass from "../../components/Teacher/Class/Singleclass"
 import 'react-toastify/dist/ReactToastify.css';
 import Image from 'next/image'
 import moment from 'moment';
@@ -19,7 +19,7 @@ function allpluscourse({allcourses}) {
     <>
     <Brudcrums/>
     <ToastContainer />
-        <section className="testimonials2 cid-qKSrnk6eVJ" id="testimonials2-e">
+        <section className="testimonials2 cid-qKSpeMafIm " id="testimonials2-e ">
             <div className="container">   
                 <div className="row justify-content-center pt-2"> 
                     <div className="card col-12 col-md-12">
@@ -36,11 +36,11 @@ function allpluscourse({allcourses}) {
             <div className="row main-row">
                 <div className="col-sm-12 col-lg-12 col-md-12 form-container" data-form-type="formoid">
                     <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">My Course</h2>
-                   
+                    <div className="card-box">
                     {allcourses?.map((all_class) => (
                                 <Singleclass singleclass={all_class} key="{allcourses[0]._id}" />
-                            ))}
-                 
+                    ))}
+                 </div>
                 </div>
                 
             </div>
