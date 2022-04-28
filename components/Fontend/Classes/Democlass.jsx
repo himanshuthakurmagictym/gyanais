@@ -11,7 +11,9 @@ const Democlass = ({ democlass })=>{
         <Image src={`/assets/images/democlasses/${democlass.demoImage}`} alt="class" width="200" height="100" />
       </div>
       <h4 className="mbr-fonts-style mbr-card-title align-center display-7"> {democlass.demoTitle}</h4>
-      <h5> {democlass.demoLesson} • Started at {moment(democlass.demoDate).format('MM Do')}</h5>
+      <h5> 
+        {/* {democlass.demoLesson}  */}
+      • Started at {moment(democlass.demoDate).format('MM Do')}</h5>
     </div>
        
 </div>

@@ -11,8 +11,10 @@ import moment from 'moment';
 import Link from 'next/link'
 import React, {useState, useEffect} from 'react'
 import {useRouter } from "next/router"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEye, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 
-function mySchedule() {
+function mySchedule({allclass}) {
   return (
     <>
     <Brudcrums/>
@@ -46,26 +48,30 @@ function mySchedule() {
   </thead>
   <tbody>
     <tr>
-      <th scope="row">1</th>
+      {/* <th scope="row">1</th>
       <td>Mark</td>
       <td>Otto</td>
       <td>@mdo</td>
-      <td>@mdo</td>
+      <td>@mdo</td> */}
+    {allclass?.map((all_class, i) => (
+      <>
+      <th scope="row">{++i}</th>
+      <td>{all_class.video_title}</td>
+      <td>{all_class.course_id}</td>
+      <td>{moment(all_class.videoDate).format('MMMM Do, hh:mm A')}</td>
+      <td><div className="btn  btn-success ">
+        <FontAwesomeIcon icon={faCalendarAlt} />
+      </div>
+      <div className="btn  btn-success ">
+      <FontAwesomeIcon icon={faEye} />
+       </div>
+      </td>
+      </>
+                               
+    ))}
+
     </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-      <td>@mdo</td>
-    </tr>
+    
   </tbody>
 </table>
                                     
@@ -92,3 +98,21 @@ function mySchedule() {
 }
 
 export default mySchedule
+export async function getServerSideProps(context){
+  const courses = await fetch(APIs.base_url+'teacher/myschedule',{
+      method:"POST",
+      headers:{
+       "Content-Type": "application/json",
+      },
+      body:JSON.stringify({teacherid:context.req.cookies['cid']})
+  });
+  const allcourses = await courses.json();
+  
+  
+    return {
+       props:{
+           allclass:allcourses.data,
+       }
+     }
+ 
+}
