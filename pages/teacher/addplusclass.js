@@ -14,8 +14,8 @@ import {useRouter } from "next/router"
 const animatedComponents = makeAnimated();
 function addplusclass({allcategory, teacherid, allsubcategories, mycourseOptions}) {
 
-    const [courseName, setcourseName] = useState("");
-    const [courseDescription, setcourseDescription]= useState("");
+    const [className, setclassName] = useState("");
+    const [classDescription, setclassDescription]= useState("");
     const [writtencontent, setwrittencontent]= useState([]);
     const [goal, setgoal]= useState("");
     const [categoryid, setcategoryid]= useState("");
@@ -23,11 +23,12 @@ function addplusclass({allcategory, teacherid, allsubcategories, mycourseOptions
     const [duration, setduration]= useState("");
     const [course, setcourse]= useState("");
     const [mytime, setmytime]= useState("");
+    const [courseid, setcourseid]= useState("");
     const [image, setimage]= useState("");
     const [language, setlanguage]= useState(null);
     
     const notify = (data)=>{
-        console.log(data);
+       // console.log(data);
      if(data.status_code === 200){
          toast.success(data.message,{autoClose:2000});
      }else{
@@ -42,6 +43,8 @@ function addplusclass({allcategory, teacherid, allsubcategories, mycourseOptions
         { value: 'Spanish', label: 'Spanish' },
         { value: 'French', label: 'French' }
       ];
+
+     
 
       const goalOptions= [];
       allcategory.forEach((x)=>{
@@ -60,35 +63,53 @@ function addplusclass({allcategory, teacherid, allsubcategories, mycourseOptions
 
       const courseOptions= [];
       mycourseOptions.forEach((x)=>{
-        courseOptions.push({value:x.course_category_name, label:x.course_category_name, categoryid:x._id}) 
+        courseOptions.push({value:x.course_name, label:x.course_name, categoryid:x._id,courseid:x._id}) 
       })
       
+      const errorhandler = (x)=>{
+        toast.error(`Please Fill ${x}.`,{autoClose:8000})
+        return false
+      }
+
     const addCourse = async(e)=>{
         e.preventDefault();
+
+        if(!className || !classDescription || !writtencontent || !goal || !topics || !language || !image || !duration || !mytime){
+            !className?errorhandler("className"):"";
+            !classDescription?errorhandler("classDescription"):"";
+            !writtencontent?errorhandler("writtencontent"):"";
+            !goal?errorhandler("goal"):"";
+            !topics?errorhandler("topics"):"";
+            !language?errorhandler("language"):"";
+            !image?errorhandler("Class image"):"";
+            !duration?errorhandler("duration"):"";
+            !mytime?errorhandler("Schedule time"):"";
+                
+            }else{
    
        const body = new FormData();
-       body.append("courseName", courseName);
-       body.append("courseDescription", courseDescription);
+       body.append("className", className);
+       body.append("classDescription", classDescription);
        body.append("writtencontent", writtencontent);
        body.append("goal", goal);
        body.append("topics", topics);
-       body.append("courseid", course);
+       body.append("courseid", courseid);
        body.append("language", language);
-       body.append("coursePreview", image);
+       body.append("classPreview", image);
        body.append("teacherid", teacherid);
        body.append("categoryid", categoryid);
 
        body.append("duration", duration);
        body.append("mytime", mytime);
 
-       await fetch(APIs.base_url+'teacher/addfreeclass', {
+       await fetch(APIs.base_url+'teacher/addplusclass', {
         method:"POST",
         // headers: {
         //     "Content-Type": "multipart/form-data",
         //   },
         body,
        }).then(res=>res.json()).then(res=>notify(res)).catch(err=>console.log(err));
-    }
+    }}
 
   return (
     <>
@@ -123,14 +144,14 @@ function addplusclass({allcategory, teacherid, allsubcategories, mycourseOptions
                        
                         <div className="row input-main">
                             <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
-                                <input type="text" className="field display-7" name="email" placeholder="Enter Class Title"  value={courseName} onChange={(e)=>{setcourseName(e.target.value)}} required="" id="firstname-form2-7"/>
+                                <input type="text" className="field display-7" name="email" placeholder="Enter Class Title"  value={className} onChange={(e)=>{setclassName(e.target.value)}} required="" id="firstname-form2-7"/>
                             </div>
                                        
                         </div>
 
                         <div className="row input-main">
                             <div className="col-md-12 col-lg-12 form-group" data-for="message">
-                                <textarea type="text" className="form-control display-7" name="address" rows="2"  value={courseDescription} onChange={(e)=>{setcourseDescription(e.target.value)}} placeholder="Enter Class Description" id="message-form2-7"></textarea>
+                                <textarea type="text" className="form-control display-7" name="address" rows="2"  value={classDescription} onChange={(e)=>{setclassDescription(e.target.value)}} placeholder="Enter Class Description" id="message-form2-7"></textarea>
                             </div>
                         </div>
 
@@ -170,11 +191,7 @@ function addplusclass({allcategory, teacherid, allsubcategories, mycourseOptions
                             </div>
                                        
                         </div>
-                        <div className="row input-main">
-                            <div className="col-md-12 col-lg-12 input-wrap">
-                                <Select options={courseOptions} defaultValue={course} onChange={(e)=>{setcourse(e.value)}} isSearchable className=" field display-7"  id="firstname-form2-7"  components={animatedComponents} placeholder="Select a Course"/>
-                            </div>              
-                        </div>
+                        
                        
                         <div className="row input-main">
                             <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
@@ -182,6 +199,12 @@ function addplusclass({allcategory, teacherid, allsubcategories, mycourseOptions
                                 <Select options={topicOptions} defaultValue={topicOptions?.filter(ob => topics?.includes(ob.value))} isMulti onChange={(e)=>{settopics(Array.isArray(e)? e.map(x=>x.value): [])}}  isSearchable className=" field display-7"  id="firstname-form2-7"  components={animatedComponents} placeholder="Select a Topics"/>
                             </div>
                                        
+                        </div>
+
+                        <div className="row input-main">
+                            <div className="col-md-12 col-lg-12 input-wrap">
+                                <Select options={courseOptions} defaultValue={course} onChange={(e)=>{setcourse(e.value),setcourseid(e.courseid)}} isSearchable className=" field display-7"  id="firstname-form2-7"  components={animatedComponents} placeholder="Select a Course"/>
+                            </div>              
                         </div>
 
                         
@@ -211,7 +234,7 @@ function addplusclass({allcategory, teacherid, allsubcategories, mycourseOptions
                         <div className="row input-main">
                             <div className="col-md-12 col-lg-12 btn-row">
                                 <span className="input-group-btn">
-                                    <button href="#" type="submit" className="btn btn-form btn-success display-4">Scheduled</button>
+                                    <button href="#" type="submit" className="btn btn-form btn-success display-4">Scheduled for Approval</button>
                                 </span>
                             </div>
                         </div>
@@ -243,7 +266,7 @@ export default addplusclass;
 export async function getServerSideProps(context){
     const alldatass =  await fetch(APIs.base_url+'courseCategory/detailsCategory');
     const allsubcategories =  await fetch(APIs.base_url+'courseCategory/getsubCategory');
-    const allcourses = await fetch(APIs.base_url+'courseCategory/getmycourses',{
+    const allcourses = await fetch(APIs.base_url+'teacher/mycourse',{
         method:"POST",
         headers:{
          "Content-Type": "application/json",
