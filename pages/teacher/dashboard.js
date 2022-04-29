@@ -5,6 +5,7 @@ import Image from 'next/image'
 import moment from 'moment';
 import Link from 'next/link'
 import React, {useState, useEffect} from 'react'
+import SubmenuDashboard from "../../components/Teacher/SubmenuDashboard"
 import {useRouter } from "next/router"
 function Dashboard() {
 
@@ -28,21 +29,7 @@ function Dashboard() {
         <div className="row"> 
         
                         <div className="col-md-3">
-                        <div className="left_navigation">
-                                <div className="">
-                                <ul>
-                                    <a href="/teacher/schedule"><li>My Schedule</li></a>
-                                    <a href="/teacher/addpluscourse"><li>Add Plus Course</li></a>
-                                    <a href="/teacher/addfreeclass"><li>Add Free Class </li></a>
-                                    <a href="/teacher/addpaidclass"><li>Add paid Class</li></a>
-                                    <a href="/teacher/addmcq"><li>Upload MCQ</li></a>
-                                    <a href="/teacher/addnotes"><li>Upload Notes</li></a>
-                                    
-                                    {/* <a href="/student/profile"><li>Subscription</li> </a>  */}
-                                </ul>
-
-                                </div>     
-                        </div>
+                        <SubmenuDashboard />
                         </div>
                     
 

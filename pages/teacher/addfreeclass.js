@@ -225,7 +225,7 @@ function addfreeclass({allcategory, teacherid, allsubcategories, mycourseOptions
 
                         <div className="row input-main">
                                 <div className="col-md-6 col-lg-6 input-wrap " >
-                                    <input type="date" className=" field display-7" onChange={(e)=>{setmytime(e.target.value)}} id="firstname-form2-7" />
+                                    <input type="datetime-local" className=" field display-7" onChange={(e)=>{setmytime(e.target.value)}} id="firstname-form2-7" />
                                 </div>
                                 <div className="col-md-6 col-lg-6 input-wrap ">
                                     <input type="number" className=" field display-7" onChange={(e)=>{setduration(e.target.value)}} placeholder="Duration(mints)" id="firstname-form2-7" />
