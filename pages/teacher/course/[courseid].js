@@ -154,11 +154,11 @@ import {
                     ))}
 
 
-                {mcqs.map((mcqs) =>(   
+                {/* {mcqs.map((mcqs) =>(   
                         <div className="row justify-content-center pt-2" key={mcqs._id}>     
                                 <div className="card col-12 col-md-10">
                                 <div className="card-box">
-                                {/* <Link href={`/student/mcqs/mcqdetails/${mcqs._id}`}> */}
+                                {/* <Link href={`/student/mcqs/mcqdetails/${mcqs._id}`}> 
                                 <div className="row cursorlink">
                                         <div className="col-md-3">
                                         <Image src={`/assets/images/doc.png`} width='50' height='50' alt='videoicon'/>
@@ -169,17 +169,15 @@ import {
                                             <p> {mcqs.bank_name}<tab> {moment(mcqs.createdAt).format('MM Do')} </tab> </p>
                                         </div>
                                         <div className="col-md-2">
-                                            {/* <Link href={notes.videoPdf}>
-                                         <Image src={`/assets/images/pdfd.png`} width='50' height='50' alt='videoicon'/>
-                                        </Link> */}
+                                           
                                         </div>
                                     </div>
-                                    {/* </Link> */}
+                                   
                                     </div>
                                 </div>
                         </div>
 
-                    ))}
+                    ))} */}
                     
                         
                 </div>

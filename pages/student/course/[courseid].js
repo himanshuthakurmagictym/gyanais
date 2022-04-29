@@ -152,7 +152,7 @@ import {
                     ))}
 
 
-                {mcqs.map((mcqs) =>(   
+                {/* {mcqs.map((mcqs) =>(   
                         <div className="row justify-content-center pt-2" key={mcqs._id}>     
                                 <div className="card col-12 col-md-10">
                                 <div className="card-box">
@@ -169,7 +169,7 @@ import {
                                         <div className="col-md-2">
                                             {/* <Link href={notes.videoPdf}>
                                          <Image src={`/assets/images/pdfd.png`} width='50' height='50' alt='videoicon'/>
-                                        </Link> */}
+                                        </Link> 
                                         </div>
                                     </div>
                                     </Link>
@@ -177,7 +177,7 @@ import {
                                 </div>
                         </div>
 
-                    ))}
+                    ))} */}
                     
                         
                 </div>
