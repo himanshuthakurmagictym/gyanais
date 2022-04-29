@@ -234,7 +234,7 @@ export const getServerSideProps = async (context) => {
     });
     const syllabuss = await syllabus.json()
      
-   // console.log(syllabuss);
+   console.log(syllabuss);
 
         const URLS = APIs.base_url+"payment/status";
         const sendData = JSON.stringify({ category_id: datas.data.category_id,  user: context.req.cookies['cid'] })
