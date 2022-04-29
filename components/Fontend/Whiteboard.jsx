@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 let mediaRecorder = null;
 let dataChunks = [];
 
-const Whiteboard = ({socket, roomid, userRole, coursevideoid, }) =>{
+const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
     const canvasRef = useRef(null);
     const imageRef = useRef(null);
       const widref = useRef(null);  
@@ -148,6 +148,7 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, }) =>{
         body.append("pdfName", e.target.files[0]);
         body.append("roomid", roomid);
         body.append("courseid", coursevideoid);
+        body.append("teacherid", userid);
         body.append("videoid", roomid);
         setprogressbar(1);
         setprogressbarpercentage(10);

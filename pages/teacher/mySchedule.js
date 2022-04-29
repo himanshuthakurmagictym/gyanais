@@ -79,7 +79,7 @@ function mySchedule({allclass, livebutton}) {
                       <thead>
                         <tr>
                           <th scope="col"> SNo.</th>
-                          <th scope="col">Class</th>
+                          <th scope="col">Class Name</th>
                           <th scope="col">course Name</th>
                           <th scope="col">Time</th>
                           <th scope="col">Reschedule</th>
@@ -103,7 +103,7 @@ function mySchedule({allclass, livebutton}) {
                                   
                                   </td>
                                   <td>
-                                    {livebutton == 1?
+                                    {livebutton == 0?
                                   <Link href={`/teacher/coursevideo/${all_class._id}`}>
                                   <button className="btn btn-success " title="Class will be edit before one hour">
                                         <FontAwesomeIcon icon={faEye} />
