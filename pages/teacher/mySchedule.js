@@ -43,7 +43,7 @@ function mySchedule({allclass, livebutton}) {
       !mytime?errorhandler("Schedule time"):"";
           
       }else{
-        await fetch(APIs.base_url+'teacher/reschedule', {
+        await fetch(APIs.base_url+'teacher/updateschedule', {
           method:"POST",
           headers: {
               "Content-Type": "application/json",
