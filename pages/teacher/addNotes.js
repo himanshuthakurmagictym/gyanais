@@ -40,7 +40,7 @@ function addNotes({teacherid, mycourseOptions, myvideoOptions}) {
    const videoOptions= [];
    myvideoOptions.forEach((x)=>{
        if(x.course_id == courseid){
-    videoOptions.push({value:x.video_title, label:x.video_title})
+    videoOptions.push({value:x.video_title, label:x.video_title, id:x.id})
        } 
    })
    console.log(myvideoOptions);
@@ -126,7 +126,7 @@ function addNotes({teacherid, mycourseOptions, myvideoOptions}) {
                         </div>
                         <div className="row input-main">
                             <div className="col-md-12 col-lg-12 input-wrap">
-                                <Select options={videoOptions} defaultValue={video} onChange={(e)=>{setvideo(e.value),setvideoid(e._id)}} isSearchable className=" field display-7"  id="firstname-form2-7"  components={animatedComponents} placeholder="Select a Class"/>
+                                <Select options={videoOptions} defaultValue={video} onChange={(e)=>{setvideo(e.value),setvideoid(e.id)}} isSearchable className=" field display-7"  id="firstname-form2-7"  components={animatedComponents} placeholder="Select a Class"/>
                             </div>              
                         </div>
                         
