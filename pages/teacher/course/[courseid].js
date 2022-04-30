@@ -109,7 +109,7 @@ import {
                                             
                                         </div>
                                         <div className="col-md-7">
-                                        <h1> <strong>Notes</strong></h1>
+                                        <h1> <strong>notes</strong></h1>
                                             <p>{notes.notes_name}<tab> {moment(notes.createdAt).format('MM Do')} </tab> </p>
                                         </div>
                                         <div className="col-md-2">
@@ -130,7 +130,7 @@ import {
                         <div className="row justify-content-center pt-2" key={syllabuss._id}>     
                                 <div className="card col-12 col-md-10">
                                 <div className="card-box">
-                                {/* <Link href={`/student/syllabuses/syllabusdetails/${syllabuss._id}`}> */}
+                                <Link href={`/teacher/syllabuses/syllabusdetails/${syllabuss._id}`}>
                                 <div className="row cursorlink">
                                         <div className="col-md-3">
                                         <Image src={`/assets/images/doc.png`} width='50' height='50' alt='videoicon'/>
@@ -146,7 +146,7 @@ import {
                                         </Link> */}
                                         </div>
                                     </div>
-                                    {/* </Link> */}
+                                    </Link>
                                     </div>
                                 </div>
                         </div>

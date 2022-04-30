@@ -72,7 +72,8 @@ import {
                         <div className="row justify-content-center pt-2" key={coursevideo._id}>     
                                 <div className="card col-12 col-md-10">
                                 <div className="card-box">
-                                <Link href={`/student/coursevideo/${coursevideo._id}`}>
+                                
+                                <Link href={`/student/coursevideo/${coursevideo._id}`} passHref>
                                 <div className="row cursorlink">
                                         <div className="col-md-3">
                                         <Image src={`/assets/images/videoicon.png`} width='50' height='50' alt='videoicon'/>
@@ -82,11 +83,11 @@ import {
                                         <h1> {coursevideo.video_title}</h1>
                                             <p>{coursevideo.videoLesson} <tab> {moment(coursevideo.videoDate).format('MM Do')} </tab> {coursevideo.videoDuration}</p>
                                         </div>
-                                        <div className="col-md-2">
-                                            <Link href={coursevideo.videoPdf}>
+                                        {/* <div className="col-md-2">
+                                        <Link href={coursevideo.videoPdf}>
                                          <Image src={`/assets/images/pdfd.png`} width='50' height='50' alt='videoicon'/>
                                         </Link>
-                                        </div>
+                                        </div> */}
                                     </div>
                                     </Link>
                                     </div>
@@ -107,7 +108,7 @@ import {
                                             
                                         </div>
                                         <div className="col-md-7">
-                                        <h1> <strong>Notes</strong></h1>
+                                        <h1> <strong>{notes.pdfName}</strong></h1>
                                             <p>{notes.notes_name}<tab> {moment(notes.createdAt).format('MM Do')} </tab> </p>
                                         </div>
                                         <div className="col-md-2">
@@ -169,13 +170,14 @@ import {
                                         <div className="col-md-2">
                                             {/* <Link href={notes.videoPdf}>
                                          <Image src={`/assets/images/pdfd.png`} width='50' height='50' alt='videoicon'/>
+                                          </div>
                                         </Link> 
-                                        </div>
+                                       
                                     </div>
                                     </Link>
                                     </div>
                                 </div>
-                        </div>
+                       
 
                     ))} */}
                     

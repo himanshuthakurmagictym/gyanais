@@ -398,7 +398,7 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
                 </>
               :""}
              
-                <img className="imagehide" ref={imageRef} src={`${APIs.base_url_home}${allimages?allimages[slidetime].imagePath:""}`} width="100" height="100" alt="test" />
+                <img className="imagehide" ref={imageRef} src={`${APIs.base_url_home}${allimages?allimages[slidetime]?.imagePath:""}`} width="100" height="100" alt="test" />
 
                 {/* <canvas ref={canvasRef} className="whiteboard" style={{
                           backgroundImage: `url(${APIs.base_url_home}${allimages?allimages[slidetime].imagePath:""})`,
@@ -439,14 +439,14 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
                                       </div> */}
                                       {pdffiledetails?
                                       <div className="fileupload"> 
-                                            <input type="file" onChange={(e)=>{deletepdffile(e)}} className='uploadfile' title='delete' accept=".pdf"/>
+                                            {/* <input type="file" onChange={(e)=>{deletepdffile(e)}} className='uploadfile' title='delete' accept=".pdf"/> */}
                                       </div>
                                        :
                                        <div className="fileupload"> 
                                        {progressbar == 1?
                                        <progress className="progressbarnew" id="file" value={progressbarpercentage} max="100"></progress>
                                        :""}
-                                            <input type="file" onChange={(e)=>{sendpdffile(e)}} className='uploadfile'title='Upload'  accept=".pdf"/>
+                                            {/* <input type="file" onChange={(e)=>{sendpdffile(e)}} className='uploadfile'title='Upload'  accept=".pdf"/> */}
                                        </div>
                                        }
                                 </div>     

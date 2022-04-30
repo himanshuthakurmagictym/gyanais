@@ -12,10 +12,11 @@ import Link from 'next/link'
 import React, {useState, useEffect} from 'react'
 import {useRouter } from "next/router"
 const animatedComponents = makeAnimated();
-function addsyllabus({teacherid, mycourseOptions}) {
+function addNotes({teacherid, mycourseOptions, myvideoOptions}) {
 
-    const [syllabusName, setsyllabusName] = useState("");
-   
+    const [notesName, setnotesName] = useState("");
+    const [video, setvideo] = useState("");
+    const [videoid, setvideoid] = useState("");
     
     const [categoryid, setcategoryid]= useState("");
     
@@ -36,7 +37,13 @@ function addsyllabus({teacherid, mycourseOptions}) {
     
    
 
-  
+   const videoOptions= [];
+   myvideoOptions.forEach((x)=>{
+       if(x.course_id == courseid){
+    videoOptions.push({value:x.video_title, label:x.video_title})
+       } 
+   })
+   console.log(myvideoOptions);
 
 
       const courseOptions= [];
@@ -49,11 +56,11 @@ function addsyllabus({teacherid, mycourseOptions}) {
         return false
       }
 
-    const addSyllabus = async(e)=>{
+    const addNotes = async(e)=>{
         e.preventDefault();
 
-        if(!syllabusName || !pdf || !course ){
-            !syllabusName?errorhandler("className"):"";
+        if(!notesName || !pdf || !course ){
+            !notesName?errorhandler("className"):"";
            
             !pdf?errorhandler("Class image"):"";
             !course?errorhandler("course"):"";
@@ -62,14 +69,16 @@ function addsyllabus({teacherid, mycourseOptions}) {
             }else{
    
        const body = new FormData();
-       body.append("syllabusName", syllabusName);    
+       body.append("pdfName", notesName);    
        body.append("courseid", courseid);
-       body.append("syllabusPreview", pdf);
+       body.append("notesPreview", pdf);
        body.append("teacherid", teacherid);
        body.append("categoryid", categoryid);
+       body.append("roomid", videoid);
+       body.append("videoid", videoid);
+       
 
-
-       await fetch(APIs.base_url+'teacher/addsyllabus', {
+       await fetch(APIs.base_url+'teacher/addnotes', {
         method:"POST",
         // headers: {
         //     "Content-Type": "multipart/form-data",
@@ -98,14 +107,14 @@ function addsyllabus({teacherid, mycourseOptions}) {
                                 <div className="container ">
             <div className="row main-row">
                 <div className="col-sm-12 col-lg-12 col-md-12 form-container" data-form-type="formoid">
-                    <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">Add Syllabus</h2>
+                    <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">Add Notes</h2>
                    
                    
-                    <form className="mbr-form"  data-form-title="My Mobirise Form" onSubmit={addSyllabus} method="POST">
+                    <form className="mbr-form"  data-form-title="My Mobirise Form" onSubmit={addNotes} method="POST">
                        
                         <div className="row input-main">
                             <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
-                                <input type="text" className="field display-7" name="syllabusName" placeholder="Enter Syllabus Title"  value={syllabusName} onChange={(e)=>{setsyllabusName(e.target.value)}} required="" id="firstname-form2-7"/>
+                                <input type="text" className="field display-7" name="NotesName" placeholder="Enter Notes Title"  value={notesName} onChange={(e)=>{setnotesName(e.target.value)}} required="" id="firstname-form2-7"/>
                             </div>
                                        
                         </div>
@@ -113,6 +122,11 @@ function addsyllabus({teacherid, mycourseOptions}) {
                         <div className="row input-main">
                             <div className="col-md-12 col-lg-12 input-wrap">
                                 <Select options={courseOptions} defaultValue={course} onChange={(e)=>{setcourse(e.value),setcourseid(e.courseid), setcategoryid(e.categoryid)}} isSearchable className=" field display-7"  id="firstname-form2-7"  components={animatedComponents} placeholder="Select a Course"/>
+                            </div>              
+                        </div>
+                        <div className="row input-main">
+                            <div className="col-md-12 col-lg-12 input-wrap">
+                                <Select options={videoOptions} defaultValue={video} onChange={(e)=>{setvideo(e.value),setvideoid(e._id)}} isSearchable className=" field display-7"  id="firstname-form2-7"  components={animatedComponents} placeholder="Select a Class"/>
                             </div>              
                         </div>
                         
@@ -161,7 +175,7 @@ function addsyllabus({teacherid, mycourseOptions}) {
   )
 }
 
-export default addsyllabus;
+export default addNotes;
 
 export async function getServerSideProps(context){
     const alldatass =  await fetch(APIs.base_url+'courseCategory/detailsCategory');
@@ -173,10 +187,20 @@ export async function getServerSideProps(context){
         },
         body:JSON.stringify({teacherid:context.req.cookies['cid']})
     })
+
+    const allvideo = await fetch(APIs.base_url+'teacher/myvideos',{
+        method:"POST",
+        headers:{
+         "Content-Type": "application/json",
+        },
+        body:JSON.stringify({teacherid:context.req.cookies['cid']})
+    })
    
     const allcategory =  await alldatass.json()
     const Getallsubcategories =  await allsubcategories.json()
     const allcourseOptions =  await allcourses.json();
+    const allvideoOptions =  await allvideo.json();
+    
    
   
     {
@@ -186,6 +210,7 @@ export async function getServerSideProps(context){
                 teacherid: context.req.cookies['cid'],
                 allsubcategories: Getallsubcategories.data,
                 mycourseOptions:allcourseOptions.data,
+                myvideoOptions:allvideoOptions.data,
             },
 
         }

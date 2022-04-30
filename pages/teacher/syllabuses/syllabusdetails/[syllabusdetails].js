@@ -13,13 +13,15 @@ import Sidebar from '../../../../components/Fontend/sidebar';
 import Syllabus from '../../../../components/Fontend/Classes/Syllabus';
 
 function index({syllabus}) {
-    const [numPages, setNumPages] = useState(null);
-    const [pageNumber, setPageNumber] = useState(1);
   
-    function onDocumentLoadSuccess({ numPages }) {
-      setNumPages(numPages);
-    }
+    const [numPages, setNumPages] = useState(null);
+  const [pageNumber, setPageNumber] = useState(1);
 
+  function onDocumentLoadSuccess({ numPages }) {
+    setNumPages(numPages);
+  }
+  
+    
 
         return (
             <>
@@ -38,6 +40,7 @@ function index({syllabus}) {
     
                             <div className="col-md-9" key={syllabus._id}>
                             <div className="card-box">
+                          
                             <Document file={`${APIs.base_url_home}${syllabus.syllabus_link}`} onLoadSuccess={onDocumentLoadSuccess}>
                                  <Page pageNumber={pageNumber} />
                             </Document>
@@ -45,8 +48,8 @@ function index({syllabus}) {
                             <p> Page {pageNumber} of {numPages}</p>
                             <button className="btn btn-success" onClick={()=>{setPageNumber(pageNumber<numPages?++pageNumber:1)}}>Next</button>
                             <button className="btn btn-success" onClick={()=>{setPageNumber(pageNumber==1?numPages:--pageNumber)}}>Prev</button>
-                            
                             </div>
+                            
                         </div>
                         </div>
                
@@ -78,18 +81,18 @@ export const getServerSideProps = async (context) =>{
         });
        
        const paymentconfirm =  await ress.json();
-            if(paymentconfirm.status_code !== 200){
+            // if(paymentconfirm.status_code !== 200){
               
-                return {
-                    redirect: {
-                    permanent: true,
-                    destination: `/student/subscription/${paymentconfirm.data.category_id}`,
-                  },
-                  props:{},
-                }
+            //     return {
+            //         redirect: {
+            //         permanent: true,
+            //         destination: `/student/subscription/${paymentconfirm.data.category_id}`,
+            //       },
+            //       props:{},
+            //     }
 
               
-            }else{
+            // }else{
 
                 return {
                     props: {
@@ -97,7 +100,7 @@ export const getServerSideProps = async (context) =>{
                     }
                 }
 
-            }
+            // }
      
       
 

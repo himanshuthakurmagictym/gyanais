@@ -103,7 +103,7 @@ function mySchedule({allclass, livebutton}) {
                                   
                                   </td>
                                   <td>
-                                    {livebutton == 0?
+                                    {livebutton == 1?
                                   <Link href={`/teacher/coursevideo/${all_class._id}`}>
                                   <button className="btn btn-success " title="Class will be edit before one hour">
                                         <FontAwesomeIcon icon={faEye} />
