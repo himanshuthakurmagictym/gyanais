@@ -107,6 +107,7 @@ import {
                                         <Image src={`/assets/images/doc.png`} width='50' height='50' alt='videoicon'/>
                                             
                                         </div>
+                                       
                                         <div className="col-md-7">
                                         <h1> <strong>{notes.pdfName}</strong></h1>
                                             <p>{notes.notes_name}<tab> {moment(notes.createdAt).format('MM Do')} </tab> </p>

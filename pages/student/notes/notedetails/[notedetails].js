@@ -7,12 +7,18 @@ import {useAppContext} from '../../../../components/Fontend/Layout'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router'
-
+import { Document, Page, pdfjs} from 'react-pdf';
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/legacy/build/pdf.worker.min.js`;
 import Sidebar from '../../../../components/Fontend/sidebar';
 import Notes from '../../../../components/Fontend/Classes/Notes';
 
 function Notesdetails({note}) {
+    const [numPages, setNumPages] = useState(null);
+    const [pageNumber, setPageNumber] = useState(1);
   
+    function onDocumentLoadSuccess({ numPages }) {
+      setNumPages(numPages);
+    }
 
 
         return (
@@ -32,7 +38,13 @@ function Notesdetails({note}) {
     
                             <div className="col-md-9">
                             <div className="card-box">
-                               {note.notes_description}
+                            <Document file={`${APIs.base_url_home}${note.coursevideopdf_pathUrl}`} onLoadSuccess={onDocumentLoadSuccess}>
+                                 <Page pageNumber={pageNumber} />
+                            </Document>
+
+                            <p> Page {pageNumber} of {numPages}</p>
+                            <button className="btn btn-success" onClick={()=>{setPageNumber(pageNumber<numPages?++pageNumber:1)}}>Next</button>
+                            <button className="btn btn-success" onClick={()=>{setPageNumber(pageNumber==1?numPages:--pageNumber)}}>Prev</button>
                             </div>
                         </div>
                         </div>
@@ -54,7 +66,7 @@ export const getServerSideProps = async (context) =>{
     console.log(datas.data)
         const URLS = APIs.base_url+"payment/status";
   
-        const sendData = JSON.stringify({category_id: datas.data.category_id, user: context.req.cookies['cid'] })
+        const sendData = JSON.stringify({category_id: datas.data.categoryid, user: context.req.cookies['cid'] })
         const ress = await fetch(URLS, {
             method:"POST",
             headers: {
