@@ -40,7 +40,7 @@ function addNotes({teacherid, mycourseOptions, myvideoOptions}) {
    const videoOptions= [];
    myvideoOptions.forEach((x)=>{
        if(x.course_id == courseid){
-    videoOptions.push({value:x.video_title, label:x.video_title, id:x.id})
+    videoOptions.push({value:x.video_title, label:x.video_title, id:x._id})
        } 
    })
    console.log(myvideoOptions);
