@@ -51,8 +51,8 @@ function allNotes({allnotes}) {
                             {allnotes?.map((all_class, i) => (
                               <>
                               <th scope="row">{++i}</th>
-                              <td>{all_class.videoid}</td>
-                              <td>{all_class.courseid}</td>
+                              <td>{all_class.videoid.video_title}</td>
+                              <td>{all_class.courseid.course_name}</td>
                               <td>{moment(all_class.CreatedAt).format('MMMM Do, hh:mm A')}</td>
                                 <td>
                                  

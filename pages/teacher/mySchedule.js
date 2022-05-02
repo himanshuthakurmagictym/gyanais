@@ -93,7 +93,7 @@ function mySchedule({allclass, livebutton}) {
                               <>
                               <th scope="row">{++i}</th>
                               <td>{all_class.video_title}</td>
-                              <td>{all_class.course_id}</td>
+                              <td>{all_class.course_id.course_name}</td>
                               <td>{moment(all_class.videoDate).format('MMMM Do, hh:mm A')}</td>
                                 <td>
                                  
