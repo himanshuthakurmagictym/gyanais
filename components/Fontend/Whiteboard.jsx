@@ -139,10 +139,17 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
     }
    
 
-    const getpdfdetails = () => {
+    useEffect(async()=>{
       const pdfdetails = APIs.base_url+"teacher/getpdfdetails";
-      setpdffiledetails(pdfdetails)
-    }
+      await fetch(pdfdetails,{
+        method: "POST",
+         headers: {
+          "Content-Type": "application/json",
+            },
+        body: JSON.stringify({roomid:roomid})
+    }).then(res => res.json()).then(res  => {setpdffiledetails(res.data)}).catch(err => console.log(err));
+      
+    },[roomid])
 
     const deletepdffile = ()=>{
 
@@ -219,14 +226,14 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
           }
         })
 
-      const allimagesAPI = APIs.base_url+"teacher/getallimages";
-       fetch(allimagesAPI, {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({roomid:roomid})
-      }).then(res => res.json()).then(res  => setAllimages(res.data) ).catch(err => console.log(err)); 
+      // const allimagesAPI = APIs.base_url+"teacher/getallimages";
+      //  fetch(allimagesAPI, {
+      //   method: 'POST',
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({roomid:roomid})
+      // }).then(res => res.json()).then(res  => setAllimages(res.data) ).catch(err => console.log(err)); 
       
   
       // --------------- getContext() method returns a drawing context on the canvas-----
@@ -239,7 +246,7 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
       
       imageRef.current?.onload = () =>{
         imageRef.current.crossOrigin = "Anonymous";
-        contexts?.drawImage(imageRef.current, 0, 0, canvas.width, canvas.height)
+         contexts?.drawImage(imageRef.current, 0, 0, canvas.width, canvas.height)
         }
 
       const colors = document.getElementsByClassName('color');
@@ -273,7 +280,9 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
           // contexts.lineWidth = 50;      
            contexts.clearRect(0, 0, canvas.width, canvas.height)
             imageRef.current.crossOrigin = "Anonymous";
-            contexts?.drawImage(imageRef.current, 0, 0, canvas.width, canvas.height)   
+           contexts?.drawImage(imageRef.current, 0, 0, canvas.width, canvas.height)
+           
+               
         }else{
         
         contexts.lineWidth = 2;
@@ -416,7 +425,7 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
              
                 {/* <img className="imagehide" ref={imageRef} src={`${APIs.base_url_home}${allimages?allimages[slidetime]?.imagePath:""}`} width="100" height="100" alt="test" /> */}
                 <img className="imagehide" ref={imageRef} src={pdfAsImageSrc} width="100" height="100" alt="test" />
-                <Document file="http://localhost:5000/profile/fileuploads/SMO.pdf" onLoadSuccess={onDocumentLoadSuccesss}>
+                <Document file={`${APIs.base_url_home}${pdffiledetails}`} onLoadSuccess={onDocumentLoadSuccesss}>
                                  <Page  className="import-pdf-page imagehide"
                                  onRenderSuccess={onDocumentLoadSuccess}
                                  pageNumber={pageNumber} />
