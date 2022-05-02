@@ -3,12 +3,23 @@ import APIs from '../../config';
 import Image from 'next/image';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Document, Page, pdfjs} from 'react-pdf';
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/legacy/build/pdf.worker.min.js`;
 // import RecordRTC, { invokeSaveAsDialog } from 'recordrtc';
 // import io from 'socket.io-client';
 let mediaRecorder = null;
 let dataChunks = [];
 
 const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
+  const [numPages, setNumPages] = useState(null);
+    const [pageNumber, setPageNumber] = useState(1);
+    const [pdfAsImageSrc, setpdfAsImageSrc] = useState("");
+
+    
+    function onDocumentLoadSuccesss({ numPages }) {
+      setNumPages(numPages);
+    }
+
     const canvasRef = useRef(null);
     const imageRef = useRef(null);
       const widref = useRef(null);  
@@ -382,6 +393,11 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
       return `${(src)}`;
     }
 
+    const onDocumentLoadSuccess = () => {
+      const importPDFCanvas = document.querySelector('.import-pdf-page canvas');
+     setpdfAsImageSrc(importPDFCanvas.toDataURL());
+     
+    };
   
 
     return(
@@ -398,7 +414,15 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
                 </>
               :""}
              
-                <img className="imagehide" ref={imageRef} src={`${APIs.base_url_home}${allimages?allimages[slidetime]?.imagePath:""}`} width="100" height="100" alt="test" />
+                {/* <img className="imagehide" ref={imageRef} src={`${APIs.base_url_home}${allimages?allimages[slidetime]?.imagePath:""}`} width="100" height="100" alt="test" /> */}
+                <img className="imagehide" ref={imageRef} src={pdfAsImageSrc} width="100" height="100" alt="test" />
+                <Document file="http://localhost:5000/profile/fileuploads/SMO.pdf" onLoadSuccess={onDocumentLoadSuccesss}>
+                                 <Page  className="import-pdf-page imagehide"
+                                 onRenderSuccess={onDocumentLoadSuccess}
+                                 pageNumber={pageNumber} />
+                </Document>
+
+               
 
                 {/* <canvas ref={canvasRef} className="whiteboard" style={{
                           backgroundImage: `url(${APIs.base_url_home}${allimages?allimages[slidetime].imagePath:""})`,
@@ -426,29 +450,33 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
                                 
 
                                 <div className="rightSide-color">
-                                    <div className='leftslider' onClick={leftslide}>
-                                      <button className='uploadfile'></button>      
+                                    <div className='leftslider' onClick={()=>{setPageNumber(pageNumber<numPages?++pageNumber:1)}}>
+                                      <button className='uploadfile'></button>  
+                                     
                                     </div>
-                                    <div className='rightslider' onClick={rightslide}>
-                                      <button className='uploadfile'></button>          
-                                    </div>  
+                                    <div className='rightslider' onClick={()=>{setPageNumber(pageNumber==1?numPages:--pageNumber)}}>
+                                   
+                                   <button className='uploadfile'></button>
+                                    </div>
+                                   
+                            
 
                                       {/* <div className='imageuploaded'>
                                       <input type="file" multiple onChange={(e)=>{uploadimages(e)}} className='uploadfile' title='image update' accept="image/*"/>
                                             
                                       </div> */}
-                                      {pdffiledetails?
-                                      <div className="fileupload"> 
-                                            {/* <input type="file" onChange={(e)=>{deletepdffile(e)}} className='uploadfile' title='delete' accept=".pdf"/> */}
-                                      </div>
+                                      {/* {pdffiledetails?
+                                        <div className="fileupload"> 
+                                                 <input type="file" onChange={(e)=>{deletepdffile(e)}} className='uploadfile' title='delete' accept=".pdf"/> 
+                                          </div>
                                        :
                                        <div className="fileupload"> 
                                        {progressbar == 1?
                                        <progress className="progressbarnew" id="file" value={progressbarpercentage} max="100"></progress>
                                        :""}
-                                            {/* <input type="file" onChange={(e)=>{sendpdffile(e)}} className='uploadfile'title='Upload'  accept=".pdf"/> */}
+                                             <input type="file" onChange={(e)=>{sendpdffile(e)}} className='uploadfile'title='Upload'  accept=".pdf"/>
                                        </div>
-                                       }
+                                       } */}
                                 </div>     
                         </div>
                          

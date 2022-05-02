@@ -102,15 +102,15 @@ import {
                         <div className="row justify-content-center pt-2" key={notes._id}>     
                                 <div className="card col-12 col-md-10">
                                 <div className="card-box">
-                                {/* <Link href={`/student/notes/notedetails/${notes._id}`}> */}
+                                <Link href={`/teacher/notes/notedetails/${notes._id}`}>
                                 <div className="row cursorlink">
                                         <div className="col-md-3">
                                         <Image src={`/assets/images/doc.png`} width='50' height='50' alt='videoicon'/>
                                             
                                         </div>
                                         <div className="col-md-7">
-                                        <h1> <strong>notes</strong></h1>
-                                            <p>{notes.notes_name}<tab> {moment(notes.createdAt).format('MM Do')} </tab> </p>
+                                        <h1> <strong>{notes.pdfName}</strong></h1>
+                                            <p>{notes.pdfName}<tab> {moment(notes.createdAt).format('MM Do')} </tab> </p>
                                         </div>
                                         <div className="col-md-2">
                                             {/* <Link href={notes.videoPdf}>
@@ -118,7 +118,7 @@ import {
                                         </Link> */}
                                         </div>
                                     </div>
-                                    {/* </Link> */}
+                                    </Link>
                                     </div>
                                 </div>
                         </div>
