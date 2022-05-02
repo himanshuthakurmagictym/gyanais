@@ -10,7 +10,7 @@ import Link from 'next/link'
 import React, {useState, useEffect} from 'react'
 import {useRouter } from "next/router"
 const animatedComponents = makeAnimated();
-function addMCQ({allcategory, mycourseOptions, myvideoOptions}) {
+function addMCQ({allcategory, mycourseOptions, myvideoOptions, getmyquestionbank}) {
     const [bankName, setbankName] =  useState("");
     const [video, setvideo] = useState("");
     const [videoid, setvideoid] = useState("");
@@ -163,15 +163,15 @@ function addMCQ({allcategory, mycourseOptions, myvideoOptions}) {
                       <tbody>
                         <tr>
                          
-                            {/* {allnotes?.map((all_class, i) => (
+                            {getmyquestionbank?.map((all_class, i) => (
                               <>
                               <th scope="row">{++i}</th>
-                              <td>{all_class.videoid.video_title}</td>
+                              <td>{all_class.bank_name}</td>
                               <td>{all_class.courseid.course_name}</td>
                               <td>{moment(all_class.CreatedAt).format('MMMM Do, hh:mm A')}</td>
                                 <td>
                                  
-                                  <Link href={`${APIs.base_url_home}${all_class.coursevideopdf_pathUrl}`}><a target="_blank"><button className="btn btn-success " data-toggle="modal" data-target="#exampleModal" >
+                                  <Link href={`${all_class._id}`}><a target="_blank"><button className="btn btn-success " data-toggle="modal" data-target="#exampleModal" >
                                       <FontAwesomeIcon icon={faFilePdf} /> 
                                   </button>
                                   </a>
@@ -180,7 +180,7 @@ function addMCQ({allcategory, mycourseOptions, myvideoOptions}) {
                                   
                               </>
                                                       
-                            ))} */}
+                            ))}
 
                         </tr>
                         
@@ -217,6 +217,14 @@ export default addMCQ
 export async function getServerSideProps(context){
     const alldatass =  await fetch(APIs.base_url+'courseCategory/detailsCategory');
     const allsubcategories =  await fetch(APIs.base_url+'courseCategory/getsubCategory');
+    const getmyquestionbank =  await fetch(APIs.base_url+'teacher/mycourse',{
+        method:"POST",
+        headers:{
+         "Content-Type": "application/json",
+        },
+        body:JSON.stringify({teacherid:context.req.cookies['cid']})
+    });
+
     const allcourses = await fetch(APIs.base_url+'teacher/mycourse',{
         method:"POST",
         headers:{
@@ -234,7 +242,7 @@ export async function getServerSideProps(context){
     })
    
     const allcategory =  await alldatass.json()
-    const Getallsubcategories =  await allsubcategories.json()
+    const Getmyquestionbank =  await getmyquestionbank.json()
     const allcourseOptions =  await allcourses.json();
     const allvideoOptions =  await allvideo.json();
     
@@ -247,6 +255,7 @@ export async function getServerSideProps(context){
                 teacherid: context.req.cookies['cid'], 
                 mycourseOptions:allcourseOptions.data,
                 myvideoOptions:allvideoOptions.data,
+                getmyquestionbank:Getmyquestionbank.data,
             },
 
         }
