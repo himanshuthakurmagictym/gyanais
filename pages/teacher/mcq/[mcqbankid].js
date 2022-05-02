@@ -5,21 +5,23 @@ import APIs from '../../../config.js';
 import Image from 'next/image'
 import moment from 'moment';
 import Select from 'react-select'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import makeAnimated from 'react-select/animated';
 import Link from 'next/link'
 import React, {useState, useEffect} from 'react'
 import {useRouter } from "next/router"
-import { getServerSideProps } from "../allNotes";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEye, faFilePdf } from '@fortawesome/free-solid-svg-icons'
 const animatedComponents = makeAnimated();
-
-function mcq({mcqbankid}) {
+function mcq({mcqbankid, teacherId}) {
     const[question, setQuestion] = useState("");
     const[option_1, setoption_1] = useState("");
     const[option_2, setoption_2] = useState("");
     const[option_3, setoption_3] = useState("");
     const[option_4, setoption_4] = useState("");
     const[option_5, setoption_5] = useState("");
-
+    const[answer, setanswer] = useState("");
     const notify = (data)=>{
         // console.log(data);
       if(data.status_code === 200){
@@ -34,7 +36,7 @@ function mcq({mcqbankid}) {
         return false
       }
 
-    const addquestion = async() =>{
+    const addquestion = async(e) =>{
         e.preventDefault();
         if(!mcqbankid || !question || !option_1 || !option_2 || !option_3 || !option_4  || !option_5 ){
             !mcqbankid?errorhandler("Bank Name"):"";
@@ -51,7 +53,7 @@ function mcq({mcqbankid}) {
                     headers: {
                         "Content-Type": "application/json",
                       },
-                    body: JSON.stringify({mcqbankid, question, option_1, option_2, option_3, option_4, option_5}),
+                    body: JSON.stringify({mcqbankid, question, option_1, option_2, option_3, option_4, option_5, teacherId, answer}),
                    }).then(res=>res.json()).then(res=>notify(res)).catch(err=>console.log(err));
 
             }
@@ -65,7 +67,7 @@ function mcq({mcqbankid}) {
             <div className="container">   
                 <div className="row justify-content-center pt-2"> 
                     <div className="card col-12 col-md-12">
-        
+        <ToastContainer />
                          <div className="row"> 
                             <div className="col-md-3">
                                 <SubmenuDashboard />
@@ -117,6 +119,14 @@ function mcq({mcqbankid}) {
                                        
                         </div>
 
+                        <div className="row input-main">
+                            <div className="col-md-12 col-lg-12 btn-row">
+                                <span className="input-group-btn">
+                                    <button href="#" type="submit" className="btn btn-form btn-success display-4">Submit</button>
+                                </span>
+                            </div>
+                        </div>
+
 
 
                         </form>
@@ -143,15 +153,15 @@ function mcq({mcqbankid}) {
   )
 }
 
-export default mcq
+export default mcq;
 export const getServerSideProps = async(context)=>{
     const {params} = context;
     const {mcqbankid} = params;
 
-   
         return{
             props:{
-                mcqbankid:mcqbankid
+                mcqbankid:mcqbankid,
+                teacherId:context.req.cookies['cid']
             }
         }
 }

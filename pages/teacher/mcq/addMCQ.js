@@ -5,12 +5,16 @@ import APIs from '../../../config.js';
 import Image from 'next/image'
 import moment from 'moment';
 import Select from 'react-select'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import makeAnimated from 'react-select/animated';
 import Link from 'next/link'
 import React, {useState, useEffect} from 'react'
 import {useRouter } from "next/router"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAdd , faFilePdf } from '@fortawesome/free-solid-svg-icons'
 const animatedComponents = makeAnimated();
-function addMCQ({allcategory, mycourseOptions, myvideoOptions, getmyquestionbank}) {
+function addMCQ({allcategory, mycourseOptions, myvideoOptions, getmyquestionbank, teacherid}) {
     const [bankName, setbankName] =  useState("");
     const [video, setvideo] = useState("");
     const [videoid, setvideoid] = useState("");
@@ -66,12 +70,12 @@ function addMCQ({allcategory, mycourseOptions, myvideoOptions, getmyquestionbank
          
                 
             }else{
-                await fetch(APIs.base_url+'teacher/addnotes', {
+                await fetch(APIs.base_url+'teacher/addquestionbank', {
                     method:"POST",
                     headers: {
                         "Content-Type": "application/json",
                       },
-                    body: JSON.stringify({bankName, videoid, categoryid, courseid}),
+                    body: JSON.stringify({bankName, videoid, categoryid, courseid, teacherid}),
                    }).then(res=>res.json()).then(res=>notify(res)).catch(err=>console.log(err));
             
             }}
@@ -84,7 +88,7 @@ function addMCQ({allcategory, mycourseOptions, myvideoOptions, getmyquestionbank
             <div className="container">   
                 <div className="row justify-content-center pt-2"> 
                     <div className="card col-12 col-md-12">
-        
+        <ToastContainer/>
                          <div className="row"> 
                             <div className="col-md-3">
                                 <SubmenuDashboard />
@@ -165,19 +169,24 @@ function addMCQ({allcategory, mycourseOptions, myvideoOptions, getmyquestionbank
                          
                             {getmyquestionbank?.map((all_class, i) => (
                               <>
-                              <th scope="row">{++i}</th>
-                              <td>{all_class.bank_name}</td>
-                              <td>{all_class.courseid.course_name}</td>
-                              <td>{moment(all_class.CreatedAt).format('MMMM Do, hh:mm A')}</td>
+                              {(!getmyquestionbank)?
+                              <>
+                              <th scope="row">No Record Found</th>
+                              </>
+                                : <>
+                                <th scope="row">{++i}</th>
+                                <td>{all_class?.bank_name}</td>
+                                <td>{all_class.course_id?.course_name}</td>
+                                <td>{moment(all_class?.CreatedAt).format('MMMM Do, hh:mm A')}</td>
                                 <td>
-                                 
-                                  <Link href={`${all_class._id}`}><a target="_blank"><button className="btn btn-success " data-toggle="modal" data-target="#exampleModal" >
-                                      <FontAwesomeIcon icon={faFilePdf} /> 
-                                  </button>
-                                  </a>
-                                  </Link>
-                                  </td>
-                                  
+                                   
+                                    <Link href={`/teacher/mcq/${all_class._id}`}><a target="_blank"><button className="btn btn-success " data-toggle="modal" data-target="#exampleModal" >
+                                        <FontAwesomeIcon icon={faAdd} /> 
+                                    </button>
+                                    </a>
+                                    </Link>
+                                </td>
+                                </>}  
                               </>
                                                       
                             ))}
@@ -217,7 +226,7 @@ export default addMCQ
 export async function getServerSideProps(context){
     const alldatass =  await fetch(APIs.base_url+'courseCategory/detailsCategory');
     const allsubcategories =  await fetch(APIs.base_url+'courseCategory/getsubCategory');
-    const getmyquestionbank =  await fetch(APIs.base_url+'teacher/mycourse',{
+    const getmyquestionbank =  await fetch(APIs.base_url+'teacher/myquestionbank',{
         method:"POST",
         headers:{
          "Content-Type": "application/json",
