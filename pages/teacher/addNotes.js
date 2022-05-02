@@ -43,7 +43,7 @@ function addNotes({teacherid, mycourseOptions, myvideoOptions}) {
     videoOptions.push({value:x.video_title, label:x.video_title, id:x._id})
        } 
    })
-   console.log(myvideoOptions);
+
 
 
       const courseOptions= [];
