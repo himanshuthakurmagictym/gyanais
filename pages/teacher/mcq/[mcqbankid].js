@@ -92,48 +92,53 @@ function mcq({mcqbankid, teacherId}) {
                         </div>
 
                         <div className="row input-main">
+                            <div className="col-md-1 col-lg-1 input-wrap" data-for="firstname">
+                                <input type="radio" name={answer} className="" value={option_1} onChange={(e)=>{setoption_1(e.target.value)}} />
+                            </div>
                             <div className="col-md-5 col-lg-5 input-wrap" data-for="firstname">
                                 <input type="text" className="field display-7"  placeholder="Enter option 1"  value={option_1} onChange={(e)=>{setoption_1(e.target.value)}} required="" id="firstname-form2-7"/>
                             </div>
                             <div className="col-md-1 col-lg-1 input-wrap" data-for="firstname">
-                                <input type="radio" name="d"className="" value={option_1} onChange={(e)=>{setoption_1(e.target.value)}} />
+                                <input type="radio" name={answer} className="" value={option_1} onChange={(e)=>{setoption_1(e.target.value)}} />
                             </div>
                             <div className="col-md-5 col-lg-5 input-wrap" data-for="firstname">
                             <input type="text" className="field display-7"  placeholder="Enter option 2"  value={option_2} onChange={(e)=>{setoption_2(e.target.value)}} required="" id="firstname-form2-7"/>
                             </div>
-                            <div className="col-md-1 col-lg-1 input-wrap" data-for="firstname">
-                                <input type="radio" name="d" className="" value={option_1} onChange={(e)=>{setoption_1(e.target.value)}} />
-                            </div>
+                            
                                        
                         </div>
 
                         <div className="row input-main">
+                        <div className="col-md-1 col-lg-1 input-wrap" data-for="firstname">
+                                <input type="radio" name={answer} className="" value={option_1} onChange={(e)=>{setoption_1(e.target.value)}} />
+                            </div>
                             <div className="col-md-5 col-lg-5 input-wrap" data-for="firstname">
                             <input type="text" className="field display-7"  placeholder="Enter option 3"  value={option_3} onChange={(e)=>{setoption_3(e.target.value)}} required="" id="firstname-form2-7"/>
                             
                             </div>
                             <div className="col-md-1 col-lg-1 input-wrap" data-for="firstname">
-                                <input type="radio" name="d" className="" value={option_1} onChange={(e)=>{setoption_1(e.target.value)}} />
+                                <input type="radio" name={answer} className="" value={option_1} onChange={(e)=>{setoption_1(e.target.value)}} />
                             </div>
+                            
                             <div className="col-md-5 col-lg-5 input-wrap" data-for="firstname">
                             <input type="text" className="field display-7"  placeholder="Enter option 4"  value={option_4} onChange={(e)=>{setoption_4(e.target.value)}} required="" id="firstname-form2-7"/>
-                            </div>
-                            <div className="col-md-1 col-lg-1 input-wrap" data-for="firstname">
-                                <input type="radio" name="d" className="" value={option_1} onChange={(e)=>{setoption_1(e.target.value)}} />
-                            </div>
-                                       
-                        </div>
-
-                        <div className="row input-main">
-                            <div className="col-md-5 col-lg-5 input-wrap" data-for="firstname">
-                            <input type="text" className="field display-7"  placeholder="Enter option 5"  value={option_5} onChange={(e)=>{setoption_5(e.target.value)}} required="" id="firstname-form2-7"/>
-                            </div>
-                            <div className="col-md-1 col-lg-1 input-wrap" data-for="firstname">
-                                <input type="radio" name="d" className="" value={option_1} onChange={(e)=>{setoption_1(e.target.value)}} />
                             </div>
                             
                                        
                         </div>
+
+                        <div className="row input-main">
+                        <div className="col-md-1 col-lg-1 input-wrap" data-for="firstname">
+                                <input type="radio" name={answer} className="" value={option_1} onChange={(e)=>{setoption_1(e.target.value)}} />
+                            </div>
+                            <div className="col-md-5 col-lg-5 input-wrap" data-for="firstname">
+                            <input type="text" className="field display-7"  placeholder="Enter option 5"  value={option_5} onChange={(e)=>{setoption_5(e.target.value)}} required="" id="firstname-form2-7"/>
+                            </div>
+                           
+                            
+                                       
+                        </div>
+                        <label className="redcolor">* Please select any radio button for correct answer.</label>
 
                         <div className="row input-main">
                             <div className="col-md-12 col-lg-12 btn-row">
