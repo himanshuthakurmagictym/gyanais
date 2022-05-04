@@ -70,8 +70,8 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
                 
                           <div className="row justify-content-center">  
                                                          
-                              <div className="card col-12 col-md-9">
-                               <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">{videodetails.video_title} </h2>
+                              <div className="card col-12 col-md-9 margintopminus">
+                               {/* <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">{videodetails.video_title} </h2> */}
                                   <Whiteboard socket={socket} roomid={videodetails._id} userRole={roles} coursevideoid={coursevideoid} userid={userid}/>     
                               </div>
                               <div className="card col-12 col-md-3">

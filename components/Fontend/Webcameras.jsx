@@ -305,7 +305,7 @@ const stoprecording = ()=>{
         
           {(userRole === APIs.roles[0])?
           <>
-          <div className="camerabutton">
+          <div className="camerabutton ">
         <button className='btn-success ' onClick={e=>{(setStreamstart(1))}}>Open Camera</button>
        <button className='btn-success ' onClick={e=>{setStreamstart(2)}}>Stop Camera</button>
        <button className='btn-success ' onClick={e=>{(handleclass == 0)? sethandleclass(1):sethandleclass(0)}}>{(handleclass == 0)? "Start Class":"Stop Class"}</button>

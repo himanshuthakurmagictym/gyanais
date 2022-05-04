@@ -95,7 +95,7 @@
     height: 100%;
     overflow-y: scroll;
     color:black;
-    height: 350px;
+    height: 300px;
     /* overflow-y: auto; */
 }
 
@@ -140,3 +140,22 @@ textarea{resize: none;}
 .question-option .question-alpha{    margin-top: 5px;
   margin-left: 5px;}
   .input-wrapss{padding:0px;}
+
+
+  .mcqpoll{
+    display: inline-block;
+   
+    color: white;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+   
+  }
+
+  /* .header5, .menu, 
+  .footerlink, .footer1{display:none;} */
+ .margintopminus{margin-top: -41px;}
+
+ .mcqpoll svg{font-size: 8vh; color: var(--primary-color)}
+ .mcqpoll2{color:black;}

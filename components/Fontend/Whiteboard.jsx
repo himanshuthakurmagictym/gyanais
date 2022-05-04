@@ -1,6 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 import APIs from '../../config';
 import Image from 'next/image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSquarePollVertical } from '@fortawesome/free-solid-svg-icons'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Document, Page, pdfjs} from 'react-pdf';
@@ -33,7 +35,7 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
     const [slidetime, setslidetime] = useState(0);
     const [progressbar, setprogressbar] = useState("");
     const [progressbarpercentage, setprogressbarpercentage] = useState("");
-    
+    const [allquestions, setallquestions] = useState("");
     const [pdffiledetails, setpdffiledetails] = useState("");
     const [screenStream, setscreenStream] = useState();
     const [voiceStream, setvoiceStream] = useState();
@@ -53,7 +55,9 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
     }
 
     
-   
+   const sendpoll = ()=>{
+
+   }
  const startrecording = (e)=>{
    
       navigator.mediaDevices?.getUserMedia({
@@ -62,6 +66,7 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
             setvoiceStream(audiostream);
              const canvasStream = canvasRef?.current?.captureStream();
                 setscreenStream(canvasStream);
+                console.log(canvasStream)
               })
   }
 
@@ -110,12 +115,24 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
     }
 
    
+    useEffect(()=>{
+      const allquestion = APIs.base_url+"teacher/getallquestion";
+      fetch(allquestion,{
+        method: "POST",
+         headers: {
+          "Content-Type": "application/json",
+            },
+        body: JSON.stringify({videoid:roomid})
+    }).then(res => res.json()).then(res  => {setallquestions(res.data)}).catch(err => console.log(err));
+    },[])
+
 
     useEffect(() => {
       window.addEventListener('beforeunload', alertUser)
       return () => {
         window.removeEventListener('beforeunload', alertUser)
       }
+
     }, [])
     const alertUser = e => {
       e.preventDefault()
@@ -151,11 +168,7 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
       
     },[roomid])
 
-    const deletepdffile = ()=>{
-
-      const deletepdffiledetails = fetch("teacher/deletePdfFile").then(res=> notify(res)).catch(err => console.log(err));
-      
-    }
+    
     const sendpdffile = async(e)=>{
        e.preventDefault();
        setFile(e.target.files[0])
@@ -448,7 +461,7 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
                 </canvas>
                 
                {(userRole === APIs.roles[0])?
-              
+                        <>
                         <div ref={colorsRef} className="colors cursorlink">
                                 <div className="color black" />
                                 <div className="color red" />
@@ -464,10 +477,15 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
                                      
                                     </div>
                                     <div className='rightslider' onClick={()=>{setPageNumber(pageNumber==1?numPages:--pageNumber)}}>
-                                   
                                    <button className='uploadfile'></button>
                                     </div>
-                                   
+
+                                    <div className="mcqpoll" data-toggle="modal" data-target="#exampleModal" onClick={()=>{sendpoll()}}> 
+                                    <FontAwesomeIcon icon={faSquarePollVertical}/>
+                                    </div>
+                                    <div className="mcqpoll2"> 
+                                    Ques:{allquestions.length}
+                                    </div>
                             
 
                                       {/* <div className='imageuploaded'>
@@ -488,7 +506,32 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
                                        } */}
                                 </div>     
                         </div>
-                         
+
+                        <div className="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLabel">Reschedule</h5>
+                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div className="modal-body">
+                        <form >
+                      <div className="row input-main">
+                                <div className="col-md-12 col-lg-12 input-wrap " >
+                                   <h2>dasdasdasdasdasdasdsadasdasd?</h2>
+                                </div>
+                                                                  
+                        </div>
+
+                    </form>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+                     </>    
                          
               :""}
         </> 
