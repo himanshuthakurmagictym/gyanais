@@ -134,3 +134,9 @@ textarea{resize: none;}
   z-index:0!important;
 }
 .redcolor{color:red;}
+.question-option{    display: flex;}
+
+.question-option input{margin-top: 12px;}
+.question-option .question-alpha{    margin-top: 5px;
+  margin-left: 5px;}
+  .input-wrapss{padding:0px;}

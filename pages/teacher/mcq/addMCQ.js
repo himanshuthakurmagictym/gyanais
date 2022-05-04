@@ -165,10 +165,10 @@ function addMCQ({allcategory, mycourseOptions, myvideoOptions, getmyquestionbank
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
+                        
                          
                             {getmyquestionbank?.map((all_class, i) => (
-                              <>
+                             <tr>
                               {(!getmyquestionbank)?
                               <>
                               <th scope="row">No Record Found</th>
@@ -187,11 +187,11 @@ function addMCQ({allcategory, mycourseOptions, myvideoOptions, getmyquestionbank
                                     </Link>
                                 </td>
                                 </>}  
-                              </>
+                                </tr>
                                                       
                             ))}
 
-                        </tr>
+                        
                         
                       </tbody>
                     </table>
