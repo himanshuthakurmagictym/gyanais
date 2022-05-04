@@ -21,6 +21,7 @@ function mcq({mcqbankid, teacherId}) {
     const[option_3, setoption_3] = useState("");
     const[option_4, setoption_4] = useState("");
     const[option_5, setoption_5] = useState("");
+    const[option, setoption] = useState("");
     const[answer, setanswer] = useState("");
     const notify = (data)=>{
         // console.log(data);
@@ -38,14 +39,15 @@ function mcq({mcqbankid, teacherId}) {
 
     const addquestion = async(e) =>{
         e.preventDefault();
-        if(!mcqbankid || !question || !option_1 || !option_2 || !option_3 || !option_4  || !option_5 ){
+        if(!mcqbankid || !question || !option_1 || !option_2 || !option_3 || !option_4  || !option_5 || !answer ){
             !mcqbankid?errorhandler("Bank Name"):"";
             !question?errorhandler("question"):"";
-            !option_1?errorhandler("option 1"):"";
-            !option_2?errorhandler("option 2"):"";
-            !option_3?errorhandler("option 3"):"";
-            !option_4?errorhandler("option 4"):"";
-            !option_5?errorhandler("option 5"):"";
+            !option_1?errorhandler("option A"):"";
+            !option_2?errorhandler("option B"):"";
+            !option_3?errorhandler("option C"):"";
+            !option_4?errorhandler("option D"):"";
+            !option_5?errorhandler("option E"):"";
+            !answer?errorhandler("please tick the correct answer"):"";
            
             }else{
                 await fetch(APIs.base_url+'teacher/addquestion', {
@@ -53,7 +55,7 @@ function mcq({mcqbankid, teacherId}) {
                     headers: {
                         "Content-Type": "application/json",
                       },
-                    body: JSON.stringify({mcqbankid, question, option_1, option_2, option_3, option_4, option_5, teacherId, answer}),
+                    body: JSON.stringify({mcqbankid, question, option_1, option_2, option_3, option_4, option_5, teacherId, answer, option}),
                    }).then(res=>res.json()).then(res=>notify(res)).catch(err=>console.log(err));
 
             }
@@ -93,13 +95,15 @@ function mcq({mcqbankid, teacherId}) {
 
                         <div className="row input-main">
                             <div className="col-md-1 col-lg-1 input-wrap" data-for="firstname">
-                                <input type="radio" name={answer} className="" value={option_1} onChange={(e)=>{setoption_1(e.target.value)}} />
+                                <div><input type="radio" name="option" className="" value={option_1} onChange={(e)=>{setanswer(e.target.value), setoption("option_1")}} /></div>
+                                <div className="question-option">A.</div>
                             </div>
                             <div className="col-md-5 col-lg-5 input-wrap" data-for="firstname">
-                                <input type="text" className="field display-7"  placeholder="Enter option 1"  value={option_1} onChange={(e)=>{setoption_1(e.target.value)}} required="" id="firstname-form2-7"/>
+                                <input type="text" className="field display-7" placeholder="Enter option 1"  value={option_1} onChange={(e)=>{setoption_1(e.target.value)}} required="" id="firstname-form2-7"/>
                             </div>
                             <div className="col-md-1 col-lg-1 input-wrap" data-for="firstname">
-                                <input type="radio" name={answer} className="" value={option_1} onChange={(e)=>{setoption_1(e.target.value)}} />
+                                <input type="radio" name="option" className="" value={option_2} onChange={(e)=>{setanswer(e.target.value), setoption("option_2")}} />
+                                <div className="question-option">B.</div>
                             </div>
                             <div className="col-md-5 col-lg-5 input-wrap" data-for="firstname">
                             <input type="text" className="field display-7"  placeholder="Enter option 2"  value={option_2} onChange={(e)=>{setoption_2(e.target.value)}} required="" id="firstname-form2-7"/>
@@ -110,14 +114,16 @@ function mcq({mcqbankid, teacherId}) {
 
                         <div className="row input-main">
                         <div className="col-md-1 col-lg-1 input-wrap" data-for="firstname">
-                                <input type="radio" name={answer} className="" value={option_1} onChange={(e)=>{setoption_1(e.target.value)}} />
+                                <input type="radio" name="option" className="" value={option_3} onChange={(e)=>{setanswer(e.target.value), setoption("option_3") }} />
+                                <div className="question-option"> C.</div>
                             </div>
                             <div className="col-md-5 col-lg-5 input-wrap" data-for="firstname">
                             <input type="text" className="field display-7"  placeholder="Enter option 3"  value={option_3} onChange={(e)=>{setoption_3(e.target.value)}} required="" id="firstname-form2-7"/>
                             
                             </div>
                             <div className="col-md-1 col-lg-1 input-wrap" data-for="firstname">
-                                <input type="radio" name={answer} className="" value={option_1} onChange={(e)=>{setoption_1(e.target.value)}} />
+                                <input type="radio" name="option" className="" value={option_4} onChange={(e)=>{setanswer(e.target.value), setoption("option_4")}} />
+                                <div className="question-option"> D.</div>
                             </div>
                             
                             <div className="col-md-5 col-lg-5 input-wrap" data-for="firstname">
@@ -129,7 +135,8 @@ function mcq({mcqbankid, teacherId}) {
 
                         <div className="row input-main">
                         <div className="col-md-1 col-lg-1 input-wrap" data-for="firstname">
-                                <input type="radio" name={answer} className="" value={option_1} onChange={(e)=>{setoption_1(e.target.value)}} />
+                                <input type="radio" name="option" className="" value={option_5} onChange={(e)=>{setoption(e.target.value), setoption("option_5")}} />
+                                <div className="question-option"> E.</div>
                             </div>
                             <div className="col-md-5 col-lg-5 input-wrap" data-for="firstname">
                             <input type="text" className="field display-7"  placeholder="Enter option 5"  value={option_5} onChange={(e)=>{setoption_5(e.target.value)}} required="" id="firstname-form2-7"/>
