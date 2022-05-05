@@ -77,7 +77,7 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
      const mcqsid = allquestions[finalarray].mcqsid;
      const questionid = allquestions[finalarray]._id;
      const question = allquestions[finalarray].question;
-     const question_timestamp = 1;
+     const question_timestamp = `{hours}:{minutes}:{seconds}`;
     socket?.emit('pollquestion', {mcqNumber, roomid, userid, mcqsid, questionid, question, question_timestamp});
      }
     setmcqNumber(mcqNumber<allquestions.length?++mcqNumber:"Finished");
@@ -93,7 +93,7 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
       headers: {
        "Content-Type": "application/json",
          },
-body:JSON.stringify({userid:userid, question:pollmodel.question, answer:option, correctanswer:pollmodel.option, mcqsid:pollmodel.mcqsid})
+body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, correctanswer:pollmodel.option, mcqsid:pollmodel.mcqsid})
     }).then(res=>res.json()).then(res=>{notify(res.data), setpollmodel(false)}).catch(er=>console.log(er))
    }
 
