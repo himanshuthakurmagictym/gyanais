@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Document, Page, pdfjs} from 'react-pdf';
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/legacy/build/pdf.worker.min.js`;
+import { useStopwatch  } from 'react-timer-hook';
 // import RecordRTC, { invokeSaveAsDialog } from 'recordrtc';
 // import io from 'socket.io-client';
 let mediaRecorder = null;
@@ -16,7 +17,7 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
   const [numPages, setNumPages] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
     const [pdfAsImageSrc, setpdfAsImageSrc] = useState("");
-
+    const [pollmodel, setpollmodel] = useState(false);
     
     function onDocumentLoadSuccesss({ numPages }) {
       setNumPages(numPages);
@@ -39,6 +40,7 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
     const [pdffiledetails, setpdffiledetails] = useState("");
     const [screenStream, setscreenStream] = useState();
     const [voiceStream, setvoiceStream] = useState();
+    const [mcqNumber, setmcqNumber] = useState(1);
     // const recordWebcam = useRecordWebcam();
     //console.log(allimages)
     const notify = (data)=>{
@@ -54,10 +56,47 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
       }
     }
 
+    const {
+      seconds,
+      minutes,
+      hours,
+      days,
+      isRunning,
+      resume,
+      start,
+      pause,
+      reset,
+    } = useStopwatch({ autoStart: false });
+    
     
    const sendpoll = ()=>{
 
+     
+     if(mcqNumber<=allquestions.length){
+     const finalarray = mcqNumber - 1;
+     const mcqsid = allquestions[finalarray].mcqsid;
+     const questionid = allquestions[finalarray]._id;
+     const question = allquestions[finalarray].question;
+     const question_timestamp = 1;
+    socket?.emit('pollquestion', {mcqNumber, roomid, userid, mcqsid, questionid, question, question_timestamp});
+     }
+    setmcqNumber(mcqNumber<allquestions.length?++mcqNumber:"Finished");
+
    }
+
+   const submitpollanswer = async(option)=>{
+   
+    // console.log(pollmodel.question);
+    // console.log(option);
+    await fetch(APIs.base_url+"student/mcq/answerUpdate", {
+      method: "POST",
+      headers: {
+       "Content-Type": "application/json",
+         },
+body:JSON.stringify({userid:userid, question:pollmodel.question, answer:option, correctanswer:pollmodel.option, mcqsid:pollmodel.mcqsid})
+    }).then(res=>res.json()).then(res=>{notify(res.data), setpollmodel(false)}).catch(er=>console.log(er))
+   }
+
  const startrecording = (e)=>{
    
       navigator.mediaDevices?.getUserMedia({
@@ -67,8 +106,10 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
              const canvasStream = canvasRef?.current?.captureStream();
                 setscreenStream(canvasStream);
                 console.log(canvasStream)
+                start();
               })
   }
+
 
  useEffect(()=>{
   let mediaStream;
@@ -100,7 +141,7 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
         socketRef?.current.emit('screenData:end', {roomid})
         setScreenrecording(0);
         // mediaRecorder?.stop();
-       
+        pause();
         setmediaRecorderstatus(mediaRecorder?.state)
         const videoBlob = new Blob(dataChunks, {
           type: 'video/webm'
@@ -168,7 +209,11 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
       
     },[roomid])
 
-    
+    useEffect(async()=>{
+    socketRef?.current?.emit("sendpagenumber", {roomid, pageNumber});
+    },[pageNumber])
+
+
     const sendpdffile = async(e)=>{
        e.preventDefault();
        setFile(e.target.files[0])
@@ -247,8 +292,16 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
       //   },
       //   body: JSON.stringify({roomid:roomid})
       // }).then(res => res.json()).then(res  => setAllimages(res.data) ).catch(err => console.log(err)); 
+      socket?.on("receivePollQuestion", ({mcqNumber, roomid, userid, mcqsid, questionid, question})=>{
+          //code for popup
+          setpollmodel({mcqNumber, roomid, userid, mcqsid, questionid, question})
+      })
       
-  
+        //code for popup
+        socket?.on("receivepagenumber", (pageNumber)=>{
+          //code for popup
+          setPageNumber(pageNumber);
+      })
       // --------------- getContext() method returns a drawing context on the canvas-----
  
       const canvas = canvasRef.current;
@@ -403,6 +456,8 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
         const w = canvas.width;
         const h = canvas.height;
         drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
+        // imageRef.current.crossOrigin = "Anonymous";
+        // contexts?.drawImage(imageRef.current, 0, 0, canvas.width, canvas.height)
       }
   
       socketRef.current = socket;
@@ -433,6 +488,9 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
               <>
               <button className='btn-success ' onClick={e=>{screenrecording == 0?startrecording():mediaRecorder?.stop();}}>{screenrecording == 0?"Start Recording":"Stop Recording"}</button>
               {mediaRecorderstatus?<div className="recordingbox">{mediaRecorderstatus}</div> :""}
+              <div className="recordingbox">
+                <span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
+              </div>
                 </>
               :""}
              
@@ -443,9 +501,28 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
                                  onRenderSuccess={onDocumentLoadSuccess}
                                  pageNumber={pageNumber} />
                 </Document>
-
-               
-
+                {(pollmodel)?
+                <div class="modal showmodel" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">{pollmodel.question}?</h5>
+                              <button type="button" class="close" onClick={()=>{setpollmodel(false)}} data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body"> 
+                              <button className="btn btn-success" onClick={()=>{submitpollanswer("option_1")}}>A</button>
+                              <button className="btn btn-success" onClick={()=>{submitpollanswer("option_2")}}>B</button>
+                              <button className="btn btn-success" onClick={()=>{submitpollanswer("option_3")}}>C</button>
+                              <button className="btn btn-success" onClick={()=>{submitpollanswer("option_4")}}>D</button>
+                              <button className="btn btn-success" onClick={()=>{submitpollanswer("option_5")}}>E</button>
+                            </div>
+                            
+                          </div>
+                        </div>
+                      </div>
+                  :""}
                 {/* <canvas ref={canvasRef} className="whiteboard" style={{
                           backgroundImage: `url(${APIs.base_url_home}${allimages?allimages[slidetime].imagePath:""})`,
                           width:"100%",
@@ -457,6 +534,9 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
 
                       
                 </canvas> */}
+
+             
+     
                 <canvas ref={canvasRef} className="whiteboard" >   
                 </canvas>
                 
@@ -480,11 +560,11 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
                                    <button className='uploadfile'></button>
                                     </div>
 
-                                    <div className="mcqpoll" data-toggle="modal" data-target="#exampleModal" onClick={()=>{sendpoll()}}> 
+                                    <div className="mcqpoll"  onClick={()=>{sendpoll()}}> 
                                     <FontAwesomeIcon icon={faSquarePollVertical}/>
                                     </div>
                                     <div className="mcqpoll2"> 
-                                    Ques:{allquestions.length}
+                                    Ques:{mcqNumber}
                                     </div>
                             
 
@@ -507,30 +587,6 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
                                 </div>     
                         </div>
 
-                        <div className="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div className="modal-dialog" role="document">
-                    <div className="modal-content">
-                      <div className="modal-header">
-                        <h5 className="modal-title" id="exampleModalLabel">Reschedule</h5>
-                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div className="modal-body">
-                        <form >
-                      <div className="row input-main">
-                                <div className="col-md-12 col-lg-12 input-wrap " >
-                                   <h2>dasdasdasdasdasdasdsadasdasd?</h2>
-                                </div>
-                                                                  
-                        </div>
-
-                    </form>
-                      </div>
-                      
-                    </div>
-                  </div>
-                </div>
                      </>    
                          
               :""}
