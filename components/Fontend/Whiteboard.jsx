@@ -488,9 +488,9 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
               <>
               <button className='btn-success ' onClick={e=>{screenrecording == 0?startrecording():mediaRecorder?.stop();}}>{screenrecording == 0?"Start Recording":"Stop Recording"}</button>
               {mediaRecorderstatus?<div className="recordingbox">{mediaRecorderstatus}</div> :""}
-              <div className="recordingbox">
+              {mediaRecorderstatus?<div className="recordingbox">
                 <span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
-              </div>
+              </div>:""}
                 </>
               :""}
              
