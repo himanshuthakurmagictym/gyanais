@@ -19,43 +19,17 @@ const Webcamerasforst = dynamic(
 
 
 
-function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbutton, course_id}) {
+function finalvideo({videodetails, userid, coursevideoid, roles, course_id}) {
 
     const isuser = useAppContext();
     const roomid= videodetails._id;
     const [users, setusers] = useState([])
     const [userdetail, setUserDetail] = useState("");
     const [socket, setSocket] = useState(null);
-    const [handleclass, sethandleclass] = useState(handleclassbutton);
+  
     
 
-    useEffect(()=>{
-        setSocket(io(APIs.base_url_home));
-       },[])
-    
-       useEffect(()=>{
-        setUserDetail(isuser);
-    },[isuser])
 
-    useEffect(()=>{
-            //create room
-            socket?.emit("create-session-room", { userid, coursevideoid })
-            //getroom details
-            socket?.on("get-session-room", (data)=>{
-                if(data){    
-                   // console.log(userdetail);
-                    socket?.emit('join-session-room', { userdetail, coursevideoid, data });
-                }
-
-            });
-
-       },[userdetail])
-            
-       useEffect(()=>{
-        socket?.on("receivedclassbutton", (data)=>{
-            sethandleclass(data);
-        })
-       },[socket])
 
 
     return (
@@ -63,7 +37,7 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
         <Brudcrums />
               <section> 
               <div className="container-fluid">   
-              {handleclass == 1?
+            
               <section className="testimonials2 topbrumb" id="testimonials2-e">   
                      
                 <div className="container-fluid">
@@ -71,37 +45,24 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
                           <div className="row justify-content-center">  
                                                         
                               <div className="card col-12 col-md-9 margintopminus">
-                               {/* <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">{videodetails.video_title} </h2> */}
-                                  <Whiteboard socket={socket} roomid={videodetails._id} userRole={roles} coursevideoid={coursevideoid} userid={userid} course_id={course_id}/>     
+                               <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">{videodetails.roomid.video_title} </h2>
+                               <video src={`${APIs.base_url_home}${videodetails.filePath}`} controls></video>
+                                 <canvas></canvas>    
                               </div>
                               <div className="card col-12 col-md-3">
                                   <div className='rightside '>
                                         <div className='webcam'> 
-                                                <Webcamerasforst socket={socket} roomid={videodetails._id} userRole={roles} course_id={course_id}/>                                  
+                                        <canvas></canvas>                                    
                                         </div>
                                         <div className='roomchat'>
-                                                <Chatbox socket={socket} userid={userid} roomid={videodetails._id}/>
+                                                {/* <Chatbox socket={socket} userid={userid} roomid={videodetails._id}/> */}
                                         </div>
                                   </div>      
                               </div>
                           </div>                                         
                 </div>
             </section>
-            : 
-        
-        <section className="testimonials2 topbrumb classover" id="testimonials2-e">
-        <div className="container">
-                
-                <div className="row justify-content-center">  
-                                               
-                    <div className="card col-12 col-md-12 text-center">
-                        <h1 className="mbr-fonts-style mbr-section-title align-center  display-2">Class Will Start</h1>
-                      <a href="/courses" className='btn btn-form btn-success'>Back To Courses</a>
-                    </div>
-                </div>
-        </div>
-        </section>
-}
+           
            
               </div>
            </section>
@@ -110,15 +71,20 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
     )
 }
 
-export default Coursevideo
+export default finalvideo
 export const getServerSideProps = async (context) =>{
     const { params } = context;
     const {coursevideoid} = params;
-   
-    const res = await fetch(`${APIs.base_url}student/coursevideo/videoDetails/${coursevideoid}`);
-    const datas = await res.json();
-   
-    
+      
+    const res = await fetch(`${APIs.base_url}student/recordedvideodetail`,{
+        method:"POST",
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body:JSON.stringify({roomid:coursevideoid}),
+    });
+    const datas = await res.json()
+    console.log(datas)
         // Perform localStorage action
     //    const getuserid = datas.data.course_id.teacher_id;
     //    const userid = context.req.cookies['cid']
@@ -134,7 +100,7 @@ export const getServerSideProps = async (context) =>{
     
         const URLS = APIs.base_url+"payment/status";
         //console.log(datas)
-        const sendData = JSON.stringify({category_id: datas.data.category_id, user: context.req.cookies['cid'] })
+        const sendData = JSON.stringify({category_id: datas.data?.roomid.category_id, user: context.req.cookies['cid'] })
       // console.log(sendData)
         const ress = await fetch(URLS, {
             method:"POST",
@@ -165,8 +131,7 @@ export const getServerSideProps = async (context) =>{
                         userid: context.req.cookies['cid'],
                         coursevideoid,
                         roles: context.req.cookies['role'],
-                        handleclassbutton: datas.data.handleclassbutton,
-                        course_id: datas.data.course_id._id,
+                        course_id: datas.data.roomid.course_id,
                     }
                 }
 

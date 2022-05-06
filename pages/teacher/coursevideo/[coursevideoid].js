@@ -22,7 +22,7 @@ const Whiteboarddyn = dynamic(
   )
 
 
-function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbutton, recordingwhiteboard}) {
+function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbutton, recordingwhiteboard, courseid}) {
 
     const isuser = useAppContext();
     const roomid= videodetails._id;
@@ -85,13 +85,13 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
                              
                                {/* <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">{videodetails.video_title} </h2> */}
                                  <div className='whiteboardmain'>
-                                  <Whiteboarddyn socket={socket} roomid={videodetails._id} userRole={roles} coursevideoid={coursevideoid} userid={userid}/>   
+                                  <Whiteboarddyn socket={socket} roomid={videodetails._id} userRole={roles} course_id={courseid} coursevideoid={coursevideoid} userid={userid}/>   
                                   </div>  
                             </div>
                               <div className="card col-12 col-md-3">
                                   <div className='rightside '>
                                         <div className='webcam'> 
-                                                <Webcamerasforst socket={socket} userid={userid} roomid={videodetails._id} userRole={roles} handleclassbutton={handleclassbutton}/>                                  
+                                                <Webcamerasforst socket={socket} userid={userid} roomid={videodetails._id} userRole={roles} handleclassbutton={handleclassbutton} course_id={courseid}/>                                  
                                         </div>
                                         <div className='roomchat'>
                                                 <Chatbox socket={socket} userid={userid} roomid={videodetails._id}/>
@@ -113,7 +113,7 @@ export const getServerSideProps = async (context) =>{
    
     const res = await fetch(`${APIs.base_url}student/coursevideo/videoDetails/${coursevideoid}`);
     const datas = await res.json();
-    //console.log(datas)
+    console.log(datas)
     
         // Perform localStorage action
     //    const getuserid = datas.data.course_id.teacher_id;
@@ -152,7 +152,7 @@ export const getServerSideProps = async (context) =>{
             //         destination: `/student/subscription/${paymentconfirm.category_id}`,
             //       },
             //       props:{},
-            //     }
+            //course_id     }
 
               
             // }else{
@@ -160,6 +160,7 @@ export const getServerSideProps = async (context) =>{
                 return {
                     props: {
                         videodetails: datas.data,
+                        courseid: datas.data.course_id?._id,
                         userid: context.req.cookies['cid'],
                         coursevideoid,
                         roles: context.req.cookies['role'],

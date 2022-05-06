@@ -13,7 +13,7 @@ import { useStopwatch  } from 'react-timer-hook';
 let mediaRecorder = null;
 let dataChunks = [];
 
-const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid}) =>{
+const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid, course_id}) =>{
   const [numPages, setNumPages] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
     const [pdfAsImageSrc, setpdfAsImageSrc] = useState("");
@@ -138,7 +138,7 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
 
     const stoprecording = ()=>{
         console.log("stop recording")
-        socketRef?.current.emit('screenData:end', {roomid})
+        socketRef?.current.emit('screenData:end', {roomid, course_id})
         setScreenrecording(0);
         // mediaRecorder?.stop();
         pause();

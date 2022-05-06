@@ -2,6 +2,8 @@ import React, {useState} from 'react'
 import Brudcrums from "../../../components/Fontend/Brudcrums"
 import Link from 'next/link'
 import APIs from '../../../config.js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRecordVinyl } from '@fortawesome/free-solid-svg-icons'
 import Image from 'next/image'
 var moment = require('moment');
 import Breadcrumbs from 'nextjs-breadcrumbs';
@@ -13,7 +15,7 @@ import {
   } from 'next-share';
 
  
- const Course = ({coursedetail, coursevideo, syllabuss, notes, mcqs})=>{
+ const Course = ({coursedetail, coursevideo, syllabuss, notes, mcqs, recordedvideo})=>{
         const [sociallinks, setsociallinks] = useState('')
     return(
         <>
@@ -26,7 +28,7 @@ import {
                 <div className="container">
                         <div className="row justify-content-center">     
                             <div className="card col-12 col-md-5">
-                            <Image src={`/assets/images/currentaffairs/${coursedetail.course_image}`}  width='600' height='300' alt="currentaffair"/>
+                            <Image src={`${APIs.base_url_home}${coursedetail.course_image}`}  width='600' height='300' alt="currentaffair"/>
                             
                             </div>
                             <div className="card col-12 col-md-5">                            
@@ -83,6 +85,40 @@ import {
                                         <h1> {coursevideo.video_title}</h1>
                                             <p>{coursevideo.videoLesson} <tab> {moment(coursevideo.videoDate).format('MM Do')} </tab> {coursevideo.videoDuration}</p>
                                         </div>
+                                        <div className="col-md-2 ">
+                                        <div className='recordingbox'><FontAwesomeIcon icon={faRecordVinyl}/> live</div>
+                                        </div>
+                                        {/* <div className="col-md-2">
+                                        <Link href={coursevideo.videoPdf}>
+                                         <Image src={`/assets/images/pdfd.png`} width='50' height='50' alt='videoicon'/>
+                                        </Link>
+                                        </div> */}
+                                    </div>
+                                    </Link>
+                                    </div>
+                                </div>
+                        </div>
+
+                    ))}
+
+                    {recordedvideo.map((coursevideo) =>(   
+                        <div className="row justify-content-center pt-2" key={coursevideo._id}>     
+                                <div className="card col-12 col-md-10">
+                                <div className="card-box">
+                                
+                                <Link href={`/student/finalvideo/${coursevideo._id}`} passHref>
+                                <div className="row cursorlink">
+                                        <div className="col-md-3">
+                                        <Image src={`/assets/images/videoicon.png`} width='50' height='50' alt='videoicon'/>
+                                            
+                                        </div>
+                                        <div className="col-md-7">
+                                        <h1> {coursevideo.roomid.video_title}</h1>
+                                            <p>{coursevideo.videoLesson} <tab> {moment(coursevideo.videoDate).format('MM Do')} </tab> {coursevideo.videoDuration}</p>
+                                        </div>
+                                        <div className="col-md-2 ">
+
+                                        </div>
                                         {/* <div className="col-md-2">
                                         <Link href={coursevideo.videoPdf}>
                                          <Image src={`/assets/images/pdfd.png`} width='50' height='50' alt='videoicon'/>
@@ -113,6 +149,9 @@ import {
                                             <p>{notes.notes_name}<tab> {moment(notes.createdAt).format('MM Do')} </tab> </p>
                                         </div>
                                         <div className="col-md-2">
+                                        
+                                        
+                                        
                                             {/* <Link href={notes.videoPdf}>
                                          <Image src={`/assets/images/pdfd.png`} width='50' height='50' alt='videoicon'/>
                                         </Link> */}
@@ -209,6 +248,16 @@ export const getServerSideProps = async (context) => {
         body:JSON.stringify({course_id:datas.data._id}),
     });
     const datass = await ress.json()
+
+    const result = await fetch(`${APIs.base_url}student/recordedvideo`,{
+        method:"POST",
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body:JSON.stringify({course_id:datas.data._id}),
+    });
+    const recordedvideo = await result.json()
+
     //console.log(datass);
     const mcq = await fetch(`${APIs.base_url}student/mcq/getbycourse`,{
         method:"POST",
@@ -282,6 +331,7 @@ export const getServerSideProps = async (context) => {
            syllabuss: syllabuss.data,
                        notes: notes.data,
                        mcqs: mcqs.data,
+                       recordedvideo:recordedvideo.data
         }
     }
 }

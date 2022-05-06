@@ -17,7 +17,7 @@ const constraints = {
 let mediaRecorder = null;
 let dataChunks = [];
 
-function Webcameras({socket, roomid, userid, userRole, handleclassbutton}) {
+function Webcameras({socket, roomid, userid, userRole, handleclassbutton, course_id}) {
  
   const router  = useRouter();
 
@@ -280,7 +280,7 @@ mediaStream = new MediaStream([
 
 const stoprecording = ()=>{
     console.log("stop recording")
-    socket?.emit('camscreenData:end', {roomid})
+    socket?.emit('camscreenData:end', {roomid, course_id})
     setScreenrecording(0);
     // mediaRecorder?.stop();
    
