@@ -111,10 +111,10 @@ function finalvideo({videodetails, userid, coursevideoid, roles, course_id, camv
                                            
                                         <video ref={refcanvassoursecam} src={`${APIs.base_url_home}${camvideodetail.filePath}`} controls className='recordedvideo'  controlsList="nodownload noplaybackrate " disablePictureInPicture></video>
                                         :""}
-                                         <canvas> </canvas>                                    
+                                                                         
                                         </div>
                                         <div className='roomchat'>
-                                                {/* <Chatbox socket={socket} userid={userid} roomid={videodetails._id}/> */}
+                                                <Chatbox socket={socket} userid={userid} roomid={videodetails._id} userRole={roles}/>
                                         </div>
                                   </div>      
                               </div>

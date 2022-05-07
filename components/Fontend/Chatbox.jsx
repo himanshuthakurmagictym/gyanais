@@ -2,7 +2,7 @@
 import {useEffect, useState, useRef} from "react";
 import APIs from '../../config.js';
 import {useAppContext} from '../Fontend/Layout'
-const Chatbox = ({socket, userid, roomid})=>{
+const Chatbox = ({socket, userid, roomid, userRole})=>{
 
 const[sentmessage, setsendmessage] = useState("")
 
@@ -128,7 +128,7 @@ socket?.on('message', (allchat) => {
                         </div> 
                     </div>
 
-
+                    {(userRole === APIs.roles[0])?
                     <div className="chat-footer">
                        
                            
@@ -153,6 +153,7 @@ socket?.on('message', (allchat) => {
                               
                        
                     </div>
+                    :""}
 
 
                     </div>

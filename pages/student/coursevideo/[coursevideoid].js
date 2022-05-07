@@ -80,7 +80,7 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
                                                 <Webcamerasforst socket={socket} roomid={videodetails._id} userRole={roles} course_id={course_id}/>                                  
                                         </div>
                                         <div className='roomchat'>
-                                                <Chatbox socket={socket} userid={userid} roomid={videodetails._id}/>
+                                                <Chatbox socket={socket} userid={userid} roomid={videodetails._id} userRole={roles}/>
                                         </div>
                                   </div>      
                               </div>
