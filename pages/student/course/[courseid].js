@@ -106,7 +106,7 @@ import {
                                 <div className="card col-12 col-md-10">
                                 <div className="card-box">
                                 
-                                <Link href={`/student/finalvideo/${coursevideo._id}`} passHref>
+                                <Link href={`/student/finalvideo/${coursevideo.roomid?._id}`} passHref>
                                 <div className="row cursorlink">
                                         <div className="col-md-3">
                                         <Image src={`/assets/images/videoicon.png`} width='50' height='50' alt='videoicon'/>
@@ -258,7 +258,7 @@ export const getServerSideProps = async (context) => {
     });
     const recordedvideo = await result.json()
 
-    //console.log(datass);
+    
     const mcq = await fetch(`${APIs.base_url}student/mcq/getbycourse`,{
         method:"POST",
         headers: {
@@ -286,7 +286,7 @@ export const getServerSideProps = async (context) => {
     });
     const syllabuss = await syllabus.json()
      
-   console.log(syllabuss);
+   
 
         const URLS = APIs.base_url+"payment/status";
         const sendData = JSON.stringify({ category_id: datas.data.category_id,  user: context.req.cookies['cid'] })
