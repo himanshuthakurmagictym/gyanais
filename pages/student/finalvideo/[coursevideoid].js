@@ -44,20 +44,20 @@ function finalvideo({videodetails, userid, coursevideoid, roles, course_id, camv
       };
       refcanvassoursecam.current.controls = false;
 
-      const canvas = canvasRef.current;
-      const contexts = canvas.getContext('2d');
+    //   const canvas = canvasRef.current;
+    //   const contexts = canvas.getContext('2d');
     
-      refcanvassourse.current.addEventListener('play', function () {
-        var $this = this; //cache
-        (function loop() {
+    //   refcanvassourse.current.addEventListener('play', function () {
+    //     var $this = this; //cache
+    //     (function loop() {
           
-            if (!$this.paused && !$this.ended) {
-              contexts.imageSmoothingEnabled = false;
-              contexts.drawImage(refcanvassourse.current, 0, 0, canvas.width, canvas.height);
-                setTimeout(loop, 1000 / 60); // drawing at 30fps
-            }
-        })();
-    }, 0);
+    //         if (!$this.paused && !$this.ended) {
+    //           contexts.imageSmoothingEnabled = false;
+    //           contexts.drawImage(refcanvassourse.current, 0, 0, canvas.width, canvas.height);
+    //             setTimeout(loop, 1000 / 60); // drawing at 30fps
+    //         }
+    //     })();
+    // }, 0);
 
     },[])
 
