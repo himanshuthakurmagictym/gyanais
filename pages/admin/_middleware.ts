@@ -2,20 +2,17 @@
 import  { NextResponse  } from 'next/server'
 import { parseCookies } from 'nookies'
 import APIs from '../../config.js';
-import CryptoJS from "crypto-js"
 export async function middleware(req) {
 
   const tokend = JSON.stringify(req.cookies.token);
   // const categoryid = req.page.params.categoryid ;
   // console.log(`urlcheck${JSON.stringify(req.nextUrl.pathname)}`)
   const {pathname} = req.nextUrl;
+  if (pathname == '/teacher') {
+    return NextResponse.redirect('/admin/dashboard')
+}
 
-   
   if(tokend){
-
-    //  var bytesss  = CryptoJS.AES.decrypt(tokend, '619619');
-    //     var token = (bytesss.toString(CryptoJS.enc.Utf8));
-
     const sendData = JSON.stringify({token:req.cookies.token})
         const res = await fetch(`${APIs.base_url}auth/verifytoken`, {
             method:"POST",
@@ -24,43 +21,31 @@ export async function middleware(req) {
             },
             body:sendData,
        })
-      //  .then(res => res.json())
-      //  .then(res => {})
-
         const result = await res.json();
         //console.log(res.data._id);
         if(result.status_code !== 200){
-          return NextResponse.redirect('/login');
-          }
-
-        if(result.data.isVerified === '0'){
-          //console.log(result.data.isVerified)
-          return NextResponse.redirect('/emailVerification');
+          return NextResponse.rewrite('/admin/login');
           }
 
             //if equal to teacher and login as teacher
+            
+
+          if(result.data.roles === APIs.roles[2]){
           
-          if(result.data.roles === APIs.roles[1]){
-          
-            return NextResponse.redirect('/student/profile');
+            // return NextResponse.rewrite('/admin/dashboard');
+            }else{
+           
+              return NextResponse.rewrite('/admin/dashboard');
             }
 
-            if(result.data.roles === APIs.roles[2]){
-          
-              return NextResponse.redirect('/admin/dashboard');
-              }
+           
+      
+      return NextResponse.next()
+  }
+  else{
   
-      
-      
+    return NextResponse?.rewrite('/admin/login/');
 
-
-  return NextResponse.next()
-  }else{
-    return NextResponse.redirect('/login');
   }
 
-  
-
-  //return new Response(token)
-  //return NextResponse.next()
 }

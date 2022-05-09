@@ -42,7 +42,9 @@ export async function middleware(req) {
           return NextResponse.redirect('/teacher/profile');
           }
   
-      
+          if(result.data.roles === APIs.roles[2]){
+            return NextResponse.redirect('/admin/dashboard');
+            }
       
 
 
