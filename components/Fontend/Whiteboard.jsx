@@ -309,7 +309,15 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
       const contexts = canvas.getContext('2d');
 
       // ----------------------- Colors --------------------------------------------------
-      
+      window.devicePixelRatio=2; //Clear Text
+      var scale = window.devicePixelRatio; 
+      // var sizeWidth = canvas.offsetWidth;
+      // var sizeHeight = canvas.offsetHeight;
+      // canvas.style.width = sizeWidth + "px";
+      //   canvas.style.height = sizeHeight + "px";
+        canvas.width = Math.floor(canvas.width * scale);
+        canvas.height = Math.floor(canvas.height * scale);
+
       imageRef.current?.onload = () =>{
         imageRef.current.crossOrigin = "Anonymous";
          contexts?.drawImage(imageRef.current, 0, 0, canvas.width, canvas.height)
@@ -499,7 +507,7 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
                 <Document file={`${APIs.base_url_home}${pdffiledetails}`} onLoadSuccess={onDocumentLoadSuccesss}>
                                  <Page  className="import-pdf-page imagehide"
                                  onRenderSuccess={onDocumentLoadSuccess}
-                                 pageNumber={pageNumber} />
+                                 pageNumber={pageNumber}   renderTextLayer={false}  />
                 </Document>
                 {(pollmodel)?
                 <div class="modal showmodel" tabindex="-1" role="dialog">

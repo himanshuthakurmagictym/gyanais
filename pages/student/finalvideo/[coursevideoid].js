@@ -44,33 +44,29 @@ function finalvideo({videodetails, userid, coursevideoid, roles, course_id, camv
       };
       refcanvassoursecam.current.controls = false;
 
-      const canvas = canvasRef.current;
-      const contexts = canvas.getContext('2d');
-      // var cw = Math.floor(canvas.clientWidth / 100);
-      // var ch = Math.floor(canvas.clientHeight / 100);
-      // canvas.width = cw;
-      // canvas.height = ch;
-      window.devicePixelRatio=2; //Clear Text
-      var scale = window.devicePixelRatio; 
-      var sizeWidth = refcanvassourse.current.offsetWidth;
-      var sizeHeight = refcanvassourse.current.offsetHeight;
-      canvas.style.width = sizeWidth + "px";
-        canvas.style.height = sizeHeight + "px";
-        canvas.width = Math.floor(sizeWidth * scale);
-        canvas.height = Math.floor(sizeHeight * scale);
-
+    //   const canvas = canvasRef.current;
+    //   const contexts = canvas.getContext('2d');
+      
+    //   window.devicePixelRatio=2; //Clear Text
+    //   var scale = window.devicePixelRatio; 
+    //   var sizeWidth = refcanvassourse.current.offsetWidth;
+    //   var sizeHeight = refcanvassourse.current.offsetHeight;
+    //   // canvas.style.width = sizeWidth + "px";
+    //   //   canvas.style.height = sizeHeight + "px";
+    //     canvas.width = Math.floor(sizeWidth * scale);
+    //     canvas.height = Math.floor(sizeHeight * scale);
     
-      refcanvassourse.current.addEventListener('play', function () {
-        var $this = this; //cache
-        (function loop() {
+    //   refcanvassourse.current.addEventListener('play', function () {
+    //     var $this = this; //cache
+    //     (function loop() {
           
-            if (!$this.paused && !$this.ended) {
-              contexts.imageSmoothingEnabled = false;
-              contexts.drawImage(refcanvassourse.current, 0, 0, canvas.width, canvas.height);
-                setTimeout(loop, 1000 / 60); // drawing at 30fps
-            }
-        })();
-    }, 0);
+    //         if (!$this.paused && !$this.ended) {
+    //           contexts.imageSmoothingEnabled = false;
+    //           contexts.drawImage(refcanvassourse.current, 0, 0, canvas.width, canvas.height);
+    //             setTimeout(loop, 1000 / 60); // drawing at 30fps
+    //         }
+    //     })();
+    // }, 0);
 
     },[])
 
@@ -91,7 +87,7 @@ function finalvideo({videodetails, userid, coursevideoid, roles, course_id, camv
                            
                           <div className="row justify-content-center">  
                                               
-                              <div className="card col-12 col-md-9 margintopminus">
+                              <div className="card col-12 col-md-9 ">
                                <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">{videodetails.roomid.video_title} </h2>
                                {videodetails?
                                <>
@@ -103,13 +99,9 @@ function finalvideo({videodetails, userid, coursevideoid, roles, course_id, camv
 
 
                                <video ref={refcanvassourse} src={`${APIs.base_url}student/avideo/${videodetails.roomid._id}`} controlsList="nodownload noplaybackrate " disablePictureInPicture className='recordedvideo' controls ></video>
-                                
-                               {/* <canvas ref={canvasRef} className='recordedvideo'> </canvas> */}
                                </>
-                              
-                              // {`${APIs.base_url_home}${videodetails.filePath}`}
                                :""}
-                                 <canvas ref={canvasRef}></canvas>    
+                                 {/* <canvas ref={canvasRef}></canvas>     */}
                                 
                          
                               </div>
