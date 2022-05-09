@@ -44,20 +44,33 @@ function finalvideo({videodetails, userid, coursevideoid, roles, course_id, camv
       };
       refcanvassoursecam.current.controls = false;
 
-    //   const canvas = canvasRef.current;
-    //   const contexts = canvas.getContext('2d');
+      const canvas = canvasRef.current;
+      const contexts = canvas.getContext('2d');
+      // var cw = Math.floor(canvas.clientWidth / 100);
+      // var ch = Math.floor(canvas.clientHeight / 100);
+      // canvas.width = cw;
+      // canvas.height = ch;
+      window.devicePixelRatio=2; //Clear Text
+      var scale = window.devicePixelRatio; 
+      var sizeWidth = refcanvassourse.current.offsetWidth;
+      var sizeHeight = refcanvassourse.current.offsetHeight;
+      canvas.style.width = sizeWidth + "px";
+        canvas.style.height = sizeHeight + "px";
+        canvas.width = Math.floor(sizeWidth * scale);
+        canvas.height = Math.floor(sizeHeight * scale);
+
     
-    //   refcanvassourse.current.addEventListener('play', function () {
-    //     var $this = this; //cache
-    //     (function loop() {
+      refcanvassourse.current.addEventListener('play', function () {
+        var $this = this; //cache
+        (function loop() {
           
-    //         if (!$this.paused && !$this.ended) {
-    //           contexts.imageSmoothingEnabled = false;
-    //           contexts.drawImage(refcanvassourse.current, 0, 0, canvas.width, canvas.height);
-    //             setTimeout(loop, 1000 / 60); // drawing at 30fps
-    //         }
-    //     })();
-    // }, 0);
+            if (!$this.paused && !$this.ended) {
+              contexts.imageSmoothingEnabled = false;
+              contexts.drawImage(refcanvassourse.current, 0, 0, canvas.width, canvas.height);
+                setTimeout(loop, 1000 / 60); // drawing at 30fps
+            }
+        })();
+    }, 0);
 
     },[])
 
@@ -82,25 +95,23 @@ function finalvideo({videodetails, userid, coursevideoid, roles, course_id, camv
                                <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">{videodetails.roomid.video_title} </h2>
                                {videodetails?
                                <>
-                               <video ref={refcanvassourse} src={`${APIs.base_url_home}${videodetails.filePath}`} controlsList="nodownload noplaybackrate " disablePictureInPicture className='recordedvideo' controls ></video>
+                               
+
+                               {/* <video id="videoPlayer" width="650" controls muted="muted" autoplay>
+                            <source src="http://localhost:5000/api/student/avideo/626a6e47cbb930097135efb9" type="video/webm" />
+                            </video> */}
+
+
+                               <video ref={refcanvassourse} src={`${APIs.base_url}student/avideo/${videodetails.roomid._id}`} controlsList="nodownload noplaybackrate " disablePictureInPicture className='recordedvideo' controls ></video>
                                 
                                {/* <canvas ref={canvasRef} className='recordedvideo'> </canvas> */}
                                </>
-                              // <CanvasVideo
-                              //   autoPlay={true}
-                              //   height={330}
-                              //   loop={true}
-                              //   muted={true}
-                              //   ref="videocanvas"
-                              //   src={videoSrc}
-                              //   width={600}
-                              // />
+                              
                               // {`${APIs.base_url_home}${videodetails.filePath}`}
                                :""}
-                                 {/* <canvas ref={canvasRef}></canvas>     */}
+                                 <canvas ref={canvasRef}></canvas>    
                                 
-                              {/* <button onClick={onPlayBtnClick}>Play</button>
-                              <button onClick={onPauseBtnClick}>Pause</button> */}
+                         
                               </div>
                               <div className="card col-12 col-md-3">
                                   <div className='rightside '>
@@ -109,7 +120,7 @@ function finalvideo({videodetails, userid, coursevideoid, roles, course_id, camv
                                         {camvideodetail?
 
                                            
-                                        <video ref={refcanvassoursecam} src={`${APIs.base_url_home}${camvideodetail.filePath}`} controls className='recordedvideo'  controlsList="nodownload noplaybackrate " disablePictureInPicture></video>
+                                        <video ref={refcanvassoursecam} src={`${APIs.base_url}student/camvideo/${camvideodetail.roomid._id}`} controls className='recordedvideo'  controlsList="nodownload noplaybackrate " disablePictureInPicture></video>
                                         :""}
                                                                          
                                         </div>
@@ -134,7 +145,7 @@ export default finalvideo
 export const getServerSideProps = async (context) =>{
     const { params } = context;
     const {coursevideoid} = params;
-      console.log(coursevideoid);
+
     const res = await fetch(`${APIs.base_url}student/recordedvideodetail`,{
         method:"POST",
         headers: {
@@ -151,21 +162,7 @@ export const getServerSideProps = async (context) =>{
           },
         body:JSON.stringify({roomid:coursevideoid}),
     });
-    const camvideo = await resultcam.json()
-   
-        // Perform localStorage action
-    //    const getuserid = datas.data.course_id.teacher_id;
-    //    const userid = context.req.cookies['cid']
-        
-         //video is available in room id or not
-        //  const resroom = await fetch(`${APIs.base_url}getroom/${coursevideoid}`);
-        //  const isRoomid =await resroom.json();
-           
-        
-       
-           
-
-    
+    const camvideo = await resultcam.json(); 
         const URLS = APIs.base_url+"payment/status";
         //console.log(datas)
         const sendData = JSON.stringify({category_id: datas.data?.roomid?.category_id, user: context.req.cookies['cid'] })
