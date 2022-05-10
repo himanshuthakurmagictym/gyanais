@@ -17,6 +17,7 @@ function allvideostream({alllivestreamdetails}) {
   useEffect(()=>{
     $(document).ready(function(){$("#datatable")?.DataTable({"scrollX": true})});
   },[])
+ 
   return (
     <>
      <Brudcrums />
@@ -33,13 +34,13 @@ function allvideostream({alllivestreamdetails}) {
                       
         <div className="card-box">
                                 <div className="container ">
-                                <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
+                                <div className="row">
+                            <div className="col-12">
+                                <div className="card">
+                                    <div className="card-body">
 
-                                    <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">All Stream Videos</h2>
-                                        <table id="datatable" class="table table-bordered dt-responsive nowrap" style={{borderCollapse:'collapse' }}>
+                                    <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">All Free Classes</h2>
+                                        <table id="datatable" className="table table-bordered dt-responsive nowrap" style={{borderCollapse:'collapse' }}>
 
                                         <thead>
                                             <tr>
@@ -53,6 +54,7 @@ function allvideostream({alllivestreamdetails}) {
                                                 <td>Goal</td>
                                                 <td>Teacher Name</td>
                                                 <td>CreatedAt</td>
+                                               
                                             </tr>
                                             </thead>
 
@@ -70,6 +72,7 @@ function allvideostream({alllivestreamdetails}) {
                                                 <td>{videos.goal}</td>
                                                 <td>{videos.teacher_id.firstname}</td>
                                                 <td>{moment(videos.createdAt).format('DD MMM YY')}</td>
+                                               
                                             </tr>
                                             ))}
                                             {!alllivestreamdetails?

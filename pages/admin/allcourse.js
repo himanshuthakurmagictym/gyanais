@@ -33,13 +33,13 @@ function allcourse({coursedetails}) {
                       
         <div className="card-box">
                                 <div className="container ">
-                                <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
+                                <div className="row">
+                            <div className="col-12">
+                                <div className="card">
+                                    <div className="card-body">
 
                                     <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">All Courses</h2>
-                                        <table id="datatable" class="table table-bordered dt-responsive nowrap" style={{borderCollapse:'collapse' }}>
+                                        <table id="datatable" className="table table-bordered dt-responsive nowrap" style={{borderCollapse:'collapse' }}>
 
                                             <thead>
                                             <tr>

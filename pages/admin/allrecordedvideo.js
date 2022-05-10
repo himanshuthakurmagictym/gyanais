@@ -12,10 +12,34 @@ import {useAppContext} from '../../components/Fontend/Layout'
 import moment from 'moment'
 
 function allrecordedvideo({allrecorded}) {
+  const [classapproved, setclassapproved] = useState();
+  const router = useRouter();
+  const notify = (data)=>{
+    // console.log(data);
+  if(data.status_code === 200){
+      toast.success(data.message,{autoClose:2000});
+      router.reload();
+  }else{
+      toast.error(data.message,{autoClose:2000});
+  }
+}
 
   useEffect(()=>{
     $(document).ready(function(){$("#datatable")?.DataTable({"scrollX": true})});
   },[])
+  const approvdproclass = async(status, id)=>{
+    setclassapproved(status)
+    await fetch(APIs.base_url+'admin/handleproclass', {
+      method:"POST",
+      headers: {
+          "Content-Type": "application/json",
+        },
+      body: JSON.stringify({id, status}),
+     }).then(res=>res.json()).then(res=>notify(res)).catch(err=>console.log(err));
+
+  }
+
+
   return (
     <>
      <Brudcrums />
@@ -32,13 +56,13 @@ function allrecordedvideo({allrecorded}) {
                       
         <div className="card-box">
                                 <div className="container ">
-                                <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
+                                <div className="row">
+                            <div className="col-12">
+                                <div className="card">
+                                    <div className="card-body">
 
-                                    <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">All Students</h2>
-                                        <table id="datatable" class="table table-bordered dt-responsive nowrap" style={{borderCollapse:'collapse' }}>
+                                    <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">All Pro Classes for Approval</h2>
+                                        <table id="datatable" className="table table-bordered dt-responsive nowrap" style={{borderCollapse:'collapse' }}>
                                         
                                         <thead>
                                             <tr>
@@ -52,6 +76,7 @@ function allrecordedvideo({allrecorded}) {
                                                 <td>Goal</td>
                                                 <td>Teacher Name</td>
                                                 <td>CreatedAt</td>
+                                                <td>Status</td>
                                             </tr>
                                             </thead>
 
@@ -69,6 +94,7 @@ function allrecordedvideo({allrecorded}) {
                                                 <td>{videos.goal}</td>
                                                 <td>{videos.teacher_id.firstname}</td>
                                                 <td>{moment(videos.createdAt).format('DD MMM YY')}</td>
+                                                <td><button onClick={()=>{approvdproclass(videos.approved ==0?1:0, videos._id)}} className=" btn-success">{videos.approved == 1?"Deactive":"Active"}</button></td>
                                             </tr>
                                             ))}
                                             {!allrecorded?

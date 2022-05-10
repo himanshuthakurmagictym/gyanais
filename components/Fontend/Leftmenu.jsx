@@ -43,13 +43,13 @@ function leftmenu() {
                             <li>
                                 <a href="/admin/allvideostream" class="waves-effect">
                                 <i class="ti-calendar"></i>
-                                    <span>All live Streams</span>
+                                    <span>All Free Classes</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="/admin/allrecordedvideo" class="waves-effect">
                                 <i class="ti-calendar"></i>
-                                    <span>All Recorded</span>
+                                    <span>All Pro Classes</span>
                                 </a>
                             </li>
 
