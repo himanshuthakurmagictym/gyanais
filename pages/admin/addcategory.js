@@ -74,7 +74,7 @@ const addSyllabus = async(e)=>{
     <>
      <Brudcrums />
 
-    <section className="testimonials2 cid-qKSii1CMsD adminbackground " id="testimonials2-e">
+    <section className="testimonials2 cid-qKSrnk6eVJ" id="testimonials2-e">
     <ToastContainer />
     <div className="container-fluid">   
        <div className="row  "> 
@@ -90,30 +90,18 @@ const addSyllabus = async(e)=>{
             <div className="col-sm-12 col-lg-3 col-md-3 "></div>
                 <div className="col-sm-12 col-lg-6 col-md-6 form-container" data-form-type="formoid">
                     <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">Add Category</h2>
-                   
-                   
                     <form className="mbr-form"  data-form-title="My Mobirise Form" onSubmit={addSyllabus} method="POST">
                        
                         <div className="row input-main">
                             <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
-                                <input type="text" className="field display-7" name="syllabusName" placeholder="Enter Syllabus Title"  value={syllabusName} onChange={(e)=>{setsyllabusName(e.target.value)}} required="" id="firstname-form2-7"/>
+                                <input type="text" className="field display-7" name="syllabusName" placeholder="Enter Category Name"  value={syllabusName} onChange={(e)=>{setsyllabusName(e.target.value)}} required="" id="firstname-form2-7"/>
                             </div>
                                        
                         </div>
 
                     
                         
-                        <div className="row input-main">
-                        
-                        <div className="col-md-12 col-lg-12 input-wrap " >
-                            
-                            <div className=" custom-file">
-                                <input type="file" className="custom-file-input" id="customFile" accept=".pdf"  onChange={(e)=>{setpdf(e.target.files[0])}} />
-                                <label className="custom-file-label" name="image" for="customFile" >Choose Class pdf Preview </label>
-                            </div>
-                        </div>
-                                   
-                    </div>
+                       
                         
 
                       

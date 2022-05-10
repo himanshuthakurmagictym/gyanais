@@ -164,9 +164,9 @@ const handleRead = (notyid) => {
             <a className="nav-link  text-danger dropdown-toggle " data-toggle="dropdown-submenu" aria-expanded="true">
             <Image src={`/assets/images/avatar.png`}  width='40' height='40' alt="avatar"/></a>
             <div className="dropdown-menu">
-            <a className="nav-link dropdown-item display-4" href="/teacher/mySchedule"> Dashboard</a>
+            <a className="nav-link dropdown-item display-4" href="/admin/dashboard"> Dashboard</a>
             
-            <a className="nav-link dropdown-item display-4" href="/teacher/setting">Setting</a>
+            {/* <a className="nav-link dropdown-item display-4" href="/admin/setting">Setting</a> */}
             <a className="nav-link dropdown-item  display-4" onClick={()=>{cookie.remove('token'); cookie.remove('cid'); cookie.remove('role');router.push('/login'); router.reload() }} >Logout</a>
             </div>
         </li>
