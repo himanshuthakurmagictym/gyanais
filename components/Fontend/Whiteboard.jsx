@@ -13,7 +13,7 @@ import { useStopwatch  } from 'react-timer-hook';
 let mediaRecorder = null;
 let dataChunks = [];
 
-const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid, course_id}) =>{
+const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid, course_id, screenrecordingstatus}) =>{
   const [numPages, setNumPages] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
     const [pdfAsImageSrc, setpdfAsImageSrc] = useState("");
@@ -23,6 +23,10 @@ const Whiteboard = ({socket, roomid, userRole, coursevideoid, userid, course_id}
       setNumPages(numPages);
     }
 
+    useEffect(()=>{
+      screenrecordingstatus == 0?startrecording():mediaRecorder?.stop();
+    },
+    [screenrecordingstatus])
     const canvasRef = useRef(null);
     const imageRef = useRef(null);
       const widref = useRef(null);  
@@ -494,7 +498,7 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
               <ToastContainer />
                {(userRole === APIs.roles[0])?
               <>
-              <button className='btn-success ' onClick={e=>{screenrecording == 0?startrecording():mediaRecorder?.stop();}}>{screenrecording == 0?"Start Recording":"Stop Recording"}</button>
+              {/* <button className='btn-success ' onClick={e=>{screenrecording == 0?startrecording():mediaRecorder?.stop();}}>{screenrecording == 0?"Start Recording":"Stop Recording"}</button> */}
               {mediaRecorderstatus?<div className="recordingbox">{mediaRecorderstatus}</div> :""}
               {mediaRecorderstatus?<div className="recordingbox">
                 <span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>

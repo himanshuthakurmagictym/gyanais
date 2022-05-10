@@ -28,9 +28,13 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
     const roomid= videodetails._id;
     const [users, setusers] = useState([])
     const [userdetail, setUserDetail] = useState("");
-    
+    const [screenrecordingstatus, setScreenrecordingstatus] = useState(null);
+    const [handleclassstatus, sethandleclassstatus] = useState(handleclassbutton);
     const [handleclass, sethandleclass] = useState(handleclassbutton);
     const [socket, setSocket] = useState(null);
+
+    const [streamstartstatus, setStreamstartstatus] =useState(null)
+  
 
 
     useEffect(()=>{
@@ -85,13 +89,21 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
                              
                                {/* <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">{videodetails.video_title} </h2> */}
                                  <div className='whiteboardmain'>
-                                  <Whiteboarddyn socket={socket} roomid={videodetails._id} userRole={roles} course_id={courseid} coursevideoid={coursevideoid} userid={userid}/>   
+                                  <Whiteboarddyn socket={socket} roomid={videodetails._id} userRole={roles} course_id={courseid} coursevideoid={coursevideoid} userid={userid} screenrecordingstatus={screenrecordingstatus}/>   
                                   </div>  
                             </div>
                               <div className="card col-12 col-md-3">
+                              {(roles === APIs.roles[0])?
+                              <div className="camerabutton ">
+                                  {/* <button className='btn-success ' onClick={e=>{screenrecordingstatus == 0?setScreenrecordingstatus(1):setScreenrecordingstatus(0);}}>{screenrecordingstatus == 0?"Start Recording":"Stop Recording"}</button> */}
+                                <button className='btn-success ' onClick={e=>{(setStreamstartstatus(1))}}>Open Camera</button>
+                                <button className='btn-success ' onClick={e=>{setStreamstartstatus(2)}}>Stop Camera</button>
+                                <button className='btn-success ' onClick={e=>{(handleclassstatus == 0)? sethandleclassstatus(1):sethandleclassstatus(0), screenrecordingstatus == 0?setScreenrecordingstatus(1):setScreenrecordingstatus(0)}}>{(handleclassstatus == 0)? "Start Class":"Stop Class"}</button>
+                                </div>
+                                :""}
                                   <div className='rightside '>
                                         <div className='webcam'> 
-                                                <Webcamerasforst socket={socket} userid={userid} roomid={videodetails._id} userRole={roles} handleclassbutton={handleclassbutton} course_id={courseid}/>                                  
+                                                <Webcamerasforst socket={socket} userid={userid} roomid={videodetails._id} userRole={roles} handleclassbutton={handleclassstatus} course_id={courseid} streamstartstatus={streamstartstatus}/>                                  
                                         </div>
                                         <div className='roomchat'>
                                                 <Chatbox socket={socket} userid={userid} roomid={videodetails._id} userRole={roles}/>

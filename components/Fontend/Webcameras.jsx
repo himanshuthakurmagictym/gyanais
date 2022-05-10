@@ -17,9 +17,17 @@ const constraints = {
 let mediaRecorder = null;
 let dataChunks = [];
 
-function Webcameras({socket, roomid, userid, userRole, handleclassbutton, course_id}) {
+function Webcameras({socket, roomid, userid, userRole, handleclassbutton, course_id, streamstartstatus}) {
  
   const router  = useRouter();
+  useEffect(()=>{
+    setStreamstart(streamstartstatus)
+  },[streamstartstatus])
+
+  useEffect(()=>{
+    sethandleclass(handleclassbutton)
+    
+  },[handleclassbutton])
 
 //const peerConnections = {};
 const videoscream = useRef(null)
@@ -305,15 +313,11 @@ const stoprecording = ()=>{
         
           {(userRole === APIs.roles[0])?
           <>
-          <div className="camerabutton ">
+          {/* <div className="camerabutton ">
         <button className='btn-success ' onClick={e=>{(setStreamstart(1))}}>Open Camera</button>
        <button className='btn-success ' onClick={e=>{setStreamstart(2)}}>Stop Camera</button>
        <button className='btn-success ' onClick={e=>{(handleclass == 0)? sethandleclass(1):sethandleclass(0)}}>{(handleclass == 0)? "Start Class":"Stop Class"}</button>
-       {/* <strong className="audioselect">
-      <label for="audioSource">Audio: </label>
-      <select ref={audiodev} id="audioSource"></select>
-      </strong> */}
-      </div>
+      </div> */}
       <video ref={videoscream} autoPlay muted width='100%' height='100%'/>
        </>
        :

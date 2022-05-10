@@ -31,6 +31,7 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
 
     useEffect(()=>{
         setSocket(io(APIs.base_url_home));
+        console.log(handleclass)
        },[])
     
        useEffect(()=>{
