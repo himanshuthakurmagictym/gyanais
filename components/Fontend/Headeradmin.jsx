@@ -50,11 +50,7 @@ const handleRead = (notyid) => {
     return (
       <>
       <section className="menu cid-qKSs6VLKjY"  id="menu1-h">
-
-    
-    
-
-<nav className="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
+<nav className="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg backgroundheader">
     <div className="navbar-brand">
 
         <span className="navbar-caption-wrap">        <Link href="/" ><a className="navbar-caption text-black display-2" >
@@ -96,12 +92,10 @@ const handleRead = (notyid) => {
         {  
           !isuser?
         <>
-        <li className="nav-item ">
-            <Link href="/login" ><a className="nav-link link text-danger  display-4"  >Login</a></Link>
-        </li>
-        <li className="nav-item ">
-            <Link href="/registration" ><a className="nav-link link text-danger  display-4"  >Registration</a></Link>
-        </li>
+        {/* <li className="nav-item ">
+            <Link href="/admin/login" ><a className="nav-link link text-danger  display-4"  >Login</a></Link>
+        </li> */}
+     
         </>
         : 
         <>
@@ -171,9 +165,9 @@ const handleRead = (notyid) => {
             <Image src={`/assets/images/avatar.png`}  width='40' height='40' alt="avatar"/></a>
             <div className="dropdown-menu">
             <a className="nav-link dropdown-item display-4" href="/teacher/mySchedule"> Dashboard</a>
-             <a className="nav-link dropdown-item display-4" href="/teacher/profile">Profile</a>
+            
             <a className="nav-link dropdown-item display-4" href="/teacher/setting">Setting</a>
-             
+            <a className="nav-link dropdown-item  display-4" onClick={()=>{cookie.remove('token'); cookie.remove('cid'); cookie.remove('role');router.push('/login'); router.reload() }} >Logout</a>
             </div>
         </li>
         </ul>
@@ -181,7 +175,7 @@ const handleRead = (notyid) => {
         </>
         }                               
             </ul>
-        {/* <div className="icons-menu">
+        <div className="icons-menu">
           <div className="soc-item">
             <a href="https://twitter.com" target="_blank" rel="noreferrer">
               <span className="mbr-iconfont socicon-twitter socicon headerlink"></span>
@@ -200,7 +194,7 @@ const handleRead = (notyid) => {
           
           
           
-        </div> */}
+        </div>
         
   </div>
 </nav>

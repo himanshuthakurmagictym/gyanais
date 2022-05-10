@@ -32,10 +32,10 @@ export async function middleware(req) {
 
           if(result.data.roles === APIs.roles[2]){
           
-            // return NextResponse.rewrite('/admin/dashboard');
+            // return NextResponse.redirect('/admin/dashboard');
             }else{
            
-              return NextResponse.rewrite('/admin/dashboard');
+              return NextResponse.rewrite('/admin/login');
             }
 
            

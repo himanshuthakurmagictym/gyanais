@@ -1,5 +1,9 @@
 (function($) {
 
+    $.ready(function ($) {
+        $('#datatable').DataTable();
+      });
+
     var isBuilder = $('html').hasClass('is-builder');
 
     $.extend($.easing, {
