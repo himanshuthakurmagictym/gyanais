@@ -12,11 +12,33 @@ import {useAppContext} from '../../components/Fontend/Layout'
 
 
 function allteacher({teacherdetails}) {
-
+    const [teacherapproved, setteacherapproved] = useState();
     useEffect(()=>{
         $(document).ready(function(){$("#datatable")?.DataTable()});
       },[])
 
+      const router = useRouter();
+      const notify = (data)=>{
+        // console.log(data);
+      if(data.status_code === 200){
+          toast.success(data.message,{autoClose:2000});
+          router.reload();
+      }else{
+          toast.error(data.message,{autoClose:2000});
+      }
+    }
+
+      const approvdteacher = async(status, id)=>{
+        setteacherapproved(status)
+        await fetch(APIs.base_url+'admin/teacherapproval', {
+          method:"POST",
+          headers: {
+              "Content-Type": "application/json",
+            },
+          body: JSON.stringify({id, status}),
+         }).then(res=>res.json()).then(res=>notify(res)).catch(err=>console.log(err));
+    
+      }
   return (
     <>
      <Brudcrums />
@@ -39,7 +61,7 @@ function allteacher({teacherdetails}) {
                                     <div className="card-body">
 
                                     <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">All Teachers</h2>
-                                        <table id="datatable" className="table table-bordered dt-responsive nowrap" style={{borderCollapse:'collapse' }}>
+                                        <table id="datatable" className="table table-bordered dt-responsive nowrap text-center" style={{borderCollapse:'collapse' }}>
 
                                             <thead>
                                             <tr>
@@ -49,7 +71,8 @@ function allteacher({teacherdetails}) {
                                                 <th>username</th>
                                                 <th>email</th>
                                                 <th>city</th>
-                                                <td>isVerified</td>
+                                                <td>isVerified(Email)</td>
+                                                <td>isActivated</td>
                                             </tr>
                                             </thead>
 
@@ -64,6 +87,7 @@ function allteacher({teacherdetails}) {
                                                 <td>{teacher.email}</td>
                                                 <td>{teacher.city}</td>
                                                 <td>{teacher.isVerified === 1 ?"Yes": "No"}</td>
+                                                <td><button onClick={()=>{approvdteacher(teacher.isActivated ==0?1:0, teacher._id)}} className=" btn-success">{teacher.isActivated == 1?"Deactive":"Active"}</button></td>
                                             </tr>
                                             ))}
                                              {!teacherdetails?
