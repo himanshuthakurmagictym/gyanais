@@ -123,7 +123,7 @@ const deletetopics = async(e)=>{
                 </div>
                 <div className="col-sm-12 col-lg-6 col-md-6 text-center">
                 
-                <Image src={'/assets/images/imageupload.png'} width={200} height={200} alt="image" />
+                {/* <Image src={'/assets/images/imageupload.png'} width={200} height={200} alt="image" /> */}
             
                 </div>
                             </div>
@@ -136,7 +136,7 @@ const deletetopics = async(e)=>{
                                 <div className="card">
                                     <div className="card-body">
 
-                                    <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">All Categories</h2>
+                                    <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">All Topics</h2>
                                         <table id="datatable" className="table table-bordered dt-responsive nowrap" style={{borderCollapse:'collapse', width:'100%', textAlign:"center" }}>
 
                                             <thead>

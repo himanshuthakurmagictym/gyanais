@@ -69,7 +69,7 @@ function leftmenu() {
                             <li>
                                 <a href="/admin/addtargetexam" class="waves-effect">
                                 <i class="ti-calendar"></i>
-                                    <span>Target Exam</span>
+                                    <span>add Target Exam</span>
                                 </a>
                             </li>
                             <li>
