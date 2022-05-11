@@ -30,16 +30,16 @@ const Login = () => {
              cookie.set('role',res.data.user.roles, { expires: new Date(res.data.tokens.access.expires), secure: true, sameSite: 'strict' })
             //  cookie.set('user',CryptoJS.AES.encrypt(JSON.stringify(res.data.user), '619619').toString(), { expires: new Date(res.data.tokens.access.expires), secure: true, sameSite: 'strict' })          
             
-             if(res.data.user.roles === APIs.roles[1]){
+             if(res.data.user.roles === APIs.roles[2]){
               
                 router.push('/admin/dashboard')
-                router.reload()
+                // router.reload()
                 
             //setTimeout(()=>{ router.push('/student/profile') } , 3000);
              }else{
               
                 router.push('/admin/dashboard')
-                router.reload()
+                // router.reload()
                 
                 //setTimeout( ()=>{ router.push('/teacher/profile') } , 3000);
              }
@@ -50,7 +50,9 @@ const Login = () => {
         
     }
 
-    
+    useEffect(() => {
+        if (userdetail) router.push("/admin/dashboard");
+      }, [userdetail]);
     
 
     const setCollapseOpen = (data) =>{
@@ -97,9 +99,7 @@ const Login = () => {
 
   })
 
-  useEffect(() => {
-    if (userdetail) router.push("/admin/dashboard");
-  }, [userdetail]);
+ 
  
 
 

@@ -61,9 +61,9 @@ function leftmenu() {
                             </li>
 
                             <li>
-                                <a href="/admin/addgoal" class="waves-effect">
+                                <a href="/admin/addtopics" class="waves-effect">
                                 <i class="ti-calendar"></i>
-                                    <span>Add Goal</span>
+                                    <span>Add Topics</span>
                                 </a>
                             </li>
                             <li>
