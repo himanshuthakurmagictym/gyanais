@@ -15,8 +15,12 @@ import moment from 'moment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 const animatedComponents = makeAnimated();
-function addtargetexam({allcategories, subcategories}) {
-    const [targetexam, settargetexam] = useState("");
+function addpaymentplan({allcategories, allsubscription}) {
+    const [packageName, setpackageName] = useState("");
+    const [packageAmount, setpackageAmount] = useState("");
+    const [packageDesc, setpackageDesc] = useState("");
+    const [packageDuration, setpackageDuration] = useState("");
+    const [packagedetail, setpackagedetail] = useState("");
     const [goal, setgoal]= useState("");
     const [categoryid, setcategoryid]= useState("");
 
@@ -24,6 +28,18 @@ function addtargetexam({allcategories, subcategories}) {
     allcategories.forEach((x)=>{
          goalOptions.push({value:x.course_category_name, label:x.course_category_name, categoryid:x._id}) 
       })
+
+    const packageNameOptions = [
+        { value: 'Plan-A', label: 'Plan-A' },
+        { value: 'Plan-B', label: 'Plan-B' },
+        { value: 'Plan-C', label: 'Plan-C' },
+      ];
+
+      const packageDurationOptions = [
+        { value: '30', label: '30 Days' },
+        { value: '90', label: '90 Days' },
+        { value: '365', label: '365 Days' },
+      ];
 
   const router = useRouter();
   const notify = (data)=>{
@@ -44,31 +60,28 @@ function addtargetexam({allcategories, subcategories}) {
     return false
   }
 
-const addTopics = async(e)=>{
+const addpackage = async(e)=>{
     e.preventDefault();
 
-    if(!goal || !targetexam ){
+    if(!packageAmount || !packageName || !packageDesc || !packageDuration || !packagedetail || !goal){
         !goal?errorhandler("Select category"):"";       
-        !targetexam?errorhandler("targetexam name"):"";
-
-            
+        !packageName?errorhandler("package name"):"";
+        !packageAmount?errorhandler("package amount"):"";
+        !packageDesc?errorhandler("package description"):"";
+        !packageDuration?errorhandler("package Duration"):"";
+        !packagedetail?errorhandler("package Details"):"";       
         }else{
-
-
-
-   await fetch(APIs.base_url+'admin/addtargetexam', {
+   await fetch(APIs.base_url+'admin/addpackage', {
     method:"POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body:JSON.stringify({targetexam,categoryid }),
+    body:JSON.stringify({packageName, categoryid , packageAmount, packageDesc, packageDuration, packagedetail}),
    }).then(res=>res.json()).then(res=>notify(res)).catch(err=>console.log(err));
 }}
-const deletetopics = async(e)=>{
-  // e.preventDefault();
-
-   
- await fetch(APIs.base_url+'admin/deletetargetexam', {
+const deletepackage = async(e)=>{
+  
+ await fetch(APIs.base_url+'admin/deletepackage', {
   method:"POST",
   headers: {
       "Content-Type": "application/json",
@@ -95,13 +108,15 @@ const deletetopics = async(e)=>{
                                 <div className="container mr-4 ml-4">
             <div className="row main-row">
            
-                <div className="col-sm-12 col-lg-6 col-md-6 form-container" data-form-type="formoid">
-                    <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">Add Target Exam</h2>
-                    <form className="mbr-form"  data-form-title="My Mobirise Form" onSubmit={addTopics} method="POST">
+                <div className="col-sm-12 col-lg-8 col-md-8 form-container" data-form-type="formoid">
+                    <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">Add Payment Plan</h2>
+                    <form className="mbr-form"  data-form-title="My Mobirise Form" onSubmit={addpackage} method="POST">
                        
                         <div className="row input-main">
                             <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
-                                <input type="text" className="field display-7" name="syllabusName" placeholder="Enter Target Exam Name"  value={targetexam} onChange={(e)=>{settargetexam(e.target.value)}} required="" id="firstname-form2-7"/>
+                                {/* <input type="text" className="field display-7" name="syllabusName" placeholder="Enter package Name"  value={packageName} onChange={(e)=>{setpackageName(e.target.value)}} required="" id="firstname-form2-7"/> */}
+
+                                <Select options={packageNameOptions} defaultValue={packageName} onChange={(e)=>{setpackageName(e.value)}} isSearchable className=" field display-7"  id="firstname-form2-7"  components={animatedComponents} placeholder="Select a package"/>
                             </div>
                                        
                         </div>
@@ -111,6 +126,34 @@ const deletetopics = async(e)=>{
                             </div>
                                        
                         </div>
+
+                        <div className="row input-main">
+                            <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
+                                <input type="text" className="field display-7" name="syllabusName" placeholder="Enter package Description"  value={packageDesc} onChange={(e)=>{setpackageDesc(e.target.value)}} required="" id="firstname-form2-7"/>
+                            </div>
+                                       
+                        </div>
+
+                        <div className="row input-main">
+                            <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
+                                <input type="text" className="field display-7" name="syllabusName" placeholder="Enter package Details"  value={packagedetail} onChange={(e)=>{setpackagedetail(e.target.value)}} required="" id="firstname-form2-7"/>
+                            </div>
+                                       
+                        </div>
+
+                        <div className="row input-main">
+                            <div className="col-md-6 col-lg-6 input-wrap" data-for="firstname">
+                                <input type="number" className="field display-7" name="syllabusName" placeholder="Enter packageAmount"  value={packageAmount} onChange={(e)=>{setpackageAmount(e.target.value)}} required="" id="firstname-form2-7"/>
+                            </div>
+                            <div className="col-md-6 col-lg-6 input-wrap" data-for="firstname">
+                                {/* <input type="text" className="field display-7" name="syllabusName" placeholder="Enter package Name"  value={packageDuration} onChange={(e)=>{setpackageDuration(e.target.value)}} required="" id="firstname-form2-7"/> */}
+
+                                <Select options={packageDurationOptions} defaultValue={packageDuration} onChange={(e)=>{setpackageDuration(e.value)}} isSearchable className=" field display-7"  id="firstname-form2-7"  components={animatedComponents} placeholder="Select a package"/>
+                            </div>
+                                       
+                        </div>
+
+
                         
                         <div className="row input-main">
                             <div className="col-md-12 col-lg-12 btn-row">
@@ -121,7 +164,7 @@ const deletetopics = async(e)=>{
                         </div>
                     </form>
                 </div>
-                <div className="col-sm-12 col-lg-6 col-md-6 text-center">
+                <div className="col-sm-12 col-lg-4 col-md-4 text-center">
                 
                 {/* <Image src={'/assets/images/imageupload.png'} width={200} height={200} alt="image" /> */}
             
@@ -136,13 +179,15 @@ const deletetopics = async(e)=>{
                                 <div className="card">
                                     <div className="card-body">
 
-                                    <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">All Target Exams</h2>
+                                    <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">All Payment Plan</h2>
                                         <table id="datatable" className="table table-bordered dt-responsive nowrap" style={{borderCollapse:'collapse', width:'100%', textAlign:"center" }}>
 
                                             <thead>
                                             <tr>
                                                 <th>S No.</th>
-                                                <th>Target Exam</th>
+                                                <th>Package Name</th>
+                                                <td>Amount</td>
+                                                <td>Duration</td>
                                                 <th>Goal</th>
                                                 <td>CreatedAt</td>
                                                 <td>Action</td>
@@ -150,13 +195,16 @@ const deletetopics = async(e)=>{
                                             </thead>
 
                                             <tbody>
-                                            {subcategories?.map((category, i)=>(
+                                            {allsubscription?.map((subscription, i)=>(
                                             <tr>
                                                 <td>{++i}</td>
-                                                <td>{category.targetexams}</td>
-                                                <td>{category.categoryid?.course_category_name}</td>
-                                                <td>{moment(category.createdAt).format('DD MMM YYYY')}</td>
-                                                <td><button onClick={()=>{deletetopics(category._id)}} className=" btn-success"><FontAwesomeIcon icon={faTrashCan}/></button></td>
+                                                <td>{subscription.packageName}</td>
+                                                <td>{subscription.packageAmount}</td>
+                                                <td>{subscription.packageDuration}</td>
+                                                <td>{subscription.category_id.course_category_name}</td>
+                                               
+                                                <td>{moment(subscription.createdAt).format('DD MMM YYYY')}</td>
+                                                <td><button onClick={()=>{deletepackage(subscription._id)}} className=" btn-success"><FontAwesomeIcon icon={faTrashCan}/></button></td>
                                             </tr>
                                             ))}
 
@@ -188,17 +236,17 @@ const deletetopics = async(e)=>{
   )
 }
 
-export default addtargetexam
+export default addpaymentplan
 
 export async function getServerSideProps(context) {
   const result =  await fetch(APIs.base_url+'courseCategory/detailsCategory');
-  const allsubcategories =  await fetch(APIs.base_url+'admin/gettargetexams');
-  const subcategories = await allsubcategories.json();
+  const getsubscription =  await fetch(APIs.base_url+'admin/getsubscription');
+  const allsubscription = await getsubscription.json();
     const response = await result.json();
     return {
      props: {
         allcategories: response.data,
-        subcategories:subcategories.data
+        allsubscription:allsubscription.data
        
       },
     }

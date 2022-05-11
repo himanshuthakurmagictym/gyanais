@@ -101,7 +101,7 @@ const deletetopics = async(e)=>{
                        
                         <div className="row input-main">
                             <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
-                                <input type="text" className="field display-7" name="syllabusName" placeholder="Enter Category Name"  value={subcategoryName} onChange={(e)=>{setsubcategoryName(e.target.value)}} required="" id="firstname-form2-7"/>
+                                <input type="text" className="field display-7" name="syllabusName" placeholder="Enter Topic Name"  value={subcategoryName} onChange={(e)=>{setsubcategoryName(e.target.value)}} required="" id="firstname-form2-7"/>
                             </div>
                                        
                         </div>
@@ -154,7 +154,7 @@ const deletetopics = async(e)=>{
                                             <tr>
                                                 <td>{++i}</td>
                                                 <td>{category.subcategory_name}</td>
-                                                <td>{category.categoryid}</td>
+                                                <td>{category?.categoryid?.course_category_name}</td>
                                                 <td>{moment(category.createdAt).format('DD MMM YYYY')}</td>
                                                 <td><button onClick={()=>{deletetopics(category._id)}} className=" btn-success"><FontAwesomeIcon icon={faTrashCan}/></button></td>
                                             </tr>
@@ -192,7 +192,7 @@ export default addtopics
 
 export async function getServerSideProps(context) {
   const result =  await fetch(APIs.base_url+'courseCategory/detailsCategory');
-  const allsubcategories =  await fetch(APIs.base_url+'courseCategory/getsubCategory');
+  const allsubcategories =  await fetch(APIs.base_url+'admin/getsubCategory');
   const subcategories = await allsubcategories.json();
     const response = await result.json();
     return {
