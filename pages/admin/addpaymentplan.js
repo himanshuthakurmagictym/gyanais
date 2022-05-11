@@ -38,7 +38,7 @@ function addpaymentplan({allcategories, allsubscription}) {
     const config = useMemo({
 		readonly: false, // all options from https://xdsoft.net/jodit/doc/,
 		placeholder: placeholder || 'Start typings...'
-	}, [placeholder])
+	}, [allcategories])
 
     const goalOptions= [];
     allcategories.forEach((x)=>{
