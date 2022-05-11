@@ -128,15 +128,15 @@ const deletepackage = async(e)=>{
                         </div>
 
                         <div className="row input-main">
-                            <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
-                                <input type="text" className="field display-7" name="syllabusName" placeholder="Enter package Description"  value={packageDesc} onChange={(e)=>{setpackageDesc(e.target.value)}} required="" id="firstname-form2-7"/>
+                            <div className="col-md-12 col-lg-12 form-group" data-for="firstname">
+                                <textarea type="text" rows="2" className="form-control display-7" name="syllabusName" placeholder="Enter package Description"  value={packageDesc} onChange={(e)=>{setpackageDesc(e.target.value)}} required="" id="firstname-form2-7"></textarea>
                             </div>
                                        
                         </div>
 
                         <div className="row input-main">
-                            <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
-                                <input type="text" className="field display-7" name="syllabusName" placeholder="Enter package Details"  value={packagedetail} onChange={(e)=>{setpackagedetail(e.target.value)}} required="" id="firstname-form2-7"/>
+                            <div className="col-md-12 col-lg-12 form-group" data-for="firstname">
+                                <textarea type="text" rows="2" className="form-control display-7" name="syllabusName" placeholder="Enter package Details"  value={packagedetail} onChange={(e)=>{setpackagedetail(e.target.value)}} required="" id="firstname-form2-7"></textarea>
                             </div>
                                        
                         </div>
@@ -148,7 +148,7 @@ const deletepackage = async(e)=>{
                             <div className="col-md-6 col-lg-6 input-wrap" data-for="firstname">
                                 {/* <input type="text" className="field display-7" name="syllabusName" placeholder="Enter package Name"  value={packageDuration} onChange={(e)=>{setpackageDuration(e.target.value)}} required="" id="firstname-form2-7"/> */}
 
-                                <Select options={packageDurationOptions} defaultValue={packageDuration} onChange={(e)=>{setpackageDuration(e.value)}} isSearchable className=" field display-7"  id="firstname-form2-7"  components={animatedComponents} placeholder="Select a package"/>
+                                <Select options={packageDurationOptions} defaultValue={packageDuration} onChange={(e)=>{setpackageDuration(e.value)}} isSearchable className=" field display-7"  id="firstname-form2-7"  components={animatedComponents} placeholder="Select a Duration"/>
                             </div>
                                        
                         </div>
