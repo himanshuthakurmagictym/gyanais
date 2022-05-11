@@ -1,19 +1,26 @@
-import React, { useState, useEffect, useCallback } from 'react'
-import Brudcrums from "../../components/Fontend/Brudcrums"
-import Image from 'next/image'
-import Link from 'next/link'
-import Select from 'react-select'
+import React, { useState, useEffect, useMemo, useRef} from 'react';
+import Brudcrums from "../../components/Fontend/Brudcrums";
+import Image from 'next/image';
+import Link from 'next/link';
+import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
-import SubmenuDashboard from "../../components/Fontend/Leftmenu"
+import SubmenuDashboard from "../../components/Fontend/Leftmenu";
 import { ToastContainer, toast } from 'react-toastify';
 import APIs from '../../config.js';
 import 'react-toastify/dist/ReactToastify.css';
-import cookie from 'js-cookie'
-import {useRouter} from 'next/router'
-import {useAppContext} from '../../components/Fontend/Layout'
-import moment from 'moment'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEye, faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import cookie from 'js-cookie';
+import {useRouter} from 'next/router';
+import {useAppContext} from '../../components/Fontend/Layout';
+import moment from 'moment';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import dynamic from 'next/dynamic';
+const importJodit = () => import('jodit-react');
+
+const JoditEditor = dynamic(importJodit, {
+    ssr: false,
+});
+
 const animatedComponents = makeAnimated();
 function addpaymentplan({allcategories, allsubscription}) {
     const [packageName, setpackageName] = useState("");
@@ -23,6 +30,15 @@ function addpaymentplan({allcategories, allsubscription}) {
     const [packagedetail, setpackagedetail] = useState("");
     const [goal, setgoal]= useState("");
     const [categoryid, setcategoryid]= useState("");
+
+
+    const editor = useRef(null)
+	const [content, setContent] = useState('')
+
+    const config = useMemo({
+		readonly: false, // all options from https://xdsoft.net/jodit/doc/,
+		placeholder: placeholder || 'Start typings...'
+	}, [placeholder])
 
     const goalOptions= [];
     allcategories.forEach((x)=>{
@@ -130,6 +146,15 @@ const deletepackage = async(e)=>{
                         <div className="row input-main">
                             <div className="col-md-12 col-lg-12 form-group" data-for="firstname">
                                 <textarea type="text" rows="2" className="form-control display-7" name="syllabusName" placeholder="Enter package Description"  value={packageDesc} onChange={(e)=>{setpackageDesc(e.target.value)}} required="" id="firstname-form2-7"></textarea>
+
+                                <JoditEditor
+                                        ref={editor}
+                                        value={content}
+                                        config={config}
+                                tabIndex={1} // tabIndex of textarea
+                                onBlur={newContent => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
+                                        onChange={newContent => {}}  />
+                                                                
                             </div>
                                        
                         </div>

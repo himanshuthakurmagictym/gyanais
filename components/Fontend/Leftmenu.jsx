@@ -13,10 +13,24 @@ function leftmenu() {
                         
                         <ul class="metismenu list-unstyled" id="side-menu">
 
-                        <li>
+                            <li>
                                 <a href="/admin/dashboard" class="waves-effect">
                                 <i class="ti-calendar"></i>
                                     <span>Dashboard</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/admin/adddemo" class="waves-effect">
+                                <i class="ti-calendar"></i>
+                                    <span>Add Demos</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/admin/allorders" class="waves-effect">
+                                <i class="ti-calendar"></i>
+                                    <span>All Orders</span>
                                 </a>
                             </li>
                            
