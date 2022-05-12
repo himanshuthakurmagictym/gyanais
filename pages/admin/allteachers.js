@@ -11,7 +11,7 @@ import {useRouter} from 'next/router'
 import {useAppContext} from '../../components/Fontend/Layout'
 
 
-function allteacher({teacherdetails}) {
+function Allteacher({teacherdetails}) {
     const [teacherapproved, setteacherapproved] = useState();
     useEffect(()=>{
         $(document).ready(function(){$("#datatable")?.DataTable()});
@@ -121,7 +121,7 @@ function allteacher({teacherdetails}) {
   )
 }
 
-export default allteacher
+export default Allteacher
 export async function getServerSideProps(context) {
     const result = await fetch(`${APIs.base_url}admin/allteachers`)
     const response = await result.json();

@@ -12,7 +12,7 @@ import {useRouter} from 'next/router'
 import {useAppContext} from '../../components/Fontend/Layout'
 
 var CryptoJS = require("crypto-js");
-function allcourse({coursedetails}) {
+function Allcourse({coursedetails}) {
 
   useEffect(()=>{
     $(document).ready(function(){$("#datatable")?.DataTable({"scrollX": true})});
@@ -100,7 +100,7 @@ function allcourse({coursedetails}) {
   )
 }
 
-export default allcourse
+export default Allcourse
 export async function getServerSideProps(context) {
     const result = await fetch(`${APIs.base_url}admin/allcourses`)
     const response = await result.json();

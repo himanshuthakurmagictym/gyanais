@@ -12,7 +12,7 @@ import moment from 'moment'
 import {useAppContext} from '../../components/Fontend/Layout'
 
 
-function allvideostream({alllivestreamdetails}) {
+function Allvideostream({alllivestreamdetails}) {
 
   useEffect(()=>{
     $(document).ready(function(){$("#datatable")?.DataTable({"scrollX": true})});
@@ -106,7 +106,7 @@ function allvideostream({alllivestreamdetails}) {
   )
 }
 
-export default allvideostream
+export default Allvideostream
 export async function getServerSideProps(context) {
     const result = await fetch(`${APIs.base_url}admin/allivestreams`)
     const response = await result.json();

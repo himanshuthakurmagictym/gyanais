@@ -11,7 +11,7 @@ import {useRouter} from 'next/router'
 import {useAppContext} from '../../components/Fontend/Layout'
 
 var CryptoJS = require("crypto-js");
-function allstudents({studentdetails}) {
+function Allstudents({studentdetails}) {
 
   useEffect(()=>{
     $(document).ready(function(){$("#datatable")?.DataTable()});
@@ -98,7 +98,7 @@ function allstudents({studentdetails}) {
   )
 }
 
-export default allstudents
+export default Allstudents
 export async function getServerSideProps(context) {
     const result = await fetch(`${APIs.base_url}admin/allstudents`)
     const response = await result.json();

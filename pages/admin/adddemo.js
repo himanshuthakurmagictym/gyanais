@@ -12,7 +12,7 @@ import {useAppContext} from '../../components/Fontend/Layout'
 import moment from 'moment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faTrashCan } from '@fortawesome/free-solid-svg-icons'
-function adddemo({allcategories}) {
+function Adddemo({allcategories}) {
     const [categoryName, setcategoryName] = useState("");
 
     const [categoryImage, setcategoryImage]= useState("");
@@ -192,7 +192,7 @@ const deletecategory = async(e)=>{
   )
 }
 
-export default adddemo
+export default Adddemo
 
 export async function getServerSideProps(context) {
     const result = await fetch(`${APIs.base_url}courseCategory/detailsCategory`)

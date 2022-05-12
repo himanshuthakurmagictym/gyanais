@@ -11,7 +11,7 @@ import {useRouter} from 'next/router'
 import {useAppContext} from '../../components/Fontend/Layout'
 import moment from 'moment'
 
-function allrecordedvideo({allrecorded}) {
+function Allrecordedvideo({allrecorded}) {
   const [classapproved, setclassapproved] = useState();
   const router = useRouter();
   const notify = (data)=>{
@@ -127,7 +127,7 @@ function allrecordedvideo({allrecorded}) {
   )
 }
 
-export default allrecordedvideo
+export default Allrecordedvideo
 
 export async function getServerSideProps(context) {
     const result = await fetch(`${APIs.base_url}admin/allrecorded`)

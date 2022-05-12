@@ -15,7 +15,7 @@ import moment from 'moment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 const animatedComponents = makeAnimated();
-function addtargetexam({allcategories, subcategories}) {
+function Addtargetexam({allcategories, subcategories}) {
     const [targetexam, settargetexam] = useState("");
     const [goal, setgoal]= useState("");
     const [categoryid, setcategoryid]= useState("");
@@ -188,7 +188,7 @@ const deletetopics = async(e)=>{
   )
 }
 
-export default addtargetexam
+export default Addtargetexam
 
 export async function getServerSideProps(context) {
   const result =  await fetch(APIs.base_url+'courseCategory/detailsCategory');

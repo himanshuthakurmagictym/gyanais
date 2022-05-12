@@ -14,7 +14,7 @@ import {useRouter } from "next/router"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAdd , faFilePdf } from '@fortawesome/free-solid-svg-icons'
 const animatedComponents = makeAnimated();
-function addMCQ({allcategory, mycourseOptions, myvideoOptions, getmyquestionbank, teacherid}) {
+function AddMCQ({allcategory, mycourseOptions, myvideoOptions, getmyquestionbank, teacherid}) {
     const [bankName, setbankName] =  useState("");
     const [video, setvideo] = useState("");
     const [videoid, setvideoid] = useState("");
@@ -222,7 +222,7 @@ function addMCQ({allcategory, mycourseOptions, myvideoOptions, getmyquestionbank
   )
 }
 
-export default addMCQ
+export default AddMCQ
 export async function getServerSideProps(context){
     const alldatass =  await fetch(APIs.base_url+'courseCategory/detailsCategory');
     const allsubcategories =  await fetch(APIs.base_url+'courseCategory/getsubCategory');

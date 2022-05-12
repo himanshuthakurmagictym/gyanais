@@ -12,7 +12,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/l
 import Sidebar from '../../../../components/Fontend/sidebar';
 import Syllabus from '../../../../components/Fontend/Classes/Syllabus';
 
-function index({syllabus}) {
+function Index({syllabus}) {
   
     const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
@@ -60,7 +60,7 @@ function index({syllabus}) {
    
 }
 
-export default index
+export default Index
 export const getServerSideProps = async (context) =>{
     const { params } = context;
     const {syllabusdetails} = params;

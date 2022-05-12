@@ -15,7 +15,7 @@ import moment from 'moment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 const animatedComponents = makeAnimated();
-function addtopics({allcategories, subcategories}) {
+function Addtopics({allcategories, subcategories}) {
     const [subcategoryName, setsubcategoryName] = useState("");
     const [goal, setgoal]= useState("");
     const [categoryid, setcategoryid]= useState("");
@@ -188,7 +188,7 @@ const deletetopics = async(e)=>{
   )
 }
 
-export default addtopics
+export default Addtopics
 
 export async function getServerSideProps(context) {
   const result =  await fetch(APIs.base_url+'courseCategory/detailsCategory');

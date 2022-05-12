@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 
 
-function mySchedule({allclass, livebutton}) {
+function MySchedule({allclass, livebutton}) {
   const [duration, setduration]= useState("");
   const [mytime, setmytime]= useState("");
   const [videoid, setvideo]= useState("");
@@ -177,7 +177,7 @@ function mySchedule({allclass, livebutton}) {
   )
 }
 
-export default mySchedule
+export default MySchedule
 export async function getServerSideProps(context){
   const courses = await fetch(APIs.base_url+'teacher/myschedule',{
       method:"POST",

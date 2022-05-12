@@ -14,7 +14,7 @@ import {useRouter } from "next/router"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAdd, faArrowRightFromBracket, faTrash } from '@fortawesome/free-solid-svg-icons'
 const animatedComponents = makeAnimated();
-function mcq({mcqbankid, teacherId, myQuestion}) {
+function Mcq({mcqbankid, teacherId, myQuestion}) {
     const[question, setQuestion] = useState("");
     const[option_1, setoption_1] = useState("");
     const[option_2, setoption_2] = useState("");
@@ -249,7 +249,7 @@ function mcq({mcqbankid, teacherId, myQuestion}) {
   )
 }
 
-export default mcq;
+export default Mcq;
 export const getServerSideProps = async(context)=>{
     const {params} = context;
     const {mcqbankid} = params;

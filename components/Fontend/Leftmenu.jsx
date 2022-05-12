@@ -4,91 +4,91 @@ function leftmenu() {
   return (
  <>
 
-            <div class="vertical-menu">
+            <div className="vertical-menu">
 
-                <div data-simplebar class="h-100">
+                <div data-simplebar className="h-100">
 
                     
                     <div id="sidebar-menu">
                         
-                        <ul class="metismenu list-unstyled" id="side-menu">
+                        <ul className="metismenu list-unstyled" id="side-menu">
 
                             <li>
-                                <a href="/admin/dashboard" class="waves-effect">
-                                <i class="ti-calendar"></i>
+                                <a href="/admin/dashboard" className="waves-effect">
+                                <i className="ti-calendar"></i>
                                     <span>Dashboard</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a href="/admin/adddemo" class="waves-effect">
-                                <i class="ti-calendar"></i>
+                                <a href="/admin/adddemo" className="waves-effect">
+                                <i className="ti-calendar"></i>
                                     <span>Add Demos</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a href="/admin/allorders" class="waves-effect">
-                                <i class="ti-calendar"></i>
+                                <a href="/admin/allorders" className="waves-effect">
+                                <i className="ti-calendar"></i>
                                     <span>All Orders</span>
                                 </a>
                             </li>
                            
 
                             <li>
-                                <a href="/admin/allstudents" class="waves-effect">
-                                <i class="ti-calendar"></i>
+                                <a href="/admin/allstudents" className="waves-effect">
+                                <i className="ti-calendar"></i>
                                     <span>All Students</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a href="/admin/allteachers" class="waves-effect">
-                                <i class="ti-calendar"></i>
+                                <a href="/admin/allteachers" className="waves-effect">
+                                <i className="ti-calendar"></i>
                                     <span>All Teachers</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="/admin/allcourse" class="waves-effect">
-                                <i class="ti-calendar"></i>
+                                <a href="/admin/allcourse" className="waves-effect">
+                                <i className="ti-calendar"></i>
                                     <span>All Course</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="/admin/allvideostream" class="waves-effect">
-                                <i class="ti-calendar"></i>
+                                <a href="/admin/allvideostream" className="waves-effect">
+                                <i className="ti-calendar"></i>
                                     <span>All Free Classes</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="/admin/allrecordedvideo" class="waves-effect">
-                                <i class="ti-calendar"></i>
+                                <a href="/admin/allrecordedvideo" className="waves-effect">
+                                <i className="ti-calendar"></i>
                                     <span>All Pro Classes</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a href="/admin/addcategory" class="waves-effect">
-                                <i class="ti-calendar"></i>
+                                <a href="/admin/addcategory" className="waves-effect">
+                                <i className="ti-calendar"></i>
                                     <span>Add Category</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a href="/admin/addtopics" class="waves-effect">
-                                <i class="ti-calendar"></i>
+                                <a href="/admin/addtopics" className="waves-effect">
+                                <i className="ti-calendar"></i>
                                     <span>Add Topics</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="/admin/addtargetexam" class="waves-effect">
-                                <i class="ti-calendar"></i>
+                                <a href="/admin/addtargetexam" className="waves-effect">
+                                <i className="ti-calendar"></i>
                                     <span>add Target Exam</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="/admin/addpaymentplan" class="waves-effect">
-                                <i class="ti-calendar"></i>
+                                <a href="/admin/addpaymentplan" className="waves-effect">
+                                <i className="ti-calendar"></i>
                                     <span>Payment Plan(Student)</span>
                                 </a>
                             </li>

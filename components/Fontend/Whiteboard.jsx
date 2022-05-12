@@ -322,7 +322,7 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
         canvas.width = Math.floor(canvas.width * scale);
         canvas.height = Math.floor(canvas.height * scale);
 
-      imageRef.current?.onload = () =>{
+      imageRef?.current?.onload = () =>{
         imageRef.current.crossOrigin = "Anonymous";
          contexts?.drawImage(imageRef.current, 0, 0, canvas.width, canvas.height)
         }

@@ -22,7 +22,7 @@ const JoditEditor = dynamic(importJodit, {
 });
 
 const animatedComponents = makeAnimated();
-function addpaymentplan({allcategories, allsubscription}) {
+function Addpaymentplan({allcategories, allsubscription}) {
     const [packageName, setpackageName] = useState("");
     const [packageAmount, setpackageAmount] = useState("");
     const [packageDesc, setpackageDesc] = useState("");
@@ -31,14 +31,14 @@ function addpaymentplan({allcategories, allsubscription}) {
     const [goal, setgoal]= useState("");
     const [categoryid, setcategoryid]= useState("");
 
-
+        const placeholder = "fsdfdsf";
     const editor = useRef(null)
 	const [content, setContent] = useState('')
 
     const config = useMemo({
-		readonly: false, // all options from https://xdsoft.net/jodit/doc/,
-		placeholder: placeholder || 'Start typings...'
-	}, [allcategories])
+		readonly: false // all options from https://xdsoft.net/jodit/doc/,
+		// placeholder: placeholder || 'Start typings...'
+	}, [])
 
     const goalOptions= [];
     allcategories.forEach((x)=>{
@@ -261,7 +261,7 @@ const deletepackage = async(e)=>{
   )
 }
 
-export default addpaymentplan
+export default Addpaymentplan
 
 export async function getServerSideProps(context) {
   const result =  await fetch(APIs.base_url+'courseCategory/detailsCategory');
