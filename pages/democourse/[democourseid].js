@@ -21,7 +21,7 @@ import ReactPlayer from 'react-player';
                         <div className="row justify-content-center">     
                             <div className="card col-12 col-md-8 text-center">
                            
-                            <ReactPlayer url={`/assets/demovideo/${demodetail.demovideo}`} className='react-player'  controls width='100%' 
+                            <ReactPlayer url={`${APIs.base_url_home}${demodetail.demovideo}`} className='react-player'  controls width='100%' 
           height='100%' 
                             config={ {
                                 file: {

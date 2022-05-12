@@ -207,7 +207,7 @@ export async function getServerSideProps(context) {
   
     return {
      props: {
-        democlass : democlass.data,
+        democlass : democlass.data.slice(0, 3),
         coursessoon : coursessoon.data,
         recentclasses : recentclasses.data,
         testimonialss : reviewss.data
