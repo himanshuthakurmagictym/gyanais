@@ -26,7 +26,7 @@ class MyDocument extends Document {
         <link rel="stylesheet" href="/assets/socicon/css/styles.css" />
         <link rel="stylesheet" href="/assets/dropdown/css/style.css" />
         <link rel="stylesheet" href=" https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" />
-        
+       
        
         <link rel="stylesheet" href="/assets/theme/css/style.css" />
         <link rel="stylesheet" href="/assets/mobirise/css/mbr-additional.css" type="text/css" />
@@ -56,7 +56,7 @@ class MyDocument extends Document {
         <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script> 
         <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
      
-
+        
         </body>
       </Html>
     );

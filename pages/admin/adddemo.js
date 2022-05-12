@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useRef, useMemo } from 'react'
 import Brudcrums from "../../components/Fontend/Brudcrums"
 import Image from 'next/image'
 import Link from 'next/link'
@@ -12,11 +12,29 @@ import {useAppContext} from '../../components/Fontend/Layout'
 import moment from 'moment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faTrashCan } from '@fortawesome/free-solid-svg-icons'
-function Adddemo({allcategories}) {
-    const [categoryName, setcategoryName] = useState("");
+import dynamic from 'next/dynamic';
+const importJodit = () => import('jodit-react');
 
-    const [categoryImage, setcategoryImage]= useState("");
-  
+const JoditEditor = dynamic(importJodit, {
+    ssr: false,
+});
+
+function Adddemo({allcategories}) {
+    const [demoTitle, setdemoTitle] = useState("");
+    const [demoLesson, setdemoLesson] = useState("");
+    const [demovideo, setdemovideo] = useState("");
+    const [demoenroll, setdemoenroll] = useState("");
+    const [demodescription, setdemodescription] = useState("");
+    const [demoDate, setdemoDate] = useState("");
+    const [demoImage, setdemoImage]= useState("");
+    const editor = useRef(null)
+    const [content, setContent] = useState('');
+    const [configs, setconfigs] = useState({
+      readonly: false, 
+       placeholder: 'Start typing Demo Description...',
+       fullsize:false,
+    });
+    
   const router = useRouter();
   const notify = (data)=>{
     // console.log(data);
@@ -29,39 +47,40 @@ function Adddemo({allcategories}) {
 }
 
   useEffect(()=>{
-    $(document).ready(function(){$("#datatable")?.DataTable({"scrollX": true})});
+    $(document).ready(function(){$("#datatable")?.DataTable({"scrollX": true,  paging: false,
+    searching: false,
+    destroy: true,})});
   },[])
   const errorhandler = (x)=>{
     toast.error(`Please Fill ${x}.`,{autoClose:8000})
     return false
   }
 
-const addCategory = async(e)=>{
+const addDemodata = async(e)=>{
     e.preventDefault();
-
-    if(!categoryName || !categoryImage ){
-        !categoryName?errorhandler("categoryName"):"";       
-        !categoryImage?errorhandler("category image"):"";
-
-            
+    if(!demoTitle || !demoImage || !demoLesson || !demovideo || !demodescription || !demoDate){
+        !demoTitle?errorhandler("demoTitle"):"";       
+        !demoImage?errorhandler("demo Image"):"";
+        !demoLesson?errorhandler("demo Lesson"):"";
+        !demodescription?errorhandler("demo description"):"";
+        !demoDate?errorhandler("demo Date"):"";
+        !demovideo?errorhandler("demovideo"):"";
         }else{
-
    const body = new FormData();
-   body.append("course_category_name", categoryName);    
-   body.append("course_category_image", categoryImage);
-   await fetch(APIs.base_url+'admin/addcategory', {
+   body.append("demoTitle", demoTitle);    
+   body.append("demoImage", demoImage);
+   body.append("demoLesson", demoLesson);
+   body.append("demodescription", demodescription);
+   body.append("demoDate", demoDate);
+  body.append("demovideo", demovideo);
+   await fetch(APIs.base_url+'admin/adddemo', {
     method:"POST",
-    // headers: {
-    //     "Content-Type": "multipart/form-data",
-    //   },
     body,
    }).then(res=>res.json()).then(res=>notify(res)).catch(err=>console.log(err));
 }}
-const deletecategory = async(e)=>{
-  // e.preventDefault();
 
-   
- await fetch(APIs.base_url+'admin/deletecategory', {
+const deletecategory = async(e)=>{
+ await fetch(APIs.base_url+'admin/deletedemo', {
   method:"POST",
   headers: {
       "Content-Type": "application/json",
@@ -89,14 +108,42 @@ const deletecategory = async(e)=>{
             <div className="row main-row">
            
                 <div className="col-sm-12 col-lg-6 col-md-6 form-container" data-form-type="formoid">
-                    <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">Add Category</h2>
-                    <form className="mbr-form"  data-form-title="My Mobirise Form" onSubmit={addCategory} method="POST">
+                    <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">Add Demo Video Details</h2>
+                    <form className="mbr-form"  data-form-title="My Mobirise Form" onSubmit={addDemodata} method="POST" >
                        
                         <div className="row input-main">
                             <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
-                                <input type="text" className="field display-7" name="syllabusName" placeholder="Enter Category Name"  value={categoryName} onChange={(e)=>{setcategoryName(e.target.value)}} required="" id="firstname-form2-7"/>
+                                <input type="text" className="field display-7"  placeholder="Enter Title Name"  value={demoTitle} onChange={(e)=>{setdemoTitle(e.target.value)}} required="" id="firstname-form2-7"/>
                             </div>
                                        
+                        </div>
+
+                        <div className="row input-main">
+                            <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
+                                <input type="text" className="field display-7"  placeholder="Enter lesson Name"  value={demoLesson} onChange={(e)=>{setdemoLesson(e.target.value)}} required="" id="firstname-form2-7"/>
+                            </div>        
+                        </div>
+
+                        <div className="row input-main">
+                            <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
+                            <JoditEditor ref={editor} config={configs} value={demodescription} tabIndex={1} onBlur={newContent => setContent(newContent)} onChange={newContent => {setdemodescription(newContent)}}  />
+                            </div>        
+                        </div>
+
+                       
+
+                       
+
+                        {/* <div className="row input-main">
+                            <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
+                                <input type="text" className="field display-7"  placeholder="Enter Category Name"  value={demoenroll} onChange={(e)=>{setdemoenroll(e.target.value)}} required="" id="firstname-form2-7"/>
+                            </div>        
+                        </div> */}
+
+                        <div className="row input-main">
+                            <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">
+                                <input type="datetime-local" className="field display-7"  placeholder="Enter Category Name"  value={demoDate} onChange={(e)=>{setdemoDate(e.target.value)}} required="" id="firstname-form2-7"/>
+                            </div>        
                         </div>
 
                         <div className="row input-main">
@@ -104,17 +151,28 @@ const deletecategory = async(e)=>{
                         <div className="col-md-12 col-lg-12 input-wrap " >
                             
                             <div className=" custom-file">
-                                <input type="file" className="custom-file-input" id="customFile" accept="image/*"  onChange={(e)=>{setcategoryImage(e.target.files[0])}} />
-                                <label className="custom-file-label" name="image" for="customFile" >Choose Category Image Preview </label>
+                                <input type="file" className="custom-file-input" id="customFile" accept="image/*"  onChange={(e)=>{setdemoImage(e.target.files[0])}} />
+                                <label className="custom-file-label" name="image" for="customFile" >Choose Demo Image Preview </label>
                             </div>
                         </div>
                                    
                       </div>
+
+                      <div className="row input-main">
                         
-                       
+                        <div className="col-md-12 col-lg-12 input-wrap " >
+                     
+                            <div className="custom-file">
+                                <input type="file" className="custom-file-input" id="customFiles" accept="video/*"  onChange={(e)=>{setdemovideo(e.target.files[0])}} />
+                                <label className="custom-file-label" name="video" for="customFiles" >Upload Demo Video  </label> 
+                            </div>
+
+                           
+                        </div>
+                                   
+                      </div>
                         
 
-                      
                        
                         <div className="row input-main">
                             <div className="col-md-12 col-lg-12 btn-row">
@@ -127,7 +185,7 @@ const deletecategory = async(e)=>{
                 </div>
                 <div className="col-sm-12 col-lg-6 col-md-6 text-center">
                 
-                <Image src={categoryImage?URL.createObjectURL(categoryImage):'/assets/images/imageupload.png'} width={200} height={200} alt="image" />
+                <Image src={demoImage?URL.createObjectURL(demoImage):'/assets/images/imageupload.png'} width={200} height={200} alt="image" />
             
                 </div>
                             </div>
@@ -140,27 +198,30 @@ const deletecategory = async(e)=>{
                                 <div className="card">
                                     <div className="card-body">
 
-                                    <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">All Categories</h2>
+                                    <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">All Demo Video</h2>
                                         <table id="datatable" className="table table-bordered dt-responsive nowrap" style={{borderCollapse:'collapse', width:'100%', textAlign:"center" }}>
 
                                             <thead>
                                             <tr>
                                                 <th>S No.</th>
-                                                <th>Category Name</th>
+                                                <th>demo Title</th>
+                                                <th>Video Date</th>
                                                 <th>Category Image</th>
+
                                                 <td>CreatedAt</td>
                                                 <td>Action</td>
                                             </tr>
                                             </thead>
 
                                             <tbody>
-                                            {allcategories?.map((category, i)=>(
+                                            {allcategories?.map((demo, i)=>(
                                             <tr>
                                                 <td>{++i}</td>
-                                                <td>{category.course_category_name}</td>
-                                                <td><Image src={`${APIs.base_url_home}${category.course_category_image}`}width={50} height={50}   alt="category "/></td>
-                                                <td>{moment(category.createdAt).format('DD MMM YYYY')}</td>
-                                                <td><button onClick={()=>{deletecategory(category._id)}} className=" btn-success"><FontAwesomeIcon icon={faTrashCan}/></button></td>
+                                                <td>{demo.demoTitle}</td>
+                                                <td>{demo.demoDate}</td>
+                                                <td><Image src={`${APIs.base_url_home}${demo.demoImage}`}width={50} height={50}   alt="category "/></td>
+                                                <td>{moment(demo.createdAt).format('DD MMM YYYY')}</td>
+                                                <td><button onClick={()=>{deletecategory(demo._id)}} className=" btn-success"><FontAwesomeIcon icon={faTrashCan}/></button></td>
                                             </tr>
                                             ))}
 
@@ -195,8 +256,8 @@ const deletecategory = async(e)=>{
 export default Adddemo
 
 export async function getServerSideProps(context) {
-    const result = await fetch(`${APIs.base_url}courseCategory/detailsCategory`)
-    const response = await result.json();
+  const res = await fetch(`${APIs.base_url}demodetails/all`)
+    const response = await res.json();
     return {
      props: {
         allcategories: response.data,

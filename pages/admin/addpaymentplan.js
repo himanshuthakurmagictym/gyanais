@@ -35,10 +35,16 @@ function Addpaymentplan({allcategories, allsubscription}) {
     const editor = useRef(null)
 	const [content, setContent] = useState('')
 	const [contents, setContents] = useState('')
-    // const config = useMemo({
-	// 	readonly: false // all options from https://xdsoft.net/jodit/doc/,
-	// 	// placeholder: placeholder || 'Start typings...'
-	// }, [])
+    const [config, setconfig] = useState({
+		readonly: false, 
+		 placeholder: 'Start typing package Description...'
+	})
+    const [config2, setconfig2] = useState({
+		readonly: false,
+		 placeholder: 'Start typings package Details...'
+	})
+    
+    
 
     const goalOptions= [];
     allcategories.forEach((x)=>{
@@ -147,7 +153,7 @@ const deletepackage = async(e)=>{
                             <div className="col-md-12 col-lg-12 form-group" data-for="firstname">
                                 {/* <textarea type="text" rows="2" className="form-control display-7" name="syllabusName" placeholder="Enter package Description"  value={packageDesc} onChange={(e)=>{setpackageDesc(e.target.value)}} required="" id="firstname-form2-7"></textarea> */}
 
-                                <JoditEditor ref={editor} value={packageDesc} tabIndex={1} 
+                                <JoditEditor ref={editor} config={config} value={packageDesc} tabIndex={1} 
                                 onBlur={newContent => setContent(newContent)} onChange={newContent => {setpackageDesc(newContent)}}  />
                                                                 
                             </div>
@@ -158,7 +164,7 @@ const deletepackage = async(e)=>{
                             <div className="col-md-12 col-lg-12 form-group" data-for="firstname">
                                 {/* <textarea type="text" rows="2" className="form-control display-7" name="syllabusName" placeholder="Enter package Details"  value={packagedetail} onChange={(e)=>{setpackagedetail(e.target.value)}} required="" id="firstname-form2-7"></textarea> */}
 
-                                <JoditEditor ref={editor} value={packagedetail} tabIndex={1} 
+                                <JoditEditor ref={editor} config={config2} value={packagedetail} tabIndex={1} 
                                 onBlur={newContents => setContents(newContents)} onChange={newContents => {setpackagedetail(newContents)}}  />
                             </div>
                                        
