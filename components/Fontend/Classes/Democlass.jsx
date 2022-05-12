@@ -1,5 +1,6 @@
 import Image from 'next/image'
 var moment = require('moment');
+import APIs from '../../../config';
 import Link from 'next/link'
 const Democlass = ({ democlass })=>{
 
@@ -8,7 +9,8 @@ const Democlass = ({ democlass })=>{
 <div className="col-md-6 col-lg-3 row-item">
     <div className="wrapper">
       <div className="card-img pb-3 align-center">   
-        <Image src={`/assets/images/democlasses/${democlass.demoImage}`} alt="class" width="200" height="100" />
+        <Image src={`${APIs.base_url_home}${democlass.demoImage}`} alt="class" width="200" height="100" />
+        
       </div>
       <h4 className="mbr-fonts-style mbr-card-title align-center display-7"> {democlass.demoTitle}</h4>
       <h5> 
