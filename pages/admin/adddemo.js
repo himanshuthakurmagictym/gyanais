@@ -19,6 +19,8 @@ const JoditEditor = dynamic(importJodit, {
     ssr: false,
 });
 
+
+
 function Adddemo({allcategories}) {
     const [demoTitle, setdemoTitle] = useState("");
     const [demoLesson, setdemoLesson] = useState("");
@@ -166,7 +168,7 @@ const deletecategory = async(e)=>{
                                 <input type="file" className="custom-file-input" id="customFiles" accept="video/*"  onChange={(e)=>{setdemovideo(e.target.files[0])}} />
                                 <label className="custom-file-label" name="video" for="customFiles" >Upload Demo Video  </label> 
                             </div>
-
+                           
                            
                         </div>
                                    
