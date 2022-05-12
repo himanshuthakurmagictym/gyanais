@@ -20,7 +20,7 @@ import ReactPlayer from 'react-player';
                 <div className="container">
                         <div className="row justify-content-center">     
                             <div className="card col-12 col-md-8 text-center">
-                           
+                            <h4 className="mbr-fonts-style mb-3 align-center display-2"> {demodetail.demoTitle}</h4>
                             <ReactPlayer url={`${APIs.base_url_home}${demodetail.demovideo}`} className='react-player'  controls width='100%' 
           height='100%' 
                             config={ {
@@ -35,7 +35,7 @@ import ReactPlayer from 'react-player';
                             </div>
                             <div className="card col-12 col-md-12">                            
                                 <div className="card-boxs">
-                                <h2 className="mbr-fonts-style mb-3 align-center display-2">{demodetail.demoTitle}</h2>
+                                {/* <h2 className="mbr-fonts-style mb-3 align-center display-2">{demodetail.demoTitle}</h2> */}
                                     <p className="mbr-text card-text mbr-fonts-style align-left m-0 display-7">
                                     {demodetail.demodescription} 
                                     </p>
