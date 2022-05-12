@@ -14,7 +14,7 @@ import {useRouter } from "next/router"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faFilePdf } from '@fortawesome/free-solid-svg-icons'
 
-function allNotes({allnotes}) {
+function AllNotes({allnotes}) {
   return (
     <>
     <Brudcrums/>
@@ -91,7 +91,7 @@ function allNotes({allnotes}) {
   )
 }
 
-export default allNotes
+export default AllNotes
 
 export async function getServerSideProps(context){
     const courses = await fetch(APIs.base_url+'teacher/allnotes',{

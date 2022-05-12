@@ -12,7 +12,7 @@ import Link from 'next/link'
 import React, {useState, useEffect} from 'react'
 import {useRouter } from "next/router"
 const animatedComponents = makeAnimated();
-function addsyllabus({teacherid, mycourseOptions}) {
+function Addsyllabus({teacherid, mycourseOptions}) {
 
     const [syllabusName, setsyllabusName] = useState("");
    
@@ -161,7 +161,7 @@ function addsyllabus({teacherid, mycourseOptions}) {
   )
 }
 
-export default addsyllabus;
+export default Addsyllabus;
 
 export async function getServerSideProps(context){
     const alldatass =  await fetch(APIs.base_url+'courseCategory/detailsCategory');

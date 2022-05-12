@@ -34,11 +34,11 @@ function Addpaymentplan({allcategories, allsubscription}) {
         const placeholder = "fsdfdsf";
     const editor = useRef(null)
 	const [content, setContent] = useState('')
-
-    const config = useMemo({
-		readonly: false // all options from https://xdsoft.net/jodit/doc/,
-		// placeholder: placeholder || 'Start typings...'
-	}, [])
+	const [contents, setContents] = useState('')
+    // const config = useMemo({
+	// 	readonly: false // all options from https://xdsoft.net/jodit/doc/,
+	// 	// placeholder: placeholder || 'Start typings...'
+	// }, [])
 
     const goalOptions= [];
     allcategories.forEach((x)=>{
@@ -145,15 +145,10 @@ const deletepackage = async(e)=>{
 
                         <div className="row input-main">
                             <div className="col-md-12 col-lg-12 form-group" data-for="firstname">
-                                <textarea type="text" rows="2" className="form-control display-7" name="syllabusName" placeholder="Enter package Description"  value={packageDesc} onChange={(e)=>{setpackageDesc(e.target.value)}} required="" id="firstname-form2-7"></textarea>
+                                {/* <textarea type="text" rows="2" className="form-control display-7" name="syllabusName" placeholder="Enter package Description"  value={packageDesc} onChange={(e)=>{setpackageDesc(e.target.value)}} required="" id="firstname-form2-7"></textarea> */}
 
-                                <JoditEditor
-                                        ref={editor}
-                                        value={content}
-                                        config={config}
-                                tabIndex={1} // tabIndex of textarea
-                                onBlur={newContent => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
-                                        onChange={newContent => {}}  />
+                                <JoditEditor ref={editor} value={packageDesc} tabIndex={1} 
+                                onBlur={newContent => setContent(newContent)} onChange={newContent => {setpackageDesc(newContent)}}  />
                                                                 
                             </div>
                                        
@@ -161,7 +156,10 @@ const deletepackage = async(e)=>{
 
                         <div className="row input-main">
                             <div className="col-md-12 col-lg-12 form-group" data-for="firstname">
-                                <textarea type="text" rows="2" className="form-control display-7" name="syllabusName" placeholder="Enter package Details"  value={packagedetail} onChange={(e)=>{setpackagedetail(e.target.value)}} required="" id="firstname-form2-7"></textarea>
+                                {/* <textarea type="text" rows="2" className="form-control display-7" name="syllabusName" placeholder="Enter package Details"  value={packagedetail} onChange={(e)=>{setpackagedetail(e.target.value)}} required="" id="firstname-form2-7"></textarea> */}
+
+                                <JoditEditor ref={editor} value={packagedetail} tabIndex={1} 
+                                onBlur={newContents => setContents(newContents)} onChange={newContents => {setpackagedetail(newContents)}}  />
                             </div>
                                        
                         </div>

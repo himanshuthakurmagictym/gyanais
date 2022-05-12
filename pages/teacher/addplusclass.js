@@ -12,7 +12,7 @@ import Link from 'next/link'
 import React, {useState, useEffect} from 'react'
 import {useRouter } from "next/router"
 const animatedComponents = makeAnimated();
-function addplusclass({allcategory, teacherid, allsubcategories, mycourseOptions}) {
+function Addplusclass({allcategory, teacherid, allsubcategories, mycourseOptions}) {
 
     const [className, setclassName] = useState("");
     const [classDescription, setclassDescription]= useState("");
@@ -261,7 +261,7 @@ function addplusclass({allcategory, teacherid, allsubcategories, mycourseOptions
   )
 }
 
-export default addplusclass;
+export default Addplusclass;
 
 export async function getServerSideProps(context){
     const alldatass =  await fetch(APIs.base_url+'courseCategory/detailsCategory');

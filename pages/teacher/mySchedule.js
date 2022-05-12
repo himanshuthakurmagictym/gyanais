@@ -75,7 +75,7 @@ function MySchedule({allclass, livebutton}) {
             <div className="row main-row">
                 <div className="col-sm-12 col-lg-12 col-md-12 form-container" data-form-type="formoid">
                     <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">My Schedule</h2>
-                    <table class="table">
+                    <table className="table">
                       <thead>
                         <tr>
                           <th scope="col"> SNo.</th>

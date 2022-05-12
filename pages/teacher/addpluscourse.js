@@ -14,7 +14,7 @@ import {useRouter } from "next/router"
 const animatedComponents = makeAnimated();
 
 
-function addpluscourse({allcategory, teacherid, allsubcategories, alltargetexams}) {
+function Addpluscourse({allcategory, teacherid, allsubcategories, alltargetexams}) {
     const [courseName, setcourseName] = useState("");
     const [courseDescription, setcourseDescription]= useState("");
     const [writtencontent, setwrittencontent]= useState([]);
@@ -262,7 +262,7 @@ function addpluscourse({allcategory, teacherid, allsubcategories, alltargetexams
   )
 }
 
-export default addpluscourse
+export default Addpluscourse
 
 export async function getServerSideProps(context){
     const alldatass =  await fetch(APIs.base_url+'courseCategory/detailsCategory');
