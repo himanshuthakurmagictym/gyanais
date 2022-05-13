@@ -275,6 +275,17 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
        
     }
 
+
+   useEffect(()=>{
+
+    const canvas = canvasRef.current;
+      const contexts = canvas.getContext('2d');
+      imageRef?.current?.onload = () =>{
+      imageRef?.current?.crossOrigin = "Anonymous";
+       contexts?.drawImage(imageRef?.current, 0, 0, canvas.width, canvas.height)
+      }
+    },[socket][imageRef])
+
     useEffect(()=>{
       socket?.emit("backgroundimage",{roomid, slidetime});
     },[slidetime])
@@ -321,11 +332,12 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
       //   canvas.style.height = sizeHeight + "px";
         canvas.width = Math.floor(canvas.width * scale);
         canvas.height = Math.floor(canvas.height * scale);
-
-      imageRef?.current?.onload = () =>{
-        // imageRef.current.crossOrigin = "Anonymous";
-         contexts?.drawImage(imageRef.current, 0, 0, canvas.width, canvas.height)
-        }
+      
+      // imageRef?.current?.onload = () =>{
+      //   imageRef?.current?.crossOrigin = "Anonymous";
+      //    contexts?.drawImage(imageRef?.current, 0, 0, canvas.width, canvas.height)
+      //   }
+      
 
       const colors = document.getElementsByClassName('color');
       // console.log(colors, 'the colors');
