@@ -33,7 +33,7 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
     const [handleclass, sethandleclass] = useState(handleclassbutton);
     const [socket, setSocket] = useState(null);
 
-    const [streamstartstatus, setStreamstartstatus] =useState(null)
+    const [streamstartstatus, setStreamstartstatus] =useState(2)
   
 
 
@@ -96,9 +96,12 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
                               {(roles === APIs.roles[0])?
                               <div className="camerabutton ">
                                   {/* <button className='btn-success ' onClick={e=>{screenrecordingstatus == 0?setScreenrecordingstatus(1):setScreenrecordingstatus(0);}}>{screenrecordingstatus == 0?"Start Recording":"Stop Recording"}</button> */}
-                                <button className='btn-success ' onClick={e=>{(setStreamstartstatus(1))}}>Open Camera</button>
-                                <button className='btn-success ' onClick={e=>{setStreamstartstatus(2)}}>Stop Camera</button>
-                                <button className='btn-success ' onClick={e=>{(handleclassstatus == 0)? sethandleclassstatus(1):sethandleclassstatus(0), screenrecordingstatus == 0?setScreenrecordingstatus(1):setScreenrecordingstatus(0)}}>{(handleclassstatus == 0)? "Start Class":"Stop Class"}</button>
+                                {/* <button className='btn-success ' onClick={e=>{(setStreamstartstatus(1))}}>Open Camera</button>
+                                <button className='btn-success ' onClick={e=>{setStreamstartstatus(2)}}>Stop Camera</button> */}
+                                {/* <button className='btn-success ' onClick={e=>{(handleclassstatus == 0)? sethandleclassstatus(1):sethandleclassstatus(0), screenrecordingstatus == 0?setScreenrecordingstatus(1):setScreenrecordingstatus(0), streamstartstatus == 2?setStreamstartstatus(1):setStreamstartstatus(2) }}>{(handleclassstatus == 0)? "Start Class":"Stop Class"}</button> */}
+                               
+                                <button className='btn-success ' onClick={e=>{ sethandleclassstatus(1), setScreenrecordingstatus(0), setStreamstartstatus(1) }}>Start Class</button>
+                                <button className='btn-success ' onClick={e=>{ sethandleclassstatus(0), setScreenrecordingstatus(1), setStreamstartstatus(2)}}>Stop Class</button>
                                 </div>
                                 :""}
                                   <div className='rightside '>
