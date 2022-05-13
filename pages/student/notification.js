@@ -28,7 +28,7 @@ function Notification({notification}) {
                                             <div className="col-md-12">
                                             <h2 className="mbr-fonts-style mb-3 align-center display-2">All  Notification</h2>  
                                             <div className="card-box">
-                                            {notification.map((noty, i)=>(
+                                            {notification?.map((noty, i)=>(
                                                 <div className='notify' key={noty._id}>
                                                 <div className="row">
                                                 <div className="col-md-2">
@@ -36,8 +36,8 @@ function Notification({notification}) {
                                                 </div>
                                                 <div className="col-md-9">
                                                     <div className='notifyBody'>
-                                                    <h1 className=" display-5">{noty.videoid.video_title}</h1>
-                                                    <p>{moment(noty.videoid.videoDate).format('DD MMM YYY')}</p>
+                                                    <h1 className=" display-5">{noty.message}</h1>
+                                                    <p>{moment(noty.videoid?.videoDate).format('DD MMM YYY')}</p>
                                                     </div>
                                                 </div>
                                                 <div className="col-md-1">

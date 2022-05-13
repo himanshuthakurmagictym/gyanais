@@ -16,6 +16,7 @@ function Header({socket}) {
    
   //  setstate(isusers);
    const [notification, setNotifications] =useState([])
+   
   
    const [newuser, setuserid] = useState("");
 
@@ -30,12 +31,9 @@ function Header({socket}) {
   },[newuser])
 
   useEffect(()=>{
-  socket?.on('notification', (data) => {
-    //console.log(data);
-    setNotifications(data);
-   
+  socket?.on('notification', (result) => {
+    setNotifications(result);
   })
-
 },[socket])
   
 const handleRead = (notyid) => {
@@ -118,25 +116,22 @@ const handleRead = (notyid) => {
             
                         <div className="dropdown-menu  notifymodel"  >
                                         <div className="card-box container">
-                                            {notification.map((noty, i)=>(
+                                            {notification.map((noty)=>(
                                                 <div className='notify ' key={noty._id} >
-                                                  
-                                                <div className="row" onClick={e=>{handleRead(noty._id)}}>
+                                                
+                                                <div className="row" key={noty._id} onClick={e=>{handleRead(noty._id)}}>
                                                 {/* <div className="col-md-2">
                                                     <Image src={`/assets/images/avatar.png`} width={100} height={100} alt="course image" />
                                                 </div> */}
                                                 <div className="col-md-12">
                                                     <div className='notifyBodynav'>
                                                    
-                                                    <strong className="">{noty.videoid.video_title}</strong>
-                                                    <p>{moment(noty.videoid.videoDate).format('DD MMM YYY')}</p>
+                                                    <strong className=""> {noty?.message}</strong>
+                                                    {/* <p>{moment(noty.videoid?.videoDate).format('DD MMM YYY')}</p> */}
                                                     </div>
-                                                    <p>{moment(noty.createdAt).fromNow()}</p>
+                                                    <p>{moment(noty.createdAt).fromNow()} </p>
                                                 </div>
-                                               
-                                                
-                                               
-                                                    
+ 
                                                 
                                                 </div>
                                               
