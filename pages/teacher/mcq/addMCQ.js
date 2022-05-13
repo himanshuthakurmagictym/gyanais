@@ -168,10 +168,10 @@ function AddMCQ({allcategory, mycourseOptions, myvideoOptions, getmyquestionbank
                         
                          
                             {getmyquestionbank?.map((all_class, i) => (
-                             <tr>
+                             <tr key={all_class._id}>
                               {(!getmyquestionbank)?
                               <>
-                              <th scope="row" key={all_class._id}>No Record Found</th>
+                              <th scope="row" >No Record Found</th>
                               </>
                                 : <>
                                 <th scope="row">{++i}</th>

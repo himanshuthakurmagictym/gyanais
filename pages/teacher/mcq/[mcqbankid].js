@@ -196,10 +196,10 @@ function Mcq({mcqbankid, teacherId, myQuestion}) {
                        
                          
                             {myQuestion?.map((myquestion, i) => (
-                              <tr>
+                              <tr key={myquestion._id}>
                               {(!myQuestion)?
                               <>
-                              <th scope="row" key={myquestion._id}>No Record Found</th>
+                              <th scope="row" >No Record Found</th>
                               </>
                                 : <>
                                 <th scope="row">{++i}</th>
