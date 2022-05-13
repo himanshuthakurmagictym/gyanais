@@ -5,7 +5,7 @@ import APIs from '../../config.js';
 import { ToastContainer, toast } from 'react-toastify';
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated';
-import Singleclass from "../../components/Teacher/Class/Singleclass"
+import Singleclass from "../../components/Teacher/class/Singleclass"
 import 'react-toastify/dist/ReactToastify.css';
 import Image from 'next/image'
 import moment from 'moment';

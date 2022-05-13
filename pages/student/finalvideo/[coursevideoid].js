@@ -10,7 +10,7 @@ import {io} from 'socket.io-client';
 import cookie from 'js-cookie'
 import dynamic from 'next/dynamic'
 import Chatbox from "../../../components/Fontend/Chatbox";
-import CanvasVideo from "../../../components/student/CanvasVideo"
+
 
 
 function Finalvideo({videodetails, userid, coursevideoid, roles, course_id, camvideodetail}) {
