@@ -87,10 +87,11 @@ function MySchedule({allclass, livebutton}) {
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
+                       
                          
                             {allclass?.map((all_class, i) => (
                               <>
+                               <tr>
                               <th scope="row">{++i}</th>
                               <td>{all_class.video_title}</td>
                               <td>{all_class.course_id.course_name}</td>
@@ -115,11 +116,12 @@ function MySchedule({allclass, livebutton}) {
                                   </button>  
                                   }
                                </td>
+                               </tr>
                               </>
                                                       
                             ))}
 
-                        </tr>
+                       
                         
                       </tbody>
                     </table>
