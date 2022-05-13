@@ -322,10 +322,10 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
         canvas.width = Math.floor(canvas.width * scale);
         canvas.height = Math.floor(canvas.height * scale);
 
-      // imageRef?.current?.onload = () =>{
-      //   imageRef.current.crossOrigin = "Anonymous";
-      //    contexts?.drawImage(imageRef.current, 0, 0, canvas.width, canvas.height)
-      //   }
+      imageRef?.current?.onload = () =>{
+        // imageRef.current.crossOrigin = "Anonymous";
+         contexts?.drawImage(imageRef.current, 0, 0, canvas.width, canvas.height)
+        }
 
       const colors = document.getElementsByClassName('color');
       // console.log(colors, 'the colors');
@@ -514,7 +514,7 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
                                  pageNumber={pageNumber}   renderTextLayer={false}  />
                 </Document>
                 {(pollmodel)?
-                <div className="modal showmodel" tabindex="-1" role="dialog">
+                <div className="modal showmodel" tabIndex="-1" role="dialog">
                         <div className="modal-dialog" role="document">
                           <div className="modal-content">
                             <div className="modal-header">
