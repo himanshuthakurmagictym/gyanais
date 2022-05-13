@@ -225,7 +225,7 @@ function Addpluscourse({allcategory, teacherid, allsubcategories, alltargetexams
                                 
                                 <div className=" custom-file">
                                     <input type="file" className="custom-file-input" id="customFile" accept="image/*"  onChange={(e)=>{setimage(e.target.files[0])}} />
-                                    <label className="custom-file-label" name="image" for="customFile" >Choose Course Image Preview </label>
+                                    <label className="custom-file-label" name="image" htmlFor="customFile" >Choose Course Image Preview </label>
                                 </div>
                             </div>
                                        

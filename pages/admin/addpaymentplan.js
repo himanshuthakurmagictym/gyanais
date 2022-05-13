@@ -225,7 +225,7 @@ const deletepackage = async(e)=>{
 
                                             <tbody>
                                             {allsubscription?.map((subscription, i)=>(
-                                            <tr>
+                                            <tr key={subscription._id}>
                                                 <td>{++i}</td>
                                                 <td>{subscription.packageName}</td>
                                                 <td>{subscription.packageAmount}</td>

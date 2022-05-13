@@ -12,7 +12,7 @@ import Link from 'next/link'
 import React, {useState, useEffect} from 'react'
 import {useRouter } from "next/router"
 const animatedComponents = makeAnimated();
-function addNotes({teacherid, mycourseOptions, myvideoOptions}) {
+function AddNotes({teacherid, mycourseOptions, myvideoOptions}) {
 
     const [notesName, setnotesName] = useState("");
     const [video, setvideo] = useState("");
@@ -136,7 +136,7 @@ function addNotes({teacherid, mycourseOptions, myvideoOptions}) {
                             
                             <div className=" custom-file">
                                 <input type="file" className="custom-file-input" id="customFile" accept=".pdf"  onChange={(e)=>{setpdf(e.target.files[0])}} />
-                                <label className="custom-file-label" name="image" for="customFile" >Choose Class pdf Preview </label>
+                                <label className="custom-file-label" name="image" htmlFor="customFile" >Choose Class pdf Preview </label>
                             </div>
                         </div>
                                    
@@ -175,7 +175,7 @@ function addNotes({teacherid, mycourseOptions, myvideoOptions}) {
   )
 }
 
-export default addNotes;
+export default AddNotes;
 
 export async function getServerSideProps(context){
     const alldatass =  await fetch(APIs.base_url+'courseCategory/detailsCategory');

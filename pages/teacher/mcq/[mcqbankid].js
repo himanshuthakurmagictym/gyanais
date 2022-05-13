@@ -199,7 +199,7 @@ function Mcq({mcqbankid, teacherId, myQuestion}) {
                               <tr>
                               {(!myQuestion)?
                               <>
-                              <th scope="row">No Record Found</th>
+                              <th scope="row" key={myquestion._id}>No Record Found</th>
                               </>
                                 : <>
                                 <th scope="row">{++i}</th>

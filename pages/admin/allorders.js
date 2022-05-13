@@ -59,7 +59,7 @@ function Allorders({allorders}) {
 
                                             <tbody>
                                             {allorders?.map((order, i)=>(
-                                            <tr>
+                                            <tr key={order._id}>
                                                 <td>{++i}</td>
                                                 <td>{order.category_id?.course_category_name}</td>
                                                 <td>Rs.{order.amount}</td>

@@ -13,7 +13,7 @@ import Chatbox from "../../../components/Fontend/Chatbox";
 import CanvasVideo from "../../../components/student/CanvasVideo"
 
 
-function finalvideo({videodetails, userid, coursevideoid, roles, course_id, camvideodetail}) {
+function Finalvideo({videodetails, userid, coursevideoid, roles, course_id, camvideodetail}) {
 
     const isuser = useAppContext();
     const roomid= videodetails._id;
@@ -133,7 +133,7 @@ function finalvideo({videodetails, userid, coursevideoid, roles, course_id, camv
     )
 }
 
-export default finalvideo
+export default Finalvideo
 export const getServerSideProps = async (context) =>{
     const { params } = context;
     const {coursevideoid} = params;

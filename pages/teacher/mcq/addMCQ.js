@@ -171,7 +171,7 @@ function AddMCQ({allcategory, mycourseOptions, myvideoOptions, getmyquestionbank
                              <tr>
                               {(!getmyquestionbank)?
                               <>
-                              <th scope="row">No Record Found</th>
+                              <th scope="row" key={all_class._id}>No Record Found</th>
                               </>
                                 : <>
                                 <th scope="row">{++i}</th>

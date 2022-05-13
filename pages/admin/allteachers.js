@@ -79,7 +79,7 @@ function Allteacher({teacherdetails}) {
 
                                             <tbody>
                                             {teacherdetails?.map((teacher, i)=>(
-                                            <tr>
+                                            <tr key={teacher._id}>
                                                 <td>{++i}</td>
                                                 <td>{teacher.firstname}</td>
                                                 <td>{teacher.lastname}</td>

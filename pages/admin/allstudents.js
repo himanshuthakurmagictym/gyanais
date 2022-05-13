@@ -58,7 +58,7 @@ function Allstudents({studentdetails}) {
                                             <tbody>
                                                 
                                                 {studentdetails?.map((student, i)=>(
-                                            <tr>
+                                            <tr key={student._id}>
                                                 <td>{++i}</td>
                                                 <td>{student.firstname}</td>
                                                 <td>{student.lastname}</td>

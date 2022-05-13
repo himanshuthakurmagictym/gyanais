@@ -105,7 +105,7 @@ const deletecategory = async(e)=>{
                             
                             <div className=" custom-file">
                                 <input type="file" className="custom-file-input" id="customFile" accept="image/*"  onChange={(e)=>{setcategoryImage(e.target.files[0])}} />
-                                <label className="custom-file-label" name="image" for="customFile" >Choose Category Image Preview </label>
+                                <label className="custom-file-label" name="image" htmlFor="customFile" >Choose Category Image Preview </label>
                             </div>
                         </div>
                                    
@@ -155,7 +155,7 @@ const deletecategory = async(e)=>{
 
                                             <tbody>
                                             {allcategories?.map((category, i)=>(
-                                            <tr>
+                                            <tr key={category._id}>
                                                 <td>{++i}</td>
                                                 <td>{category.course_category_name}</td>
                                                 <td><Image src={`${APIs.base_url_home}${category.course_category_image}`}width={50} height={50}   alt="category "/></td>

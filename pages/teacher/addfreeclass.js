@@ -12,7 +12,7 @@ import Link from 'next/link'
 import React, {useState, useEffect} from 'react'
 import {useRouter } from "next/router"
 const animatedComponents = makeAnimated();
-function addfreeclass({allcategory, teacherid, allsubcategories, mycourseOptions}) {
+function Addfreeclass({allcategory, teacherid, allsubcategories, mycourseOptions}) {
     
     const [className, setclassName] = useState("");
     const [classDescription, setclassDescription]= useState("");
@@ -216,7 +216,7 @@ function addfreeclass({allcategory, teacherid, allsubcategories, mycourseOptions
                             
                             <div className=" custom-file">
                                 <input type="file" className="custom-file-input" id="customFile" accept="image/*"  onChange={(e)=>{setimage(e.target.files[0])}} />
-                                <label className="custom-file-label" name="image" for="customFile" >Choose Class Image Preview </label>
+                                <label className="custom-file-label" name="image" htmlFor="customFile" >Choose Class Image Preview </label>
                             </div>
                         </div>
                                    
@@ -263,7 +263,7 @@ function addfreeclass({allcategory, teacherid, allsubcategories, mycourseOptions
   )
 }
 
-export default addfreeclass;
+export default Addfreeclass;
 
 export async function getServerSideProps(context){
     const alldatass =  await fetch(APIs.base_url+'courseCategory/detailsCategory');

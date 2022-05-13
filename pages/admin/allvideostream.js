@@ -61,7 +61,7 @@ function Allvideostream({alllivestreamdetails}) {
 
                                             <tbody>
                                             {alllivestreamdetails?.map((videos, i)=>(
-                                            <tr>
+                                            <tr key={videos._id}>
                                                 <td>{++i}</td>
                                                 <td>{videos.video_title}</td>
                                                 <td>{videos.course_id.course_name}</td>

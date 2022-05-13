@@ -151,7 +151,7 @@ const deletetopics = async(e)=>{
 
                                             <tbody>
                                             {subcategories?.map((category, i)=>(
-                                            <tr>
+                                            <tr key={category._id}>
                                                 <td>{++i}</td>
                                                 <td>{category.targetexams}</td>
                                                 <td>{category.categoryid?.course_category_name}</td>

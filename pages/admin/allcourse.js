@@ -57,7 +57,7 @@ function Allcourse({coursedetails}) {
 
                                             <tbody>
                                             {coursedetails?.map((courses, i)=>(
-                                            <tr>
+                                            <tr key={courses._id}>
                                                 <td>{++i}</td>
                                                 <td>{courses.course_name}</td>
                                                 <td>{courses.coursetype}</td>
