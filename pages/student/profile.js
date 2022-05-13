@@ -82,7 +82,7 @@ function Profile({datas, paidcourse}) {
                                                     
                                                     
         
-                                                    <Image src={`/assets/images/category/${paiduser.course_category_image}`} width="100" height="100" className="categoryimage" alt="category" key={paiduser._id} />
+                                                    <Image src={`${APIs.base_url_home}${paiduser.course_category_image}`} width="100" height="100" className="categoryimage" alt="category" key={paiduser._id} />
                                                     <h2 className="mbr-fonts-style mbr-card-title align-center display-2" > {paiduser.course_category_name}</h2>
                                                     <div className="line"></div>
                                                 
