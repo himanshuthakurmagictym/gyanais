@@ -280,10 +280,10 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
 
     const canvas = canvasRef.current;
       const contexts = canvas.getContext('2d');
-      imageRef?.current?.onload = () =>{
+      // imageRef?.current?.onload = () =>{
       imageRef?.current?.crossOrigin = "Anonymous";
        contexts?.drawImage(imageRef?.current, 0, 0, canvas.width, canvas.height)
-      }
+      // }
     },[socket][imageRef])
 
     useEffect(()=>{
