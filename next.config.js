@@ -3,4 +3,6 @@ module.exports = {
   images: {
     domains: ['gyaanapi.herokuapp.com'],
   },
+  
 }
+

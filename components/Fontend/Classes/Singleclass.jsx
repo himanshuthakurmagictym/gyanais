@@ -10,7 +10,6 @@ const Singleclass = ({singleclass})=>{
 <div className="col-md-6 col-lg-3 row-item">
     <div className="wrapper">
       <div className="card-img pb-3 align-center">
-    
         {singleclass.course_image?
          <Image src={`${APIs.base_url_home}${singleclass.course_image}`}  alt="class" width="200" height="100"/>
         :<Image src={`/assets/images/course/1.jpg`}  alt="class" width="200" height="100"/>}
