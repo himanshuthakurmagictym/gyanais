@@ -4,7 +4,7 @@ import APIs from '../../config';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function ChangePassword() {
+function ChangePassword({userid}) {
     const [password, setpassword] = useState("");
     const [confirmpassword, setconfirmpassword] = useState("");
     const [handlelabel, sethandlelabel] = useState("");
@@ -35,7 +35,7 @@ function ChangePassword() {
       e.preventDefault();
        const URLS = APIs.base_url+"auth/updateUserPassword";
       //const URLS = "http://localhost:5000/api/email_send";
-      const sendmaildata = JSON.stringify({password:password, confirmpassword:confirmpassword});
+      const sendmaildata = JSON.stringify({password:password, confirmpassword:confirmpassword, _id:userid});
       //console.log(sendmaildata);
       const result = fetch(URLS,{
           method: "POST",

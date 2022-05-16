@@ -166,7 +166,7 @@ const handleRead = (notyid) => {
             <div className="dropdown-menu">
             <a className="nav-link dropdown-item display-4" href="/admin/dashboard"> Dashboard</a>
             
-            {/* <a className="nav-link dropdown-item display-4" href="/admin/setting">Setting</a> */}
+            <a className="nav-link dropdown-item display-4" href="/admin/setting">Setting</a>
             <a className="nav-link dropdown-item  display-4" onClick={()=>{cookie.remove('token'); cookie.remove('cid'); cookie.remove('role');router.push('/login'); router.reload() }} >Logout</a>
             </div>
         </li>

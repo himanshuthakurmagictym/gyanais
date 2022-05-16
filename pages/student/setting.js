@@ -9,7 +9,7 @@ import Subscription from '../../components/Student/Subscription'
 import ManageNotification from '../../components/Student/ManageNotification'
 import {useRouter } from "next/router"
 
-function Setting() {
+function Setting({userid}) {
     const [tabbar, settabbar] = useState(1)
     const router = useRouter();
     useEffect(() => {
@@ -50,7 +50,7 @@ function Setting() {
                         <div className="card-box">
                                 <div className={tabbar ==1? "activetab" : "deactivetab"}><PersonalInformationEdit /></div>
                                <div className={tabbar == 2? "activetab" : "deactivetab"}><Avatar  /></div>
-                               <div className={tabbar == 3? "activetab" : "deactivetab"}><ChangePassword  /></div>
+                               <div className={tabbar == 3? "activetab" : "deactivetab"}><ChangePassword userid={userid} /></div>
                                <div className={tabbar == 4? "activetab" : "deactivetab"}><Subscription /></div>
                                <div className={tabbar == 5? "activetab" : "deactivetab"}><ManageNotification /></div>
                         </div>
@@ -73,9 +73,10 @@ function Setting() {
 
 export default Setting
 export async function getServerSideProps(ctx){
-   // const cookie = parseCookies(ctx)
-
-    return { props: {}}
+ 
+    return { props: {
+        userid:context.req.cookies['cid']
+    }}
     
 
   

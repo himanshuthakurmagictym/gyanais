@@ -92,6 +92,12 @@ function leftmenu() {
                                     <span>Payment Plan(Student)</span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="/admin/addaffair" className="waves-effect">
+                                <i className="ti-calendar"></i>
+                                    <span>Add Current Affairs</span>
+                                </a>
+                            </li>
 
                            
 
