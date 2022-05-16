@@ -1,7 +1,7 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ['gyaanapi.herokuapp.com', 'localhost'],
+    domains: ['gyaanapi.herokuapp.com'],
   },
   
 }
