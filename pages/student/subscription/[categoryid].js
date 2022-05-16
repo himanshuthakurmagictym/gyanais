@@ -121,7 +121,8 @@ function Subscription({packages, categoryName}) {
                         </h4>
 
                         <p className="mbr-text card-text mbr-fonts-style mbr-white align-center m-0 display-7" >
-                                <p> {subscription.packageDesc} </p>
+                        <p dangerouslySetInnerHTML={{ __html:subscription.packageDesc }} />
+                        <p dangerouslySetInnerHTML={{ __html:subscription.packagedetail }} />
                                 
                              <ul className='align-left'>
                              <li>India's best educators</li><li>Interactive live classes</li><li>Structured courses &amp; PDFs</li>

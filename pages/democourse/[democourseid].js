@@ -37,7 +37,8 @@ import ReactPlayer from 'react-player';
                                 <div className="card-boxs">
                                 {/* <h2 className="mbr-fonts-style mb-3 align-center display-2">{demodetail.demoTitle}</h2> */}
                                     <p className="mbr-text card-text mbr-fonts-style align-left m-0 display-7">
-                                    {demodetail.demodescription} 
+                                    <p dangerouslySetInnerHTML={{ __html:demodetail.demodescription }} />
+                            
                                     </p>
                                     <div className="underline align-left">
                                         <div className="line"></div>
