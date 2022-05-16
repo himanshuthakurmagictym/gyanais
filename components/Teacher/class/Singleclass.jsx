@@ -12,7 +12,7 @@ const Singleclass = ({singleclass})=>{
       <div className="card-img pb-3 align-center">
     
         {singleclass.course_image?
-         <Image src={`${APIs.base_url_home}${singleclass.course_image}`}  alt="class" width="200" height="100"/>
+         <Image src={`${APIs.base_url_home}${singleclass.course_image.replace(/\\/g,'\/')}}`}  alt="class" width="200" height="100"/>
         :<Image src={`/assets/images/course/1.jpg`}  alt="class" width="200" height="100"/>}
       </div>
       <h4 className="mbr-fonts-style mbr-card-title align-center display-7"> {singleclass.course_name}</h4>

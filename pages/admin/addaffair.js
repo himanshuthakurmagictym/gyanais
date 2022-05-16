@@ -179,7 +179,7 @@ const deleteaffair = async(e)=>{
                                                 <td>{++i}</td>
                                                 <td>{currentaffairs.currentaffair_title}</td>
                                               
-                                                <td><Image src={`${APIs.base_url_home}${currentaffairs.currentaffair_image}`}width={50} height={50}   alt="category "/></td>
+                                                <td><Image src={`${APIs.base_url_home}${currentaffairs.currentaffair_image.replace(/\\/g,'\/')}}`}width={50} height={50}   alt="category "/></td>
                                                 <td>{moment(currentaffairs.createdAt).format('DD MMM YYYY')}</td>
                                                 <td><button onClick={()=>{deleteaffair(currentaffairs._id)}} className=" btn-success"><FontAwesomeIcon icon={faTrashCan}/></button></td>
                                             </tr>

@@ -15,7 +15,7 @@ function currentaffairsDetails({currentaffairsDetails}) {
                     <h2 className="mbr-fonts-style mb-3 align-center display-2">{currentaffairsDetails.currentaffair_title}</h2>
                     <div className="row justify-content-center pt-2">
                         <div className="card col-12 col-md-10">
-                            <Image src={`${APIs.base_url_home}${currentaffairsDetails.currentaffair_image}`}  width='600' height='300' alt="currentaffair"/>
+                            <Image src={`${APIs.base_url_home}${currentaffairsDetails.currentaffair_image.replace(/\\/g,'\/')}}`}  width='600' height='300' alt="currentaffair"/>
                             <div className="card-box">
                                 <p className="mbr-text card-text mbr-fonts-style align-left m-0 display-7" >
                                <p dangerouslySetInnerHTML={{ __html:currentaffairsDetails.currentaffair_description }} />
