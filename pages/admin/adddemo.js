@@ -221,7 +221,7 @@ const deletecategory = async(e)=>{
                                                 <td>{++i}</td>
                                                 <td>{demo.demoTitle}</td>
                                                 <td>{demo.demoDate}</td>
-                                                <td><Image src={`${APIs.base_url_home}${demo.demoImage.replace(/\\/g,'\/')}}`}width={50} height={50}   alt="category "/></td>
+                                                <td><Image src={`${APIs.base_url_home}${demo.demoImage.replace(/\\/g,'\/')}`}width={50} height={50}   alt="category "/></td>
                                                 <td>{moment(demo.createdAt).format('DD MMM YYYY')}</td>
                                                 <td><button onClick={()=>{deletecategory(demo._id)}} className=" btn-success"><FontAwesomeIcon icon={faTrashCan}/></button></td>
                                             </tr>

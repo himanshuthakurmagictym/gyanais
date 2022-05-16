@@ -23,7 +23,7 @@ function currentaffairs({allcurrentaffairs}) {
             <div className="card-box">
                 <div className="card-header">
                     <div className="card-img">                       
-                        <Image src={`${APIs.base_url_home}${currentAffairs.currentaffair_image.replace(/\\/g,'\/')}}`} layout='fill' alt="currentaffairs" />
+                        <Image src={`${APIs.base_url_home}${currentAffairs.currentaffair_image.replace(/\\/g,'\/')}`} layout='fill' alt="currentaffairs" />
                     </div>
                     <h4 className="card-title mbr-fonts-style align-center mb-0 mbr-white display-5">
                    {currentAffairs.currentaffair_title}

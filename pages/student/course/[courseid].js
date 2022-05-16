@@ -28,7 +28,7 @@ import {
                 <div className="container">
                         <div className="row justify-content-center">     
                             <div className="card col-12 col-md-5">
-                            <Image src={`${APIs.base_url_home}${coursedetail.course_image.replace(/\\/g,'\/')}}`}  width='600' height='300' alt="currentaffair"/>
+                            <Image src={`${APIs.base_url_home}${coursedetail.course_image.replace(/\\/g,'\/')}`}  width='600' height='300' alt="currentaffair"/>
                             
                             </div>
                             <div className="card col-12 col-md-5">                            
