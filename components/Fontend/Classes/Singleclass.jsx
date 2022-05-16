@@ -11,7 +11,7 @@ const Singleclass = ({singleclass})=>{
     <div className="wrapper">
       <div className="card-img pb-3 align-center">
 
-        <Image alt="sdfsd" height="200" width="200" src={`${singleclass.course_image?.replace(/\\/g,'\/')}`} />
+        <Image alt="sdfsd" height="200" width="200" src={`${APIs.base_url_home}${singleclass.course_image?.replace(/\\/g,'\/')}`} />
 
 
         {singleclass.course_image?
