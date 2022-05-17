@@ -245,7 +245,7 @@ export const getServerSideProps = async (context) => {
         headers: {
             "Content-Type": "application/json",
           },
-        body:JSON.stringify({course_id:datas.data._id}),
+        body:JSON.stringify({course_id:datas.data._id}),  
     });
     const datass = await ress.json()
 
