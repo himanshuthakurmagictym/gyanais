@@ -31,6 +31,10 @@ function EmailVerification() {
         }
         
     }
+
+    useEffect(() => {
+        if (userdetail) router.push("/student/profile");
+      }, [userdetail]);
   
   const handleemailotp = (e) =>{
     const email = e.target.value;
