@@ -12,7 +12,7 @@ import {useRouter} from 'next/router'
 import {useAppContext} from '../../components/Fontend/Layout'
 
 var CryptoJS = require("crypto-js");
-function Dashboard({allorders}) {
+function Dashboard({allorders, totalstudent, totalteacher, allivestreams, sum}) {
 
   useEffect(()=>{
     $(document).ready(function(){$("#datatable")?.DataTable()});
@@ -39,8 +39,8 @@ function Dashboard({allorders}) {
                                     <div className="card-body">
                                         <div className="mb-4">
                                             
-                                            <h5 className="font-size-16 text-uppercase text-white-50">Totl Registration</h5>
-                                            <h4 className="fw-medium font-size-24">1,685 <i
+                                            <h5 className="font-size-16 text-uppercase text-white-50">Totl Regist. (St))</h5>
+                                            <h4 className="fw-medium font-size-24">{totalstudent}<i
                                                     className="mdi mdi-arrow-up text-success ms-2"></i></h4>
                                             <div className="mini-stat-label bg-success">
                                                 <p className="mb-0">+ 12%</p>
@@ -62,7 +62,7 @@ function Dashboard({allorders}) {
                                         <div className="mb-4">
                                            
                                             <h5 className="font-size-16 text-uppercase text-white-50">Revenue</h5>
-                                            <h4 className="fw-medium font-size-24">52,368 <i
+                                            <h4 className="fw-medium font-size-24">Rs. {sum} <i
                                                     className="mdi mdi-arrow-down text-danger ms-2"></i></h4>
                                             <div className="mini-stat-label bg-danger">
                                                 <p className="mb-0">- 28%</p>
@@ -84,7 +84,7 @@ function Dashboard({allorders}) {
                                         <div className="mb-4">
                                             
                                             <h5 className="font-size-16 text-uppercase text-white-50">Total Streaming</h5>
-                                            <h4 className="fw-medium font-size-24">15.8 <i
+                                            <h4 className="fw-medium font-size-24">{allivestreams}<i
                                                     className="mdi mdi-arrow-up text-success ms-2"></i></h4>
                                             <div className="mini-stat-label bg-info">
                                                 <p className="mb-0"> 00%</p>
@@ -105,8 +105,8 @@ function Dashboard({allorders}) {
                                     <div className="card-body">
                                         <div className="mb-4">
                                             
-                                            <h5 className="font-size-16 text-uppercase text-white-50">Total Student</h5>
-                                            <h4 className="fw-medium font-size-24">2436 <i
+                                            <h5 className="font-size-16 text-uppercase text-white-50">Total Teacher</h5>
+                                            <h4 className="fw-medium font-size-24">{totalteacher} <i
                                                     className="mdi mdi-arrow-up text-success ms-2"></i></h4>
                                             <div className="mini-stat-label bg-warning">
                                                 <p className="mb-0">+ 84%</p>
@@ -201,9 +201,32 @@ export default Dashboard
 export async function getServerSideProps(context) {
     const result = await fetch(`${APIs.base_url}admin/allorders`)
     const response = await result.json();
+
+   
+    let sum = 0;
+    
+    for (let i = 0; i < response.data.length; i++) {
+        sum +=  JSON.parse(response.data[i].amount);
+       
+    }
+    console.log(sum)
+
+    const studentresult = await fetch(`${APIs.base_url}admin/allstudents`)
+    const studentresponse = await studentresult.json();
+
+    const teacherresult = await fetch(`${APIs.base_url}admin/allteachers`)
+    const teacherresponse = await teacherresult.json();
+
+    const allivestreams = await fetch(`${APIs.base_url}admin/allivestreams`)
+    const responseallivestreams = await allivestreams.json();
+
     return {
      props: {
-      allorders: response.data,
+      allorders: response.data.slice(0, 5),
+      totalstudent: studentresponse.data.length,
+      totalteacher: teacherresponse.data.length,
+      allivestreams: responseallivestreams.data.length,
+      sum: sum.toFixed(2)
        
       },
     }
