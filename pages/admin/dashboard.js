@@ -209,7 +209,7 @@ export async function getServerSideProps(context) {
         sum +=  JSON.parse(response.data[i].amount);
        
     }
-    console.log(sum)
+
 
     const studentresult = await fetch(`${APIs.base_url}admin/allstudents`)
     const studentresponse = await studentresult.json();
@@ -219,6 +219,7 @@ export async function getServerSideProps(context) {
 
     const allivestreams = await fetch(`${APIs.base_url}admin/allivestreams`)
     const responseallivestreams = await allivestreams.json();
+
 
     return {
      props: {
