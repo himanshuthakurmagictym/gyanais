@@ -88,7 +88,8 @@ function MySchedule({allclass, livebutton}) {
                       </thead>
                       <tbody>
                        
-                         
+                      {allclass?
+                      <>
                             {allclass?.map((all_class, i) => (
                               <>
                                <tr>
@@ -120,8 +121,8 @@ function MySchedule({allclass, livebutton}) {
                               </>
                                                       
                             ))}
-
-                       
+                   </>
+                   :""}
                         
                       </tbody>
                     </table>
@@ -195,7 +196,7 @@ export async function getServerSideProps(context){
  
     return {
        props:{
-           allclass:allcourses.data,
+           allclass:allcourses.data?allcourses.data:"",
            livebutton: livebutton
        }
      }

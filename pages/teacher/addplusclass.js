@@ -191,6 +191,12 @@ function Addplusclass({allcategory, teacherid, allsubcategories, mycourseOptions
                             </div>
                                        
                         </div>
+
+                        <div className="row input-main">
+                            <div className="col-md-12 col-lg-12 input-wrap">
+                                <Select options={courseOptions} defaultValue={course} onChange={(e)=>{setcourse(e.value),setcourseid(e.courseid)}} isSearchable className=" field display-7"  id="firstname-form2-7"  components={animatedComponents} placeholder="Select a Course"/>
+                            </div>              
+                        </div>
                         
                        
                         <div className="row input-main">
@@ -201,11 +207,7 @@ function Addplusclass({allcategory, teacherid, allsubcategories, mycourseOptions
                                        
                         </div>
 
-                        <div className="row input-main">
-                            <div className="col-md-12 col-lg-12 input-wrap">
-                                <Select options={courseOptions} defaultValue={course} onChange={(e)=>{setcourse(e.value),setcourseid(e.courseid)}} isSearchable className=" field display-7"  id="firstname-form2-7"  components={animatedComponents} placeholder="Select a Course"/>
-                            </div>              
-                        </div>
+                        
 
                         
                         <div className="row input-main">
