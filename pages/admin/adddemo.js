@@ -210,8 +210,8 @@ const deletecategory = async(e)=>{
                                                 <th>Video Date</th>
                                                 <th>Category Image</th>
 
-                                                <td>CreatedAt</td>
-                                                <td>Action</td>
+                                                <th>CreatedAt</th>
+                                                <th>Action</th>
                                             </tr>
                                             </thead>
 

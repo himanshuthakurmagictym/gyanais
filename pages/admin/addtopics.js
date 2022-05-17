@@ -37,7 +37,9 @@ function Addtopics({allcategories, subcategories}) {
 }
 
   useEffect(()=>{
-    $(document).ready(function(){$("#datatable")?.DataTable({"scrollX": true})});
+    $(document).ready(function(){$("#datatable")?.DataTable({"scrollX": true,  paging: false,
+    searching: false,
+    destroy: true,})});
   },[])
   const errorhandler = (x)=>{
     toast.error(`Please Fill ${x}.`,{autoClose:8000})
@@ -144,8 +146,8 @@ const deletetopics = async(e)=>{
                                                 <th>S No.</th>
                                                 <th>Topics Name</th>
                                                 <th>Goal</th>
-                                                <td>CreatedAt</td>
-                                                <td>Action</td>
+                                                <th>CreatedAt</th>
+                                                <th>Action</th>
                                             </tr>
                                             </thead>
 

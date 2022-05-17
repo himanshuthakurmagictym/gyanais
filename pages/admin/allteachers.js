@@ -14,7 +14,9 @@ import {useAppContext} from '../../components/Fontend/Layout'
 function Allteacher({teacherdetails}) {
     const [teacherapproved, setteacherapproved] = useState();
     useEffect(()=>{
-        $(document).ready(function(){$("#datatable")?.DataTable()});
+        $(document).ready(function(){$("#datatable")?.DataTable({"scrollX": true,  paging: false,
+        searching: false,
+        destroy: true,})});
       },[])
 
       const router = useRouter();

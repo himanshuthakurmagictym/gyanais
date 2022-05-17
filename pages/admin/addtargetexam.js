@@ -37,7 +37,9 @@ function Addtargetexam({allcategories, subcategories}) {
 }
 
   useEffect(()=>{
-    $(document).ready(function(){$("#datatable")?.DataTable({"scrollX": true})});
+    $(document).ready(function(){$("#datatable")?.DataTable({"scrollX": true,  paging: false,
+    searching: false,
+    destroy: true,})});
   },[])
   const errorhandler = (x)=>{
     toast.error(`Please Fill ${x}.`,{autoClose:8000})

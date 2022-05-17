@@ -15,7 +15,9 @@ import {useAppContext} from '../../components/Fontend/Layout'
 function Allvideostream({alllivestreamdetails}) {
 
   useEffect(()=>{
-    $(document).ready(function(){$("#datatable")?.DataTable({"scrollX": true})});
+    $(document).ready(function(){$("#datatable")?.DataTable({"scrollX": true,  paging: false,
+    searching: false,
+    destroy: true,})});
   },[])
  
   return (
@@ -50,10 +52,10 @@ function Allvideostream({alllivestreamdetails}) {
                                                 <th>Duration</th>
                                                 <th>Date</th>
                                                 <th>Category Id</th>
-                                                <td>Start Time</td>
-                                                <td>Goal</td>
-                                                <td>Teacher Name</td>
-                                                <td>CreatedAt</td>
+                                                <th>Start Time</th>
+                                                <th>Goal</th>
+                                                <th>Teacher Name</th>
+                                                <th>CreatedAt</th>
                                                
                                             </tr>
                                             </thead>

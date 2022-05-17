@@ -15,7 +15,9 @@ var CryptoJS = require("crypto-js");
 function Allcourse({coursedetails}) {
 
   useEffect(()=>{
-    $(document).ready(function(){$("#datatable")?.DataTable({"scrollX": true})});
+    $(document).ready(function(){$("#datatable")?.DataTable({"scrollX": true,  paging: false,
+    searching: false,
+    destroy: true,})});
   },[])
   return (
     <>

@@ -15,7 +15,9 @@ var CryptoJS = require("crypto-js");
 function Dashboard({allorders, totalstudent, totalteacher, allivestreams, sum}) {
 
   useEffect(()=>{
-    $(document).ready(function(){$("#datatable")?.DataTable()});
+    $(document).ready(function(){$("#datatable")?.DataTable({"scrollX": true,  paging: false,
+    searching: false,
+    destroy: true,})});
   },[])
   return (
     <>
@@ -141,10 +143,10 @@ function Dashboard({allorders, totalstudent, totalteacher, allivestreams, sum}) 
                                                 <th>Email</th>
                                                 <th>Payment By</th>
                                                 <th>Duration</th>
-                                                <td>Student</td>
+                                                <th>Student</th>
                                                 <th>Start </th>
-                                                <td>End</td>
-                                                <td>CreatedAt</td>
+                                                <th>End</th>
+                                                <th>CreatedAt</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>

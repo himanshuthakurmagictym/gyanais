@@ -25,7 +25,9 @@ function Allrecordedvideo({allrecorded}) {
 }
 
   useEffect(()=>{
-    $(document).ready(function(){$("#datatable")?.DataTable({"scrollX": true})});
+    $(document).ready(function(){$("#datatable")?.DataTable({"scrollX": true,  paging: false,
+    searching: false,
+    destroy: true,})});
   },[])
   const approvdproclass = async(status, id)=>{
     setclassapproved(status)
@@ -72,11 +74,11 @@ function Allrecordedvideo({allrecorded}) {
                                                 <th>Duration</th>
                                                 <th>Date</th>
                                                 <th>Category Id</th>
-                                                <td>Start Time</td>
-                                                <td>Goal</td>
-                                                <td>Teacher Name</td>
-                                                <td>CreatedAt</td>
-                                                <td>Status</td>
+                                                <th>Start Time</th>
+                                                <th>Goal</th>
+                                                <th>Teacher Name</th>
+                                                <th>CreatedAt</th>
+                                                <th>Status</th>
                                             </tr>
                                             </thead>
 
