@@ -15,10 +15,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 
 
-function MySchedule({allclass, livebutton}) {
+function MySchedule({allclass}) {
   const [duration, setduration]= useState("");
   const [mytime, setmytime]= useState("");
   const [videoid, setvideo]= useState("");
+
+
+  
 
       const notify = (data)=>{
         //console.log(data);
@@ -90,23 +93,26 @@ function MySchedule({allclass, livebutton}) {
                        
                       {allclass?
                       <>
-                            {allclass?.map((all_class, i) => (
+                            {allclass?.map((all_classs, i) => (
                               <>
                                <tr>
                               <th scope="row">{++i}</th>
-                              <td>{all_class.video_title}</td>
-                              <td>{all_class.course_id.course_name}</td>
-                              <td>{moment(all_class.videoDate).format('MMMM Do, hh:mm A')}</td>
+                              <td>{all_classs.video_title}</td>
+                              <td>{all_classs.course_id.course_name}</td>
+                              <td>{moment(all_classs.videoDate).format('MMMM Do, hh:mm A')}</td>
                                 <td>
                                  
-                                  <button className="btn btn-success " data-toggle="modal" data-target="#exampleModal" onClick={()=>{setvideo(all_class._id)}}>
+                                  <button className="btn btn-success " data-toggle="modal" data-target="#exampleModal" onClick={()=>{setvideo(all_classs._id)}}>
                                       <FontAwesomeIcon icon={faCalendarAlt} /> 
                                   </button>
                                   
                                   </td>
                                   <td>
-                                    {livebutton == 0?
-                                  <Link href={`/teacher/coursevideo/${all_class._id}`}>
+                              
+
+                                    
+                                    {((moment(all_classs.videoDate).subtract(60, 'minutes').format('MMMM Do, hh:mm A')<moment().format('MMMM Do, hh:mm A') && moment().format('MMMM Do, hh:mm A')<moment(all_classs.videoDate).format('MMMM Do, hh:mm A'))?1:0) == 1?
+                                  <Link href={`/teacher/coursevideo/${all_classs._id}`}>
                                   <button className="btn btn-success " title="Class will be edit before one hour">
                                         <FontAwesomeIcon icon={faEye} />
                                   </button>
@@ -190,14 +196,16 @@ export async function getServerSideProps(context){
       body:JSON.stringify({teacherid:context.req.cookies['cid']})
   });
   const allcourses = await courses.json();
-  const classtimeforbutton = moment(allcourses.data.videoDate).subtract(60, 'minutes').format('hh:mm A');
-  const livebutton = (classtimeforbutton>moment().format('hh:mm A')>moment(allcourses.data.videoDate).subtract(60, 'minutes').format('hh:mm A') && classtimeforbutton>moment().format('hh:mm A')<moment(allcourses.data.videoDate).subtract(60, 'minutes').format('hh:mm A'))?1:0;
-  // console.log(livebutton)
+  // const classtimeforbutton = moment(allcourses.data.videoDate).subtract(60, 'minutes').format('hh:mm A');
+  // const livebutton = (classtimeforbutton>moment().format('hh:mm A')>moment(allcourses.data.videoDate).subtract(60, 'minutes').format('hh:mm A') && classtimeforbutton>moment().format('hh:mm A')<moment(allcourses.data.videoDate).subtract(60, 'minutes').format('hh:mm A'))?1:0;
+  // const livebutton = (classtimeforbutton<moment().format('hh:mm A') && moment().format('hh:mm A')<moment(allcourses.data.videoDate).format('hh:mm A'))?1:0;
+
+  
  
     return {
        props:{
            allclass:allcourses.data?allcourses.data:"",
-           livebutton: livebutton
+       
        }
      }
  
