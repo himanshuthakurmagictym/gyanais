@@ -1,10 +1,21 @@
+import Brudcrums from "../components/Fontend/Brudcrums";
 function Error({ statusCode }) {
     return (
-      <p>
-        {statusCode
+      <>
+       <Brudcrums/>
+      <div className="container errorfullsize" >
+          
+        <div className="row" >
+      
+          <h1 className="mbr-fonts-style mbr-text align-center mbr-light display-2 ">     
+          {statusCode
           ? `An error ${statusCode} occurred on server`
           : 'An error occurred on client'}
-      </p>
+          </h1>
+     
+      </div>
+      </div>
+      </>
     )
   }
   

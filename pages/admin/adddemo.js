@@ -216,6 +216,8 @@ const deletecategory = async(e)=>{
                                             </thead>
 
                                             <tbody>
+                                            {allcategories?
+                                            <>
                                             {allcategories?.map((demo, i)=>(
                                             <tr key={demo._id}>
                                                 <td>{++i}</td>
@@ -226,6 +228,9 @@ const deletecategory = async(e)=>{
                                                 <td><button onClick={()=>{deletecategory(demo._id)}} className=" btn-success"><FontAwesomeIcon icon={faTrashCan}/></button></td>
                                             </tr>
                                             ))}
+
+                                            </>
+                                            :""}
 
                                             </tbody> 
                                         </table>

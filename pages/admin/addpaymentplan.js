@@ -226,6 +226,8 @@ const deletepackage = async(e)=>{
                                             </thead>
 
                                             <tbody>
+                                            {allsubscription?
+                                            <>
                                             {allsubscription?.map((subscription, i)=>(
                                             <tr key={subscription._id}>
                                                 <td>{++i}</td>
@@ -238,7 +240,8 @@ const deletepackage = async(e)=>{
                                                 <td><button onClick={()=>{deletepackage(subscription._id)}} className=" btn-success"><FontAwesomeIcon icon={faTrashCan}/></button></td>
                                             </tr>
                                             ))}
-
+                                                </>
+                                                :""}
                                             </tbody> 
                                         </table>
 

@@ -174,7 +174,9 @@ const deleteaffair = async(e)=>{
                                             </thead>
 
                                             <tbody>
-                                            {allcurrentaffairs?.map((currentaffairs, i)=>(
+                                            {allcurrentaffairs?
+                                              <>
+                                            {allcurrentaffairs.map((currentaffairs, i)=>(
                                             <tr key={currentaffairs._id}>
                                                 <td>{++i}</td>
                                                 <td>{currentaffairs.currentaffair_title}</td>
@@ -184,7 +186,8 @@ const deleteaffair = async(e)=>{
                                                 <td><button onClick={()=>{deleteaffair(currentaffairs._id)}} className=" btn-success"><FontAwesomeIcon icon={faTrashCan}/></button></td>
                                             </tr>
                                             ))}
-
+                                            </>
+                                            :""}
                                             </tbody> 
                                         </table>
 
