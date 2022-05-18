@@ -172,4 +172,7 @@ textarea{resize: none;}
   height: 100vh;
   align-items: center;
   justify-content: center;
+  background-color: #d7e0f0;
+  background-image: url(/assets/images/bg_image.png);
+    box-shadow: 0 1px 25px #ccc;
 }
