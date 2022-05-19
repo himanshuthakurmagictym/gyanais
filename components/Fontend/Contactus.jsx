@@ -84,13 +84,20 @@ export default function Contactus() {
                         <div className="text-block pb-3">
                             <h3 className="mbr-title mbr-fonts-style align-left mbr-white pb-2 mbr-light display-5">ADDRESS</h3>
                             <p className="mbr-text mbr-fonts-style align-left m-0 display-4">
-                                1234 Street Name City, AA 99999
+                            234 Street, New Delhi,
+                            Pin Code: 110048
                             </p>
                         </div>
                         <div className="text-block pb-3">
                             <h3 className="mbr-title mbr-fonts-style align-left mbr-white pb-2 mbr-light display-5">CALL US</h3>
                             <p className="mbr-text mbr-fonts-style align-left m-0 display-4">
-                                +1 (0) 000 0000 001
+                           +91 81305 89537
+                            </p>
+                        </div>
+                        <div className="text-block pb-3">
+                            <h3 className="mbr-title mbr-fonts-style align-left mbr-white pb-2 mbr-light display-5">E-mail </h3>
+                            <p className="mbr-text mbr-fonts-style align-left m-0 display-4">
+                          support@thegyaanias.com
                             </p>
                         </div>
                         
@@ -101,7 +108,7 @@ export default function Contactus() {
                                 </a>
                             </div>
                             <div className="soc-item">
-                                <a href="https://www.facebook.com/pages/1616226671953247" target="_blank" rel="noreferrer">
+                                <a href="https://www.facebook.com/pages/161622667195ss3247" target="_blank" rel="noreferrer">
                                     <span className="socicon-facebook socicon mbr-iconfont mbr-iconfont-social"></span>
                                 </a>
                             </div>
