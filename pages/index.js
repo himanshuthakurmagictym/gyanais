@@ -33,7 +33,7 @@ export default function Home({democlass, testimonialss, coursessoon, recentclass
             <p className="mbr-text pb-3 bt-white mbr-fonts-style p-descr align-center display-5">
             Get Plus subscription and access unlimited live and recorded courses from India best educators</p>
             <span className="input-group-btn ">
-              <button href="/login" type="submit" className="btn btn-form display-3 buttonlink">JOIN CLASS</button>
+              <button href="/login" className="btn btn-form display-3 buttonlink">JOIN CLASS</button>
             </span>
         </div>
        
