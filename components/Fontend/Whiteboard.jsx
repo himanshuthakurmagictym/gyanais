@@ -462,16 +462,26 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
       // -------------- make the canvas fill its parent component -----------------
   
       const onResize = () => {
-        // canvas.width = window.innerWidth;
-        // canvas.height = window.innerHeight;
+        // canvas.width = width;
+        // canvas.height = height;
+        if(userRole === APIs.roles[1]){
+      //    window.devicePixelRatio=2;
+      //   canvas.width = Math.floor(canvas.width * scale);
+      //  canvas.height = Math.floor(canvas.height * scale);
+       contexts?.drawImage(imageRef?.current, 0, 0, canvas.width, canvas.height)
+        }else{
+          //teacher panel
+        //   window.devicePixelRatio=2;
+        //   canvas.width = Math.floor(canvas.width * scale);
+        //  canvas.height = Math.floor(canvas.height * scale);
          canvas.width = canvas.offsetWidth;
         canvas.height = canvas.offsetHeight;
-        // canvas.width = '600';
-        // canvas.height = '600';
+        contexts?.drawImage(imageRef?.current, 0, 0, canvas.width, canvas.height)
+      }
 
       };
   
-      window.addEventListener('resize', onResize, false);
+      window.addEventListener('resize', onResize, true);
       onResize();
   
       // ----------------------- socket.io connection ----------------------------
@@ -499,6 +509,8 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
      setpdfAsImageSrc(importPDFCanvas.toDataURL());
      
     };
+
+   
   
 
     return(
