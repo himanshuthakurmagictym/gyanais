@@ -128,7 +128,7 @@ socket?.on('message', (allchat) => {
                         </div> 
                     </div>
 
-                    {(userRole === APIs.roles[0])?
+                    {/* {(userRole === APIs.roles[0])? */}
                     <div className="chat-footer">
                        
                            
@@ -153,7 +153,7 @@ socket?.on('message', (allchat) => {
                               
                        
                     </div>
-                    :""}
+                    {/* :""} */}
 
 
                     </div>
