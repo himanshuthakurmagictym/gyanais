@@ -119,7 +119,7 @@ export default function Home({democlass, testimonialss, coursessoon, recentclass
                     </div>
 
                     <div className="card-text">
-                        <h3 className="count pt-3  mbr-fonts-style display-1">
+                        <h3 className="count pt-3  mbr-fonts-style display-2">
                               4600</h3>
                         <h4 className="mbr-content-title mbr-light mbr-fonts-style display-5">Completed <br/>Classes</h4>
                     </div>
