@@ -33,7 +33,7 @@ export default function Home({democlass, testimonialss, coursessoon, recentclass
             <p className="mbr-text pb-3 bt-white mbr-fonts-style p-descr align-center display-5">
             Get Plus subscription and access unlimited live and recorded courses from India best educators</p>
             <span className="input-group-btn ">
-              <button href="#" type="submit" className="btn btn-form display-3 buttonlink">JOIN CLASS</button>
+              <button href="/login" type="submit" className="btn btn-form display-3 buttonlink">JOIN CLASS</button>
             </span>
         </div>
        
@@ -47,7 +47,7 @@ export default function Home({democlass, testimonialss, coursessoon, recentclass
         </div>
         <h4 className="box-item-title pb-3  mbr-fonts-style mbr-black display-5">Daily Live Classes</h4>
         <p className="box-item-text mbr-fonts-style display-7">UX-design is associated with the understanding of the behavior of people within the application. </p>
-        <div className="mbr-section-btn"><a className="btn-underline mr-3 text-info display-4" href="index.html">Read More</a></div>
+        <div className="mbr-section-btn"><a className="btn-underline mr-3 text-info display-4" href="/login">Read More</a></div>
     </div>
     <div className="box-item">
         <div className="icon-block-top pb-4">
@@ -55,7 +55,7 @@ export default function Home({democlass, testimonialss, coursessoon, recentclass
         </div>
         <h4 className="box-item-title pb-3 mbr-fonts-style mbr-black display-5">Live tests & quizzes</h4>
         <p className="box-item-text mbr-fonts-style display-7">Children illustration should be contrast. Otherwise, the child is difficult to focus on something. </p>
-        <div className="mbr-section-btn"><a className="btn-underline mr-3 text-info display-4" href="index.html">Read More</a></div>
+        <div className="mbr-section-btn"><a className="btn-underline mr-3 text-info display-4" href="/login">Read More</a></div>
 
     </div>
     <div className="box-item">
@@ -64,7 +64,7 @@ export default function Home({democlass, testimonialss, coursessoon, recentclass
         </div>
         <h4 className="box-item-title pb-3 mbr-fonts-style mbr-black display-5">Structured Courses</h4>
         <p className="box-item-text mbr-fonts-style display-7">A set of marketing tools and management, consisting in the development of the brand of products.</p>
-        <div className="mbr-section-btn"><a className="btn-underline mr-3 text-info display-4" href="index.html">Read More</a></div>
+        <div className="mbr-section-btn"><a className="btn-underline mr-3 text-info display-4" href="/login">Read More</a></div>
 
     </div>
 </div>
@@ -89,7 +89,7 @@ export default function Home({democlass, testimonialss, coursessoon, recentclass
                     </li>
                 </ul>
             </div>
-            <div className="mbr-section-btn  align-left pt-3"><a className="btn btn-md btn-info display-4 btn-success" href="index.html">Learn More</a></div>
+            <div className="mbr-section-btn  align-left pt-3"><a className="btn btn-md btn-info display-4 btn-success" href="/aboutus">Learn More</a></div>
         </div>
  
         <div className="mbr-figure col-lg-6">

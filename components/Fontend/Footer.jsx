@@ -28,10 +28,10 @@ function Footer() {
                 
             <div className="list-item">
                     
-                    <p>1234 Street Name City, <br />AA 99999</p>
+                    <p>1234 Street, New Delhi, <br />Pin Code: 110048</p>
                 </div><div className="list-item">
                     
-                    <p>+91 000 0000 001</p>
+                    <p>+91 81305 89537</p>
                 </div></div>
         </div>
         <div className="col-12 col-lg-3 mbr-fonts-style mbr col-md-6">
