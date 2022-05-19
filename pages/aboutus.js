@@ -33,7 +33,7 @@ const aboutus = ()=> {
         </div>
  
         <div className="mbr-figure col-lg-6">
-            <Image src={`/assets/images/07.jpg`} width="600" height="400" alt='Mobirise'  />
+            <Image src={`/assets/images/student.jpg`} width="600" height="400" alt='Mobirise'  />
         </div>
 
     </div>

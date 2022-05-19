@@ -93,7 +93,7 @@ export default function Home({democlass, testimonialss, coursessoon, recentclass
         </div>
  
         <div className="mbr-figure col-lg-6">
-            <Image src={`/assets/images/07.jpg`} width="600" height="300" alt="Mobirise"/>
+            <Image src={`/assets/images/student.jpg`} width="600" height="300" alt="Mobirise"/>
         </div>
 
     </div>
