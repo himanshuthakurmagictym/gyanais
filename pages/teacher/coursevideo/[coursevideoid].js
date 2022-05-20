@@ -80,7 +80,7 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
                 setMessagebar("Please dont close or refresh the screen until data will save");
                 socket?.emit("recordingstatus", { userid, coursevideoid })
                 socket?.on("getrecordingdetails", (completeddata)=>{
-                    console.log(completeddata);
+                   
                     setMessagebar(completeddata);
                 });
             }
@@ -147,7 +147,7 @@ export const getServerSideProps = async (context) =>{
    
     const res = await fetch(`${APIs.base_url}student/coursevideo/videoDetails/${coursevideoid}`);
     const datas = await res.json();
-    console.log(datas)
+    // console.log(datas)
     
         // Perform localStorage action
     //    const getuserid = datas.data.course_id.teacher_id;
