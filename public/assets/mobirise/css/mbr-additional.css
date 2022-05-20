@@ -2040,7 +2040,7 @@ color: white;
   padding-right: .5rem;
 }
 
-.cid-qKSpeMafIm { background: url(http://localhost:3000/assets/images/back.png);
+.cid-qKSpeMafIm { background: url(/assets/images/back.png);
 }
 
 .labelred{color:red}
