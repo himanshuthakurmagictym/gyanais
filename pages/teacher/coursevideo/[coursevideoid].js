@@ -32,9 +32,9 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
     const [handleclassstatus, sethandleclassstatus] = useState(handleclassbutton);
     const [handleclass, sethandleclass] = useState(handleclassbutton);
     const [socket, setSocket] = useState(null);
-
+    const [Messagebar, setMessagebar] =useState("");
     const [streamstartstatus, setStreamstartstatus] =useState(2)
-  
+    
 
 
     useEffect(()=>{
@@ -74,6 +74,18 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
         })
        },[socket])
 
+       useEffect(()=>{
+            if(setScreenrecordingstatus === 1){
+                socket?.emit("recordingstatus", { userid, coursevideoid })
+                socket?.on("getrecordingdetails", (completeddata)=>{
+                    console.log(completeddata);
+                    setMessagebar(completeddata);
+                });
+            }else{
+                setMessagebar("Please dont close or refresh the screen until data will save");
+            } 
+       },[setScreenrecordingstatus][socket])
+
     return (
         <>
   <Brudcrums />
@@ -88,6 +100,9 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
                               <div className="card col-12 col-md-9 margintopminus">
                              
                                {/* <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">{videodetails.video_title} </h2> */}
+                               {(roles === APIs.roles[0])?
+                               <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">{Messagebar} </h2>
+                               :""}
                                  <div className='whiteboardmain'>
                                   <Whiteboarddyn socket={socket} roomid={videodetails._id} userRole={roles} course_id={courseid} coursevideoid={coursevideoid} userid={userid} screenrecordingstatus={screenrecordingstatus}/>   
                                   </div>  
