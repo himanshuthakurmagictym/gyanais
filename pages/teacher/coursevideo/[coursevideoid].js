@@ -115,17 +115,33 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
                                 {/* <button className='btn-success ' onClick={e=>{(setStreamstartstatus(1))}}>Open Camera</button>
                                 <button className='btn-success ' onClick={e=>{setStreamstartstatus(2)}}>Stop Camera</button> */}
                                 {/* <button className='btn-success ' onClick={e=>{(handleclassstatus == 0)? sethandleclassstatus(1):sethandleclassstatus(0), screenrecordingstatus == 0?setScreenrecordingstatus(1):setScreenrecordingstatus(0), streamstartstatus == 2?setStreamstartstatus(1):setStreamstartstatus(2) }}>{(handleclassstatus == 0)? "Start Class":"Stop Class"}</button> */}
+
+                                {recordingwhiteboard == 1?
+                                <>
                                 {handleclass == 0?
                                 <button className='btn-success ' onClick={e=>{ sethandleclassstatus(1), setScreenrecordingstatus(0), setStreamstartstatus(1) }}>Start Class</button>
                                 :<button className='btn-success ' disabled>Start Class</button>}
                                 {handleclass == 1?
                                 <button className='btn-success ' onClick={e=>{ sethandleclassstatus(0), setScreenrecordingstatus(1), setStreamstartstatus(2)}}>Stop Class</button>
                                 :<button className='btn-success ' disabled>Stop Class</button>}
+                                </>:
+                                <>
+                                {handleclass == 0?
+                                <button className='btn-success ' onClick={e=>{ sethandleclassstatus(1),  setStreamstartstatus(1) }}>Start Class</button>
+                                :<button className='btn-success ' disabled>Start Class</button>}
+                                {handleclass == 1?
+                                <button className='btn-success ' onClick={e=>{ sethandleclassstatus(0),  setStreamstartstatus(2)}}>Stop Class</button>
+                                :<button className='btn-success ' disabled>Stop Class</button>}
+                                </>}
+
                                 </div>
                                 :""}
+
+
+
                                   <div className='rightside '>
                                         <div className='webcam'> 
-                                                <Webcamerasforst socket={socket} userid={userid} roomid={videodetails._id} userRole={roles} handleclassbutton={handleclassstatus} course_id={courseid} streamstartstatus={streamstartstatus}/>                                  
+                                                <Webcamerasforst socket={socket} userid={userid} roomid={videodetails._id} userRole={roles} handleclassbutton={handleclassstatus} course_id={courseid} streamstartstatus={streamstartstatus} screenrecordingstatus={screenrecordingstatus}/>                                  
                                         </div>
                                         <div className='roomchat'>
                                                 <Chatbox socket={socket} userid={userid} roomid={videodetails._id} userRole={roles}/>

@@ -17,7 +17,7 @@ const constraints = {
 let mediaRecorder = null;
 let dataChunks = [];
 
-function Webcameras({socket, roomid, userid, userRole, handleclassbutton, course_id, streamstartstatus}) {
+function Webcameras({socket, roomid, userid, userRole, handleclassbutton, course_id, streamstartstatus, screenrecordingstatus}) {
  
   const router  = useRouter();
 
@@ -283,8 +283,8 @@ mediaStream = new MediaStream([
     setmediaRecorderstatus(mediaRecorder.state)       
 
 }
-
-},[screenStream, voiceStream])
+},[screenrecordingstatus])
+// },[screenStream, screenrecordingstatus])
 
 
 const stoprecording = ()=>{
