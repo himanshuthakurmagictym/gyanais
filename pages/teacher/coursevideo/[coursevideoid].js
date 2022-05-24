@@ -118,18 +118,18 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
 
                                 {recordingwhiteboard == 1?
                                 <>
-                                {handleclass == 0?
+                                {handleclassstatus == 0?
                                 <button className='btn-success ' onClick={e=>{ sethandleclassstatus(1), setScreenrecordingstatus(0), setStreamstartstatus(1) }}>Start Class</button>
                                 :<button className='btn-success ' disabled>Start Class</button>}
-                                {handleclass == 1?
+                                {handleclassstatus == 1?
                                 <button className='btn-success ' onClick={e=>{ sethandleclassstatus(0), setScreenrecordingstatus(1), setStreamstartstatus(2)}}>Stop Class</button>
                                 :<button className='btn-success ' disabled>Stop Class</button>}
                                 </>:
                                 <>
-                                {handleclass == 0?
+                                {handleclassstatus == 0?
                                 <button className='btn-success ' onClick={e=>{ sethandleclassstatus(1),  setStreamstartstatus(1) }}>Start Class</button>
                                 :<button className='btn-success ' disabled>Start Class</button>}
-                                {handleclass == 1?
+                                {handleclassstatus == 1?
                                 <button className='btn-success ' onClick={e=>{ sethandleclassstatus(0),  setStreamstartstatus(2)}}>Stop Class</button>
                                 :<button className='btn-success ' disabled>Stop Class</button>}
                                 </>}
