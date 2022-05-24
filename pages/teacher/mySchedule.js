@@ -83,6 +83,7 @@ function MySchedule({allclass}) {
                         <tr>
                           <th scope="col"> SNo.</th>
                           <th scope="col">Class Name</th>
+                          <th scope="col">Type</th>
                           <th scope="col">course Name</th>
                           <th scope="col">Time</th>
                           <th scope="col">Reschedule</th>
@@ -98,6 +99,7 @@ function MySchedule({allclass}) {
                                <tr>
                               <th scope="row">{++i}</th>
                               <td>{all_classs.video_title}</td>
+                              <td>{all_classs.recordedVideo == 1?"Paid":"Free"}</td>
                               <td>{all_classs.course_id.course_name}</td>
                               <td>{moment(all_classs.videoDate).format('MMMM Do, hh:mm A')}</td>
                                 <td>
