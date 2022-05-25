@@ -75,7 +75,7 @@ export default Setting
 export async function getServerSideProps(ctx){
  
     return { props: {
-        userid:context.req.cookies['cid']
+        userid:ctx.req.cookies['cid']
     }}
     
 
