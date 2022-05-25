@@ -76,7 +76,7 @@ export async function getServerSideProps(ctx){
    // const cookie = parseCookies(ctx)
 
     return { props: {
-        userid:context.req.cookies['cid']
+        userid:ctx.req.cookies['cid']
     }}
     
 
