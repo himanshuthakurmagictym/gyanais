@@ -13,8 +13,10 @@ function Footer() {
         <div className="col-12 col-lg-3 col-md-6">
             <div className="media-wrap">
             <Link href="/" passHref > 
-                   
+                   <>
                     <Image src="/assets/images/logo.png" width="100" height="100"  alt="logo" />
+                      <p>The Gyaan IAS</p>
+                   </>
                </Link> 
             </div>
             
@@ -52,10 +54,10 @@ function Footer() {
             </h5>
             <div className="mbr-text mbr-fonts-style display-7">
                 <ul className="list">
-                    <li>Our Team</li>
-                    <li>Our Achievments<br /></li>
-                    <li>Our Partners</li>
-                    <li>Our Clients</li>
+                    <li><Link href="/privacypolicy" >Privacy Policy</Link></li>
+                    <li><Link href="/termsandConditions" >Terms and Conditions</Link><br /></li>
+                    <li><Link href="/refundpolicy" >Refund Policy</Link></li>
+                    <li><Link href="/userguidelines" >User Guidelines</Link></li>
                 </ul>
             </div>
         </div>
