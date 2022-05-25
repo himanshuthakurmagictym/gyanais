@@ -169,7 +169,7 @@ function AddMCQ({allcategory, mycourseOptions, myvideoOptions, getmyquestionbank
                       {getmyquestionbank?
                       <>
                             {getmyquestionbank?.map((all_class, i) => (
-                             <tr key={all_class._id}>
+                             <tr key={i}>
                               {(!getmyquestionbank)?
                               <>
                               <th scope="row" >No Record Found</th>
@@ -257,7 +257,6 @@ export async function getServerSideProps(context){
     const Getmyquestionbank =  await getmyquestionbank.json()
     const allcourseOptions =  await allcourses.json();
     const allvideoOptions =  await allvideo.json();
-    
    
   
     {
