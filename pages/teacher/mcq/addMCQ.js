@@ -166,7 +166,8 @@ function AddMCQ({allcategory, mycourseOptions, myvideoOptions, getmyquestionbank
                       </thead>
                       <tbody>
                         
-                         
+                      {getmyquestionbank?
+                      <>
                             {getmyquestionbank?.map((all_class, i) => (
                              <tr key={all_class._id}>
                               {(!getmyquestionbank)?
@@ -191,6 +192,8 @@ function AddMCQ({allcategory, mycourseOptions, myvideoOptions, getmyquestionbank
                                                       
                             ))}
 
+                            </>
+                            :""}
                         
                         
                       </tbody>

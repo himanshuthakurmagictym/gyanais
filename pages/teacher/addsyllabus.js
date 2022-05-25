@@ -34,10 +34,6 @@ function Addsyllabus({teacherid, mycourseOptions}) {
      }
    }
     
-   
-
-  
-
 
       const courseOptions= [];
       mycourseOptions.forEach((x)=>{

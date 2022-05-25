@@ -46,13 +46,15 @@ function AllNotes({allnotes}) {
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                         
+                        
+                         {allnotes?
+                          <>
                             {allnotes?.map((all_class, i) => (
                               <>
+                              <tr>
                               <th scope="row">{++i}</th>
-                              <td>{all_class.videoid.video_title}</td>
-                              <td>{all_class.courseid.course_name}</td>
+                              <td>{all_class.videoid?.video_title}</td>
+                              <td>{all_class.courseid?.course_name}</td>
                               <td>{moment(all_class.CreatedAt).format('MMMM Do, hh:mm A')}</td>
                                 <td>
                                  
@@ -62,12 +64,14 @@ function AllNotes({allnotes}) {
                                   </a>
                                   </Link>
                                   </td>
-                                  
+                                  </tr>
                               </>
                                                       
                             ))}
+                            </>
+                            :""}
 
-                        </tr>
+                       
                         
                       </tbody>
                     </table>
@@ -102,8 +106,7 @@ export async function getServerSideProps(context){
         body:JSON.stringify({teacherid:context.req.cookies['cid']})
     });
     const allcourses = await courses.json();
-   console.log(allcourses)
-   
+
       return {
          props:{
              allnotes:allcourses.data,
