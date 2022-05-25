@@ -35,9 +35,9 @@ function Avatar() {
       //console.log(sendmaildata);
       const result = await fetch(URLS,{
           method: "POST",
-          headers: {
-              "Content-Type": "multipart/form-data",
-            },
+        //   headers: {
+        //       "Content-Type": "multipart/form-data",
+        //     },
           body
       }).then(res => res.json()).then(res  => notify(res)).catch(err => console.log(err)); 
   }
