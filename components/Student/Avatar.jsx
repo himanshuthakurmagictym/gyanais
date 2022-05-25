@@ -28,7 +28,7 @@ function Avatar() {
 
     const sendAvatar = async (e) => {
       e.preventDefault();
-       const URLS = APIs.base_url+"auth/avatar";
+       const URLS = APIs.base_url+"auth/uploadPhoto";
       const body = new FormData();
         body.append("file", avatar);
         body.append("user", user);

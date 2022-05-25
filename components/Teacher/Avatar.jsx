@@ -25,7 +25,7 @@ function Avatar() {
 
     const sendAvatar = (e) => {
       e.preventDefault();
-       const URLS = APIs.base_url+"auth/avatar";
+       const URLS = APIs.base_url+"auth/uploadPhoto";
       //const URLS = "http://localhost:5000/api/email_send";
 
       const body = new FormData();
