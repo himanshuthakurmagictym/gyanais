@@ -194,7 +194,8 @@ function Mcq({mcqbankid, teacherId, myQuestion}) {
                       </thead>
                       <tbody>
                        
-                         
+                         {myQuestion?
+                         <>
                             {myQuestion?.map((myquestion, i) => (
                               <tr key={myquestion._id}>
                               {(!myQuestion)?
@@ -219,7 +220,8 @@ function Mcq({mcqbankid, teacherId, myQuestion}) {
                                                       
                             ))}
 
-                       
+                            </>
+                            :""}
                         
                       </tbody>
                     </table>
