@@ -29,7 +29,7 @@ function Avatar() {
       //const URLS = "http://localhost:5000/api/email_send";
 
       const body = new FormData();
-        body.append("file", avatar);
+        body.append("avatar", avatar);
         body.append("user", user);
       //console.log(sendmaildata);
       const result = fetch(URLS,{

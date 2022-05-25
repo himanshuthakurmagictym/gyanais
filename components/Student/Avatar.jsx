@@ -6,10 +6,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {useAppContext} from '../Fontend/Layout'
 function Avatar() {
-
-    const [avatar, setAvatar] = useState("");
-    const [user, setuser] = useState("");
     const userdetail = useAppContext();
+    const Imageurl =`${APIs.base_url_home} ${userdetail.photo}`;
+    const [avatar, setAvatar] = useState();
+    const [user, setuser] = useState("");
+ 
     const [submitted, setSubmitted] = useState("");
 
     useEffect(() => {  
@@ -30,7 +31,7 @@ function Avatar() {
       e.preventDefault();
        const URLS = APIs.base_url+"auth/uploadPhoto";
       const body = new FormData();
-        body.append("file", avatar);
+        body.append("avatar", avatar);
         body.append("user", user);
       //console.log(sendmaildata);
       const result = await fetch(URLS,{
@@ -59,7 +60,8 @@ function Avatar() {
                               <input type="file" className="field display-7" name="firstname" placeholder="First Name" data-form-field="First Name" accept="image/*"  onChange={(e)=>{setAvatar(e.target.files[0])}} required="" id="firstname-form2-7"/>
                           </div>
                           <div className="col-md-12 col-lg-6 input-wrap text-center" >
-                                <Image src={avatar?URL.createObjectURL(avatar):'/assets/images/student.png'} width={200} height={200} alt="avatar"/>
+                        
+                                <Image src={userdetail.photo?`${APIs.base_url_home}${userdetail.photo}`:(avatar?URL.createObjectURL(avatar):'/assets/images/student.png')} width={200} height={200} alt="avatar"/>
                           </div>        
                       </div>
 
