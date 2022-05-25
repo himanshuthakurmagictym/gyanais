@@ -15,7 +15,7 @@ function SubmenuDashboard() {
                                             <a href="/teacher/allNotes"><li>All Notes</li></a>
                                             <a href="/teacher/addNotes"><li>Add Notes</li></a>
                                             <a href="/teacher/addsyllabus"><li>Add Syllabus</li> </a>
-                                            <a href="/teacher/mcq/AddMCQ"><li>Upload MCQ</li></a> 
+                                            <a href="/teacher/mcq/addMCQ"><li>Upload MCQ</li></a> 
                                             {/* <a href="/student/profile"><li>Subscription</li> </a>  */}
                                         </ul>
 

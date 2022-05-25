@@ -25,7 +25,6 @@ function AddMCQ({allcategory, mycourseOptions, myvideoOptions, getmyquestionbank
     
     const [courseid, setcourseid]= useState("");
 
-
     const notify = (data)=>{
         // console.log(data);
       if(data.status_code === 200){
