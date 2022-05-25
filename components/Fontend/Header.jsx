@@ -163,7 +163,7 @@ const handleRead = (notyid) => {
                 <ul className="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
                 <li className="nav-item dropdown">
                     <a className="nav-link  text-danger dropdown-toggle " data-toggle="dropdown-submenu" aria-expanded="true">
-                    <Image src={`/assets/images/avatar.png`}  width='40' height='40' alt="avatar"/></a>
+                    <Image src={isuser.photo?`${APIs.base_url_home}${isuser.photo}`:('/assets/images/avatar.png')}  width='40' height='40' alt="avatar"/></a>
                     <div className="dropdown-menu">
                    {
                      (isuser.roles === APIs.roles[1]) ?

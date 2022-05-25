@@ -4,12 +4,16 @@ import { parseCookies } from 'nookies'
 import APIs from '../../config.js';
 import Image from 'next/image'
 import moment from 'moment';
-import Link from 'next/link'
-
+import Link from 'next/link';
+import { useState, useEffect } from 'react'
+import {useAppContext} from '../../components/Fontend/Layout'
 
 function Profile({datas, paidcourse}) {
-    
-   
+    const userdetail = useAppContext();
+    const [user, setuser] = useState("");
+    useEffect(() => {  
+        setuser(userdetail._id)
+    }, [userdetail])
 
     return (
         <div>
@@ -24,7 +28,7 @@ function Profile({datas, paidcourse}) {
                     <div className="row"> 
         
                         <div className="col-md-3">
-                                 <Image src={`/assets/images/avatar.png`}  width='150' height='150' alt="avatar"/>
+                                 <Image src={userdetail.photo?`${APIs.base_url_home}${userdetail.photo}`:('/assets/images/student.png')}  width='150' height='150' alt="avatar"/>
                         </div>
 
                         <div className=" col-md-9">
