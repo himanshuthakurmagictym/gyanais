@@ -77,15 +77,18 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
        useEffect(()=>{
             if(screenrecordingstatus === 1){
                
-                setMessagebar("Please dont close or refresh the screen until data will save");
+
+                if(Messagebar !== "Recording has been completed"){
+                    setMessagebar("Please dont close or refresh the screen until data will save");
+                }
+            
                 socket?.emit("recordingstatus", { userid, coursevideoid })
                 socket?.on("getrecordingdetails", (completeddata)=>{
-                   
                     setMessagebar(completeddata);
                 });
             }
            
-       },[screenrecordingstatus])
+       },[screenrecordingstatus][socket])
 
     return (
         <>
