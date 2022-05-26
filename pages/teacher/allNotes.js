@@ -57,8 +57,9 @@ function AllNotes({allnotes}) {
                               <td>{all_class.courseid?.course_name}</td>
                               <td>{moment(all_class.createdAt).format('MMMM Do, hh:mm A')}</td>
                                 <td>
-                                 
-                                  <Link href={`${APIs.base_url_home}${all_class.coursevideopdf_pathUrl}`}><a target="_blank"><button className="btn btn-success " data-toggle="modal" data-target="#exampleModal" >
+                                {/* {`${APIs.base_url_home}${all_class.coursevideopdf_pathUrl}`} */}
+                               
+                                  <Link href= {`/teacher/notes/notedetails/${all_class._id}`}><a target="_blank"><button className="btn btn-success " data-toggle="modal" data-target="#exampleModal" >
                                       <FontAwesomeIcon icon={faFilePdf} /> 
                                   </button>
                                   </a>
