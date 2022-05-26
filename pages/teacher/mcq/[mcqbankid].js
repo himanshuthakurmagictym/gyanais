@@ -206,7 +206,7 @@ function Mcq({mcqbankid, teacherId, myQuestion}) {
                                 <th scope="row">{++i}</th>
                                 <td>{myquestion?.question}</td>
                                 <td>{myquestion.answer}</td>
-                                <td>{moment(myquestion?.CreatedAt).format('MMMM Do, hh:mm A')}</td>
+                                <td>{moment(myquestion?.createdAt).format('MMMM Do, hh:mm A')}</td>
                                 <td>
                                    
                                     <button className="btn btn-success " data-toggle="modal" data-target="#exampleModal" onClick={()=>{deletequestion(myquestion._id)}} >

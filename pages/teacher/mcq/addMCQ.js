@@ -177,7 +177,7 @@ function AddMCQ({allcategory, mycourseOptions, myvideoOptions, getmyquestionbank
                                 <th scope="row">{++i}</th>
                                 <td>{all_class?.bank_name}</td>
                                 <td>{all_class.course_id?.course_name}</td>
-                                <td>{moment(all_class?.CreatedAt).format('MMMM Do, hh:mm A')}</td>
+                                <td>{moment(all_class?.createdAt).format('MMMM Do, hh:mm A')}</td>
                                 <td>
                                    
                                     <Link href={`/teacher/mcq/${all_class._id}`}><a target="_blank"><button className="btn btn-success " data-toggle="modal" data-target="#exampleModal" >
