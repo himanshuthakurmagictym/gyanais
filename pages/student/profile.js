@@ -78,6 +78,7 @@ function Profile({datas, paidcourse}) {
                                     return(
                                         <>
                                         {/* <li key={categoryid.category_id}></li> */}
+                                        <Link  href={`student/category/${categoryid.category_id}`}>
                                         <div className=" col-md-6">
                                         <div className="wrapper" >
                                                    <div className="card-img pb-3 align-center">
@@ -102,7 +103,8 @@ function Profile({datas, paidcourse}) {
                                                 </div>
                                                 </div>
                                                 
-                                                </div>
+                                        </div>
+                                        </Link>
                                         </>
                                             )
 
