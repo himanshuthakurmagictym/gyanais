@@ -67,7 +67,7 @@ function Profile({datas, paidcourse}) {
 <section className="features11 cid-qKSpeMafIm pt-5 profilebox" id="features11-d">
 <div className="container">   
     <div className="row justify-content-center pt-2"> 
-        <div className="card col-12 col-md-12">
+        <div className="card col-12 col-md-12 ">
         <h1 className="mbr-fonts-style mb-3 align-center display-2">All subscription courses</h1>
         <div className="row"> 
         
@@ -78,14 +78,12 @@ function Profile({datas, paidcourse}) {
                                     return(
                                         <>
                                         {/* <li key={categoryid.category_id}></li> */}
-                                        <Link  href={`student/category/${categoryid.category_id}`}>
-                                        <div className=" col-md-6">
+                                        <Link  href={`category/${categoryid.category_id}`} passHref>
+                                        <div className=" col-md-6" style={{'cursor': 'pointer'}}>
                                         <div className="wrapper" >
                                                    <div className="card-img pb-3 align-center">
                                                 {categoryid.paid_user.map((paiduser)=>(
                                                     <>
-                                                    
-                                                    
         
                                                     <Image src={`${APIs.base_url_home}${paiduser.course_category_image.replace(/\\/g,'\/')}`} width="100" height="100" className="categoryimage" alt="category" key={paiduser._id} />
                                                     <h2 className="mbr-fonts-style mbr-card-title align-center display-2" > {paiduser.course_category_name}</h2>

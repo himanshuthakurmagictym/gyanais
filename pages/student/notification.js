@@ -30,6 +30,7 @@ function Notification({notification}) {
                                             <div className="card-box">
                                             {notification?.map((noty, i)=>(
                                                 <div className='notify' key={noty._id}>
+                                                <Link href={`category/${noty.category_id}`} style={{'cursor':'pointer'}}>
                                                 <div className="row">
                                                 <div className="col-md-2">
                                                     <Image src={`/assets/images/avatar.png`} width={100} height={100} alt="course image" />
@@ -46,8 +47,9 @@ function Notification({notification}) {
                                                     </div>
                                                 </div>
                                                 </div>
-
+                                                </Link>
                                                 </div>
+                                                
                                             ))}
                                             </div>
                                             </div>
@@ -64,7 +66,7 @@ export default Notification;
 export async function getServerSideProps(context){
 
     const res = await fetch(`${APIs.base_url}notification/${context.req.cookies['cid']}`);
-    const datas = await res.json()
+    const datas = await res.json();
     //console.log(context.req.cookies['cid']);
     return {   
         props:{
