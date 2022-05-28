@@ -19,7 +19,7 @@ function MySchedule({allclass}) {
   const [duration, setduration]= useState("");
   const [mytime, setmytime]= useState("");
   const [videoid, setvideo]= useState("");
-
+  const router = useRouter();
 
   
 
@@ -27,6 +27,7 @@ function MySchedule({allclass}) {
         //console.log(data);
     if(data.status_code === 200){
         toast.success(data.message,{autoClose:2000});
+        router.reload();
     }else{
         toast.error(data.message,{autoClose:2000});
     }
