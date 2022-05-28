@@ -42,8 +42,9 @@ import {
                                     </div> 
                                     
                                     <div className=" align-left">
-                                    {coursedetail.course_enroll == 1 ?  <button className="btn btn-success display-4">Enroll</button>
-                                    : <button className="btn btn-success display-4">UnEnroll</button>}
+                                    {/* {coursedetail.course_enroll == 1 ?  <button className="btn btn-success display-4">Enroll</button>
+                                    : <button className="btn btn-success display-4">UnEnroll</button>} */}
+
                                         <button className="btn btn-success display-4" onClick={e=>{setsociallinks(true)}}>Share</button>
 
                                         {sociallinks == true ?
