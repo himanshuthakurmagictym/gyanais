@@ -8,8 +8,8 @@ function SubmenuDashboard() {
                                     <div className="">
                                         <ul>
                                             <a href="/teacher/mySchedule"><li>My Schedule</li></a>
-                                            <a href="/teacher/allpluscourse"><li>My Plus Course</li></a>
-                                            <a href="/teacher/addpluscourse"><li>Add Plus Course</li></a>  
+                                            <a href="/teacher/allpluscourse"><li>My Course</li></a>
+                                            <a href="/teacher/addpluscourse"><li>Add Course</li></a>  
                                             <a href="/teacher/addfreeclass"><li>Add Free Class </li></a>
                                             <a href="/teacher/addplusclass"><li>Add paid Class</li></a>
                                             <a href="/teacher/allNotes"><li>All Notes</li></a>
