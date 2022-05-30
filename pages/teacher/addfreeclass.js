@@ -46,10 +46,7 @@ function Addfreeclass({allcategory, teacherid, allsubcategories, mycourseOptions
 
      
 
-      const courseOptions= [];
-      mycourseOptions.forEach((x)=>{
-        courseOptions.push({value:x.course_name, label:x.course_name, courseid:x._id}) 
-      })
+    
 
      
 
@@ -57,6 +54,13 @@ function Addfreeclass({allcategory, teacherid, allsubcategories, mycourseOptions
       const goalOptions= [];
       allcategory.forEach((x)=>{
          goalOptions.push({value:x.course_category_name, label:x.course_category_name, categoryid:x._id}) 
+      })
+
+      const courseOptions= [];
+      mycourseOptions.forEach((x)=>{
+        if(x.category_id == categoryid){
+        courseOptions.push({value:x.course_name, label:x.course_name, courseid:x._id})
+        } 
       })
     //   console.log(goal)
     var topicOptions = [];

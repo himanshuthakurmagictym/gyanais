@@ -63,7 +63,9 @@ function Addplusclass({allcategory, teacherid, allsubcategories, mycourseOptions
 
       const courseOptions= [];
       mycourseOptions.forEach((x)=>{
+        if(x.category_id == categoryid){
         courseOptions.push({value:x.course_name, label:x.course_name, categoryid:x._id,courseid:x._id}) 
+        }
       })
       
       const errorhandler = (x)=>{
