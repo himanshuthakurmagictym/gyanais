@@ -31,18 +31,14 @@ function Header({socket}) {
   },[newuser])
 
   useEffect(()=>{
-    if(isuser.roles === APIs.roles[1]){
+   
       socket?.on('notification', (result) => {
         setNotifications(result);
       })
-    }
-
-    if(isuser.roles === APIs.roles[0]){
-      socket?.on('teachernotification', (result) => {
-        setNotifications(result);
-      })
-    }
-  
+    socket?.on('teachernotification', (result) => {
+      console.log(result);
+      setNotifications(result);
+    })
 },[socket])
   
 const handleRead = (notyid) => {

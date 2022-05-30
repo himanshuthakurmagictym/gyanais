@@ -29,14 +29,14 @@ function Allrecordedvideo({allrecorded}) {
     searching: false,
     destroy: true,})});
   },[])
-  const approvdproclass = async(status, id)=>{
+  const approvdproclass = async(status, id, teacherId)=>{
     setclassapproved(status)
     await fetch(APIs.base_url+'admin/handleproclass', {
       method:"POST",
       headers: {
           "Content-Type": "application/json",
         },
-      body: JSON.stringify({id, status}),
+      body: JSON.stringify({id, status, teacherId}),
      }).then(res=>res.json()).then(res=>notify(res)).catch(err=>console.log(err));
 
   }
@@ -96,7 +96,7 @@ function Allrecordedvideo({allrecorded}) {
                                                 <td>{videos.goal}</td>
                                                 <td>{videos.teacher_id.firstname}</td>
                                                 <td>{moment(videos.createdAt).format('DD MMM YY')}</td>
-                                                <td><button onClick={()=>{approvdproclass(videos.approved ==0?1:0, videos._id)}} className=" btn-success">{videos.approved == 1?"Deactive":"Active"}</button></td>
+                                                <td><button onClick={()=>{approvdproclass(videos.approved ==0?1:0, videos._id, videos.teacher_id._id)}} className=" btn-success">{videos.approved == 1?"Deactive":"Active"}</button></td>
                                             </tr>
                                             ))}
                                             {!allrecorded?
