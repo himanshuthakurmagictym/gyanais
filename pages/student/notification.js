@@ -67,7 +67,6 @@ export async function getServerSideProps(context){
 
     const res = await fetch(`${APIs.base_url}notification/${context.req.cookies['cid']}`);
     const datas = await res.json();
-    //console.log(context.req.cookies['cid']);
     return {   
         props:{
             notification: datas.data,
