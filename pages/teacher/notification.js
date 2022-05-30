@@ -28,6 +28,8 @@ function Notification({notification}) {
                                             <div className="col-md-12">
                                             <h2 className="mbr-fonts-style mb-3 align-center display-2">All  Notification</h2>  
                                             <div className="card-box">
+                                                {notification?
+                                                <>
                                             {notification.map((noty, i)=>(
                                                 <div className='notify' key={noty._id}>
                                                 <div className="row">
@@ -37,7 +39,7 @@ function Notification({notification}) {
                                                 <div className="col-md-9">
                                                     <div className='notifyBody'>
                                                     <h1 className=" display-5">{noty.videoid.video_title}</h1>
-                                                    <p>{moment(noty.videoid.videoDate).format('DD MMM YYY')}</p>
+                                                    <p>{moment(noty.createdAt).format('DD MMM YYY')}</p>
                                                     </div>
                                                 </div>
                                                 <div className="col-md-1">
@@ -49,6 +51,8 @@ function Notification({notification}) {
 
                                                 </div>
                                             ))}
+                                                </>
+                                            :""}
                                             </div>
                                             </div>
                                         </div>
@@ -63,12 +67,12 @@ function Notification({notification}) {
 export default Notification;
 export async function getServerSideProps(context){
 
-    const res = await fetch(`${APIs.base_url}notification/${context.req.cookies['cid']}`);
-    const datas = await res.json()
-    //console.log(context.req.cookies['cid']);
+    const res = await fetch(`${APIs.base_url}teacher/notification/${context.req.cookies['cid']}`);
+    const datas = res.json()
+ 
     return {   
         props:{
-            notification: datas.data,
+            notification: datas.data?datas.data:"",
         },
       };
 

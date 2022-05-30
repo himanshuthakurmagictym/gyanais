@@ -31,14 +31,22 @@ function Header({socket}) {
   },[newuser])
 
   useEffect(()=>{
-  socket?.on('notification', (result) => {
-    setNotifications(result);
-  })
+    if(isuser.roles === APIs.roles[1]){
+      socket?.on('notification', (result) => {
+        setNotifications(result);
+      })
+    }
+
+    if(isuser.roles === APIs.roles[0]){
+      socket?.on('teachernotification', (result) => {
+        setNotifications(result);
+      })
+    }
+  
 },[socket])
   
 const handleRead = (notyid) => {
   //  id?setNotifications([]):"";
-  console.log(notyid)
   socket.emit('readnotification', notyid)
 
 };
@@ -141,11 +149,11 @@ const handleRead = (notyid) => {
         {
           (isuser.roles === APIs.roles[1]) ?
           <>
-           <a href="/student/notification" className='row'> <button className="btn align-center btn-success display-2 w-100" onClick={handleRead}>
+           <a href="/student/notification" className='row'> <button className="btn align-center btn-success display-2 w-100" >
             Read All
           </button></a>
           </>:
-          <a href="/teacher/notification"  className='row'> <button className="btn align-center btn-success display-2 w-100" onClick={handleRead}>
+          <a href="/teacher/notification"  className='row'> <button className="btn align-center btn-success display-2 w-100" >
           Read All
         </button></a>
         }
