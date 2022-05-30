@@ -16,7 +16,7 @@ const Singleclass = ({singleclass})=>{
       </div>
       <h4 className="mbr-fonts-style mbr-card-title align-center display-7"> {singleclass.course_name}</h4>
       <h5 className="mbr-fonts-style align-center ">
-         {/* {singleclass.course_laungauge}  */}
+         {/* {singleclass.course_goal}  */}
       <br/>• Started at {moment(singleclass.created_at).format('MM Do')}</h5>
     </div>
        
