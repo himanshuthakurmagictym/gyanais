@@ -154,7 +154,8 @@ const deletecategory = async(e)=>{
                             
                             <div className=" custom-file">
                                 <input type="file" className="custom-file-input" id="customFile" accept="image/*"  onChange={(e)=>{setdemoImage(e.target.files[0])}} />
-                                <label className="custom-file-label" name="image" htmlFor="customFile" >Choose Demo Image Preview </label>
+                                <label className="custom-file-label" name="image" htmlFor="customFile" >
+                                   {demoImage?.name?demoImage?.name:"Choose Demo Image Preview"}</label>
                             </div>
                         </div>
                                    

@@ -221,7 +221,9 @@ function Addfreeclass({allcategory, teacherid, allsubcategories, mycourseOptions
                             
                             <div className=" custom-file">
                                 <input type="file" className="custom-file-input" id="customFile" accept="image/*"  onChange={(e)=>{setimage(e.target.files[0])}} />
-                                <label className="custom-file-label" name="image" htmlFor="customFile" >Choose Class Image Preview </label>
+                                <label className="custom-file-label" name="image" htmlFor="customFile" >
+                                {image?.name?image?.name:"Choose Class Image Preview "}
+                                    </label>
                             </div>
                         </div>
                                    

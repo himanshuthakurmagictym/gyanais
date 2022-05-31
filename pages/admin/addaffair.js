@@ -126,7 +126,9 @@ const deleteaffair = async(e)=>{
                             
                             <div className=" custom-file">
                                 <input type="file" className="custom-file-input" id="customFile" accept="image/*"  onChange={(e)=>{setcurrentaffair_image(e.target.files[0])}} />
-                                <label className="custom-file-label" name="image" htmlFor="customFile" >Choose Demo Image Preview </label>
+                                <label className="custom-file-label" name="image" htmlFor="customFile" >
+                                {currentaffair_image?.name?currentaffair_image?.name:"Choose Demo Image"}
+                                    </label>
                             </div>
                         </div>
                                    

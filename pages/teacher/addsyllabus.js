@@ -118,7 +118,8 @@ function Addsyllabus({teacherid, mycourseOptions}) {
                             
                             <div className=" custom-file">
                                 <input type="file" className="custom-file-input" id="customFile" accept=".pdf"  onChange={(e)=>{setpdf(e.target.files[0])}} />
-                                <label className="custom-file-label" name="image" htmlFor="customFile" >Choose Class pdf Preview </label>
+                                <label className="custom-file-label" name="image" htmlFor="customFile" >
+                                {pdf?.name?pdf?.name:"Choose Class pdf Image "}</label>
                             </div>
                         </div>
                                    

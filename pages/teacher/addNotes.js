@@ -25,7 +25,7 @@ function AddNotes({teacherid, mycourseOptions, myvideoOptions}) {
     const [courseid, setcourseid]= useState("");
     const [pdf, setpdf]= useState("");
   
-    
+ 
     const notify = (data)=>{
        // console.log(data);
      if(data.status_code === 200){
@@ -136,7 +136,9 @@ function AddNotes({teacherid, mycourseOptions, myvideoOptions}) {
                             
                             <div className=" custom-file">
                                 <input type="file" className="custom-file-input" id="customFile" accept=".pdf"  onChange={(e)=>{setpdf(e.target.files[0])}} />
-                                <label className="custom-file-label" name="image" htmlFor="customFile" >Choose Class pdf Preview </label>
+                                <label className="custom-file-label" name="image" htmlFor="customFile" >
+                                    {pdf?.name?pdf?.name:"Choose Class pdf Preview "}
+                                    </label>
                             </div>
                         </div>
                                    
