@@ -38,7 +38,7 @@ function Notification({notification}) {
                                                 </div>
                                                 <div className="col-md-9">
                                                     <div className='notifyBody'>
-                                                    <h1 className=" display-5">{noty.videoid.video_title} {noty.message}</h1>
+                                                    <h1 className=" display-5">{noty?.videoid?.video_title} {noty.message}</h1>
                                                     <p>{moment(noty.createdAt).format('DD MMM YYY')}</p>
                                                     </div>
                                                 </div>
@@ -69,7 +69,7 @@ export async function getServerSideProps(context){
 
     const res = await fetch(`${APIs.base_url}teacher/notification/${context.req.cookies['cid']}`);
     const datas = await res.json()
- console.log(datas.data);
+
     return {   
         props:{
             notification: datas.data?datas.data:"",
