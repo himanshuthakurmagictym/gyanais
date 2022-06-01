@@ -84,24 +84,29 @@ function Allrecordedvideo({allrecorded}) {
 
 
                                             <tbody>
+                                            {allrecorded?
+                                            <>
                                             {allrecorded?.map((videos, i)=>(
                                             <tr key={videos._id}>
                                                 <td>{++i}</td>
                                                 <td>{videos.video_title}</td>
-                                                <td>{videos.course_id.course_name}</td>
+                                                <td>{videos?.course_id?.course_name}</td>
                                                 <td>{videos.videoDuration} mints</td>
                                                 <td>{moment(videos.videoDate).format('DD MMM YY')}</td>
-                                                <td>{videos.category_id.course_category_name}</td>
+                                                <td>{videos?.category_id?.course_category_name}</td>
                                                 <td>{moment(videos.startTime).format('DD MMM YY h:mm:ss a')}</td>
                                                 <td>{videos.goal}</td>
-                                                <td>{videos.teacher_id.firstname}</td>
+                                                <td>{videos?.teacher_id?.firstname}</td>
                                                 <td>{moment(videos.createdAt).format('DD MMM YY')}</td>
                                                 <td><button onClick={()=>{approvdproclass(videos.approved ==0?1:0, videos._id, videos.teacher_id._id)}} className=" btn-success">{videos.approved == 1?"Deactive":"Active"}</button></td>
                                             </tr>
                                             ))}
+                                            </>
+                                            :""}
                                             {!allrecorded?
                                             <th scope="row">No Record Found</th>
                                             :""}
+
                                             </tbody>
                                         </table>
 
@@ -136,7 +141,7 @@ export async function getServerSideProps(context) {
     const response = await result.json();
     return {
      props: {
-        allrecorded: response.data,
+        allrecorded: response.data?response.data:"",
        
       },
     }

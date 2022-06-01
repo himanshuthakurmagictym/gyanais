@@ -27,9 +27,17 @@ function Addpluscourse({allcategory, teacherid, allsubcategories, alltargetexams
     const [language, setlanguage]= useState(null);
     
     const notify = (data)=>{
-        console.log(data);
+       
      if(data.status_code === 200){
          toast.success(data.message,{autoClose:2000});
+         setcourseName("");
+         setcourseDescription("");
+         setwrittencontent("");
+         setgoal("");
+         settopics("");
+         setimage("");
+         setlanguage("");
+
      }else{
          toast.error(data.message,{autoClose:2000});
      }

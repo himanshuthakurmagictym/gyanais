@@ -9,14 +9,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import Image from 'next/image'
 import moment from 'moment';
 import Link from 'next/link'
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import {useRouter } from "next/router"
 const animatedComponents = makeAnimated();
 function Addsyllabus({teacherid, mycourseOptions}) {
-
+    const form = useRef(null);
     const [syllabusName, setsyllabusName] = useState("");
-   
-    
+ 
     const [categoryid, setcategoryid]= useState("");
     
     const [course, setcourse]= useState("");
@@ -29,6 +28,7 @@ function Addsyllabus({teacherid, mycourseOptions}) {
        // console.log(data);
      if(data.status_code === 200){
          toast.success(data.message,{autoClose:2000});
+         form.current.reset();
      }else{
          toast.error(data.message,{autoClose:2000});
      }
@@ -97,7 +97,7 @@ function Addsyllabus({teacherid, mycourseOptions}) {
                     <h2 className="mbr-section-title mbr-fonts-style pb-3 display-2">Add Syllabus</h2>
                    
                    
-                    <form className="mbr-form"  data-form-title="My Mobirise Form" onSubmit={addSyllabus} method="POST">
+                    <form className="mbr-form" ref={form} data-form-title="My Mobirise Form" onSubmit={addSyllabus} method="POST">
                        
                         <div className="row input-main">
                             <div className="col-md-12 col-lg-12 input-wrap" data-for="firstname">

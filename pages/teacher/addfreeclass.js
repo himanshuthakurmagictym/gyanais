@@ -31,6 +31,14 @@ function Addfreeclass({allcategory, teacherid, allsubcategories, mycourseOptions
         //console.log(data);
      if(data.status_code === 200){
          toast.success(data.message,{autoClose:2000});
+         setclassName("");
+         setclassDescription("");
+         setwrittencontent("");
+         setgoal("");
+         settopics("");
+         setduration("");
+         setimage("");
+         setlanguage("");
      }else{
          toast.error(data.message,{autoClose:2000});
      }
