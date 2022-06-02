@@ -20,7 +20,7 @@ const Webcamerasforst = dynamic(
 
 
 function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbutton, course_id}) {
-
+    const didMountRef = useRef(false);
     const isuser = useAppContext();
     const roomid= videodetails._id;
     const [users, setusers] = useState([])
@@ -31,7 +31,6 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
 
     useEffect(()=>{
         setSocket(io(APIs.base_url_home));
-        console.log(handleclass)
        },[])
     
        useEffect(()=>{
@@ -53,8 +52,9 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
        },[userdetail])
             
        useEffect(()=>{
-        socket?.on("receivedclassbutton", (data)=>{
-            sethandleclass(data);
+
+        socket?.on("receivedclassbutton", (data)=>{ 
+            (!data)?"":sethandleclass(data);
         })
        },[socket])
 
