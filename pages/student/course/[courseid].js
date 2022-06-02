@@ -70,7 +70,8 @@ import {
                                 </div>
                             </div>
                         </div>
-
+                       {coursevideo?
+                       <>                         
                     {coursevideo.map((coursevideo) =>(   
                         <div className="row justify-content-center pt-2" key={coursevideo._id}>     
                                 <div className="card col-12 col-md-10">
@@ -101,7 +102,10 @@ import {
                         </div>
 
                     ))}
-
+                        </>
+                        :""}
+                        {recordedvideo?
+                        <>
                     {recordedvideo.map((coursevideo) =>(   
                         <div className="row justify-content-center pt-2" key={coursevideo._id}>     
                                 <div className="card col-12 col-md-10">
@@ -132,7 +136,10 @@ import {
                         </div>
 
                     ))}
-
+                        </>
+                        :""}
+                        {notes?
+                        <>
 
                     {notes.map((notes) =>(   
                         <div className="row justify-content-center pt-2" key={notes._id}>     
@@ -164,7 +171,10 @@ import {
                         </div>
 
                     ))}
-
+                        </>
+                        :""}
+                         {syllabuss?
+                        <>
 
             {syllabuss.map((syllabuss) =>(   
                         <div className="row justify-content-center pt-2" key={syllabuss._id}>     
@@ -192,7 +202,8 @@ import {
                         </div>
 
                     ))}
-
+                        </>
+                        :""}
 
                 {/* {mcqs.map((mcqs) =>(   
                         <div className="row justify-content-center pt-2" key={mcqs._id}>     

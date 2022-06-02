@@ -127,12 +127,7 @@ export const getServerSideProps = async (context) =>{
          //video is available in room id or not
         //  const resroom = await fetch(`${APIs.base_url}getroom/${coursevideoid}`);
         //  const isRoomid =await resroom.json();
-           
-        
-       
-           
 
-    
         const URLS = APIs.base_url+"payment/status";
         //console.log(datas)
         const sendData = JSON.stringify({category_id: datas.data.category_id, user: context.req.cookies['cid'] })
