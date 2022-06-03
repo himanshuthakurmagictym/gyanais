@@ -52,8 +52,8 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
        },[userdetail])
             
        useEffect(()=>{
-
         socket?.on("receivedclassbutton", (data)=>{ 
+            console.log(data)
             (!data)?"":sethandleclass(data);
         })
        },[socket])
