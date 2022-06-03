@@ -204,7 +204,7 @@ useEffect(()=>{
         
         // clientvideoscream.current.srcObject = event.streams[0];
         
-       clientvideoscream.current?.srcObject = event.streams[0];
+       if (clientvideoscream.current) clientvideoscream.current?.srcObject = event.streams[0];
      
       //  clientvideoscream.current?.defaultMuted = false;
         
