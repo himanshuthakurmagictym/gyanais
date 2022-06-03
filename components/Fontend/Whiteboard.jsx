@@ -211,7 +211,7 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
         body: JSON.stringify({roomid:roomid})
     }).then(res => res.json()).then(res  =>{
       setpdffiledetails(res.data.coursevideopdf_pathUrl);
-      //setslidetime(res.data.slideNumber);
+       setPageNumber(parseInt(res.data.slideNumber));
     }).catch(err => console.log(err));
       
     },[roomid])
