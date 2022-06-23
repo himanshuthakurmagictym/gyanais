@@ -109,7 +109,7 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
             setvoiceStream(audiostream);
              const canvasStream = canvasRef?.current?.captureStream();
                 setscreenStream(canvasStream);
-                console.log(canvasStream)
+                // console.log(canvasStream)
                 start();
               })
   }

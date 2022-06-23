@@ -276,6 +276,7 @@ mediaStream = new MediaStream([
     
     mediaRecorder.ondataavailable = ({ data }) => {
       dataChunks.push(data)
+      // console.log(`data${data}`);
       socket?.emit('camscreenData:start', {data, roomid})
     }
     mediaRecorder.onstop = stoprecording
@@ -283,8 +284,8 @@ mediaStream = new MediaStream([
     setmediaRecorderstatus(mediaRecorder.state)       
 
 }
-},[screenrecordingstatus])
-// },[screenStream, screenrecordingstatus])
+// },[screenrecordingstatus])
+},[screenStream, screenrecordingstatus])
 
 
 const stoprecording = ()=>{

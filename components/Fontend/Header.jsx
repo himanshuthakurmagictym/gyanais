@@ -31,7 +31,6 @@ function Header({socket}) {
   },[newuser])
 
   useEffect(()=>{
-   
       socket?.on('notification', (result) => {
         setNotifications(result);
       })

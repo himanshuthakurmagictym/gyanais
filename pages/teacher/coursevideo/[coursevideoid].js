@@ -69,12 +69,12 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
    
        useEffect(()=>{
         socket?.on("receivedclassbutton", (data)=>{
-            sethandleclass(data);
-          
+            sethandleclass(data);   
         })
        },[socket])
 
        useEffect(()=>{
+        
             if(screenrecordingstatus === 1){
                
 
@@ -83,12 +83,17 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
                 }
             
                 socket?.emit("recordingstatus", { userid, coursevideoid })
-                socket?.on("getrecordingdetails", (completeddata)=>{
-                    setMessagebar(completeddata);
-                });
+              
             }
+
+            socket?.on("getrecordingdetails", (completeddata)=>{    
+                setMessagebar(completeddata);
+            });
            
        },[screenrecordingstatus][socket])
+
+
+       
 
     return (
         <>
