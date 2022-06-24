@@ -21,7 +21,7 @@ const Whiteboarddyn = dynamic(
     { ssr: false }
   )
 
-
+var checkingdata = null;
 function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbutton, recordingwhiteboard, courseid}) {
 
     const isuser = useAppContext();
@@ -34,7 +34,8 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
     const [socket, setSocket] = useState(null);
     const [Messagebar, setMessagebar] =useState("");
     const [streamstartstatus, setStreamstartstatus] =useState(2)
-  
+    
+ 
 
 
     useEffect(()=>{
@@ -81,19 +82,21 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
                 if(Messagebar !== "Recording has been completed"){
                     setMessagebar("Please dont close or refresh the screen until data will save");
                 }
-            
-                socket?.emit("recordingstatus", { userid, coursevideoid })
-              
-            }
+                checkingdata = setInterval(()=>{
+                    socket?.emit("recordingstatus", { userid, coursevideoid });
+                }, 2000)
+             
+            }         
+       },[screenrecordingstatus]);
 
-            socket?.on("getrecordingdetails", (completeddata)=>{    
-                setMessagebar(completeddata);
-            });
-           
-       },[screenrecordingstatus][socket])
-
-
+       useEffect(()=>{
+        socket?.on("getrecordingdetails", (completeddata)=>{    
+            setMessagebar(completeddata);
+            clearInterval(checkingdata);
+        });
        
+    },[socket]);
+
 
     return (
         <>
