@@ -81,10 +81,10 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
                
 
                 if(Messagebar !== "Recording has been completed"){
-                    setMessagebar("Whiteboard:Please dont close or refresh the screen until data will save");
+                    setMessagebar("Whiteboard: Please dont close or refresh the screen until data will save");
                 }
                 if(Messagebarcam !== "Recording has been completed"){
-                    setMessagebarcam("Cam:Please dont close or refresh the screen until data will save");
+                    setMessagebarcam("Cam: Please dont close or refresh the screen until data will save");
                 }
                 // checkingdata = setInterval(()=>{
                 //     socket?.emit("recordingstatus", { userid, coursevideoid });
