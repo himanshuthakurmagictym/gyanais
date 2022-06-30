@@ -94,6 +94,10 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
             setMessagebar(completeddata);
             // clearInterval(checkingdata);
         });
+
+        socket?.on("getrecordingdetailscan", (completeddata)=>{    
+            setMessagebar(completeddata);
+        });
        
     },[socket]);
 
