@@ -32,7 +32,8 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
     const [handleclassstatus, sethandleclassstatus] = useState(handleclassbutton);
     const [handleclass, sethandleclass] = useState(handleclassbutton);
     const [socket, setSocket] = useState(null);
-    const [Messagebar, setMessagebar] =useState([]);
+    const [Messagebar, setMessagebar] =useState("");
+    const [Messagebarcam, setMessagebarcam] =useState("");
     const [streamstartstatus, setStreamstartstatus] =useState(2)
     
  
@@ -80,7 +81,10 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
                
 
                 if(Messagebar !== "Recording has been completed"){
-                    setMessagebar(["Please dont close or refresh the screen until data will save", "Please dont close or refresh the screen until data will save"]);
+                    setMessagebar("Please dont close or refresh the screen until data will save");
+                }
+                if(Messagebarcam !== "Recording has been completed"){
+                    setMessagebar("Please dont close or refresh the screen until data will save");
                 }
                 // checkingdata = setInterval(()=>{
                 //     socket?.emit("recordingstatus", { userid, coursevideoid });
@@ -91,24 +95,12 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
 
        useEffect(()=>{
         socket?.on("getrecordingdetails", (completeddata)=>{
-           
-            const newArr = Messagebar;
-            newArr[0] = completeddata;
-           
-             setMessagebar(newArr);  
-            // setMessagebar([completeddata]);
-            // clearInterval(checkingdata);
+             setMessagebarcam(completeddata);            
         });
 
-        socket?.on("getrecordingdetailscan", (completeddata)=>{  
-            
-            const newArrs = Messagebar;
-            newArrs[1] = completeddata;
-          
-             setMessagebar(newArrs); 
-            // setMessagebar(Messagebar =>[...Messagebar,completeddata]);
-        });
-       
+        socket?.on("getrecordingdetailscan", (completeddata)=>{          
+             setMessagebar(completeddata); 
+        });  
     },[socket]);
 
 
@@ -127,10 +119,12 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
                              
                                {/* <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">{videodetails.video_title} </h2> */}
                                {(roles === APIs.roles[0])?
-                               <h4 className="mbr-fonts-style mbr-section-title align-center  display-5">{Messagebar?.map((Messagebars)=>(
-                                <li style={{"list-style":"none"}} key={Messagebars}>{Messagebars}</li>
-                                ))} </h4>
+                               <>
+                               <h4 className="mbr-fonts-style mbr-section-title align-center  display-5">{Messagebar}</h4>
+                               <h4 className="mbr-fonts-style mbr-section-title align-center  display-5">{Messagebarcam}</h4>
+                               </>
                                :""}
+                               
                                  <div className='whiteboardmain'>
                                   <Whiteboarddyn socket={socket} roomid={videodetails._id} userRole={roles} course_id={courseid} coursevideoid={coursevideoid} userid={userid} screenrecordingstatus={screenrecordingstatus}/>   
                                   </div>  
