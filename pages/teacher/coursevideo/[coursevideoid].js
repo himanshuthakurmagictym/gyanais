@@ -32,7 +32,7 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
     const [handleclassstatus, sethandleclassstatus] = useState(handleclassbutton);
     const [handleclass, sethandleclass] = useState(handleclassbutton);
     const [socket, setSocket] = useState(null);
-    const [Messagebar, setMessagebar] =useState("");
+    const [Messagebar, setMessagebar] =useState([]);
     const [streamstartstatus, setStreamstartstatus] =useState(2)
     
  
@@ -96,7 +96,7 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
         });
 
         socket?.on("getrecordingdetailscan", (completeddata)=>{    
-            setMessagebar(completeddata);
+            setMessagebar(Messagebar =>[...Messagebar,completeddata]);
         });
        
     },[socket]);
@@ -117,7 +117,7 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
                              
                                {/* <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">{videodetails.video_title} </h2> */}
                                {(roles === APIs.roles[0])?
-                               <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">{Messagebar} </h2>
+                               <h4 className="mbr-fonts-style mbr-section-title align-center  display-5">{Messagebar} </h4>
                                :""}
                                  <div className='whiteboardmain'>
                                   <Whiteboarddyn socket={socket} roomid={videodetails._id} userRole={roles} course_id={courseid} coursevideoid={coursevideoid} userid={userid} screenrecordingstatus={screenrecordingstatus}/>   
