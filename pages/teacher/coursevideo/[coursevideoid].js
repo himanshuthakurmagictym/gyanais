@@ -90,18 +90,22 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
        },[screenrecordingstatus]);
 
        useEffect(()=>{
-        socket?.on("getrecordingdetails", (completeddata)=>{  
+        socket?.on("getrecordingdetails", (completeddata)=>{
+           
             const newArr = Messagebar;
             newArr[0] = completeddata;
+           
              setMessagebar(newArr);  
             // setMessagebar([completeddata]);
             // clearInterval(checkingdata);
         });
 
-        socket?.on("getrecordingdetailscan", (completeddata)=>{   
-            const newArr = Messagebar;
-            newArr[1] = completeddata;
-             setMessagebar(newArr); 
+        socket?.on("getrecordingdetailscan", (completeddata)=>{  
+            
+            const newArrs = Messagebar;
+            newArrs[1] = completeddata;
+          
+             setMessagebar(newArrs); 
             // setMessagebar(Messagebar =>[...Messagebar,completeddata]);
         });
        
@@ -124,7 +128,7 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
                                {/* <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">{videodetails.video_title} </h2> */}
                                {(roles === APIs.roles[0])?
                                <h4 className="mbr-fonts-style mbr-section-title align-center  display-5">{Messagebar?.map((Messagebars)=>(
-                                <li style={{"list-style":"none"}}>{Messagebars}</li>
+                                <li style={{"list-style":"none"}} key={Messagebars}>{Messagebars}</li>
                                 ))} </h4>
                                :""}
                                  <div className='whiteboardmain'>
