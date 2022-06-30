@@ -82,9 +82,9 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
                 if(Messagebar !== "Recording has been completed"){
                     setMessagebar("Please dont close or refresh the screen until data will save");
                 }
-                checkingdata = setInterval(()=>{
-                    socket?.emit("recordingstatus", { userid, coursevideoid });
-                }, 2000)
+                // checkingdata = setInterval(()=>{
+                //     socket?.emit("recordingstatus", { userid, coursevideoid });
+                // }, 2000)
              
             }         
        },[screenrecordingstatus]);
@@ -92,7 +92,7 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
        useEffect(()=>{
         socket?.on("getrecordingdetails", (completeddata)=>{    
             setMessagebar(completeddata);
-            clearInterval(checkingdata);
+            // clearInterval(checkingdata);
         });
        
     },[socket]);
