@@ -39,12 +39,12 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
 
 
     useEffect(()=>{
-        setSocket(io(APIs.base_url_home));
-       
+        setSocket(io(APIs.base_url_home));   
        },[])
     
        useEffect(()=>{
         setUserDetail(isuser);
+        
        
     },[isuser])
 
@@ -80,7 +80,7 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
                
 
                 if(Messagebar !== "Recording has been completed"){
-                    setMessagebar("Please dont close or refresh the screen until data will save");
+                    setMessagebar(["Please dont close or refresh the screen until data will save", "Please dont close or refresh the screen until data will save"]);
                 }
                 // checkingdata = setInterval(()=>{
                 //     socket?.emit("recordingstatus", { userid, coursevideoid });
@@ -90,13 +90,19 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
        },[screenrecordingstatus]);
 
        useEffect(()=>{
-        socket?.on("getrecordingdetails", (completeddata)=>{    
-            setMessagebar(completeddata);
+        socket?.on("getrecordingdetails", (completeddata)=>{  
+            const newArr = Messagebar;
+            newArr[0] = completeddata;
+             setMessagebar(newArr);  
+            // setMessagebar([completeddata]);
             // clearInterval(checkingdata);
         });
 
-        socket?.on("getrecordingdetailscan", (completeddata)=>{    
-            setMessagebar(Messagebar =>[...Messagebar,completeddata]);
+        socket?.on("getrecordingdetailscan", (completeddata)=>{   
+            const newArr = Messagebar;
+            newArr[1] = completeddata;
+             setMessagebar(newArr); 
+            // setMessagebar(Messagebar =>[...Messagebar,completeddata]);
         });
        
     },[socket]);
@@ -117,7 +123,9 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
                              
                                {/* <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">{videodetails.video_title} </h2> */}
                                {(roles === APIs.roles[0])?
-                               <h4 className="mbr-fonts-style mbr-section-title align-center  display-5">{Messagebar} </h4>
+                               <h4 className="mbr-fonts-style mbr-section-title align-center  display-5">{Messagebar?.map((Messagebars)=>(
+                                <li style={{"list-style":"none"}}>{Messagebars}</li>
+                                ))} </h4>
                                :""}
                                  <div className='whiteboardmain'>
                                   <Whiteboarddyn socket={socket} roomid={videodetails._id} userRole={roles} course_id={courseid} coursevideoid={coursevideoid} userid={userid} screenrecordingstatus={screenrecordingstatus}/>   
