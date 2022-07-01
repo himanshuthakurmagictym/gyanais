@@ -12,7 +12,7 @@ function Header({socket}) {
   
   // var isuser = cookie.get('token')
    const isuser = useAppContext();
- 
+
    
   //  setstate(isusers);
    const [notification, setNotifications] =useState([])
@@ -35,14 +35,15 @@ function Header({socket}) {
         setNotifications(result);
       })
     socket?.on('teachernotification', (result) => {
-      console.log(result);
+      
       setNotifications(result);
     })
 },[socket])
   
 const handleRead = (notyid) => {
   //  id?setNotifications([]):"";
-  socket.emit('readnotification', notyid)
+    const userRole = isuser.roles
+  socket.emit('readnotification', notyid, userRole)
 
 };
 
@@ -120,38 +121,32 @@ const handleRead = (notyid) => {
                         <div className="dropdown-menu  notifymodel"  >
                                         <div className="card-box container">
                                             {notification.map((noty)=>(
-                                                <div className='notify ' key={noty._id} >
+                                                <div className='notify row' key={noty._id} onClick={e=>{handleRead(noty._id)}}>
                                                 
-                                                <div className="row" key={noty._id} onClick={e=>{handleRead(noty._id)}}>
                                                 {/* <div className="col-md-2">
                                                     <Image src={`/assets/images/avatar.png`} width={100} height={100} alt="course image" />
                                                 </div> */}
                                                 <div className="col-md-12">
                                                     <div className='notifyBodynav'>
-                                                   
-                                                    <strong className=""> {noty?.message}</strong>
-                                                    {/* <p>{moment(noty.videoid?.videoDate).format('DD MMM YYY')}</p> */}
+                                                       <strong className=""> {noty?.message}</strong>
                                                     </div>
                                                     <p>{moment(noty.createdAt).fromNow()} </p>
                                                 </div>
- 
-                                                
+
                                                 </div>
-                                              
-                                               
-                                                </div>
-                                            ))}
-        {
-          (isuser.roles === APIs.roles[1]) ?
-          <>
-           <a href="/student/notification" className='row'> <button className="btn align-center btn-success display-2 w-100" >
-            Read All
-          </button></a>
-          </>:
-          <a href="/teacher/notification"  className='row'> <button className="btn align-center btn-success display-2 w-100" >
-          Read All
-        </button></a>
-        }
+                                              ))}
+                                            
+                                                  {
+                                                    (isuser.roles === APIs.roles[1]) ?
+                                                    <>
+                                                    <a href="/student/notification" className='row'> <button className="btn align-center btn-success display-2 w-100" >
+                                                      Read All
+                                                    </button></a>
+                                                    </>:
+                                                    <a href="/teacher/notification"  className='row'> <button className="btn align-center btn-success display-2 w-100" >
+                                                    Read All
+                                                  </button></a>
+                                                  }
                                           </div>
 
                                           

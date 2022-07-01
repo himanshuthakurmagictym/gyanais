@@ -39,7 +39,7 @@ function Notification({notification}) {
                                                 <div className="col-md-9">
                                                     <div className='notifyBody'>
                                                     <h1 className=" display-5">{noty?.videoid?.video_title} {noty.message}</h1>
-                                                    <p>{moment(noty.createdAt).format('DD MMM YYY')}</p>
+                                                    <p>{moment(noty.createdAt).format('DD MMM YYYY')}</p>
                                                     </div>
                                                 </div>
                                                 {/* <div className="col-md-5">
