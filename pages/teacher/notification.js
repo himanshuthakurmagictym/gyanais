@@ -31,8 +31,9 @@ function Notification({notification}) {
                                                 {notification?
                                                 <>
                                             {notification.map((noty, i)=>(
-                                                <div className='notify' key={noty._id}>
-                                                <div className="row">
+                                                <div className={`notify ${noty.notification_status == 0 ?"notReadMessage":"readMessage"}`} key={noty._id}>
+                                                <div className="row" >
+                                                
                                                 <div className="col-md-2">
                                                     <Image src={`/assets/images/avatar.png`} width={100} height={100} alt="course image" />
                                                 </div>

@@ -120,7 +120,7 @@ const handleRead = (notyid) => {
             
                         <div className="dropdown-menu  notifymodel"  >
                                         <div className="card-box container">
-                                            {notification.map((noty)=>(
+                                            {notification.slice(0, 5).map((noty)=>(
                                                 <div className='notify row' key={noty._id} onClick={e=>{handleRead(noty._id)}}>
                                                 
                                                 {/* <div className="col-md-2">
