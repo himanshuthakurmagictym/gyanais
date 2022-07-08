@@ -1,4 +1,4 @@
-.whiteboard{ background: white; width:100%;  height:100%; }
+.whiteboard{ width:100%;  height:100%; }
 .whiteboardmain{  width:100%; height:500px;  }
 .webcam{ width: 100%; height:200px; background:black;}
 .roomchat{ width: 100%; margin-top:10px; background:rgb(235, 235, 235); border:1px solid gray; border-radius: 5px;}
@@ -175,4 +175,18 @@ textarea{resize: none;}
   background-color: #d7e0f0;
   background-image: url(/assets/images/bg_image.png);
     box-shadow: 0 1px 25px #ccc;
+}
+.messageBar{
+  color: red;
+    background: yellow;
+    position: absolute;
+    left: 5%;
+    top: 10%;
+}
+.camMessageBar{
+  color: red;
+    background: yellow;
+    position: absolute;
+    left: 5%;
+    top: 15%;
 }

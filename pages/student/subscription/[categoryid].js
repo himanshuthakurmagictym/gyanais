@@ -152,6 +152,7 @@ const datas = await res.json()
 
 const category = await fetch(`${APIs.base_url}courseCategory/${params.categoryid}`);
 const result = await category.json();
+
 const categoryName = result.data.course_category_name;
  return {
      props:{packages:datas.data, categoryName:categoryName }

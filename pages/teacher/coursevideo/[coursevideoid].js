@@ -120,8 +120,8 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
                                {/* <h2 className="mbr-fonts-style mbr-section-title align-center  display-2">{videodetails.video_title} </h2> */}
                                {(roles === APIs.roles[0])?
                                <>
-                               <h4 className="mbr-fonts-style mbr-section-title align-center  display-5">{Messagebar}</h4>
-                               <h4 className="mbr-fonts-style mbr-section-title align-center  display-5">{Messagebarcam}</h4>
+                               <h4 className="mbr-fonts-style mbr-section-title align-center  display-5 messageBar">{Messagebar}</h4>
+                               <h4 className="mbr-fonts-style mbr-section-title align-center  display-5 camMessageBar">{Messagebarcam}</h4>
                                </>
                                :""}
                                

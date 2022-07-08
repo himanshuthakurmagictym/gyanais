@@ -52,15 +52,16 @@ const handleRead = (notyid) => {
     return (
 
         <section className="menu cid-qKSs6VLKjY"  id="menu1-h">
-
-    
-    
-
         <nav className="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
             <div className="navbar-brand">
     
-                <span className="navbar-caption-wrap">        <Link href="/" ><a className="navbar-caption text-black display-2" >
-                      <Image src="/assets/images/logo.png" alt="logo"  width="64" height="64" /></a></Link></span>
+              <span className="navbar-caption-wrap">       
+                 <Link href="/" >
+                  <a className="navbar-caption text-black display-2" >
+                      <Image src="/assets/images/logo.png" alt="logo"  width="64" height="64" />
+                  </a>
+                </Link>
+              </span>
                        
             </div>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
