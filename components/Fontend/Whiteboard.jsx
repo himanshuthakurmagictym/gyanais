@@ -285,14 +285,9 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
       const contexts = canvas.getContext('2d');
       // imageRef?.current?.onload = () =>{
       // imageRef?.current?.crossOrigin = "Anonymous";
-       
-      
-      if(imageRef){
-        contexts?.drawImage(imageRef?.current, 0, 0, canvas.width, canvas.height)
-      }else{
-        contexts?.fillStyle = "blue";
-        contexts?.fillRect(0, 0, canvas.width, canvas.height);
-      }
+      contexts?.fillStyle = "white";
+      contexts?.fillRect(0, 0, canvas.width, canvas.height);
+      contexts?.drawImage(imageRef?.current, 0, 0, canvas.width, canvas.height)
       // }
     },[][imageRef])
   // },[socket][imageRef])
@@ -543,11 +538,13 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
              
                 {/* <img className="imagehide" ref={imageRef} src={`${APIs.base_url_home}${allimages?allimages[slidetime]?.imagePath:""}`} width="100" height="100" alt="test" /> */}
                 <img className="imagehide" ref={imageRef} src={pdfAsImageSrc} width="100" height="100" alt="test" />
+                {pdffiledetails?
                 <Document file={`${APIs.base_url_home}${pdffiledetails}`} onLoadSuccess={onDocumentLoadSuccesss}>
                                  <Page  className="import-pdf-page imagehide"
                                  onRenderSuccess={onDocumentLoadSuccess}
                                  pageNumber={pageNumber}   renderTextLayer={false}  />
                 </Document>
+                :""}
                 {(pollmodel)?
                 <div className="modal showmodel" tabIndex="-1" role="dialog">
                         <div className="modal-dialog" role="document">
