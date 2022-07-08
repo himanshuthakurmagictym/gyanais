@@ -111,22 +111,13 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
     )
 }
 
-export default Coursevideo
+export default Coursevideo;
 export const getServerSideProps = async (context) =>{
     const { params } = context;
     const {coursevideoid} = params;
-    console.log("sdfsdfsd")
+    console.log(coursevideoid)
     const res = await fetch(`${APIs.base_url}student/coursevideo/videoDetails/${coursevideoid}`);
     const datas = await res.json();
-    console.log(datas)
-
-        // Perform localStorage action
-    //    const getuserid = datas.data.course_id.teacher_id;
-    //    const userid = context.req.cookies['cid']
-        
-         //video is available in room id or not
-        //  const resroom = await fetch(`${APIs.base_url}getroom/${coursevideoid}`);
-        //  const isRoomid =await resroom.json();
 
         const URLS = APIs.base_url+"payment/status";
         //console.log(datas)

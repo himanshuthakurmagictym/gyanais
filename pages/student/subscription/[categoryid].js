@@ -114,6 +114,8 @@ function Subscription({packages, categoryName}) {
              <div className='container'>
              <h2 className="mbr-fonts-style mbr-section-title align-center  display-2 mb-5">Payment Plan for {categoryName}</h2>
                  <div className='row '>
+              {packages?
+              <>
                {packages.map((subscription)=>(
                         <div className='bodycontent col-md-4' key={subscription._id}>
                         <h4 className="card-titles mbr-fonts-style align-center mb-0 mbr-white display-5">
@@ -134,6 +136,8 @@ function Subscription({packages, categoryName}) {
                         </p>
                         </div>
                ))}
+              </>     
+               :""}
                  
                  </div>
              </div>
@@ -155,6 +159,6 @@ const result = await category.json();
 
 const categoryName = result.data.course_category_name;
  return {
-     props:{packages:datas.data, categoryName:categoryName }
+     props:{packages:datas.data, categoryName:categoryName?categoryName:""}
  }
 }
