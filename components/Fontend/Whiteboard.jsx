@@ -282,7 +282,7 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
    useEffect(()=>{
 
     const canvas = canvasRef.current;
-      let contexts = canvas.getContext('2d');
+    var contexts = canvas.getContext('2d');
       // imageRef?.current?.onload = () =>{
       // imageRef?.current?.crossOrigin = "Anonymous";
       contexts?.fillStyle = "white";

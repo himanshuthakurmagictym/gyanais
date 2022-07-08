@@ -31,6 +31,7 @@ function Coursevideo({videodetails, userid, coursevideoid, roles, handleclassbut
 
     useEffect(()=>{
         setSocket(io(APIs.base_url_home));
+       
        },[])
     
        useEffect(()=>{
@@ -115,7 +116,7 @@ export default Coursevideo;
 export const getServerSideProps = async (context) =>{
     const { params } = context;
     const {coursevideoid} = params;
-    console.log(coursevideoid)
+   
     const res = await fetch(`${APIs.base_url}student/coursevideo/videoDetails/${coursevideoid}`);
     const datas = await res.json();
 
@@ -137,7 +138,7 @@ export const getServerSideProps = async (context) =>{
               
                 return {
                     redirect: {
-                    permanent: true,
+                    permanent: false,
                     destination: `/student/subscription/${paymentconfirm.category_id}`,
                   },
                   props:{},
