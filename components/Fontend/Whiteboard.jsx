@@ -279,17 +279,17 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
     }
 
 
-   useEffect(()=>{
-
-    const canvas = canvasRef.current;
-    var contexts = canvas.getContext('2d');
-      // imageRef?.current?.onload = () =>{
-      // imageRef?.current?.crossOrigin = "Anonymous";
-      contexts?.fillStyle = "white";
-      contexts?.fillRect(0, 0, canvas.width, canvas.height);
-      contexts?.drawImage(imageRef?.current, 0, 0, canvas.width, canvas.height)
-      // }
-    },[][imageRef])
+  //  useEffect(()=>{
+  //     // imageRef?.current?.onload = () =>{
+  //     // imageRef?.current?.crossOrigin = "Anonymous";
+  //     const canvas = canvasRef.current;
+  //     var contexts = canvas.getContext('2d');
+  //     // contexts?.fillStyle = "white";
+  //     // contexts?.drawImage(imageRef?.current, 0, 0, canvas.width, canvas.height)
+  //     //contexts?.fillRect(0, 0, canvas.width, canvas.height);
+      
+  //     // }
+  //   },[][imageRef])
   // },[socket][imageRef])
 
     useEffect(()=>{
@@ -305,14 +305,7 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
           }
         })
 
-      // const allimagesAPI = APIs.base_url+"teacher/getallimages";
-      //  fetch(allimagesAPI, {
-      //   method: 'POST',
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({roomid:roomid})
-      // }).then(res => res.json()).then(res  => setAllimages(res.data) ).catch(err => console.log(err)); 
+   
       socket?.on("receivePollQuestion", ({mcqNumber, roomid, userid, mcqsid, questionid, question})=>{
           //code for popup
           setpollmodel({mcqNumber, roomid, userid, mcqsid, questionid, question})
@@ -328,7 +321,8 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
       const canvas = canvasRef.current;
       const test = colorsRef.current;
       const contexts = canvas.getContext('2d');
-   
+      //background image
+      contexts?.drawImage(imageRef?.current, 0, 0, canvas.width, canvas.height)
       // ----------------------- Colors --------------------------------------------------
       window.devicePixelRatio=2; //Clear Text
       var scale = window.devicePixelRatio; 
@@ -480,6 +474,7 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
         //   window.devicePixelRatio=2;
         //   canvas.width = Math.floor(canvas.width * scale);
         //  canvas.height = Math.floor(canvas.height * scale);
+   
          canvas.width = canvas.offsetWidth;
         canvas.height = canvas.offsetHeight;
         contexts?.drawImage(imageRef?.current, 0, 0, canvas.width, canvas.height)
@@ -537,14 +532,19 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
               :""}
              
                 {/* <img className="imagehide" ref={imageRef} src={`${APIs.base_url_home}${allimages?allimages[slidetime]?.imagePath:""}`} width="100" height="100" alt="test" /> */}
-                <img className="imagehide" ref={imageRef} src={pdfAsImageSrc} width="100" height="100" alt="test" />
+                
                 {pdffiledetails?
+                <>
+                <img className="imagehide" ref={imageRef} src={pdfAsImageSrc} width="100" height="100" alt="test" />
                 <Document file={`${APIs.base_url_home}${pdffiledetails}`} onLoadSuccess={onDocumentLoadSuccesss}>
                                  <Page  className="import-pdf-page imagehide"
                                  onRenderSuccess={onDocumentLoadSuccess}
                                  pageNumber={pageNumber}   renderTextLayer={false}  />
                 </Document>
-                :""}
+                </>
+                :
+                <img className="imagehide" ref={imageRef} src={`/assets/images/whiteboard.png`} width="100" height="100" alt="test" />
+                }
                 {(pollmodel)?
                 <div className="modal showmodel" tabIndex="-1" role="dialog">
                         <div className="modal-dialog" role="document">
