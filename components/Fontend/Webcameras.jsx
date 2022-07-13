@@ -122,7 +122,7 @@ useEffect(()=>{
       
         peerConnection
           .createOffer()
-          .then(sdp => peerConnection.setLocalDescription(sdp))
+          .then(sdp => peerConnection?.setLocalDescription(sdp))
           .then(() => {
             console.log("offer", id)
             socket.emit("offer", id, peerConnection.localDescription);
@@ -159,7 +159,7 @@ useEffect(()=>{
         });
         mediaRecorder?.stop();
         socket.on("disconnectPeer", id => {
-          peerConnections[id].close();
+          peerConnections[id]?.close();
           peerConnections[id] = null;
         
           //how to delte any array from array
@@ -192,8 +192,8 @@ useEffect(()=>{
     //    });
       peerConnectionclient
         .setRemoteDescription(description)
-        .then(() => peerConnectionclient.createAnswer())
-        .then(sdp => peerConnectionclient.setLocalDescription(sdp))
+        .then(() => peerConnectionclient?.createAnswer())
+        .then(sdp => peerConnectionclient?.setLocalDescription(sdp))
         .then(() => {
           socket.emit("answer", id, peerConnectionclient.localDescription);
         });

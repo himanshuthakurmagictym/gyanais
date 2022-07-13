@@ -279,18 +279,18 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
     }
 
 
-  //  useEffect(()=>{
+   useEffect(()=>{
   //     // imageRef?.current?.onload = () =>{
   //     // imageRef?.current?.crossOrigin = "Anonymous";
-  //     const canvas = canvasRef.current;
-  //     var contexts = canvas.getContext('2d');
+      const canvas = canvasRef.current;
+      var contexts = canvas.getContext('2d');
   //     // contexts?.fillStyle = "white";
-  //     // contexts?.drawImage(imageRef?.current, 0, 0, canvas.width, canvas.height)
+      contexts?.drawImage(imageRef?.current, 0, 0, canvas.width, canvas.height);
   //     //contexts?.fillRect(0, 0, canvas.width, canvas.height);
-      
+   
   //     // }
-  //   },[][imageRef])
-  // },[socket][imageRef])
+     }, [pdfAsImageSrc])
+  //},[socket][imageRef])
 
     useEffect(()=>{
       socket?.emit("backgroundimage",{roomid, slidetime});
@@ -321,8 +321,7 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
       const canvas = canvasRef.current;
       const test = colorsRef.current;
       const contexts = canvas.getContext('2d');
-      //background image
-      contexts?.drawImage(imageRef?.current, 0, 0, canvas.width, canvas.height)
+     
       // ----------------------- Colors --------------------------------------------------
       window.devicePixelRatio=2; //Clear Text
       var scale = window.devicePixelRatio; 
@@ -332,7 +331,10 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
       //   canvas.style.height = sizeHeight + "px";
         canvas.width = Math.floor(canvas.width * scale);
         canvas.height = Math.floor(canvas.height * scale);
-       
+        if(userRole === APIs.roles[0]){
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+        }
       // imageRef?.current?.onload = () =>{
       //   imageRef?.current?.crossOrigin = "Anonymous";
       //    contexts?.drawImage(imageRef?.current, 0, 0, canvas.width, canvas.height)
@@ -475,9 +477,9 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
         //   canvas.width = Math.floor(canvas.width * scale);
         //  canvas.height = Math.floor(canvas.height * scale);
    
-         canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetHeight;
-        contexts?.drawImage(imageRef?.current, 0, 0, canvas.width, canvas.height)
+        //  canvas.width = canvas.offsetWidth;
+        // canvas.height = canvas.offsetHeight;
+       // contexts?.drawImage(imageRef?.current, 0, 0, canvas.width, canvas.height)
       }
 
       };

@@ -190,3 +190,6 @@ textarea{resize: none;}
     left: 5%;
     top: 15%;
 }
+.react-pdf__Page__canvas{
+  width:100%!important;
+}

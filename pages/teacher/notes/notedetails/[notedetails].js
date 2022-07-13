@@ -40,7 +40,7 @@ function Notesdetails({note}) {
     
                             <div className="col-md-9">
                             <div className="card-box">
-                            <Document file={`${APIs.base_url_home}${note.coursevideopdf_pathUrl}`} onLoadSuccess={onDocumentLoadSuccess}>
+                            <Document  file={`${APIs.base_url_home}${note.coursevideopdf_pathUrl}`} onLoadSuccess={onDocumentLoadSuccess}>
                                  <Page pageNumber={pageNumber} />
                             </Document>
 
