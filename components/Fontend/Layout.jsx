@@ -5,13 +5,12 @@ import Footer from '../Fontend/Footer';
 import cookie from 'js-cookie'
 import APIs from '../../config.js';
 import { createContext, useContext } from 'react';
-import {io} from 'socket.io-client'
+import {io} from 'socket.io-client';
+import {useRouter} from 'next/router';
  const AppContext = createContext();
 export default function Layout({children}) {
-
-    
-
-    const [ress, setres] = useState("")
+    const router =  useRouter();
+    const [ress, setres] = useState("");
 
         useEffect( async() => {
             var token = cookie.get('token');
@@ -27,7 +26,7 @@ export default function Layout({children}) {
        }).then(res =>res.json())
        .then(res => setres(res.data))
         }
-        }, [])
+        }, [router.query])
 
         const [socket, setSocket] = useState(null);
         useEffect(()=>{

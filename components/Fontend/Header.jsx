@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { parseCookies } from 'nookies'
 import cookie from 'js-cookie'
-import router from 'next/router'
+import {useRouter} from 'next/router'
 var CryptoJS = require("crypto-js");
 import APIs from '../../config.js';
 import {useAppContext} from '../Fontend/Layout'
@@ -12,17 +12,20 @@ function Header({socket}) {
   
   // var isuser = cookie.get('token')
    const isuser = useAppContext();
-
-   
   //  setstate(isusers);
    const [notification, setNotifications] =useState([])
-   
-  
+   const router =  useRouter();
    const [newuser, setuserid] = useState("");
 
    useEffect(()=>{
     setuserid(isuser._id)
+    
    },[isuser])
+
+  //  useEffect(()=>{
+  //   setuserid(isuser._id)
+   
+  //  },[router.query])
 
   useEffect(()=>{
       if(newuser){
@@ -35,7 +38,6 @@ function Header({socket}) {
         setNotifications(result);
       })
     socket?.on('teachernotification', (result) => {
-      
       setNotifications(result);
     })
 },[socket])
@@ -95,7 +97,7 @@ const handleRead = (notyid) => {
                            Contact Us</a></Link>
                 </li>
                 
-                
+               
                 {  
                   !isuser?
                 <>
