@@ -279,18 +279,17 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
     }
 
 
-   useEffect(()=>{
-  //     // imageRef?.current?.onload = () =>{
-  //     // imageRef?.current?.crossOrigin = "Anonymous";
-      const canvas = canvasRef.current;
-      var contexts = canvas.getContext('2d');
-  //     // contexts?.fillStyle = "white";
-      contexts?.drawImage(imageRef?.current, 0, 0, canvas.width, canvas.height);
-  //     //contexts?.fillRect(0, 0, canvas.width, canvas.height);
-   
-  //     // }
-     }, [pdfAsImageSrc])
+    useEffect(()=>{
+      const canvass = canvasRef.current;
+      const contexts = canvass?.getContext('2d');
+      setTimeout(() => {
+        contexts?.drawImage(imageRef?.current, 0, 0, canvass.width, canvass.height);
+      }, 1000);
+      //contexts?.drawImage(imageRef?.current, 0, 0, canvass.width, canvass.height);
+      //console.log("testing");
+    }, [pdfAsImageSrc])
   //},[socket][imageRef])
+
 
     useEffect(()=>{
       socket?.emit("backgroundimage",{roomid, slidetime});
@@ -477,9 +476,9 @@ body:JSON.stringify({userid:userid, question:pollmodel._id, answer:option, corre
         //   canvas.width = Math.floor(canvas.width * scale);
         //  canvas.height = Math.floor(canvas.height * scale);
    
-        //  canvas.width = canvas.offsetWidth;
-        // canvas.height = canvas.offsetHeight;
-       // contexts?.drawImage(imageRef?.current, 0, 0, canvas.width, canvas.height)
+      //    canvas.width = canvas.offsetWidth;
+      //   canvas.height = canvas.offsetHeight;
+      //  contexts?.drawImage(imageRef?.current, 0, 0, canvas.width, canvas.height)
       }
 
       };

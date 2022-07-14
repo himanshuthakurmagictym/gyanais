@@ -35,13 +35,13 @@ const Login = () => {
                 router.push('/student/profile')
                // router.reload()
                 
-            //setTimeout(()=>{ router.push('/student/profile') } , 3000);
+            //setTimeout(()=>{ router.push('/student/profile') } , 1000);
              }else{
               
                 router.push('/teacher/profile')
                 //router.reload()
                 
-                //setTimeout( ()=>{ router.push('/teacher/profile') } , 3000);
+                //setTimeout( ()=>{ router.push('/teacher/profile') } , 1000);
              }
         }else{
             //console.log(res.status_code)
@@ -49,9 +49,6 @@ const Login = () => {
         }
         
     }
-
-    
-    
 
     const setCollapseOpen = (data) =>{
        if(data === 1){
@@ -101,9 +98,6 @@ const Login = () => {
   //   if (userdetail) 
   //   router.push("/student/profile");
   // }, [userdetail]);
- 
-
-
 
     return (
       <>
